@@ -1,0 +1,28 @@
+body {
+    background-color: #FFFFFF;
+    color: black;
+    font-family: "Roboto", sans-serif;
+    max-width: 1500px;
+    margin: auto;
+}
+p{
+    font-family: 'Roboto', sans-serif;
+    font-size: 1em;
+    color: black;
+}
+
+header, footer{
+    background-color: #F2F2F2;
+    width: 100%;
+}
+
+@media screen and (min-width: 600px) and (max-width: 1024px){
+    
+
+}
+   
+@media screen and (max-width: 600px) {
+    
+   
+}
+
