@@ -1,4 +1,4 @@
-//Component Navbar
+//Component Searchform
 const SearchForm = () => {
 
     return (
@@ -22,10 +22,7 @@ const SearchForm = () => {
     </div>
     </div>
 </form>
-
 </div>
-
-
 );
 };
 
