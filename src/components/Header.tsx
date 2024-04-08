@@ -1,5 +1,6 @@
 import React from "react";
 import Navbar from "./MainNav";
+import SearchForm from "./SearchForm";
 //Component
 const Header: React.FC = () => {
     return (
@@ -13,6 +14,7 @@ const Header: React.FC = () => {
     <img src="src\content\vaxa_thumbnail.png" height="30" alt="Växa Sverige" />
   </a>
 </nav>
+<SearchForm />
       </header>
       </div>
     );
