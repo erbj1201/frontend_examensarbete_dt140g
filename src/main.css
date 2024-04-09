@@ -16,6 +16,11 @@ header, footer{
     width: 100%;
 }
 
+.fi fi-sr-question-square{
+    color: black;
+    background-color: black;
+}
+
 @media screen and (min-width: 600px) and (max-width: 1024px){
     
 
