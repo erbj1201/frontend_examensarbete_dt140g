@@ -39,6 +39,13 @@ const Navbar = () => {
                 Mitt konto
               </NavLink>
             </li>
+            <li className="nav-item">
+              <NavLink
+                className=" text-black px-4 m-1"
+                to="/account">
+                <i className="fi fi-sr-question-square"></i>
+              </NavLink>
+            </li>
           </ul>
           </nav>
         </div>
