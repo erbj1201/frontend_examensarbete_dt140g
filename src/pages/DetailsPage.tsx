@@ -15,7 +15,7 @@ const DetailsPage: React.FC = () => {
     const [animals, setAnimals] = useState<Animal[]>([]);
 
     useEffect(() => {
-        const fetchAnimals = async () => {
+        const getAnimals = async () => {
             try {
                 const response = await fetch("http://localhost:8000/api/animals")
 
@@ -29,7 +29,7 @@ const DetailsPage: React.FC = () => {
                 console.error('Fel vid hämtning');
             }
         };
-        fetchAnimals();
+        getAnimals();
 
     }, []);
 

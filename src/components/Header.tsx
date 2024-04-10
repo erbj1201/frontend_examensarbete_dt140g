@@ -1,6 +1,7 @@
 import React from "react";
 import Navbar from "./MainNav";
 import SearchForm from "./SearchForm";
+
 //Component
 const Header: React.FC = () => {
     return (
