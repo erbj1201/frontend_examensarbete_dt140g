@@ -3,7 +3,6 @@ import Header from "../components/Header";
 import React, { useState, FormEvent } from "react";
 import DOMPurify from "dompurify";
 //Structure for UserItem
-//
 interface UserItem {
   name: string;
   email: string;
@@ -67,7 +66,7 @@ if(!newUser.name){
   return;
 }
 //Check if email empty
-if(newUser.email){
+if(!newUser.email){
   setFormError({
     ...inputError,
     email: "Fyll i en korrekt mejladress",
