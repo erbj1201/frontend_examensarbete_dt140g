@@ -9,7 +9,9 @@ const LoginPage: React.FC = () => {
             <Header />
             <main className="container mx-auto">
         <h1>Logga in</h1>
-
+<form>
+    
+</form>
            </main>
            <Footer />
         </div>
