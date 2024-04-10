@@ -67,7 +67,7 @@ if(!newUser.name){
   return;
 }
 //Check if email empty
-if(!newUser.email){
+if(newUser.email){
   setFormError({
     ...inputError,
     email: "Fyll i en korrekt mejladress",
