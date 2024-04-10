@@ -47,7 +47,7 @@ const registerUser = async (e: FormEvent<HTMLFormElement>) => {
       password: "",
       confirmPassword: "",
     };
-// check if email and password are empty
+// check if name, email and password are empty
 if(! newUser.name && !newUser.email && !newUser.password){
   setFormError({
     ...inputError,
@@ -143,6 +143,7 @@ if(!newUser.password){
         <form
           className="form-control form-control-sm border-0 p-2 mx-auto w-100"
           onSubmit={registerUser}
+          noValidate //The formdata is not automaticallly validated by the browser
         >
        {/*    {userMessage && (
             <p className="alert alert-light text-center mt-2">
@@ -178,7 +179,7 @@ if(!newUser.password){
               required
               value={newUser.email}
               onChange={({target}) => handleUserInput(target.name, target.value)}
-
+             autoComplete="new-email" //Alternativ att det är i mailformat
             />
             <p className="error-message">{formError.email}</p>
           </div>
