@@ -2,7 +2,7 @@ body {
     background-color: #FFFFFF;
     color: black;
     font-family: "Roboto", sans-serif;
-    max-width: 1500px;
+    max-width: 2000px;
     margin: auto;
 }
 p{
@@ -16,11 +16,26 @@ header, footer{
     width: 100%;
 }
 
-.i {
+.menyicon img {
     color: black;
-    font-size: 3em;
+    width: 1.5em;
+    height: auto;
 }
 
+button{
+    border: none;
+    border-radius: 5%;
+    box-shadow: none;
+    background-color: #F29354;
+    height: 2.5em;
+   
+}
+.search-btn{
+    border: none;
+    width: 1.5em;
+    box-shadow: none;
+    
+}
 @media screen and (min-width: 600px) and (max-width: 1024px){
     
 
