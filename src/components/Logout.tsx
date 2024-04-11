@@ -1,3 +1,4 @@
+
 import { useNavigate } from "react-router-dom";
 import Cookies from "universal-cookie";
 
@@ -6,6 +7,11 @@ const Logout: React.FC = () => {
   const cookies = new Cookies();
   //get token from cookie
   const token = cookies.get("token");
+  //get tokens expire date
+  const getExpireDate = cookies.get('token_expires');
+  if(getExpireDate == new Date(Date.now())){
+    Logout
+  }
   //Hook navigation
   const navigate = useNavigate();
 
@@ -34,7 +40,6 @@ const Logout: React.FC = () => {
       console.log(error, "Fel vid utloggning");
     }
   };
-
   return (
     <div>
       <button className="logout-btn btn btn-dark m-2" onClick={logoutUser}>

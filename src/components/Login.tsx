@@ -13,7 +13,7 @@ function Login() {
   //Create new instance of cookie
   const cookies = new Cookies();
   //One hour in milliseconds
-  const oneHour = 60 * 60 * 1000;
+  const oneHour = 2 * 60 * 1000;
   //Expire date is one hour
   const expireDate = new Date(Date.now() + oneHour);
   //To show message when login
