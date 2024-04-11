@@ -16,6 +16,10 @@ header, footer{
     background-color: #F2F2F2;
     width: 100%;
 }
+.headerdiv{
+    font-family: 'Sigmar One', cursive;
+    max-width: 25em;
+}
 
 .menyicon img {
     color: black;

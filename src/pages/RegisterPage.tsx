@@ -1,5 +1,5 @@
 import Footer from "../components/Footer";
-import Header from "../components/Header";
+import UserHeader from "../components/UserHeader";
 import Register from "../components/Register";
 
 
@@ -7,7 +7,7 @@ const RegisterPage: React.FC = () => {
 
   return (
     <div>
-      <Header />
+      <UserHeader />
       <main className="container mx-auto">
       <Register />
       </main>
