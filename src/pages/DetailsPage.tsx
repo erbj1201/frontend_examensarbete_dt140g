@@ -1,5 +1,6 @@
 import Footer from "../components/Footer";
 import Header from "../components/Header";
+import Cookies from "universal-cookie";
 import React, { useState, useEffect } from "react";
 
 const DetailsPage: React.FC = () => {
@@ -13,11 +14,20 @@ const DetailsPage: React.FC = () => {
         herd_id: number;
     }
     const [animals, setAnimals] = useState<Animal[]>([]);
+     // Create new instance of cookie
+  const cookies = new Cookies();
+    const token = cookies.get("token");
 
     useEffect(() => {
         const getAnimals = async () => {
             try {
-                const response = await fetch("http://localhost:8000/api/animals")
+                const response = await fetch(`http://localhost:8000/api/animals`, {
+                    method: "GET",
+                    headers: {
+                        "Authorization" : `Bearer ${token} `,
+                        "Content-Type" : "application/json" 
+                    }
+                })
 
                 if (response.ok) {
                     const jsonData = await response.json();
