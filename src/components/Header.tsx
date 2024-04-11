@@ -21,7 +21,6 @@ const Header: React.FC = () => {
 <SearchForm />
 <TokenCookie />
 <Logout />
-
       </header>
       </div>
     );

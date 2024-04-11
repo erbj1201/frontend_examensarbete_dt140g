@@ -2,10 +2,7 @@ import React, { useEffect, useState } from "react";
 import Cookies from "universal-cookie";
 // const herdUrl = "; 
 
-//Create new instance of cookie
-const cookies = new Cookies();
-//Get token from cookies
-const token = cookies.get("token");
+
 
 interface Herd {
   id: number;
@@ -20,10 +17,16 @@ const GetHerdComponent: React.FC = () => {
   const [herds, setHerds] = useState<Herd[]>([]); // Här ändrades "herd" till "herds"
 
   useEffect(() => {
+    //Create new instance of cookie
+const cookies = new Cookies();
+//Get token from cookies
+const token = cookies.get("token");
+//Get userid from sessionstorage
+const userid = sessionStorage.getItem("userid");
     const getHerds = async () => {
       setIsLoading(true);
       try {
-        const response = await fetch("http://localhost:8000/api/herds/users/1", {
+        const response = await fetch(`http://localhost:8000/api/herds/users/${userid}`, {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
@@ -52,6 +55,8 @@ const GetHerdComponent: React.FC = () => {
           <article className="mx-auto" key={herd.id}>
             <h3>Besättningsid: {herd.herdId}</h3>
             <p>
+              <strong>Id: {herd.id}</strong>
+              <br/>
               <em>Adress: {herd.address}</em>
             </p>
             <p>

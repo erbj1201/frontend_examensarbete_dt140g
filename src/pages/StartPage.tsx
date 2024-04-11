@@ -3,7 +3,6 @@ import Header from "../components/Header";
 
 
 const StartPage: React.FC = () => {
-
     return (
         <div>
       {/*Including components*/}

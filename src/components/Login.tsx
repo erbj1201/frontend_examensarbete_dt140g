@@ -10,6 +10,7 @@ function Login() {
     email: "",
     password: "",
   });
+  
   //Create new instance of cookie
   const cookies = new Cookies();
   //One hour in milliseconds
@@ -41,7 +42,6 @@ function Login() {
       if (response.ok) {
         const data = await response.json();
         const token = data.token;
-        const name = data.name;
         const userid = data.userId;
         //Set cookie with secure, samsite, expires in one hour
         cookies.set("token", token, {
@@ -49,7 +49,7 @@ function Login() {
           sameSite: "strict",
           expires: expireDate,
         });
-        console.log(name + userid);
+        sessionStorage.setItem("userid", userid);
         // Redirect to start-page
         navigate("/");
       } else {
