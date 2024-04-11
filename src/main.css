@@ -23,14 +23,18 @@ header, footer{
     height: auto;
 }
 
+.navbar-brand p{
+    color: #F29354;
+}
+
 button{
     border: none;
     border-radius: 5%;
     box-shadow: none;
     background-color: #F29354;
     height: 2.5em;
-   
 }
+
 .search-btn{
     border: none;
     width: 1.5em;
