@@ -1,15 +1,8 @@
 import Footer from "../components/Footer";
 import Header from "../components/Header";
-import React, { useState, FormEvent } from "react";
-import DOMPurify from "dompurify";
-//Structure for UserItem
-interface UserItem {
-  name: string;
-  email: string;
-  password: string;
-  confirmPassword: string;
-  successMsg: string;
-}
+import Register from "../components/Register";
+
+
 const RegisterPage: React.FC = () => {
   //State store data
   const [newUser, setNewUser] = useState <UserItem>({
@@ -90,10 +83,12 @@ if(!newUser.password){
   });
   return;
 }
+
     // Sanitize user input using DOMPurify
     const sanitizedName = DOMPurify.sanitize(newUser.name);
     const sanitizedEmail = DOMPurify.sanitize(newUser.email);
     const sanitizedPassword = DOMPurify.sanitize(newUser.password);
+
 
     // Update state with sanitized values
     setNewUser({
@@ -126,8 +121,6 @@ if(!newUser.password){
           confirmPassword: "",
           successMsg: "",
         });
-
-
       }
       console.log(responseData);
     } catch (error) {
@@ -139,84 +132,7 @@ if(!newUser.password){
     <div>
       <Header />
       <main className="container mx-auto">
-        <h1>Registrera konto</h1>
-        <form
-          className="form-control form-control-sm border-0 p-2 mx-auto w-100"
-          onSubmit={registerUser}
-          noValidate //The formdata is not automaticallly validated by the browser
-        >
-       {/*    {userMessage && (
-            <p className="alert alert-light text-center mt-2">
-              {userMessage}
-            </p>
-          )} */}
-          <p className="success-message">{newUser.successMsg}</p>
-          {/*Form to add user*/}
-          <div className="form-group">
-            <label htmlFor="name" className="form-label">
-              Namn:
-            </label>
-            <input
-              type="name"
-              id="name"
-              name="name"
-              className="form-control"
-              required
-              value={newUser.name}
-              onChange={({target}) => handleUserInput(target.name, target.value)}
-            />
-            <p className="error-message">{formError.name}</p>
-            </div>
-            <div className="form-group">
-            <label htmlFor="email" className="form-label">
-              Mejladress:
-            </label>
-            <input
-              type="email"
-              id="email"
-              name="email"
-              className="form-control"
-              required
-              value={newUser.email}
-              onChange={({target}) => handleUserInput(target.name, target.value)}
-             autoComplete="new-email" //Alternativ att det är i mailformat
-            />
-            <p className="error-message">{formError.email}</p>
-          </div>
-          <div className="form-group">
-            <label htmlFor="password" className="form-label">
-              Lösenord:
-            </label>
-            <input
-              type="password"
-              id="password"
-              name="password"
-              className="form-control"
-              required
-              value={newUser.password}
-              onChange={({target}) => handleUserInput(target.name, target.value)}
-            />
-            <p className="error-message">{formError.password}</p>
-          </div>
-          <div className="form-group">
-            <label htmlFor="confirmPassword" className="form-label">
-              Bekräfta lösenord:
-            </label>
-            <input
-              type="password"
-              id="confirmPassword"
-              name="confirmPassword"
-              className="form-control"
-              required
-              value={newUser.confirmPassword}
-              onChange={({target}) => handleUserInput(target.name, target.value)}
-            />
-            <p className="error-message">{formError.confirmPassword}</p>
-          </div>
-          <button type="submit" className="btn btn-secondary mt-2">
-            Skapa användare
-          </button>
-        </form>
+      <Register />
       </main>
       <Footer />
     </div>
