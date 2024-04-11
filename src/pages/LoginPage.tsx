@@ -1,5 +1,6 @@
 import Footer from "../components/Footer";
 import Header from "../components/Header";
+import Login from "../components/Login";
 
 
 const LoginPage: React.FC = () => {
@@ -9,9 +10,7 @@ const LoginPage: React.FC = () => {
             <Header />
             <main className="container mx-auto">
         <h1>Logga in</h1>
-<form>
-    
-</form>
+        <Login />
            </main>
            <Footer />
         </div>

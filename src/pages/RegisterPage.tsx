@@ -90,12 +90,10 @@ if(!newUser.password){
   });
   return;
 }
-
     // Sanitize user input using DOMPurify
     const sanitizedName = DOMPurify.sanitize(newUser.name);
     const sanitizedEmail = DOMPurify.sanitize(newUser.email);
     const sanitizedPassword = DOMPurify.sanitize(newUser.password);
-
 
     // Update state with sanitized values
     setNewUser({
@@ -128,6 +126,8 @@ if(!newUser.password){
           confirmPassword: "",
           successMsg: "",
         });
+
+
       }
       console.log(responseData);
     } catch (error) {
