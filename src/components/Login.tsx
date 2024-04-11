@@ -13,7 +13,7 @@ function Login() {
   //Create new instance of cookie
   const cookies = new Cookies();
   //One hour in milliseconds
-  const oneHour = 2 * 60 * 1000;
+  const oneHour = 60 * 60 * 1000;
   //Expire date is one hour
   const expireDate = new Date(Date.now() + oneHour);
   //To show message when login
@@ -41,15 +41,15 @@ function Login() {
       if (response.ok) {
         const data = await response.json();
         const token = data.token;
+        const name = data.name;
+        const userid = data.userId;
         //Set cookie with secure, samsite, expires in one hour
         cookies.set("token", token, {
           secure: true,
           sameSite: "strict",
           expires: expireDate,
         });
-
-        //Show token in console -- remove later!!
-        //console.log(cookies.get("token"));
+        console.log(name + userid);
         // Redirect to start-page
         navigate("/");
       } else {

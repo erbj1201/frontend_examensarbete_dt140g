@@ -1,7 +1,11 @@
-
 import React, { useEffect, useState } from "react";
+import Cookies from "universal-cookie";
+// const herdUrl = "; 
 
-const herdUrl = "http://localhost:8000/api/herds"; 
+//Create new instance of cookie
+const cookies = new Cookies();
+//Get token from cookies
+const token = cookies.get("token");
 
 interface Herd {
   id: number;
@@ -13,15 +17,24 @@ interface Herd {
 const GetHerdComponent: React.FC = () => {
   const [error, setError] = useState<any>(undefined);
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [herd, setHerds] = useState<Herd[]>([]);
+  const [herds, setHerds] = useState<Herd[]>([]); // Här ändrades "herd" till "herds"
 
   useEffect(() => {
     const getHerds = async () => {
       setIsLoading(true);
       try {
-        const response = await fetch(`${herdUrl}`);
+        const response = await fetch("http://localhost:8000/api/herds/users/1", {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${token}`,
+            "Accept": "application/json",
+          }
+        });
+      
         const pickedHerds = await response.json();
         setHerds(pickedHerds);
+      
       } catch (error) {
         setError(error);
       } finally {
@@ -34,7 +47,7 @@ const GetHerdComponent: React.FC = () => {
   return (
     <div>
       <h2>Besättningar</h2>
-      {!isLoading && !error && herd && herd.map((herd) => (
+      {!isLoading && !error && herds && herds.map((herd) => ( // Här ändrades "herd" till "herds"
         <div key={herd.id} className="mx-auto text-center p-3">
           <article className="mx-auto" key={herd.id}>
             <h3>Besättningsid: {herd.herdId}</h3>
