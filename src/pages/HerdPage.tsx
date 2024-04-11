@@ -2,7 +2,6 @@ import Footer from "../components/Footer";
 import GetHerdComponent from "../components/GetHerd";
 import Header from "../components/Header";
 
-
 const HerdPage: React.FC = () => {
 
     return (

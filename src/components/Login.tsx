@@ -49,7 +49,7 @@ function Login() {
         });
 
         //Show token in console -- remove later!!
-        console.log(cookies.get("token"));
+        //console.log(cookies.get("token"));
         // Redirect to start-page
         navigate("/");
       } else {
@@ -62,7 +62,6 @@ function Login() {
   };
   return (
     <div>
-      <h1>Logga in</h1>
       {/*Login-form*/}
       <h1 className="p-5 m-5">Logga in</h1>
       {showMessage && (

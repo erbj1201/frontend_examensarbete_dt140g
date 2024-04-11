@@ -1,6 +1,8 @@
 import React from "react";
 import Navbar from "./MainNav";
 import SearchForm from "./SearchForm";
+import TokenCookie from "./TokenCookie";
+import Logout from "./Logout";
 
 //Component
 const Header: React.FC = () => {
@@ -13,9 +15,12 @@ const Header: React.FC = () => {
 <nav className="navbar">
   <a className="navbar-brand" href="/">
     <img src="src\content\vaxa_thumbnail.png" height="30" alt="Växa Sverige" />
+    <p>MinGård</p>
   </a>
 </nav>
 <SearchForm />
+<TokenCookie />
+<Logout />
       </header>
       </div>
     );
