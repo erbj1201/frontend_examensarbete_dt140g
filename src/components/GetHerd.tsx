@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import Cookies from "universal-cookie";
 // Structure of herd
 interface Herd {
@@ -123,6 +124,11 @@ const GetHerdComponent: React.FC = () => {
   const handleFilterCategory = (category: string | undefined) => {
     setFilterCategory(category);
   };
+
+  const navigate = useNavigate();
+  const navigateToDetails = (id: number) =>{
+    navigate(`/details/${id}`);
+  }
   return (
     <div>
       {" "}
@@ -146,6 +152,7 @@ const GetHerdComponent: React.FC = () => {
           </select>
         </div>
       )}
+      {/* Buttons to sort out by category */}
       <div className="container mx-auto p-3">
         <button className="btn btn-primary btn-lg active m-3" onClick={() => {
           console.log("Alla djur valdes");
@@ -183,7 +190,7 @@ const GetHerdComponent: React.FC = () => {
             {animals
               .filter((animal) => filterCategory ? animal.category === filterCategory : true)
               .map((animal) => (
-                <tr key={animal.id}>
+                <tr key={animal.id} onClick={() =>navigateToDetails(animal.id)}>
                 <td>{animal.id}</td>
                 <td>{animal.animalId}</td>
                 <td>{animal.earNo}</td>

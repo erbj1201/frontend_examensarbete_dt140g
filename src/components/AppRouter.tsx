@@ -19,7 +19,7 @@ const AppRouter: React.FC = () => {
           <Route path="/herd" element={<HerdPage />} />
           <Route path="/account" element={<AccountPage />} />
           <Route path="/calender" element={<CalenderPage />} />
-          <Route path="/details" element={<DetailsPage />} />
+          <Route path="/details/:id" element={<DetailsPage />} />
           <Route path="/register" element={<RegisterPage />} />
           <Route path="/login" element={<LoginPage />} />
         </Routes>
