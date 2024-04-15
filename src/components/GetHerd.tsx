@@ -119,7 +119,8 @@ const GetHerdComponent: React.FC = () => {
       getAnimalsByHerd(selectedOptionValue);
     }
   };
-  const handleFilterCategory = (category: string) => {
+  //Recieve type string and undefined to reset the sort of category
+  const handleFilterCategory = (category: string | undefined) => {
     setFilterCategory(category);
   };
   return (
@@ -148,7 +149,8 @@ const GetHerdComponent: React.FC = () => {
       <div className="container mx-auto p-3">
         <button className="btn btn-primary btn-lg active m-3" onClick={() => {
           console.log("Alla djur valdes");
-          handleFilterCategory("Alla djur");
+          //Undefined to stop sort the categories
+          handleFilterCategory(undefined);
         }}>Alla djur</button>
         <button className="btn btn-primary btn-lg active m-3" onClick={() => {
           console.log("Köttdjur valdes");
