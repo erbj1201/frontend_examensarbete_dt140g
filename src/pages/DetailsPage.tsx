@@ -49,9 +49,19 @@ const DetailsPage: React.FC = () => {
             <main className="container mx-auto">
                 <h1>Detaljer</h1>
                 {animals && animals.map((animal) => (
-                    <div key={animal.id}>
-                        <p>{animal.animalId}</p><p>{animal.name}</p><p>{animal.breed}</p><p>{animal.herd_id}</p>
-                    </div>
+                    <div key={animal.id} >
+                      <article className="detailsArticle mx-auto border m-3 w-50 position-relative">
+                        <header className="detailsHeader p-2 w-100 d-flex justify-content-between align-items-center ">
+                            <img className="arrowLeftDetails" src="src\content\left-arrow.png"/>
+                            <p>{animal.name}</p>
+                            <img className="arrowRightDetails" src="src\content\right-arrow.png"/>
+                            </header>
+                            <div className="p-3">
+                            <p><b>id: </b>{animal.id}</p>
+                             <p><b>Djurid: </b>{animal.animalId}</p><p><b>Ras: </b>{animal.breed}</p><p><b>Besättning:</b> {animal.herd_id}</p>
+                  </div> 
+                  </article>  
+                   </div>
                 ))}
             </main>
             <Footer />
