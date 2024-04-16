@@ -1,4 +1,6 @@
+/*Desktop screen*/
 
+/*body, text, header, footer*/
 body {
     background-color: #FFFFFF;
     color: black;
@@ -16,21 +18,19 @@ header, footer{
     background-color: #F2F2F2;
     width: 100%;
 }
+/*Text in userheader for register, login*/
 .headerdiv{
     font-family: 'Sigmar One', cursive;
     max-width: 25em;
-}
-
+}/*symbol for support/contact beside menu*/
 .menyicon img {
     color: black;
     width: 1.5em;
     height: auto;
-}
-
+} /*"mingård" text under logo */
 .navbar-brand p{
     color: #F29354;
-}
-
+} /*button search in header*/
 button{
     border: none;
     border-radius: 5%;
@@ -38,7 +38,6 @@ button{
     background-color: #F29354;
     height: 2.5em;
 }
-
 .search-btn{
     border: none;
     width: 1.5em;
@@ -48,23 +47,24 @@ button{
 .detailsHeader{
     background-color: #FFD6BB;
 }
-
+/*article around animal info*/
 .detailsArticle{
     background-color: #FDF4EE;
 }
-
+/*arrow right to change animal*/
 .arrowRightDetails{
     width: 1em;
-    
-}
+} 
+/*arrow left to change animal*/
 .arrowLeftDetails{
     width: 1em;
 }
+/*tablet screen */
 @media screen and (min-width: 600px) and (max-width: 1024px){
     
 
 }
-   
+   /*mobile screen*/
 @media screen and (max-width: 600px) {
     
    
