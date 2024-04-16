@@ -13,10 +13,7 @@ function TokenCookie() {
     if (!token) {
       // Redirect to login-page if not logged in (no token)
       navigate("/login");
-    } else {
-      //If logged in, write token to console
-      console.log(token);
-    }
+    } 
     // Run useEffect when token changes
   }, [token]);
 
