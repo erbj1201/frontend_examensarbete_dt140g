@@ -40,7 +40,7 @@ const Navbar = () => {
               </NavLink>
             </li>
             <li className="nav-item">
-              <NavLink className="menyicon" to="/account"><img className="pt-2"src="src\content\image.png" />
+              <NavLink className="menyicon" to="/account"><img className="pt-2"src="\src\content\image.png" />
               </NavLink>
             </li>
           </ul>

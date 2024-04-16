@@ -56,9 +56,9 @@ const DetailsPage: React.FC = () => {
                         <div key={animals.id} >
                           <article className="detailsArticle mx-auto border m-3 w-50 position-relative">
                             <header className="detailsHeader p-2 w-100 d-flex justify-content-between align-items-center ">
-                                <img className="arrowLeftDetails" src="src\content\left-arrow.png" alt="arrow  left"/>
+                                <img className="arrowLeftDetails" src="\src\content\left-arrow.png" alt="arrow  left"/>
                                 <p>{animals.name}</p>
-                                <img className="arrowRightDetails" src="src\content\right-arrow.png" alt="arrow right"/>
+                                <img className="arrowRightDetails" src="\src\content\right-arrow.png" alt="arrow right"/>
                                 </header>
                                 <div className="p-3">
                                 <p><b>id: </b>{animals.id}</p>
