@@ -1,10 +1,10 @@
 /*Message component*/
 //import
 import DOMPurify from "dompurify";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Cookies from "universal-cookie";
 
-//Structure for UserItem
+//Structure for MessageItem (post messages)
 interface MessageItem {
   title: string;
   description: string;
@@ -29,6 +29,8 @@ const Message: React.FC = () => {
     title: "",
     description: "",
   });
+  //state for fetched messages
+  const [fetchMessages, setFetchMessages] = useState<any[]>([]);
   //State for showing form messages
   const [showMessage, setShowMessage] = useState<string | null>(null);
 
@@ -50,6 +52,32 @@ const Message: React.FC = () => {
     });
     console.log("Message cleared");
   };
+// Fetch all herds and animals by user on component mount
+useEffect(() => {
+    getAllMessages();
+  }, []);
+  //Get users herds and users anmials
+  const getAllMessages = async () => {
+    try {
+      // Fetch all user herds (get)
+      const getMessages = await fetch(
+        `http://localhost:8000/api/messages/users/${userid}`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${token}`,
+            "Accept": "application/json",
+          },
+        }
+      );
+      const message= await getMessages.json();
+      setFetchMessages(message);
+ //Get errors
+} catch (error) {
+    console.log(error);
+  } 
+  }
 
   const sendMessage = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -142,6 +170,7 @@ const Message: React.FC = () => {
     }
   };
 
+
   return (
     <div>
       <h2>Skicka ett meddelande till oss</h2>
@@ -196,6 +225,17 @@ const Message: React.FC = () => {
           </button>
         </form>
       </div>
+      <section>
+        <h3>Alla skickade meddelanden</h3>
+        {fetchMessages.map((message) => (
+            <article key={message.id}>
+                <h4>{message.title}</h4>
+                <p><em>Skickat: {message.created_at}</em></p> 
+                <p>{message.description}</p>
+
+            </article>
+       ) )}
+      </section>
     </div>
   );
 };
