@@ -66,8 +66,8 @@ const Message: React.FC = () => {
         title: "Fyll i ett ämne",
         description: "Fyll i en beskrivning",
       });
-// Clear message after  3 seconds
-setTimeout(clearMessages, 3000);
+      // Clear message after  3 seconds
+      setTimeout(clearMessages, 3000);
       return;
     }
     //Check if title empty
@@ -76,8 +76,8 @@ setTimeout(clearMessages, 3000);
         ...inputError,
         title: "Fyll i ett ämne",
       });
-// Clear message after  3 seconds
-setTimeout(clearMessages, 3000);
+      // Clear message after  3 seconds
+      setTimeout(clearMessages, 3000);
       return;
     }
     //Check if description empty
@@ -86,8 +86,8 @@ setTimeout(clearMessages, 3000);
         ...inputError,
         description: "Fyll i en beskrivning",
       });
-     // Clear message after  3 seconds
-    setTimeout(clearMessages, 3000);
+      // Clear message after  3 seconds
+      setTimeout(clearMessages, 3000);
       return;
     }
 
