@@ -19,7 +19,7 @@ const RegisterPage: React.FC = () => {
     successMsg: "",
   });
 
-  //State store data
+  //State for error store data
   const [formError, setFormError] = useState({
     name: "",
     email: "",
