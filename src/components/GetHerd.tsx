@@ -46,6 +46,8 @@ const GetHerdComponent: React.FC = () => {
   }, []);
   //Get users herds and users anmials
   const fetchHerdsAnimals = async () => {
+    const cookies = new Cookies();
+    const token = cookies.get("token");
     try {
       setIsLoading(true);
       // Fetch all user herds (get)
