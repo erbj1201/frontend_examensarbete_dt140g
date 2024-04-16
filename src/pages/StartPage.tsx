@@ -1,11 +1,11 @@
+//import
 import Footer from "../components/Footer";
 import Header from "../components/Header";
 import TokenCookie from "../components/TokenCookie";
 
-
 const StartPage: React.FC = () => {
-    return (
-        <div>
+  return (
+    <div>
       {/*Including components*/}
       <Header />
       <TokenCookie />
@@ -13,7 +13,8 @@ const StartPage: React.FC = () => {
         <h1>Välkommen till MinGård</h1>
       </main>
       <Footer />
-    </div>    
-);
+    </div>
+  );
 };
+//export
 export default StartPage;
