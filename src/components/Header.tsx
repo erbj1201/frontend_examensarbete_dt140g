@@ -1,7 +1,6 @@
 import React from "react";
 import Navbar from "./MainNav";
 import SearchForm from "./SearchForm";
-import TokenCookie from "./TokenCookie";
 import Logout from "./Logout";
 
 //Component
@@ -19,7 +18,6 @@ const Header: React.FC = () => {
   </a>
 </nav>
 <SearchForm />
-<TokenCookie />
 <Logout />
       </header>
       </div>

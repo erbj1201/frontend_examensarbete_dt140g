@@ -1,5 +1,6 @@
 import Footer from "../components/Footer";
 import Header from "../components/Header";
+import TokenCookie from "../components/TokenCookie";
 
 
 
@@ -9,6 +10,7 @@ const AccountPage: React.FC = () => {
         <div>
             {/*Including components*/}
         <Header />
+        <TokenCookie />
             <main className="container mx-auto">
         <h1>Kontoinställningar</h1>
 
