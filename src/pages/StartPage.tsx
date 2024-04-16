@@ -12,6 +12,7 @@ const StartPage: React.FC = () => {
       <main className="container mx-auto">
         <h1>Välkommen till MinGård</h1>
       </main>
+      
       <Footer />
     </div>
   );
