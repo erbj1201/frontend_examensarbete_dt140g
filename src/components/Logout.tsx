@@ -1,4 +1,5 @@
 
+/*Logout component*/
 import { useNavigate } from "react-router-dom";
 import Cookies from "universal-cookie";
 

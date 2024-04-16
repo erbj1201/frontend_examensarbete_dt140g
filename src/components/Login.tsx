@@ -1,3 +1,5 @@
+/*Login component*/
+//import
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Cookies from "universal-cookie";
@@ -10,7 +12,7 @@ function Login() {
     email: "",
     password: "",
   });
-  
+
   //Create new instance of cookie
   const cookies = new Cookies();
   //One hour in milliseconds
@@ -49,13 +51,14 @@ function Login() {
           sameSite: "strict",
           expires: expireDate,
         });
+        //Save userid to session storage
         sessionStorage.setItem("userid", userid);
         // Redirect to start-page
         navigate("/");
       } else {
         //Error login
         setShowMessage("Felaktig inloggning, fel mejladress eller lösenord");
-      } //Error login //Error login
+      } //Error login
     } catch (error) {
       setShowMessage("Fel vid inloggning");
     }
@@ -99,7 +102,6 @@ function Login() {
             onChange={handleInputChange}
           />
         </div>
-
         <button type="submit" className="btn btn-secondary mt-2">
           Logga in
         </button>
@@ -107,5 +109,5 @@ function Login() {
     </div>
   );
 }
-
+//export
 export default Login;

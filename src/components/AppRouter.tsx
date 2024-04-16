@@ -1,4 +1,4 @@
-//Router for webb app
+/*Router for webb app*/
 //Import
 import React from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
@@ -12,19 +12,26 @@ import LoginPage from "../pages/LoginPage";
 
 //Component with routes
 const AppRouter: React.FC = () => {
-    return (
-      <Router>
-        <Routes>
-          <Route path="/" element={<StartPage />} />
-          <Route path="/herd" element={<HerdPage />} />
-          <Route path="/account" element={<AccountPage />} />
-          <Route path="/calender" element={<CalenderPage />} />
-          <Route path="/details/:id" element={<DetailsPage />} />
-          <Route path="/register" element={<RegisterPage />} />
-          <Route path="/login" element={<LoginPage />} />
-        </Routes>
-      </Router>
-    );
-  };
-  
-  export default AppRouter;
+  return (
+    <Router>
+      <Routes>
+        {/**Start (start) */}
+        <Route path="/" element={<StartPage />} />
+        {/**Herd (besättning) */}
+        <Route path="/herd" element={<HerdPage />} />
+        {/**Account (mitt konto)*/}
+        <Route path="/account" element={<AccountPage />} />
+        {/**Calender (kalender) */}
+        <Route path="/calender" element={<CalenderPage />} />
+        {/**Details (detaljer för varje djur) */}
+        <Route path="/details/:id" element={<DetailsPage />} />
+        {/**Register (registrera användare) */}
+        <Route path="/register" element={<RegisterPage />} />
+        {/**Login (logga in användare*/}
+        <Route path="/login" element={<LoginPage />} />
+      </Routes>
+    </Router>
+  );
+};
+//export
+export default AppRouter;
