@@ -59,6 +59,9 @@ button{
 .arrowLeftDetails{
     width: 1em;
 }
+.arrow-up-down{
+    width: 1em;
+}
 /*tablet screen */
 @media screen and (min-width: 600px) and (max-width: 1024px){
     
