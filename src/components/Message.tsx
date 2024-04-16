@@ -10,19 +10,25 @@ interface MessageItem {
   description: string;
   userid: string;
 }
+interface Message {
+    id: number;
+    title: string;
+    description: string;
+    created_at: string;
+}
+//new instance of cookies
+const cookies = new Cookies();
+//get token from cookies
+const token = cookies.get("token");
 //get userid from sessionstorage
 const userid = sessionStorage.getItem("userid")!;
-//Create new instance of cookie
-const cookies = new Cookies();
-//get token from cookie
-const token = cookies.get("token");
 
 const Message: React.FC = () => {
   //State for storing data
   const [messageData, setMessageData] = useState<MessageItem>({
     title: "",
     description: "",
-    userid: `$userid`,
+    userid: userid,
   });
   //State for error to form
   const [formError, setFormError] = useState({
@@ -30,7 +36,7 @@ const Message: React.FC = () => {
     description: "",
   });
   //state for fetched messages
-  const [fetchMessages, setFetchMessages] = useState<any[]>([]);
+  const [fetchMessages, setFetchMessages] = useState<Message[]>([]);
   //State for showing form messages
   const [showMessage, setShowMessage] = useState<string | null>(null);
 
@@ -54,14 +60,17 @@ const Message: React.FC = () => {
   };
 // Fetch all herds and animals by user on component mount
 useEffect(() => {
-    getAllMessages();
-  }, []);
+
+     getAllMessages();
+      }, []);
   //Get users herds and users anmials
   const getAllMessages = async () => {
+    const cookies = new Cookies();
+    const token = cookies.get("token");
     try {
       // Fetch all user herds (get)
       const getMessages = await fetch(
-        `http://localhost:8000/api/messages/users/${userid}`,
+        `http://127.0.0.1:8000/api/messages/users/${userid}`,
         {
           method: "GET",
           headers: {
@@ -77,7 +86,7 @@ useEffect(() => {
 } catch (error) {
     console.log(error);
   } 
-  }
+} 
 
   const sendMessage = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -150,7 +159,7 @@ useEffect(() => {
         setMessageData({
           title: "",
           description: "",
-          userid: `$userid`,
+          userid: userid,
         });
         setShowMessage("Ditt meddelande har skickats");
         // Clear message after  3 seconds
@@ -191,7 +200,7 @@ useEffect(() => {
               Ämne
             </label>
             <input
-              type="title"
+              type="text"
               id="title"
               name="title"
               className="form-control"
@@ -208,7 +217,7 @@ useEffect(() => {
               Beskrivning
             </label>
             <input
-              type="description"
+              type="text"
               id="description"
               name="description"
               className="form-control"
