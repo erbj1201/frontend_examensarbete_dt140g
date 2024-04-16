@@ -13,7 +13,7 @@ const Header: React.FC = () => {
         </div>
 <nav className="navbar">
   <a className="navbar-brand" href="/">
-    <img src="src\content\vaxa_thumbnail.png" height="30" alt="Växa Sverige" />
+    <img src="\src\content\vaxa_thumbnail.png" height="30" alt="Växa Sverige" />
     <p className="mx-auto text-center">MinGård</p>
   </a>
 </nav>
