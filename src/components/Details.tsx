@@ -13,6 +13,9 @@ const DetailsPage: React.FC = () => {
             herd_id: number;
         }
         const [animals, setAnimals] = useState<Animal>();
+        const [isOpen, setIsOpen] = useState(false);
+        const openImageSrc = "\src\content\arrow-up.png"; //When collapsible element is open
+        const [imageSrc, setImageSrc] = useState("/icons8-arrow-down-50.png");
          // Create new instance of cookie
       const cookies = new Cookies();
         const token = cookies.get("token");
@@ -47,7 +50,10 @@ const DetailsPage: React.FC = () => {
         }
     
         }, []);
-    
+        const toggleCollapse = () => {
+            setIsOpen(!isOpen);
+            setImageSrc(isOpen ? "\src\content\arrow-down.png" : openImageSrc);
+          };
     
         return (
             <div>
@@ -63,6 +69,16 @@ const DetailsPage: React.FC = () => {
                                 <div className="p-3">
                                 <p><b>id: </b>{animals.id}</p>
                                  <p><b>Djurid: </b>{animals.animalId}</p><p><b>Ras: </b>{animals.breed}</p><p><b>Besättning:</b> {animals.herd_id}</p>
+                                 <div className="storeOrder border-4 rounded-md border-black m-4">
+      <button
+        onClick={toggleCollapse}
+        className="button flex items-center justify-between m-0.1"
+      >
+        <span className="flex-grow">Mjölkning</span>
+        <img src={imageSrc} alt="Pil" className="ml-20 w-10" />
+      </button>
+      {isOpen}
+    </div>
                       </div> 
                      
                       </article>  
