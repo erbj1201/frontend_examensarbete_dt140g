@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import Cookies from "universal-cookie";
 // Structure of herd
 interface Herd {
@@ -11,9 +12,14 @@ interface Herd {
 interface Animal {
   id: number;
   animalId: string;
+  earNo: string;
+  birthDate: string;
   breed: string;
+  sex: string;
+  category: string;
   name: string;
   herd_id: string;
+
 }
 // Create new instance of cookie
 const cookies = new Cookies();
@@ -29,6 +35,7 @@ const GetHerdComponent: React.FC = () => {
   const [selectedOption, setSelectedOption] = useState<string>("AllAnimals");
   const [herds, setHerds] = useState<Herd[]>([]);
   const [animals, setAnimals] = useState<Animal[]>([]);
+  const [filterCategory, setFilterCategory] = useState<string | undefined>(undefined);
 
   // Fetch all herds and animals by user on component mount
   useEffect(() => {
@@ -113,7 +120,15 @@ const GetHerdComponent: React.FC = () => {
       getAnimalsByHerd(selectedOptionValue);
     }
   };
+  //Recieve type string and undefined to reset the sort of category
+  const handleFilterCategory = (category: string | undefined) => {
+    setFilterCategory(category);
+  };
 
+  const navigate = useNavigate();
+  const navigateToDetails = (id: number) =>{
+    navigate(`/details/${id}`);
+  }
   return (
     <div>
       {/*If there are more than zero herds*/}
@@ -136,28 +151,56 @@ const GetHerdComponent: React.FC = () => {
           </select>
         </div>
       )}
+      {/* Buttons to sort out by category */}
+      <div className="container mx-auto p-3">
+        <button className="btn btn-primary btn-lg active m-3" onClick={() => {
+          console.log("Alla djur valdes");
+          //Undefined to stop sort the categories
+          handleFilterCategory(undefined);
+        }}>Alla djur</button>
+        <button className="btn btn-primary btn-lg active m-3" onClick={() => {
+          console.log("Köttdjur valdes");
+          handleFilterCategory("kött");
+        }}>Köttdjur</button>
+        <button className="btn btn-primary btn-lg active m-3" onClick={() => {
+          console.log("Mjölkdjur valdes");
+          handleFilterCategory("mjölk");
+        }}>Mjölkdjur</button>
+      </div> 
+
       {animals.length > 0 ? (
         <table className="table table-responsive table-hover">
           <thead>
-            <tr>
+          <tr>
               <th>Id</th>
               <th>Djurid</th>
+              <th>ÖronNr:</th>
+              <th>Födelsedatum</th>
               <th>Ras</th>
+              <th>Kön</th>
+              <th>Kategori</th>
               <th>Namn</th>
               <th>Besättningsid</th>
             </tr>
           </thead>
           <tbody>
-            {" "}
+          
             {/*Loop and write animals*/}
-            {animals.map((animal) => (
-              <tr key={animal.id}>
+            {animals
+              .filter((animal) => filterCategory ? animal.category === filterCategory : true)
+              .map((animal) => (
+                <tr key={animal.id} onClick={() =>navigateToDetails(animal.id)}>
                 <td>{animal.id}</td>
                 <td>{animal.animalId}</td>
+                <td>{animal.earNo}</td>
+                <td>{animal.birthDate}</td>
                 <td>{animal.breed}</td>
+                <td>{animal.sex}</td>
+                <td>{animal.category}</td>
                 <td>{animal.name}</td>
                 <td>{animal.herd_id}</td>
               </tr>
+
             ))}
           </tbody>
         </table>

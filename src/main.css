@@ -42,8 +42,23 @@ button{
 .search-btn{
     border: none;
     width: 1.5em;
-    box-shadow: none;
+    box-shadow: none;   
+}
+/*DetailsPage*/
+.detailsHeader{
+    background-color: #FFD6BB;
+}
+
+.detailsArticle{
+    background-color: #FDF4EE;
+}
+
+.arrowRightDetails{
+    width: 1em;
     
+}
+.arrowLeftDetails{
+    width: 1em;
 }
 @media screen and (min-width: 600px) and (max-width: 1024px){
     
