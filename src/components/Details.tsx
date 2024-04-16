@@ -2,18 +2,23 @@ import Cookies from "universal-cookie";
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import Collapsible from "../components/Collapsible";
-import leftArrow from "../content/left-arrow.png";
-import rightArrow from "../content/right-arrow.png";
+import { RiArrowRightSLine } from "react-icons/ri";
+import { RiArrowLeftSLine } from "react-icons/ri";
 
 const DetailsPage: React.FC = () => {
-    //Definera vilken typ av data som animals innehåller
+    //Define whazt type of data
     interface Animal {
         id: number;
         animalId: string;
+        earNo: string;
+        birthDate: string;
         breed: string;
+        sex: string;
+        category: string;
         name: string;
+        herd_id: string;
         imagepath: string;
-        herd_id: number;
+
     }
     const [animals, setAnimals] = useState<Animal>();
     // Create new instance of cookie
@@ -54,16 +59,35 @@ const DetailsPage: React.FC = () => {
         <div>
             {animals ? (
                 <div key={animals.id} >
-                    <section className="container detailsArticle mx-auto border m-3 w-100 position-relative">
+                    <section className=" detailsArticle mx-auto border m-3 w-100 position-relative">
                         <header className="detailsHeader p-2 w-100 d-flex justify-content-between align-items-center ">
-                            <img className="arrowLeftDetails" src={leftArrow} alt="arrow left" />
+                            <RiArrowLeftSLine size={32} />
                             <p>{animals.name}</p>
-                            <img className="arrowRightDetails" src={rightArrow} alt="arrow right" />
+                            <RiArrowRightSLine size={32} />
                         </header>
                         <article>
-                            <div className="p-3">
-                                <p><b>id: </b>{animals.id}</p>
-                                <p><b>Djurid: </b>{animals.animalId}</p><p><b>Ras: </b>{animals.breed}</p><p><b>Besättning:</b> {animals.herd_id}</p>
+                            <div className="container detailsDiv p-3">
+                                <h2 className="h2details">Grundinformation</h2>
+                                <div className="container">
+                                 { animals.imagepath !== null ? (
+                                    <img className="img-thumbnail cow-image" src={animals.imagepath} alt ="A cow" />
+                                
+                                 ) : (
+                                    <img className="img-thumbnail cow-image" src="\src\content\cow-image.png" alt ="A cow" />
+                                 )
+                                 }
+                                   
+                                </div>
+                                <div className="container">
+                                    <p><b>Id: </b>{animals.id}</p>
+                                    <p><b>Djurid: </b>{animals.animalId}</p>
+                                    <p><b>Öronnummer: </b>{animals.earNo}</p>
+                                    <p><b>Födelsedatum: </b>{animals.birthDate}</p>
+                                    <p><b>Ras: </b>{animals.breed}</p>
+                                    <p><b>Kön: </b>{animals.sex}</p>
+                                    <p><b>Användning: </b>{animals.category}</p>
+                                    <p><b>Besättning:</b> {animals.herd_id}</p>
+                                </div>
                             </div>
                         </article>
                         <article>

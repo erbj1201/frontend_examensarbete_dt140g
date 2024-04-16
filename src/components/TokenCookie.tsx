@@ -20,7 +20,7 @@ function TokenCookie() {
     }
     // Run useEffect when token changes
   }, [token]);
-
+ console.log("Token value:", token);
   return <div></div>;
 }
 //export

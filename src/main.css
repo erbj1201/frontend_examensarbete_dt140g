@@ -58,8 +58,23 @@ button{
 .arrowLeftDetails{
     width: 1em;
 }
-.arrow-up-down{
-    width: 1em;
+/*first div around "grundinformation" */
+.detailsDiv{
+    background-color: #FDFDFD;
+ width: 80%;
+   margin-top: 2em;
+}
+/*h2 at detailpage*/
+.h2details{
+    background-color: #F2F2F2;
+    border: 1px solid black;
+ padding: 0.2em;   
+}
+
+.cow-image{
+    height: 100%;
+    width: 100%;
+    max-width: 200px;
 }
 /*tablet screen */
 @media screen and (min-width: 600px) and (max-width: 1024px){
