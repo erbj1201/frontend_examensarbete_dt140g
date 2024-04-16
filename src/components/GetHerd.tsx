@@ -131,7 +131,6 @@ const GetHerdComponent: React.FC = () => {
   }
   return (
     <div>
-      {" "}
       {/*If there are more than zero herds*/}
       {!isLoading && !error && herds.length > 0 && (
         <div>
