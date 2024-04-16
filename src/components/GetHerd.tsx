@@ -169,7 +169,7 @@ const GetHerdComponent: React.FC = () => {
         }}>Mjölkdjur</button>
       </div> 
 
-      {animals.length > 0 ? (
+      {animals.length > 1 ? (
         <table className="table table-responsive table-hover">
           <thead>
           <tr>
