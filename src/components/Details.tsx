@@ -22,7 +22,7 @@ const DetailsPage: React.FC = () => {
   }
 
   //states
-  const [animals, setAnimals] = useState<Animal>();
+  /* const [animals, setAnimals] = useState<Animal>(); */
   const [herdId, setHerdId] = useState<string | null>(null);
   const [animalsByHerds, setAnimalsByHerds] = useState<Animal[]>([]);
   const [animalIndex, setAnimalIndex] = useState(0);
@@ -101,11 +101,8 @@ const DetailsPage: React.FC = () => {
           //if response ok
           if (response.ok) {
             const jsonData = await response.json();
-            setAnimals(jsonData);
             const herdIdJson = jsonData.herd_id;
             setHerdId(herdIdJson);
-            console.log(herdIdJson);
-
             //find index
             const index = animalsByHerds.findIndex(
               (animal) => animal.id === parseInt(id)
@@ -122,31 +119,38 @@ const DetailsPage: React.FC = () => {
       };
       getAnimalById(id);
     }
-  }, [id, animalsByHerds]);
+  }, []);
 
-  /*   const currentAnimal = animalsByHerds[animalIndex]; */
+  useEffect(() => {
+    if (herdId !== null) {
+      fetchAnimalsByHerd(herdId);
+    }
+  }, [herdId]);
+
+  const animalDataWithIndex: any[] = animalsByHerds.map(
+    (animalByHerd, index) => ({
+      data: {
+        id: animalByHerd.id,
+        animalId: animalByHerd.animalId,
+        earNo: animalByHerd.earNo,
+        birthDate: animalByHerd.birthDate,
+        breed: animalByHerd.breed,
+        sex: animalByHerd.sex,
+        category: animalByHerd.category,
+        name: animalByHerd.name,
+        herd_id: animalByHerd.herd_id,
+        imagepath: animalByHerd.imagepath,
+      },
+      index: index,
+    })
+  );
+
   return (
     <div>
       <p>Antal djur i besättningen: {animalsByHerds.length}</p>
-      <button onClick={() => fetchAnimalsByHerd(herdId)}>Test</button>
-      {animalsByHerds.map((animalByHerd, index) => (
-        <article key={index}>
-          <p>{animalByHerd.id}</p>
-          <p>{animalByHerd.name}</p>
-          <p>{index}</p>
-        </article>
-      ))}
 
-      {animalsByHerds.length > 0 && (
-        <div>
-          <h2>{animalsByHerds[animalIndex].name}</h2>
-          <button onClick={clickPrev}>Föregående</button>
-          <button onClick={clickNext}>Nästa</button>
-        </div>
-      )}
-
-      {animals ? (
-        <div key={animals.id}>
+      {animalDataWithIndex.length > 0 && (
+        <div key={animalsByHerds[animalIndex].id}>
           <section className=" detailsArticle mx-auto border m-3 w-100 position-relative">
             <header className="detailsHeader p-2 w-100 d-flex justify-content-between align-items-center ">
               <button onClick={() => clickPrev()}>
@@ -154,7 +158,8 @@ const DetailsPage: React.FC = () => {
                 <RiArrowLeftSLine size={32} />{" "}
               </button>
               <p>
-                {animals.name} {animals.id} {herdId}
+                {animalsByHerds[animalIndex].name}{" "}
+                {animalsByHerds[animalIndex].id}
               </p>
               <button onClick={() => clickNext()}>
                 {" "}
@@ -165,10 +170,10 @@ const DetailsPage: React.FC = () => {
               <div className="container detailsDiv p-3">
                 <h2 className="h2details">Grundinformation</h2>
                 <div className="container">
-                  {animals.imagepath !== null ? (
+                  {animalsByHerds[animalIndex].imagepath !== null ? (
                     <img
                       className="img-thumbnail cow-image"
-                      src={animals.imagepath}
+                      src={animalsByHerds[animalIndex].imagepath}
                       alt="A cow"
                     />
                   ) : (
@@ -182,34 +187,34 @@ const DetailsPage: React.FC = () => {
                 <div className="container">
                   <p>
                     <b>Id: </b>
-                    {animals.id}
+                    {animalsByHerds[animalIndex].id}
                   </p>
                   <p>
                     <b>Djurid: </b>
-                    {animals.animalId}
+                    {animalsByHerds[animalIndex].animalId}
                   </p>
                   <p>
                     <b>Öronnummer: </b>
-                    {animals.earNo}
+                    {animalsByHerds[animalIndex].earNo}
                   </p>
                   <p>
                     <b>Födelsedatum: </b>
-                    {animals.birthDate}
+                    {animalsByHerds[animalIndex].birthDate}
                   </p>
                   <p>
                     <b>Ras: </b>
-                    {animals.breed}
+                    {animalsByHerds[animalIndex].breed}
                   </p>
                   <p>
                     <b>Kön: </b>
-                    {animals.sex}
+                    {animalsByHerds[animalIndex].sex}
                   </p>
                   <p>
                     <b>Användning: </b>
-                    {animals.category}
+                    {animalsByHerds[animalIndex].category}
                   </p>
                   <p>
-                    <b>Besättning:</b> {animals.herd_id}
+                    <b>Besättning:</b> {animalsByHerds[animalIndex].herd_id}
                   </p>
                 </div>
               </div>
@@ -223,8 +228,9 @@ const DetailsPage: React.FC = () => {
             </article>
           </section>
         </div>
-      ) : (
-        <p>Loading...</p>
+        /*    ) : (
+                <p>Loading...</p>
+            )} */
       )}
     </div>
   );
