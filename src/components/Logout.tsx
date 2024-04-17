@@ -34,6 +34,8 @@ const Logout: React.FC = () => {
         console.log(responseData.message);
         // Remove the token cookie
         cookies.remove("token");
+        //Remove userid from session storage
+        sessionStorage.removeItem("userid");
         // Redirect to login-page if not logged in (no token)
         navigate("/login");
       }

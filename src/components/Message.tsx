@@ -66,6 +66,8 @@ useEffect(() => {
   const getAllMessages = async () => {
     const cookies = new Cookies();
     const token = cookies.get("token");
+    //get userid from sessionstorage
+const userid = sessionStorage.getItem("userid")!;
     try {
       // Fetch all user herds (get)
       const getMessages = await fetch(
