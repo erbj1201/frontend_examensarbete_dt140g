@@ -21,12 +21,36 @@ const DetailsPage: React.FC = () => {
 
     }
     const [animals, setAnimals] = useState<Animal>();
+    const[herdId, setHerdId] = useState<string | null>(null);
+    const[animalsByHerds, setAnimalsByHerds] = useState<Animal[]>([]);
     // Create new instance of cookie
     const cookies = new Cookies();
     const token = cookies.get("token");
-
     let { id } = useParams();
+
+    const fetchAnimalsByHerd = async (herdId: string| null) =>{
+        try{
+            const response = await fetch(`http://localhost:8000/api/animals/herds/${herdId}`, {
+        method: "GET",
+        headers: {
+            "Authorization": `Bearer ${token} `,
+            "Content-Type": "application/json"
+        }
+    });
+    if (response.ok) {
+        const jsonData = await response.json();
+        setAnimalsByHerds(jsonData);
+    } else {
+        throw new Error('Något gick fel');
+    }  } catch (error) {
+        console.error('Fel vid hämtning av djur i besättningen');
+    }
+    
+};
+
+  
     useEffect(() => {
+        
         if (id != null) {
             const getAnimalById = async (id: string) => {
                 try {
@@ -41,6 +65,9 @@ const DetailsPage: React.FC = () => {
                     if (response.ok) {
                         const jsonData = await response.json();
                         setAnimals(jsonData);
+                        const herdIdJson = jsonData.herd_id;
+                        setHerdId(herdIdJson);
+                        console.log(herdIdJson);
                     } else {
                         throw new Error('Något gick fel');
                     }
@@ -56,13 +83,23 @@ const DetailsPage: React.FC = () => {
     }, []);
 
     return (
-        <div>
+        <div><button onClick={() => fetchAnimalsByHerd(herdId)}>Test</button>
+            {animalsByHerds.map((animalByHerd) =>
+            ( 
+               
+<article key={animalByHerd.id}>
+    <p>{animalByHerd.id}</p>
+    <p>{animalByHerd.name}</p>
+</article>  
+            ))} 
+              
+           
             {animals ? (
                 <div key={animals.id} >
                     <section className=" detailsArticle mx-auto border m-3 w-100 position-relative">
                         <header className="detailsHeader p-2 w-100 d-flex justify-content-between align-items-center ">
                             <RiArrowLeftSLine size={32} />
-                            <p>{animals.name}</p>
+                            <p>{animals.name}{animals.id} {herdId}</p>
                             <RiArrowRightSLine size={32} />
                         </header>
                         <article>
