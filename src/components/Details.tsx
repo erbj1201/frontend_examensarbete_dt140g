@@ -6,180 +6,227 @@ import { RiArrowRightSLine } from "react-icons/ri";
 import { RiArrowLeftSLine } from "react-icons/ri";
 import { useNavigate } from "react-router-dom";
 
-
 const DetailsPage: React.FC = () => {
-    //Define whazt type of data
-    interface Animal {
-        id: number;
-        animalId: string;
-        earNo: string;
-        birthDate: string;
-        breed: string;
-        sex: string;
-        category: string;
-        name: string;
-        herd_id: string;
-        imagepath: string;
+  //Define whazt type of data
+  interface Animal {
+    id: number;
+    animalId: string;
+    earNo: string;
+    birthDate: string;
+    breed: string;
+    sex: string;
+    category: string;
+    name: string;
+    herd_id: string;
+    imagepath: string;
+  }
 
+  //states
+  const [animals, setAnimals] = useState<Animal>();
+  const [herdId, setHerdId] = useState<string | null>(null);
+  const [animalsByHerds, setAnimalsByHerds] = useState<Animal[]>([]);
+  const [animalIndex, setAnimalIndex] = useState(0);
+  // Create new instance of cookie
+  const cookies = new Cookies();
+  //get token from cookies
+  const token = cookies.get("token");
+  //get id from URL
+  let { id } = useParams();
+  //use navigate
+  const navigate = useNavigate();
+
+  const fetchAnimalsByHerd = async (herdId: string | null) => {
+    //Fetch
+    try {
+      const response = await fetch(
+        `http://localhost:8000/api/animals/herds/${herdId}`,
+        {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${token} `,
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      //if response ok
+      if (response.ok) {
+        const jsonData = await response.json();
+        //set animals by herds
+        setAnimalsByHerds(jsonData);
+        //set index to 0
+        setAnimalIndex(0);
+      } else {
+        throw new Error("Något gick fel");
+      }
+    } catch (error) {
+      console.error("Fel vid hämtning av djur i besättningen");
     }
-    const [animals, setAnimals] = useState<Animal>();
-    const [herdId, setHerdId] = useState<string | null>(null);
-    const [animalsByHerds, setAnimalsByHerds] = useState<Animal[]>([]);
-    const [animalIndex, setAnimalIndex] = useState(0);
-    // Create new instance of cookie
-    const cookies = new Cookies();
-    const token = cookies.get("token");
-    let { id } = useParams();
-    const navigate = useNavigate();
+  };
+  //Handle click to next animal in herd
+  const clickNext = () => {
+    if (animalIndex < animalsByHerds.length - 1) {
+      //set index to this index plus 1
+      setAnimalIndex(animalIndex + 1);
+      //change and navigate to new url
+      navigate(`/details/${animalsByHerds[animalIndex + 1].id}`);
+    }
+  };
+  //Handle click to previous animal in herd
+  const clickPrev = () => {
+    if (animalIndex > 0) {
+      // if Index higher than 0'
+      //set index to this index minus 1
+      setAnimalIndex(animalIndex - 1);
+      //change and navigate to new url
+      navigate(`/details/${animalsByHerds[animalIndex - 1].id}`);
+    }
+  };
 
-    const fetchAnimalsByHerd = async (herdId: string | null) => {
+  useEffect(() => {
+    //check if id extist
+    if (id != null) {
+      //fetch
+      const getAnimalById = async (id: string) => {
         try {
-            const response = await fetch(`http://localhost:8000/api/animals/herds/${herdId}`, {
-                method: "GET",
-                headers: {
-                    "Authorization": `Bearer ${token} `,
-                    "Content-Type": "application/json"
-                }
-            });
-            if (response.ok) {
-                const jsonData = await response.json();
-                setAnimalsByHerds(jsonData);
-                setAnimalIndex(0); 
-            } else {
-                throw new Error('Något gick fel');
+          const response = await fetch(
+            `http://localhost:8000/api/animals/${id}`,
+            {
+              method: "GET",
+              headers: {
+                Authorization: `Bearer ${token} `,
+                "Content-Type": "application/json",
+              },
             }
+          );
+          //if response ok
+          if (response.ok) {
+            const jsonData = await response.json();
+            setAnimals(jsonData);
+            const herdIdJson = jsonData.herd_id;
+            setHerdId(herdIdJson);
+            console.log(herdIdJson);
+
+            //find index
+            const index = animalsByHerds.findIndex(
+              (animal) => animal.id === parseInt(id)
+            );
+            if (index !== -1) {
+              setAnimalIndex(index);
+            }
+          } else {
+            throw new Error("Något gick fel");
+          }
         } catch (error) {
-            console.error('Fel vid hämtning av djur i besättningen');
+          console.error("Fel vid hämtning");
         }
+      };
+      getAnimalById(id);
+    }
+  }, [id, animalsByHerds]);
 
-    };
-
-    const clickNext = () => {
-        if (animalIndex < animalsByHerds.length - 1) { // Kontrollera att vi inte överskrider gränserna för arrayen
-            setAnimalIndex(animalIndex + 1);
-            navigate(`/details/${animalsByHerds[animalIndex + 1].id}`);
-        }
-    };
-    const clickPrev = () => {
-        if (animalIndex > 0) { // if Index higher than 0
-            setAnimalIndex(animalIndex - 1);
-            navigate(`/details/${animalsByHerds[animalIndex - 1].id}`);
-            
-        }
-    };
-
-    useEffect(() => {
-
-        if (id != null) {
-            const getAnimalById = async (id: string) => {
-                try {
-                    const response = await fetch(`http://localhost:8000/api/animals/${id}`, {
-                        method: "GET",
-                        headers: {
-                            "Authorization": `Bearer ${token} `,
-                            "Content-Type": "application/json"
-                        }
-                    });
-
-                    if (response.ok) {
-                        const jsonData = await response.json();
-                        setAnimals(jsonData);
-                        const herdIdJson = jsonData.herd_id;
-                        setHerdId(herdIdJson);
-                        console.log(herdIdJson);
-
-                        //find index
-                        const index = animalsByHerds.findIndex(animal => animal.id === parseInt(id));
-                        if (index !== -1) {
-                            setAnimalIndex(index);
-                        }
-                    } else {
-                        throw new Error('Något gick fel');
-                    }
-
-                } catch (error) {
-                    console.error('Fel vid hämtning');
-                }
-
-            };
-            getAnimalById(id);
-        }
-
-    }, [id, animalsByHerds]);
-    
   /*   const currentAnimal = animalsByHerds[animalIndex]; */
-    return (
-        <div>
-            
-            <p>Antal djur i besättningen: {animalsByHerds.length}</p>
-            <button onClick={() => fetchAnimalsByHerd(herdId)}>Test</button>
-            {animalsByHerds.map((animalByHerd, index) =>
-            (
-
-                <article key={index}>
-                    <p>{animalByHerd.id}</p>
-                    <p>{animalByHerd.name}</p>
-                    <p>{index}</p>
-                </article>
-            ))}
-            
-{animalsByHerds.length > 0 && (
+  return (
     <div>
-        <h2>{animalsByHerds[animalIndex].name}</h2>
-         <button onClick={clickPrev}>Föregående</button>
-        <button onClick={clickNext}>Nästa</button>
+      <p>Antal djur i besättningen: {animalsByHerds.length}</p>
+      <button onClick={() => fetchAnimalsByHerd(herdId)}>Test</button>
+      {animalsByHerds.map((animalByHerd, index) => (
+        <article key={index}>
+          <p>{animalByHerd.id}</p>
+          <p>{animalByHerd.name}</p>
+          <p>{index}</p>
+        </article>
+      ))}
+
+      {animalsByHerds.length > 0 && (
+        <div>
+          <h2>{animalsByHerds[animalIndex].name}</h2>
+          <button onClick={clickPrev}>Föregående</button>
+          <button onClick={clickNext}>Nästa</button>
         </div>
-)}
+      )}
 
-            {animals ? (
-                <div key={animals.id} >
-                    <section className=" detailsArticle mx-auto border m-3 w-100 position-relative">
-                        <header className="detailsHeader p-2 w-100 d-flex justify-content-between align-items-center ">
-                            <button onClick={() => clickPrev()}> <RiArrowLeftSLine size={32} /> </button>
-                            <p>{animals.name} {animals.id}  {herdId}</p>
-                            <button onClick={() => clickNext()}> <RiArrowRightSLine size={32} /> </button>
-                        </header>
-                        <article>
-                            <div className="container detailsDiv p-3">
-                                <h2 className="h2details">Grundinformation</h2>
-                                <div className="container">
-                                    {animals.imagepath !== null ? (
-                                        <img className="img-thumbnail cow-image" src={animals.imagepath} alt="A cow" />
-
-                                    ) : (
-                                        <img className="img-thumbnail cow-image" src="\src\content\cow-image.png" alt="A cow" />
-                                    )
-                                    }
-
-                                </div>
-                                <div className="container">
-                                    <p><b>Id: </b>{animals.id}</p>
-                                    <p><b>Djurid: </b>{animals.animalId}</p>
-                                    <p><b>Öronnummer: </b>{animals.earNo}</p>
-                                    <p><b>Födelsedatum: </b>{animals.birthDate}</p>
-                                    <p><b>Ras: </b>{animals.breed}</p>
-                                    <p><b>Kön: </b>{animals.sex}</p>
-                                    <p><b>Användning: </b>{animals.category}</p>
-                                    <p><b>Besättning:</b> {animals.herd_id}</p>
-                                </div>
-                            </div>
-                        </article>
-                        <article>
-                            <div className="container">
-                                <Collapsible open
-                                    title="Mjölkning">
-                                    <p>Test Test</p>
-                                </Collapsible>
-
-                            </div>
-                        </article>
-
-                    </section>
+      {animals ? (
+        <div key={animals.id}>
+          <section className=" detailsArticle mx-auto border m-3 w-100 position-relative">
+            <header className="detailsHeader p-2 w-100 d-flex justify-content-between align-items-center ">
+              <button onClick={() => clickPrev()}>
+                {" "}
+                <RiArrowLeftSLine size={32} />{" "}
+              </button>
+              <p>
+                {animals.name} {animals.id} {herdId}
+              </p>
+              <button onClick={() => clickNext()}>
+                {" "}
+                <RiArrowRightSLine size={32} />{" "}
+              </button>
+            </header>
+            <article>
+              <div className="container detailsDiv p-3">
+                <h2 className="h2details">Grundinformation</h2>
+                <div className="container">
+                  {animals.imagepath !== null ? (
+                    <img
+                      className="img-thumbnail cow-image"
+                      src={animals.imagepath}
+                      alt="A cow"
+                    />
+                  ) : (
+                    <img
+                      className="img-thumbnail cow-image"
+                      src="\src\content\cow-image.png"
+                      alt="A cow"
+                    />
+                  )}
                 </div>
-            ) : (
-                <p>Loading...</p>
-            )}
+                <div className="container">
+                  <p>
+                    <b>Id: </b>
+                    {animals.id}
+                  </p>
+                  <p>
+                    <b>Djurid: </b>
+                    {animals.animalId}
+                  </p>
+                  <p>
+                    <b>Öronnummer: </b>
+                    {animals.earNo}
+                  </p>
+                  <p>
+                    <b>Födelsedatum: </b>
+                    {animals.birthDate}
+                  </p>
+                  <p>
+                    <b>Ras: </b>
+                    {animals.breed}
+                  </p>
+                  <p>
+                    <b>Kön: </b>
+                    {animals.sex}
+                  </p>
+                  <p>
+                    <b>Användning: </b>
+                    {animals.category}
+                  </p>
+                  <p>
+                    <b>Besättning:</b> {animals.herd_id}
+                  </p>
+                </div>
+              </div>
+            </article>
+            <article>
+              <div className="container">
+                <Collapsible open title="Mjölkning">
+                  <p>Test Test</p>
+                </Collapsible>
+              </div>
+            </article>
+          </section>
         </div>
-    );
-}
+      ) : (
+        <p>Loading...</p>
+      )}
+    </div>
+  );
+};
 export default DetailsPage;
