@@ -110,12 +110,10 @@ const DetailsPage: React.FC = () => {
   /*   const currentAnimal = animalsByHerds[animalIndex]; */
     return (
         <div>
-            
             <p>Antal djur i besättningen: {animalsByHerds.length}</p>
             <button onClick={() => fetchAnimalsByHerd(herdId)}>Test</button>
             {animalsByHerds.map((animalByHerd, index) =>
             (
-
                 <article key={index}>
                     <p>{animalByHerd.id}</p>
                     <p>{animalByHerd.name}</p>
