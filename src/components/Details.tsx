@@ -57,6 +57,7 @@ const DetailsPage: React.FC = () => {
     const clickNext = () => {
         if (animalIndex < animalsByHerds.length - 1) { // Kontrollera att vi inte överskrider gränserna för arrayen
             setAnimalIndex(animalIndex + 1);
+            navigate(`/details/${animalsByHerds[animalIndex + 1].id}`);
         }
     };
     const clickPrev = () => {
