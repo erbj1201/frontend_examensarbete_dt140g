@@ -66,6 +66,7 @@ useEffect(() => {
   const getAllMessages = async () => {
     const cookies = new Cookies();
     const token = cookies.get("token");
+   
     //get userid from sessionstorage
 const userid = sessionStorage.getItem("userid")!;
     try {
@@ -162,6 +163,7 @@ const userid = sessionStorage.getItem("userid")!;
           description: "",
           userid: userid,
         });
+        getAllMessages();
         setShowMessage("Ditt meddelande har skickats");
         // Clear message after  3 seconds
         setTimeout(clearMessages, 3000);
