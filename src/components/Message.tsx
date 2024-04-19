@@ -39,7 +39,7 @@ const Message: React.FC = () => {
   });
   //state for fetched messages
   const [fetchMessages, setFetchMessages] = useState<Message[]>([]);
-/*   const [currentDate, setCurrentDate] = useState(getDate()); */
+
   //State for showing form messages
   const [showMessage, setShowMessage] = useState<string | null>(null);
 
@@ -61,14 +61,7 @@ const Message: React.FC = () => {
     });
     console.log("Message cleared");
   };
-/* 
-  function getDate() {
-    const today = new Date();
-    const month = today.getMonth() +1;
-    const date = today.getDate();
-    const year = today.getDate();
-    return `${month}/${date}/${year}`;
-  } */
+
 // Fetch all herds and animals by user on component mount
 useEffect(() => {
   
@@ -99,7 +92,7 @@ const userid = sessionStorage.getItem("userid")!;
 
       setFetchMessages(message);
 
-     /*  setCurrentDate(message.created_at); */
+  
  //Get errors
 } catch (error) {
     console.log(error);
