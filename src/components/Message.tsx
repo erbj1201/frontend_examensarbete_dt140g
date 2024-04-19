@@ -254,14 +254,21 @@ const userid = sessionStorage.getItem("userid")!;
       </div>
       <section>
         <h3>Alla skickade meddelanden</h3>
-        {fetchMessages.map((message) => (
-            <article key={message.id}>
-                <h4>{message.title}</h4>
-                <p><em>Skickat: {message.created_at}</em></p> 
-                <p>{message.description}</p>
-
-            </article>
-       ) )}
+        
+{fetchMessages.map((message) => {
+  // Convert created_at to a new Date-Object
+  const createNewDate = new Date(message.created_at);
+  // Convert Date and Time to the swedish standard. 
+  const formattedDateTime = `${createNewDate.toLocaleDateString('sv-SE')} ${createNewDate.toLocaleTimeString('sv-SE')}`;
+  
+  return (
+    <article key={message.id}>
+      <h4>{message.title}</h4>
+      <p><em>Skickat: {formattedDateTime}</em></p> 
+      <p>{message.description}</p>
+    </article>
+  );
+})};
       </section>
     </div>
   );
