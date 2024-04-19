@@ -223,6 +223,7 @@ const DetailsPage: React.FC = () => {
               <div className="container">
                 <Collapsible open title="Mjölkning">
                   <p>Test Test</p>
+                  
                 </Collapsible>
               </div>
             </article>

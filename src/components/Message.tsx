@@ -1,5 +1,6 @@
 /*Message component*/
 //import
+
 import DOMPurify from "dompurify";
 import React, { useEffect, useState } from "react";
 import Cookies from "universal-cookie";
@@ -24,6 +25,7 @@ const token = cookies.get("token");
 const userid = sessionStorage.getItem("userid")!;
 
 const Message: React.FC = () => {
+ 
   //State for storing data
   const [messageData, setMessageData] = useState<MessageItem>({
     title: "",
@@ -37,6 +39,7 @@ const Message: React.FC = () => {
   });
   //state for fetched messages
   const [fetchMessages, setFetchMessages] = useState<Message[]>([]);
+/*   const [currentDate, setCurrentDate] = useState(getDate()); */
   //State for showing form messages
   const [showMessage, setShowMessage] = useState<string | null>(null);
 
@@ -58,14 +61,24 @@ const Message: React.FC = () => {
     });
     console.log("Message cleared");
   };
+/* 
+  function getDate() {
+    const today = new Date();
+    const month = today.getMonth() +1;
+    const date = today.getDate();
+    const year = today.getDate();
+    return `${month}/${date}/${year}`;
+  } */
 // Fetch all herds and animals by user on component mount
 useEffect(() => {
+  
      getAllMessages();
       }, []);
   //Get users herds and users anmials
   const getAllMessages = async () => {
     const cookies = new Cookies();
     const token = cookies.get("token");
+    
    
     //get userid from sessionstorage
 const userid = sessionStorage.getItem("userid")!;
@@ -83,7 +96,10 @@ const userid = sessionStorage.getItem("userid")!;
         }
       );
       const message= await getMessages.json();
+
       setFetchMessages(message);
+
+     /*  setCurrentDate(message.created_at); */
  //Get errors
 } catch (error) {
     console.log(error);
@@ -181,7 +197,6 @@ const userid = sessionStorage.getItem("userid")!;
       setTimeout(clearMessages, 3000);
     }
   };
-
 
   return (
     <div>

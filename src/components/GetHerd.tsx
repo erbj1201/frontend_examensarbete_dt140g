@@ -165,7 +165,6 @@ const GetHerdComponent: React.FC = () => {
         <button
           className="btn btn-primary btn-lg active m-3"
           onClick={() => {
-            console.log("Alla djur valdes");
             //Undefined to stop sort the categories
             handleFilterCategory(undefined);
           }}
@@ -176,7 +175,6 @@ const GetHerdComponent: React.FC = () => {
         <button
           className="btn btn-primary btn-lg active m-3"
           onClick={() => {
-            console.log("Köttdjur valdes");
             handleFilterCategory("kött");
           }}
         >
@@ -186,7 +184,6 @@ const GetHerdComponent: React.FC = () => {
         <button
           className="btn btn-primary btn-lg active m-3"
           onClick={() => {
-            console.log("Mjölkdjur valdes");
             handleFilterCategory("mjölk");
           }}
         >
