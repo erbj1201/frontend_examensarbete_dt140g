@@ -76,6 +76,11 @@ button{
     width: 100%;
     max-width: 200px;
 }
+
+.handleForm{
+    background-color: #F5F4F4;
+    border: #000000 solid;
+}
 /*tablet screen */
 @media screen and (min-width: 600px) and (max-width: 1024px){
     

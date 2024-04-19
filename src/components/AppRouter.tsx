@@ -9,7 +9,7 @@ import CalenderPage from "../pages/CalenderPage";
 import DetailsPage from "../pages/DetailsPage";
 import RegisterPage from "../pages/RegisterPage";
 import LoginPage from "../pages/LoginPage";
-
+import HandlePage from "../pages/HandlePage";
 //Component with routes
 const AppRouter: React.FC = () => {
   return (
@@ -25,6 +25,8 @@ const AppRouter: React.FC = () => {
         <Route path="/calender" element={<CalenderPage />} />
         {/**Details (detaljer för varje djur) */}
         <Route path="/details/:id" element={<DetailsPage />} />
+        {/**Handle (hantera ärenden) */}
+        <Route path="/handle" element={<HandlePage />} />
         {/**Register (registrera användare) */}
         <Route path="/register" element={<RegisterPage />} />
         {/**Login (logga in användare*/}
