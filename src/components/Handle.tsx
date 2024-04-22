@@ -9,34 +9,33 @@ interface Milk {
 
 }
 function Handle() {
+    //States
     const cookies = new Cookies();
     const token = cookies.get("token");
-const [chosenAnimalId, setChosenAnimalId] = useState<string>("");
+    const [chosenAnimalId, setChosenAnimalId] = useState<string>("");
     const [animals, setAnimals] = useState<string[]>([]);
     const [milks, setMilks] = useState<Milk[]>([]);
-
+//States store data
     const [newMilk, setNewMilk] = useState<Milk>({
         id: "",
         kgMilk: "",
         milkDate: "",
         animal_id: "",
-
     });
 
-    // Fetch all herds and animals by user on component mount
+    // Fetch all milks and animals with useEffect
     useEffect(() => {
-        if(chosenAnimalId){
-        getMilkByAnimals(chosenAnimalId);
+        if (chosenAnimalId) {
+            getMilkByAnimals(chosenAnimalId);
         }
         getAnimals();
-
     }, [chosenAnimalId]);
-
+//Handle changes in the input field
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
         setNewMilk({ ...newMilk, [name]: value });
     };
-
+    //Post Milk data with fetch 
     const addMilk = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
@@ -58,6 +57,7 @@ const [chosenAnimalId, setChosenAnimalId] = useState<string>("");
             //if response ok
             if (response.ok) {
                 setNewMilk({
+                    id: "",
                     kgMilk: "",
                     milkDate: "",
                     animal_id: chosenAnimalId,
@@ -68,11 +68,12 @@ const [chosenAnimalId, setChosenAnimalId] = useState<string>("");
             console.log(error);
         }
     };
+    //Shows the last milks from the chosen animal id
     const changeAnimal = (e: React.ChangeEvent<HTMLSelectElement>) => {
         const { value } = e.target;
         setChosenAnimalId(value);
     };
-
+// Gets milk wfor the chosen animalId
     const getMilkByAnimals = async (animalId: string) => {
         try {
             const response = await fetch(
@@ -97,6 +98,7 @@ const [chosenAnimalId, setChosenAnimalId] = useState<string>("");
             console.error("Fel vid hämtning av djur i besättningen");
         }
     };
+    // Get's all animals and the id:s from the database
     const getAnimals = async () => {
         try {
             const response = await fetch(`http://localhost:8000/api/animals`, {
@@ -128,7 +130,7 @@ const [chosenAnimalId, setChosenAnimalId] = useState<string>("");
             >
                 <div className="form-group">
                     <label htmlFor="animal_id" className="form-label">
-                        djur:
+                        Djur:
                     </label>
                     <select
                         id="animal_id"
@@ -173,7 +175,7 @@ const [chosenAnimalId, setChosenAnimalId] = useState<string>("");
 
                 <thead>
                     <tr>
-                        <th>SE-nummer</th>
+                        <th>Djur-Id</th>
                         <th>Mjölkning</th>
                         <th>Datum</th>
                         <th>Hantera</th>
@@ -185,7 +187,7 @@ const [chosenAnimalId, setChosenAnimalId] = useState<string>("");
                             <td>{milk.animal_id}</td>
                             <td>{milk.kgMilk}</td>
                             <td>{milk.milkDate}</td>
-                            <td>test</td>
+                            <td><button className="button">Ändra</button><button className="button">Radera</button></td>
                         </tr>))}
                 </tbody>
             </table>
