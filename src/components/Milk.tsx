@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState, FormEvent } from "react";
 import Cookies from "universal-cookie";
 
@@ -13,9 +14,9 @@ function Handle() {
     const cookies = new Cookies();
     const token = cookies.get("token");
     const [chosenAnimalId, setChosenAnimalId] = useState<string>("");
-    const [animals, setAnimals] = useState<string[]>([]);
+    const [animals, setAnimals] = useState<{ id: string; animalId: string }[]>([]);
     const [milks, setMilks] = useState<Milk[]>([]);
-//States store data
+    //States store data
     const [newMilk, setNewMilk] = useState<Milk>({
         id: "",
         kgMilk: "",
@@ -29,11 +30,15 @@ function Handle() {
             getMilkByAnimals(chosenAnimalId);
         }
         getAnimals();
+
     }, [chosenAnimalId]);
-//Handle changes in the input field
+    //Handle changes in the input field
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
-        setNewMilk({ ...newMilk, [name]: value });
+        setNewMilk(prevState => ({
+            ...prevState,
+            [name]: value
+        }));
     };
     //Post Milk data with fetch 
     const addMilk = async (e: FormEvent<HTMLFormElement>) => {
@@ -57,7 +62,7 @@ function Handle() {
             //if response ok
             if (response.ok) {
                 setNewMilk({
-                    id: "",
+                    id: responseData.id,
                     kgMilk: "",
                     milkDate: "",
                     animal_id: chosenAnimalId,
@@ -73,11 +78,11 @@ function Handle() {
         const { value } = e.target;
         setChosenAnimalId(value);
     };
-// Gets milk wfor the chosen animalId
-    const getMilkByAnimals = async (animalId: string) => {
+    // Gets milk wfor the chosen animalId
+    const getMilkByAnimals = async (id: string) => {
         try {
             const response = await fetch(
-                `http://localhost:8000/api/milks/animals/${animalId}`,
+                `http://localhost:8000/api/milks/animals/${id}`,
                 {
                     method: "GET",
                     headers: {
@@ -111,7 +116,12 @@ function Handle() {
             });
             if (response.ok) {
                 const jsonData = await response.json();
-                const animalIds = jsonData.map((animal: any) => animal.id);
+                //Map function to transform objects in the array
+                const animalIds = jsonData.map((animal: any) =>
+                ({
+                    id: animal.id,
+                    animalId: animal.animalId
+                }));
                 setAnimals(animalIds);
             } else {
                 throw new Error("Något gick fel");
@@ -119,8 +129,29 @@ function Handle() {
         } catch (error) {
             console.error("Fel vid hämtning");
         }
-
     };
+    //Delete Milk with id
+    const deleteMilk = async (id: string) => {
+        try {
+            const response = await fetch(`http://localhost:8000/api/milks/${id}`, {
+                method: "DELETE",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${token}`,
+                    Accept: "application/json",
+                },
+
+            });
+            if (response.ok) {
+                alert("Mjölkning är nu raderad");
+
+            } else {
+                throw new Error("Något gick fel vid radering av mjölkning");
+            }
+        } catch (error) {
+            console.error("Något gick fel:", error);
+        }
+    }
 
     return (
         <div>
@@ -130,7 +161,7 @@ function Handle() {
             >
                 <div className="form-group">
                     <label htmlFor="animal_id" className="form-label">
-                        Djur:
+                        SE-nummer:
                     </label>
                     <select
                         id="animal_id"
@@ -139,8 +170,8 @@ function Handle() {
                         value={chosenAnimalId}
                         onChange={changeAnimal}>
                         <option value="">Välj ett djur</option>
-                        {animals.map((animalId) => (
-                            <option key={animalId} value={animalId}>{animalId}</option>
+                        {animals.map((animalSE) => (
+                            <option key={animalSE.id} value={animalSE.id}>{animalSE.animalId}</option>
                         ))}
                     </select>
                 </div>
@@ -149,7 +180,7 @@ function Handle() {
                         Mjölk i kg:
                     </label>
                     <input
-                        type="kgMilk"
+                        type="text"
                         id="kgMilk"
                         name="kgMilk"
                         className="form-control"
@@ -160,10 +191,11 @@ function Handle() {
                         Datum för mjölkning:
                     </label>
                     <input
-                        type="milkDate"
+                        type="text"
                         id="milkDate"
                         name="milkDate"
                         className="form-control"
+                        value={newMilk.milkDate}
                         onChange={handleInputChange} />
                 </div>
                 <button type="submit" className="button w-50 mt-2">
@@ -185,9 +217,12 @@ function Handle() {
                     {milks.map((milk) => (
                         <tr key={milk.id}>
                             <td>{milk.animal_id}</td>
-                            <td>{milk.kgMilk}</td>
+                            <td>{milk.kgMilk} Kg</td>
                             <td>{milk.milkDate}</td>
-                            <td><button className="button">Ändra</button><button className="button">Radera</button></td>
+                            <td><button className="button">Ändra</button><button onClick={() => {
+                                deleteMilk(milk.id);
+                            }}
+                                className="button m-2">Radera</button></td>
                         </tr>))}
                 </tbody>
             </table>
