@@ -261,7 +261,7 @@ const userid = sessionStorage.getItem("userid")!;
       <p>{message.description}</p>
     </article>
   );
-})};
+})}
       </section>
     </div>
   );

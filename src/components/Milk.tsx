@@ -9,7 +9,7 @@ interface Milk {
     animal_id: string;
 
 }
-function Handle() {
+function Milk() {
     //States
     const cookies = new Cookies();
     const token = cookies.get("token");
@@ -155,6 +155,7 @@ function Handle() {
 
     return (
         <div>
+            <h2>Mjölkning</h2>
             <form
                 className="form-control handleForm form-control-sm border-2 p-5 mx-auto w-50 "
                 onSubmit={addMilk}
@@ -229,4 +230,4 @@ function Handle() {
         </div>
     );
 };
-export default Handle;
+export default Milk;
