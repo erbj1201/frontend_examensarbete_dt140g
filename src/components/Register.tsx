@@ -172,7 +172,7 @@ const RegisterPage: React.FC = () => {
             onChange={({ target }) =>
               handleUserInput(target.name, target.value)
             }
-            autoComplete="new-email" //Alternativ att det är i mailformat
+            autoComplete="new-email" 
           />
           <p className="error-message">{formError.email}</p>
         </div>

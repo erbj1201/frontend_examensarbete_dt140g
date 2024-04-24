@@ -16,6 +16,7 @@ function Medicine() {
   //States
   const cookies = new Cookies();
   const token = cookies.get("token");
+  const [showMessage, setShowMessage] = useState<string | null>(null);
   const [chosenAnimalId, setChosenAnimalId] = useState<string>("");
   const [animals, setAnimals] = useState<{ id: string; animalId: string }[]>(
     []
@@ -30,6 +31,26 @@ function Medicine() {
     recurrent: true,
     animal_id: "",
   });
+  //State for error store data
+  const [formError, setFormError] = useState({
+    date: "",
+    type: "",
+    amount: "",
+    recurrent: "",
+    animal_id: "",
+  });
+   // Function to clear update and delete messages after a specified time
+   const clearMessages = () => {
+    //clear messages
+    setShowMessage(null);
+    setFormError({
+      date: "",
+      type: "",
+      amount: "",
+      recurrent: "false",
+      animal_id: "",
+    });
+  };
   // Fetch all medicines and animals with useEffect
   useEffect(() => {
     //getAnimals
@@ -53,6 +74,70 @@ function Medicine() {
   //Add Medicine data with fetch
   const addMedicine = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+//Object to track input errors
+    let inputError = { 
+    date: "",
+    type: "",
+    amount: "",
+    recurrent: "",
+    animal_id: "",
+    };
+    
+if(!newMedicine.date && !newMedicine.type && !newMedicine.amount && !chosenAnimalId ){
+  setFormError({
+    ...inputError,
+    animal_id: "Välj ett djur",
+    date: "Fyll i datum och tid",
+    type: "Fyll i typ av medicin",
+    amount: "Fyll i medicinens mängd/dos",
+  });
+    // Clear message after  3 seconds
+    setTimeout(clearMessages, 3000);
+    return;
+}
+
+//Check if animal_id empty
+if (!chosenAnimalId) {
+  setFormError({
+    ...inputError,
+    animal_id: "Välj ett djur",
+  });
+  // Clear message after  3 seconds
+  setTimeout(clearMessages, 3000);
+  return;
+}
+
+//Check if date empty
+if (!newMedicine.date) {
+  setFormError({
+    ...inputError,
+    date: "Fyll i datum och tid",
+  });
+  // Clear message after  3 seconds
+  setTimeout(clearMessages, 3000);
+  return;
+}
+//Check if type empty
+if (!newMedicine.type) {
+  setFormError({
+    ...inputError,
+    type: "Fyll i typ av medicin",
+  });
+  // Clear message after  3 seconds
+  setTimeout(clearMessages, 3000);
+  return;
+}
+//Check if amount empty
+if (!newMedicine.amount) {
+  setFormError({
+    ...inputError,
+    amount: "Fyll i medicinens mängd/dos",
+  });
+  // Clear message after  3 seconds
+  setTimeout(clearMessages, 3000);
+  return;
+}
+
     //Sanitize input fields with DOMPurify
     const sanitizedDate = DOMPurify.sanitize(newMedicine.date);
     const sanitizedType = DOMPurify.sanitize(newMedicine.type);
@@ -99,9 +184,16 @@ function Medicine() {
           recurrent: false,
           animal_id: chosenAnimalId,
         });
+        getMedicinesByAnimals(chosenAnimalId);
+        setShowMessage('Medicineringen är tillagd')
+        // Clear message after  3 seconds
+        setTimeout(clearMessages, 3000);
       }
       console.log(responseData);
     } catch (error) {
+      setShowMessage('Fel vid lagring av medicinering')
+      // Clear message after  3 seconds
+      setTimeout(clearMessages, 3000);
       console.log(error);
     }
   };
@@ -176,7 +268,7 @@ function Medicine() {
         }
       );
       if (response.ok) {
-        alert("Medicineringen är nu raderad");
+        alert("Medicineringen är raderad");
       } else {
         throw new Error("Något gick fel vid radering av medicinering");
       }
@@ -187,6 +279,8 @@ function Medicine() {
 
   return (
     <div>
+      {/*form for adding medicine*/}
+      
       <form
         className="form-control handleForm form-control-sm border-2 p-5 mx-auto w-50 "
         onSubmit={addMedicine}
@@ -210,6 +304,7 @@ function Medicine() {
               </option>
             ))}
           </select>
+          <p className="error-message">{formError.animal_id}</p>
         </div>
         <div className="form-group">
           <label htmlFor="date" className="form-label">
@@ -223,6 +318,7 @@ function Medicine() {
             value={newMedicine.date}
             onChange={handleInputChange}
           />
+          <p className="error-message">{formError.date}</p>
         </div>
         <div className="form-group">
           <label htmlFor="type" className="form-label">
@@ -236,6 +332,7 @@ function Medicine() {
             value={newMedicine.type}
             onChange={handleInputChange}
           />
+          <p className="error-message">{formError.type}</p>
         </div>
         <div className="form-group">
           <label htmlFor="amount" className="form-label">
@@ -249,6 +346,7 @@ function Medicine() {
             value={newMedicine.amount}
             onChange={handleInputChange}
           />
+          <p className="error-message">{formError.amount}</p>
         </div>
         <div className="form-check">
           <p>Ska medicineringen återkomma?</p>
@@ -260,7 +358,7 @@ function Medicine() {
             id="recurrent-true"
             name="recurrent"
             className="form-check-input"
-            value={"true"}
+            value={"1"}
             onChange={handleInputChange}
           />
         </div>
@@ -273,7 +371,7 @@ function Medicine() {
             id="recurrent-false"
             name="recurrent"
             className="form-check-input"
-            value={"false"}
+            value={"0"}
             onChange={handleInputChange}
             checked
           />
@@ -282,6 +380,9 @@ function Medicine() {
           Lägg till
         </button>
       </form>
+      {showMessage && (
+        <p className="alert alert-light text-center mt-2">{showMessage}</p>
+      )}
       <h2>Senaste medicineringarna:</h2>
       <table className="table table-responsive table-hover">
         <thead>
@@ -302,7 +403,7 @@ function Medicine() {
               <td>{medicine.type}</td>
               <td>{medicine.amount}</td>
               {/**Check if medicine.recurrent is true or false */}
-              <td>{medicine.recurrent ? 'Ja' : 'Nej'}</td>
+              <td>{medicine.recurrent ? "Ja" : "Nej"}</td>
               <td>
                 <button className="button">Ändra</button>
                 <button

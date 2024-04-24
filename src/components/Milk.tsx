@@ -194,7 +194,7 @@ function Milk() {
                         className="form-control"
                         value={chosenAnimalId}
                         onChange={changeAnimal}>
-                        <option value="">Välj ett djur</option>
+                        <option value="inget">Välj ett djur</option>
                         {animals.map((animal) => (
                             <option key={animal.id} value={animal.id}>{animal.animalId}</option>
                         ))}
