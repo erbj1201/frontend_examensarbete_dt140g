@@ -144,11 +144,19 @@ const RegisterPage: React.FC = () => {
           password: "",
           confirmPassword: "",
         });
+        console.log(responseData);
         setShowMessage('En ny användare är registrerad')
         // Clear message after  3 seconds
         setTimeout(clearMessages, 3000);
-      }
-      console.log(responseData);
+     } else if(response.status === 400) { 
+      setShowMessage('Mejladressen är upptagen av en annan användare')
+      // Clear message after  3 seconds
+      setTimeout(clearMessages, 3000);
+     } else {
+      setShowMessage('Ett oväntat fel har inträffat, försök igen')
+      // Clear message after  3 seconds
+      setTimeout(clearMessages, 3000);
+     }
     } catch (error) {
       console.log(error);
       setShowMessage('Användaren kunde inte skapas')
