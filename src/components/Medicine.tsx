@@ -290,6 +290,7 @@ function Medicine() {
       <form
         className="form-control handleForm form-control-sm border-2 p-5 mx-auto w-50 "
         onSubmit={addMedicine}
+        noValidate
       >
         <h2>Medicinering</h2>
         <div className="form-group">

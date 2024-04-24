@@ -15,6 +15,7 @@ function Vaccine() {
     //States
     const cookies = new Cookies();
     const token = cookies.get("token");
+    const [showMessage, setShowMessage] = useState<string | null>(null);
     const [chosenAnimalId, setChosenAnimalId] = useState<string>("");
     const [animals, setAnimals] = useState<{ id: string; animalId: string }[]>([]);
     const [vaccines, setVaccines] = useState<Vaccine[]>([]);
@@ -26,13 +27,32 @@ function Vaccine() {
         date: "",
         animal_id: "",
     });
+    //State for error store data
+  const [formError, setFormError] = useState({
+    batchNo: "",
+    name: "",
+    date: "",
+    animal_id: "",
+  });
+  // Function to clear update and delete messages after a specified time
+  const clearMessages = () => {
+    //clear messages
+    setShowMessage(null);
+    setFormError({
+        batchNo: "",
+        name: "",
+        date: "",
+        animal_id: "",
+    });
+  };
+
     useEffect(() => {
+        getAnimals();
         if (chosenAnimalId) {
             getVaccineByAnimals(chosenAnimalId);
         }
-        getAnimals();
-
     }, [chosenAnimalId]);
+
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
         const sanitizedData = DOMPurify.sanitize(value);
@@ -45,6 +65,74 @@ function Vaccine() {
     //Post Vaccine with fetch
     const addVaccine = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
+         //Object to track input errors
+    let inputError = {
+    batchNo: "",
+    name: "",
+    date: "",
+    animal_id: "",
+      };
+
+      //check if all fields empty
+    if (
+        !newVaccine.batchNo &&
+        !newVaccine.name &&
+        !newVaccine.date &&
+        !chosenAnimalId
+      ) {
+        setFormError({
+          ...inputError,
+          animal_id: "Välj ett djur",
+          batchNo: "Fyll i ett batchnummer",
+          name: "Fyll i namnet på vaccinet",
+          date: "Fyll i ett datum",
+        });
+        // Clear message after  3 seconds
+        setTimeout(clearMessages, 3000);
+        return;
+      }
+  
+      //Check if animal_id empty
+      if (!chosenAnimalId) {
+        setFormError({
+          ...inputError,
+          animal_id: "Välj ett djur",
+        });
+        // Clear message after  3 seconds
+        setTimeout(clearMessages, 3000);
+        return;
+      }
+  
+      //Check if date empty
+      if (!newVaccine.batchNo) {
+        setFormError({
+          ...inputError,
+          batchNo: "Fyll i ett batchnummer",
+        });
+        // Clear message after  3 seconds
+        setTimeout(clearMessages, 3000);
+        return;
+      }
+      //Check if type empty
+      if (!newVaccine.name)  {
+        setFormError({
+          ...inputError,
+          name: "Fyll i namnet på vaccinet",
+        });
+        // Clear message after  3 seconds
+        setTimeout(clearMessages, 3000);
+        return;
+      }
+      //Check if amount empty
+      if (!newVaccine.date) {
+        setFormError({
+          ...inputError,
+          date: "Fyll i ett datum",
+        });
+        // Clear message after  3 seconds
+        setTimeout(clearMessages, 3000);
+        return;
+      }
 
         //Sanitize input fields with DOMPurify
         const sanitizedBatchNo = DOMPurify.sanitize(newVaccine.batchNo);
@@ -86,9 +174,17 @@ function Vaccine() {
                     date: "",
                     animal_id: chosenAnimalId,
                 });
+                //get all medicine from animal
+        getVaccineByAnimals(chosenAnimalId);
+        setShowMessage("Vaccineringen är tillagd");
+        // Clear message after  3 seconds
+        setTimeout(clearMessages, 3000);
             }
             console.log(responseData);
         } catch (error) {
+            setShowMessage("Fel vid lagring av vaccinering");
+      // Clear message after  3 seconds
+      setTimeout(clearMessages, 3000);
             console.log(error);
         }
     };
@@ -175,6 +271,7 @@ function Vaccine() {
             <form
                 className="form-control handleForm form-control-sm border-2 p-5 mx-auto w-50 "
                 onSubmit={addVaccine}
+                noValidate
             >  <h2>Vaccinering</h2>
                 <div className="form-group">
                     <label htmlFor="animal_id" className="form-label">
@@ -191,6 +288,8 @@ function Vaccine() {
                             <option key={animal.id} value={animal.id}>{animal.animalId}</option>
                         ))}
                     </select>
+                    <p className="error-message">{formError.animal_id}</p>
+                    </div>
                     <div className="form-group">
                         <label htmlFor="batchNo" className="form-label">
                             Batchnummer:
@@ -201,6 +300,7 @@ function Vaccine() {
                             name="batchNo"
                             className="form-control"
                             onChange={handleInputChange} />
+                            <p className="error-message">{formError.batchNo}</p>
                     </div>
                     <div className="form-group">
                         <label htmlFor="name" className="form-label">
@@ -212,6 +312,7 @@ function Vaccine() {
                             name="name"
                             className="form-control"
                             onChange={handleInputChange} />
+                            <p className="error-message">{formError.name}</p>
                     </div>
                     <div className="form-group">
                         <label htmlFor="date" className="form-label">
@@ -224,11 +325,14 @@ function Vaccine() {
                             placeholder="yyyy-mm-dd hh-MM"
                             className="form-control"
                             onChange={handleInputChange} />
+                            <p className="error-message">{formError.date}</p>
                     </div>
-                </div>
                 <button type="submit" className="button w-50 mt-2">
                     Lägg till
                 </button>
+                {showMessage && (
+        <p className="alert alert-light text-center mt-2">{showMessage}</p>
+      )}
             </form>
             <h2> Senaste Vaccinationerna för:</h2>
             <table className="table table-responsive table-hover">
