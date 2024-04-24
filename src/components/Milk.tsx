@@ -48,6 +48,7 @@ function Milk() {
     //Add Milk data with fetch 
     const addMilk = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
+
         //Sanitize input fields with DOMPurify
         const sanitizedKgMilk = DOMPurify.sanitize(newMilk.kgMilk);
         const sanitizedMilkDate = DOMPurify.sanitize(newMilk.milkDate);
@@ -73,18 +74,23 @@ function Milk() {
                     animal_id: chosenAnimalId,
                 }),
             });
-
-            const responseData = await response.json();
+ const responseData = await response.json();
+ console.log(responseData);
             //if response ok
             if (response.ok) {
+                
+           
+            // Update state for milk
+           
                 setNewMilk({
                     id: responseData.id,
                     kgMilk: "",
                     milkDate: "",
                     animal_id: chosenAnimalId,
                 });
+             
             }
-            console.log(responseData);
+           
         } catch (error) {
             console.log(error);
         }
@@ -173,6 +179,7 @@ function Milk() {
     return (
         <div>
           
+        
             <form
                 className="form-control handleForm form-control-sm border-2 p-5 mx-auto w-50 "
                 onSubmit={addMilk}
@@ -210,7 +217,7 @@ function Milk() {
                         Datum för mjölkning:
                     </label>
                     <input
-                        type="text"
+                        type="datetime-local"
                         id="milkDate"
                         name="milkDate"
                         className="form-control"
@@ -221,7 +228,9 @@ function Milk() {
                     Lägg till
                 </button>
             </form>
-            <h2>Senaste mjölkningarna:</h2>
+      
+            <h2>Senaste mjölkningarna för:</h2>
+           
             <table className="table table-responsive table-hover">
 
                 <thead>
@@ -235,6 +244,7 @@ function Milk() {
                 <tbody>
                     {milks.map((milk) => (
                         <tr key={milk.id}>
+                            
                             <td>{milk.animal_id}</td>
                             <td>{milk.kgMilk} Kg</td>
                             <td>{milk.milkDate}</td>
@@ -244,7 +254,7 @@ function Milk() {
                                 className="button m-2">Radera</button></td>
                         </tr>))}
                 </tbody>
-            </table>
+            </table>    
         </div>
     );
 };

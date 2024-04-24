@@ -1,4 +1,5 @@
 
+import DOMPurify from "dompurify";
 import React, { useEffect, useState, FormEvent } from "react";
 import Cookies from "universal-cookie";
 
@@ -31,18 +32,33 @@ function Vaccine() {
         }
         getAnimals();
 
-    }, []);
+    }, [chosenAnimalId]);
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
+        const sanitizedData = DOMPurify.sanitize(value);
         setNewVaccine(prevState => ({
             ...prevState,
-            [name]: value
+            [name]: sanitizedData
         }));
     };
 
     //Post Vaccine with fetch
     const addVaccine = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
+
+        //Sanitize input fields with DOMPurify
+        const sanitizedBatchNo = DOMPurify.sanitize(newVaccine.batchNo);
+        const sanitizedName = DOMPurify.sanitize(newVaccine.name);
+        const sanitizedDate = DOMPurify.sanitize(newVaccine.date);
+
+        setNewVaccine({
+            id: newVaccine.id,
+            batchNo: sanitizedBatchNo,
+            name: sanitizedName,
+            date: sanitizedDate,
+            animal_id: chosenAnimalId
+
+        });
 
         try {
             const response = await fetch(`http://localhost:8000/api/vaccines/animals/${chosenAnimalId}`, {
@@ -53,9 +69,9 @@ function Vaccine() {
                     Accept: "application/json",
                 },
                 body: JSON.stringify({
-                    batchNo: newVaccine.batchNo,
-                    name: newVaccine.name,
-                    date: newVaccine.date,
+                    batchNo: sanitizedBatchNo,
+                    name: sanitizedName,
+                    date: sanitizedDate,
                     animal_id: chosenAnimalId,
                 }),
             });
@@ -133,11 +149,29 @@ function Vaccine() {
             console.error("Fel vid hämtning");
         }
     };
+    //Delete vaccine with Id
+    const deleteVaccine = async (id: string) => {
+        try {
+            const response = await fetch(`http://localhost:8000/api/vaccines/${id}`, {
+                method: "DELETE",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${token}`,
+                    Accept: "application/json",
+                },
+            });
+            if (response.ok) {
+                alert("Vaccinering är nu raderad");
+            } else {
+                throw new Error("Något gick fel vid radering av vaccinering");
+            }
+        } catch (error) {
+            console.error("Något gick fel:", error);
+        }
+    }
 
     return (
         <div>
-
-
             <form
                 className="form-control handleForm form-control-sm border-2 p-5 mx-auto w-50 "
                 onSubmit={addVaccine}
@@ -181,12 +215,13 @@ function Vaccine() {
                     </div>
                     <div className="form-group">
                         <label htmlFor="date" className="form-label">
-                            Datum för vaccin:
+                            Datum och tid för vaccin: 
                         </label>
                         <input
-                            type="text"
+                            type="datetime-local"
                             id="date"
                             name="date"
+                            placeholder="yyyy-mm-dd hh-MM"
                             className="form-control"
                             onChange={handleInputChange} />
                     </div>
@@ -195,6 +230,32 @@ function Vaccine() {
                     Lägg till
                 </button>
             </form>
+            <h2> Senaste Vaccinationerna för:</h2>
+            <table className="table table-responsive table-hover">
+                <thead>
+                    <tr>
+                        <th>Djur-Id</th>
+                        <th>Namn</th>
+                        <th>Batchnummer</th>
+                        <th>Datum</th>
+                        <th>Hantera</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {vaccines.map((vaccine) => (
+                        <tr key={vaccine.id}>
+                            <td>{vaccine.id}</td>
+                            <td>{vaccine.name}</td>
+                            <td>{vaccine.batchNo}</td>
+                            <td>{vaccine.date}</td>
+                            <td><button className="button">Ändra</button><button onClick={() => {
+                                deleteVaccine(vaccine.id);
+                            }}
+                                className="button m-2">Radera</button></td>
+                        </tr>))}
+
+                </tbody>
+            </table>
         </div>)
 };
 
