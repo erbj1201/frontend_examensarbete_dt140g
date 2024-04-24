@@ -169,7 +169,7 @@ function Vaccine() {
 
       const responseData = await response.json();
       //if response ok
-      if (responseData.ok) {
+      if (response.ok) {
         setNewVaccine({
           id: responseData.id,
           batchNo: "",
