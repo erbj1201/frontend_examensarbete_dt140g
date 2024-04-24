@@ -5,6 +5,7 @@ import Cookies from "universal-cookie";
 
 interface Calf {
   id: string;
+  animalId: string,
   earNo: string,
   breed: string,
   name: string,
@@ -24,6 +25,7 @@ function Calf() {
   //States store data
   const [newCalf, setNewCalf] = useState<Calf>({
     id: "",
+    animalId: "",
     earNo: "",
     breed: "",
     name: "",
@@ -57,6 +59,7 @@ function Calf() {
     e.preventDefault();
     console.log("chosenAnimalId:", chosenAnimalId);
     //Sanitize input fields with DOMPurify
+    const sanitizedAnimalId = DOMPurify.sanitize(newCalf.animalId);
     const sanitizedEarNo = DOMPurify.sanitize(newCalf.earNo);
     const sanitizedBreed = DOMPurify.sanitize(newCalf.breed);
     const sanitizedName = DOMPurify.sanitize(newCalf.name);
@@ -66,6 +69,7 @@ function Calf() {
     //Update state with sanitized values
     setNewCalf({
       id: newCalf.id,
+      animalId: sanitizedAnimalId,
       earNo: sanitizedEarNo,
       breed: sanitizedBreed,
       name: sanitizedName,
@@ -84,6 +88,7 @@ function Calf() {
           Accept: "application/json",
         },
         body: JSON.stringify({
+          animalId: sanitizedAnimalId,
           earNo: sanitizedEarNo,
           breed: sanitizedBreed,
           name: sanitizedName,
@@ -100,6 +105,7 @@ function Calf() {
       if (response.ok) {
         setNewCalf({
           id: responseData.id,
+          animalId: "",
           earNo: "",
           breed: "",
           name: "",
@@ -114,7 +120,7 @@ function Calf() {
       console.log(error);
     }
   };
-  //Trigger that shows the last milks from the chosen id (animal). 
+  //Trigger that shows the last calves from the chosen id (animal). 
   const changeAnimal = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const { value } = e.target;
     setChosenAnimalId(value);
@@ -173,7 +179,7 @@ function Calf() {
       console.error("Fel vid hämtning");
     }
   };
-
+ 
   //Delete Calf with id
   const deleteCalf = async (id: string) => {
     try {
@@ -195,7 +201,7 @@ function Calf() {
     } catch (error) {
       console.error("Något gick fel:", error);
     }
-  }
+  } 
   return (
     <div>
       <form
@@ -204,20 +210,17 @@ function Calf() {
       >
         <h2>Kalvning</h2>
         <div className="form-group">
-          <label htmlFor="animal_id" className="form-label">
+          <label htmlFor="animalId" className="form-label">
             SE-nummer:
           </label>
-          <select
-            id="animal_id"
-            name="animal_id"
+          <input
+          type="text"
+            id="animalId"
+            name="animalId"
             className="form-control"
-            value={chosenAnimalId}
-            onChange={changeAnimal}>
-            <option value="">Välj ett djur</option>
-            {animals.map((animal) => (
-              <option key={animal.id} value={animal.id}>{animal.animalId}</option>
-            ))}
-          </select>
+            value={newCalf.animalId}
+            onChange={handleInputChange}/>
+          
         </div>
         <div className="form-group">
           <label htmlFor="earNo" className="form-label">
@@ -256,7 +259,7 @@ function Calf() {
             onChange={handleInputChange} />
         </div>
         <div className="form-group">
-          <label htmlFor="expBirth" className="form-label">
+          <label htmlFor="expectedBirthDate" className="form-label">
             Förväntat födelsedatum:
           </label>
           <input
@@ -279,27 +282,27 @@ function Calf() {
             value={newCalf.birthDate}
             onChange={handleInputChange} />
         </div>
-        {/* <div className="form-check">
+     <div className="form-check">
           <p>Kön:</p>
-          <label htmlFor="female" className="form-check-label">
+          <label htmlFor="hona" className="form-check-label">
             Hona
           </label>
           <input
             type="radio"
-            id="female"
+            id="hona"
             name="sex"
             className="form-check-input"
-            value={"true"}
-            onChange={handleInputChange}
+           
+            onChange={handleInputChange} checked
             />
         </div>
         <div className="form-check">
-          <label htmlFor="male" className="form-check-label">
+          <label htmlFor="male-false" className="form-check-label">
             Hane
           </label>
           <input
             type="radio"
-            id="male"
+            id="male-false"
             name="sex"
             className="form-check-input"
            
@@ -307,16 +310,16 @@ function Calf() {
         </div>
         <div className="form-check">
           <p>Kategori:</p>
-          <label htmlFor="meatAnimal" className="form-check-label">
+          <label htmlFor="kött" className="form-check-label">
             Köttdjur
           </label>
           <input
             type="radio"
-            id="meatAnimal"
+            id="kött"
             name="category"
             className="form-check-input"
            
-            onChange={handleInputChange} />
+            onChange={handleInputChange} checked/>
         </div>
         <div className="form-check">
           <label htmlFor="milkAnimal-false" className="form-check-label">
@@ -324,18 +327,74 @@ function Calf() {
           </label>
           <input
             type="radio"
-            id="milkAnimal"
+            id="milkAnimal-false"
             name="category"
             className="form-check-input"
             
             onChange={handleInputChange} />
-        </div> */}
+        </div>
+        <div className="form-group">
+          <label htmlFor="animal_id" className="form-label">
+            Mamma:
+          </label>
+          <select
+            id="animal_id"
+            name="animal_id"
+            className="form-control"
+            value={chosenAnimalId}
+            onChange={changeAnimal}>
+
+            <option value="">Välj ett djur</option>
+            {animals.map((animal) => (
+              <option key={animal.id} value={animal.id}>{animal.animalId}
+              </option>
+            ))}
+          </select>
+        </div>
         <button type="submit" className="button w-50 mt-2">
           Lägg till
         </button>
       </form>
-
-    </div>)
-
-};
+<h2> Senaste kalvarna</h2>
+<table className="table table-responsive table-hover">
+        <thead>
+          <tr>
+            <th>Djur-Id</th>
+            <th>Öronnummer</th>
+            <th>Ras</th>
+            <th>Namn</th>
+            <th>Förväntat födelsedatum</th>
+            <th>Födelsedatum</th>
+            <th>Kön</th>
+            <th>Kategori</th>
+            <th>Hantera</th>
+          </tr>
+          </thead>
+          <tbody>
+          {calves.map((calf) => (
+            <tr key={calf.id}>
+            <td>{calf.animalId}</td>
+            <td>{calf.earNo}</td>
+            <td>{calf.breed}</td>
+            <td>{calf.name}</td>
+            <td>{calf.expectedBirthDate}</td>
+            <td>{calf.birthDate}</td>
+            <td>{calf.sex}</td>
+            <td>{calf.category}</td>
+            <td><button className="button">Ändra</button>
+                <button
+                  onClick={() => {
+                    deleteCalf(calf.id);
+                  }}
+                  className="button m-2"
+                >
+                  Radera
+                </button></td>
+                </tr>
+          ))}
+           </tbody>   
+           </table>
+    </div>
+    );
+}
 export default Calf;

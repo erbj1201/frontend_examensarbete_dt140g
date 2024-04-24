@@ -124,7 +124,7 @@ function Milk() {
             console.error("Fel vid hämtning av mjölk");
         }
     };
-    
+
     // Get all animals with their animalId´s and id:s from the database
     const getAnimals = async () => {
         try {
