@@ -39,8 +39,8 @@ function Medicine() {
     recurrent: "",
     animal_id: "",
   });
-   // Function to clear update and delete messages after a specified time
-   const clearMessages = () => {
+  // Function to clear update and delete messages after a specified time
+  const clearMessages = () => {
     //clear messages
     setShowMessage(null);
     setFormError({
@@ -74,69 +74,74 @@ function Medicine() {
   //Add Medicine data with fetch
   const addMedicine = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-//Object to track input errors
-    let inputError = { 
-    date: "",
-    type: "",
-    amount: "",
-    recurrent: "",
-    animal_id: "",
+    //Object to track input errors
+    let inputError = {
+      date: "",
+      type: "",
+      amount: "",
+      recurrent: "",
+      animal_id: "",
     };
-    
-if(!newMedicine.date && !newMedicine.type && !newMedicine.amount && !chosenAnimalId ){
-  setFormError({
-    ...inputError,
-    animal_id: "Välj ett djur",
-    date: "Fyll i datum och tid",
-    type: "Fyll i typ av medicin",
-    amount: "Fyll i medicinens mängd/dos",
-  });
-    // Clear message after  3 seconds
-    setTimeout(clearMessages, 3000);
-    return;
-}
+    //check if all fields empty
+    if (
+      !newMedicine.date &&
+      !newMedicine.type &&
+      !newMedicine.amount &&
+      !chosenAnimalId
+    ) {
+      setFormError({
+        ...inputError,
+        animal_id: "Välj ett djur",
+        date: "Fyll i datum och tid",
+        type: "Fyll i typ av medicin",
+        amount: "Fyll i medicinens mängd/dos",
+      });
+      // Clear message after  3 seconds
+      setTimeout(clearMessages, 3000);
+      return;
+    }
 
-//Check if animal_id empty
-if (!chosenAnimalId) {
-  setFormError({
-    ...inputError,
-    animal_id: "Välj ett djur",
-  });
-  // Clear message after  3 seconds
-  setTimeout(clearMessages, 3000);
-  return;
-}
+    //Check if animal_id empty
+    if (!chosenAnimalId) {
+      setFormError({
+        ...inputError,
+        animal_id: "Välj ett djur",
+      });
+      // Clear message after  3 seconds
+      setTimeout(clearMessages, 3000);
+      return;
+    }
 
-//Check if date empty
-if (!newMedicine.date) {
-  setFormError({
-    ...inputError,
-    date: "Fyll i datum och tid",
-  });
-  // Clear message after  3 seconds
-  setTimeout(clearMessages, 3000);
-  return;
-}
-//Check if type empty
-if (!newMedicine.type) {
-  setFormError({
-    ...inputError,
-    type: "Fyll i typ av medicin",
-  });
-  // Clear message after  3 seconds
-  setTimeout(clearMessages, 3000);
-  return;
-}
-//Check if amount empty
-if (!newMedicine.amount) {
-  setFormError({
-    ...inputError,
-    amount: "Fyll i medicinens mängd/dos",
-  });
-  // Clear message after  3 seconds
-  setTimeout(clearMessages, 3000);
-  return;
-}
+    //Check if date empty
+    if (!newMedicine.date) {
+      setFormError({
+        ...inputError,
+        date: "Fyll i datum och tid",
+      });
+      // Clear message after  3 seconds
+      setTimeout(clearMessages, 3000);
+      return;
+    }
+    //Check if type empty
+    if (!newMedicine.type) {
+      setFormError({
+        ...inputError,
+        type: "Fyll i typ av medicin",
+      });
+      // Clear message after  3 seconds
+      setTimeout(clearMessages, 3000);
+      return;
+    }
+    //Check if amount empty
+    if (!newMedicine.amount) {
+      setFormError({
+        ...inputError,
+        amount: "Fyll i medicinens mängd/dos",
+      });
+      // Clear message after  3 seconds
+      setTimeout(clearMessages, 3000);
+      return;
+    }
 
     //Sanitize input fields with DOMPurify
     const sanitizedDate = DOMPurify.sanitize(newMedicine.date);
@@ -184,14 +189,15 @@ if (!newMedicine.amount) {
           recurrent: false,
           animal_id: chosenAnimalId,
         });
+        //get all medicine from animal
         getMedicinesByAnimals(chosenAnimalId);
-        setShowMessage('Medicineringen är tillagd')
+        setShowMessage("Medicineringen är tillagd");
         // Clear message after  3 seconds
         setTimeout(clearMessages, 3000);
       }
       console.log(responseData);
     } catch (error) {
-      setShowMessage('Fel vid lagring av medicinering')
+      setShowMessage("Fel vid lagring av medicinering");
       // Clear message after  3 seconds
       setTimeout(clearMessages, 3000);
       console.log(error);
@@ -280,7 +286,7 @@ if (!newMedicine.amount) {
   return (
     <div>
       {/*form for adding medicine*/}
-      
+
       <form
         className="form-control handleForm form-control-sm border-2 p-5 mx-auto w-50 "
         onSubmit={addMedicine}

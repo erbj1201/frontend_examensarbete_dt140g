@@ -12,7 +12,11 @@ function Login() {
     email: "",
     password: "",
   });
-
+ //State for error to form
+ const [formError, setFormError] = useState({
+  email: "",
+  password: "",
+});
   //Create new instance of cookie
   const cookies = new Cookies();
   //One hour in milliseconds
@@ -28,9 +32,62 @@ function Login() {
       [e.target.name]: e.target.value,
     });
   };
+
+  // Function to clear update and delete messages after a specified time
+  const clearMessages = () => {
+    //clear messages
+    setShowMessage(null);
+    setFormError({
+      email: "",
+      password: "",
+    });
+  };
   //Event for handling login
   const loginUser = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+ //Object to track input errors
+ let inputError = {
+  email: "",
+  password: "",
+};
+
+  // check if title, description are empty
+  if (!userData.email && !userData.password) {
+    setFormError({
+      ...inputError,
+      email: "Fyll i en mejladress",
+      password: "Fyll i ett lösenord",
+    });
+    // Clear message after  3 seconds
+    setTimeout(clearMessages, 3000);
+    return;
+  }
+
+  // check if title, description are empty
+  if (!userData.email) {
+    setFormError({
+      ...inputError,
+      email: "Fyll i en mejladress",
+    });
+    // Clear message after  3 seconds
+    setTimeout(clearMessages, 3000);
+    return;
+  }
+
+    // check if title, description are empty
+    if (!userData.password) {
+      setFormError({
+        ...inputError,
+        password: "Fyll i ett lösenord",
+      });
+      // Clear message after  3 seconds
+      setTimeout(clearMessages, 3000);
+      return;
+    }
+
+
+
     //Fetch
     try {
       const response = await fetch("http://127.0.0.1:8000/api/login", {
@@ -58,9 +115,13 @@ function Login() {
       } else {
         //Error login
         setShowMessage("Felaktig inloggning, fel mejladress eller lösenord");
+        // Clear message after  3 seconds
+      setTimeout(clearMessages, 3000);
       } //Error login
     } catch (error) {
       setShowMessage("Fel vid inloggning");
+      // Clear message after  3 seconds
+      setTimeout(clearMessages, 3000);
     }
   };
   return (
@@ -73,6 +134,7 @@ function Login() {
       <form
         className="form-control form-control-sm border-0 p-2 mx-auto w-100"
         onSubmit={loginUser}
+        noValidate
       >
         <div className="form-group">
           <label htmlFor="email" className="form-label">
@@ -87,6 +149,7 @@ function Login() {
             value={userData.email}
             onChange={handleInputChange}
           />
+           <p className="error-message">{formError.email}</p>
         </div>
         <div className="form-group">
           <label htmlFor="password" className="form-label">
@@ -101,6 +164,7 @@ function Login() {
             value={userData.password}
             onChange={handleInputChange}
           />
+          <p className="error-message">{formError.password}</p>
         </div>
         <button type="submit" className="btn btn-secondary mt-2">
           Logga in

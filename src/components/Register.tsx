@@ -7,16 +7,16 @@ interface UserItem {
   email: string;
   password: string;
   confirmPassword: string;
-  successMsg: string;
 }
 const RegisterPage: React.FC = () => {
+//state for messages to form
+  const [showMessage, setShowMessage] = useState<string | null>(null);
   //State store data
   const [newUser, setNewUser] = useState<UserItem>({
     name: "",
     email: "",
     password: "",
     confirmPassword: "",
-    successMsg: "",
   });
 
   //State for error store data
@@ -26,6 +26,19 @@ const RegisterPage: React.FC = () => {
     password: "",
     confirmPassword: "",
   });
+
+
+   // Function to clear update and delete messages after a specified time
+   const clearMessages = () => {
+    //clear messages
+    setShowMessage(null);
+    setFormError({
+      name: "",
+      email: "",
+      password: "",
+      confirmPassword: "",
+    });
+  };
 
   //handle input
   const handleUserInput = (name: string, value: string) => {
@@ -52,6 +65,8 @@ const RegisterPage: React.FC = () => {
         email: "Fyll i en korrekt mejladress",
         password: "Fyll i ett lösenord",
       });
+      // Clear message after  3 seconds
+      setTimeout(clearMessages, 3000);
       return;
     }
     //Check if name empty
@@ -60,6 +75,8 @@ const RegisterPage: React.FC = () => {
         ...inputError,
         name: "Fyll i ett namn",
       });
+      // Clear message after  3 seconds
+      setTimeout(clearMessages, 3000);
       return;
     }
     //Check if email empty
@@ -68,6 +85,8 @@ const RegisterPage: React.FC = () => {
         ...inputError,
         email: "Fyll i en korrekt mejladress",
       });
+      // Clear message after  3 seconds
+      setTimeout(clearMessages, 3000);
       return;
     }
     //Check if password and confirm password match
@@ -77,6 +96,8 @@ const RegisterPage: React.FC = () => {
         confirmPassword:
           "Lösenord och bekräftat lösenord är inte lika, försök igen",
       });
+      // Clear message after  3 seconds
+      setTimeout(clearMessages, 3000);
       return;
     }
     //Check if password empty
@@ -85,6 +106,8 @@ const RegisterPage: React.FC = () => {
         ...inputError,
         password: "Fyll i ett lösenord",
       });
+      // Clear message after  3 seconds
+      setTimeout(clearMessages, 3000);
       return;
     }
     // Sanitize user input using DOMPurify
@@ -98,7 +121,6 @@ const RegisterPage: React.FC = () => {
       email: sanitizedEmail,
       password: sanitizedPassword,
       confirmPassword: newUser.confirmPassword,
-      successMsg: newUser.successMsg,
     });
     //fetch (post) new user
     try {
@@ -121,12 +143,25 @@ const RegisterPage: React.FC = () => {
           email: "",
           password: "",
           confirmPassword: "",
-          successMsg: "",
         });
-      }
-      console.log(responseData);
+        console.log(responseData);
+        setShowMessage('En ny användare är registrerad')
+        // Clear message after  3 seconds
+        setTimeout(clearMessages, 3000);
+     } else if(response.status === 400) { 
+      setShowMessage('Mejladressen är upptagen av en annan användare')
+      // Clear message after  3 seconds
+      setTimeout(clearMessages, 3000);
+     } else {
+      setShowMessage('Ett oväntat fel har inträffat, försök igen')
+      // Clear message after  3 seconds
+      setTimeout(clearMessages, 3000);
+     }
     } catch (error) {
       console.log(error);
+      setShowMessage('Användaren kunde inte skapas')
+        // Clear message after  3 seconds
+        setTimeout(clearMessages, 3000);
     }
   };
 
@@ -134,12 +169,15 @@ const RegisterPage: React.FC = () => {
     <div>
       <h1>Registrera konto</h1>
       {/*form to register user*/}
+      {showMessage && (
+        <p className="alert alert-light text-center mt-2">{showMessage}</p>
+      )}
       <form
         className="form-control form-control-sm border-0 p-2 mx-auto w-100"
         onSubmit={registerUser}
         noValidate //The formdata is not automaticallly validated by the browser
       >
-        <p className="success-message">{newUser.successMsg}</p>
+        
         {/*Form to add user*/}
         <div className="form-group">
           <label htmlFor="name" className="form-label">

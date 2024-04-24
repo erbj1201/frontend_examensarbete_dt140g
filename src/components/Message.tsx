@@ -12,20 +12,21 @@ interface MessageItem {
   userid: string;
 }
 interface Message {
-    id: number;
-    title: string;
-    description: string;
-    created_at: string;
+  id: number;
+  title: string;
+  description: string;
+  created_at: string;
 }
+
 //new instance of cookies
 const cookies = new Cookies();
 //get token from cookies
 const token = cookies.get("token");
+
 //get userid from sessionstorage
 const userid = sessionStorage.getItem("userid")!;
 
 const Message: React.FC = () => {
- 
   //State for storing data
   const [messageData, setMessageData] = useState<MessageItem>({
     title: "",
@@ -59,22 +60,19 @@ const Message: React.FC = () => {
       title: "",
       description: "",
     });
-    console.log("Message cleared");
   };
 
-// Fetch all herds and animals by user on component mount
-useEffect(() => {
-  
-     getAllMessages();
-      }, []);
+  // Fetch all herds and animals by user on component mount
+  useEffect(() => {
+    getAllMessages();
+  }, []);
   //Get users herds and users anmials
   const getAllMessages = async () => {
     const cookies = new Cookies();
     const token = cookies.get("token");
-    
-   
+
     //get userid from sessionstorage
-const userid = sessionStorage.getItem("userid")!;
+    const userid = sessionStorage.getItem("userid")!;
     try {
       // Fetch all user herds (get)
       const getMessages = await fetch(
@@ -83,21 +81,20 @@ const userid = sessionStorage.getItem("userid")!;
           method: "GET",
           headers: {
             "Content-Type": "application/json",
-            "Authorization": `Bearer ${token}`,
-            "Accept": "application/json",
+            Authorization: `Bearer ${token}`,
+            Accept: "application/json",
           },
         }
       );
-      const message= await getMessages.json();
+      const message = await getMessages.json();
 
       setFetchMessages(message);
 
-  
- //Get errors
-} catch (error) {
-    console.log(error);
-  } 
-} 
+      //Get errors
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const sendMessage = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -247,21 +244,25 @@ const userid = sessionStorage.getItem("userid")!;
       </div>
       <section>
         <h3>Alla skickade meddelanden</h3>
-        
-{fetchMessages.map((message) => {
-  // Convert created_at to a new Date-Object
-  const createNewDate = new Date(message.created_at);
-  // Convert Date and Time to the swedish standard. 
-  const formattedDateTime = `${createNewDate.toLocaleDateString('sv-SE')} ${createNewDate.toLocaleTimeString('sv-SE')}`;
-  
-  return (
-    <article key={message.id}>
-      <h4>{message.title}</h4>
-      <p><em>Skickat: {formattedDateTime}</em></p> 
-      <p>{message.description}</p>
-    </article>
-  );
-})}
+
+        {fetchMessages.map((message) => {
+          // Convert created_at to a new Date-Object
+          const createNewDate = new Date(message.created_at);
+          // Convert Date and Time to the swedish standard.
+          const formattedDateTime = `${createNewDate.toLocaleDateString(
+            "sv-SE"
+          )} ${createNewDate.toLocaleTimeString("sv-SE")}`;
+
+          return (
+            <article key={message.id}>
+              <h4>{message.title}</h4>
+              <p>
+                <em>Skickat: {formattedDateTime}</em>
+              </p>
+              <p>{message.description}</p>
+            </article>
+          );
+        })}
       </section>
     </div>
   );
