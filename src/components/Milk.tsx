@@ -1,4 +1,5 @@
 
+import DOMPurify from "dompurify";
 import React, { useEffect, useState, FormEvent } from "react";
 import Cookies from "universal-cookie";
 
@@ -26,24 +27,38 @@ function Milk() {
 
     // Fetch all milks and animals with useEffect
     useEffect(() => {
+        getAnimals();
         if (chosenAnimalId) {
             getMilkByAnimals(chosenAnimalId);
         }
-        getAnimals();
-
     }, [chosenAnimalId]);
+
     //Handle changes in the input field
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
+        //Sanitize value
+        const sanitizedData = DOMPurify.sanitize(value);
         setNewMilk(prevState => ({
             ...prevState,
-            [name]: value
+            [name]: sanitizedData
         }));
     };
-    //Post Milk data with fetch 
+
+
+    //Add Milk data with fetch 
     const addMilk = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
+        //Sanitize input fields with DOMPurify
+        const sanitizedKgMilk = DOMPurify.sanitize(newMilk.kgMilk);
+        const sanitizedMilkDate = DOMPurify.sanitize(newMilk.milkDate);
 
+        //Update state with sanitized values
+        setNewMilk({
+            id: newMilk.id,
+            kgMilk: sanitizedKgMilk,
+            milkDate: sanitizedMilkDate,
+            animal_id: chosenAnimalId
+        });
         try {
             const response = await fetch(`http://localhost:8000/api/milks/animals/${chosenAnimalId}`, {
                 method: "POST",
@@ -53,11 +68,12 @@ function Milk() {
                     Accept: "application/json",
                 },
                 body: JSON.stringify({
-                    kgMilk: newMilk.kgMilk,
-                    milkDate: newMilk.milkDate,
+                    kgMilk: sanitizedKgMilk,
+                    milkDate: sanitizedMilkDate,
                     animal_id: chosenAnimalId,
                 }),
             });
+
             const responseData = await response.json();
             //if response ok
             if (response.ok) {
@@ -73,16 +89,17 @@ function Milk() {
             console.log(error);
         }
     };
-    //Shows the last milks from the chosen animal id
+
+    //Trigger that shows the last milks from the chosen id (animal). 
     const changeAnimal = (e: React.ChangeEvent<HTMLSelectElement>) => {
         const { value } = e.target;
         setChosenAnimalId(value);
     };
-    // Gets milk wfor the chosen animalId
-    const getMilkByAnimals = async (id: string) => {
+    // Gets all milk from the animal with fetch
+    const getMilkByAnimals = async (chosenAnimalId: string) => {
         try {
             const response = await fetch(
-                `http://localhost:8000/api/milks/animals/${id}`,
+                `http://localhost:8000/api/milks/animals/${chosenAnimalId}`,
                 {
                     method: "GET",
                     headers: {
@@ -100,10 +117,10 @@ function Milk() {
                 throw new Error("Något gick fel");
             }
         } catch (error) {
-            console.error("Fel vid hämtning av djur i besättningen");
+            console.error("Fel vid hämtning av mjölk");
         }
     };
-    // Get's all animals and the id:s from the database
+    // Get all animals with their animalId´s and id:s from the database
     const getAnimals = async () => {
         try {
             const response = await fetch(`http://localhost:8000/api/animals`, {
@@ -116,7 +133,7 @@ function Milk() {
             });
             if (response.ok) {
                 const jsonData = await response.json();
-                //Map function to transform objects in the array
+                //Map function to transform objects in the array. 
                 const animalIds = jsonData.map((animal: any) =>
                 ({
                     id: animal.id,
@@ -155,11 +172,12 @@ function Milk() {
 
     return (
         <div>
-            <h2>Mjölkning</h2>
+          
             <form
                 className="form-control handleForm form-control-sm border-2 p-5 mx-auto w-50 "
                 onSubmit={addMilk}
             >
+                  <h2>Mjölkning</h2>
                 <div className="form-group">
                     <label htmlFor="animal_id" className="form-label">
                         SE-nummer:
@@ -171,8 +189,8 @@ function Milk() {
                         value={chosenAnimalId}
                         onChange={changeAnimal}>
                         <option value="">Välj ett djur</option>
-                        {animals.map((animalSE) => (
-                            <option key={animalSE.id} value={animalSE.id}>{animalSE.animalId}</option>
+                        {animals.map((animal) => (
+                            <option key={animal.id} value={animal.id}>{animal.animalId}</option>
                         ))}
                     </select>
                 </div>

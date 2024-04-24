@@ -28,30 +28,34 @@ const HandlePage: React.FC = () => {
         return <Medicine />
       case "optionCalves":
         return <Calves />;
-        default:
-          return null;
+      default:
+        return null;
     }
   };
 
-return (
-  <div>
-    {/*Including components*/}
-    <Header />
-    <TokenCookie />
-    <main className="container mx-auto">
-      <h1>Hantera ärenden</h1>
-      <h2>Vad vill du lägga till?</h2>
-      <select value={optionValue} onChange={handleOptions}>
-      
-        <option value="optionMilk">Mjölk</option>
-        <option value="optionVaccine">Vaccin</option>
-        <option value="optionMedicine">Medicin</option>
-        <option value="optionCalves">Kalv</option>
-      </select>
-{components()}
-    </main>
-    <Footer />
-  </div>
-);
+  return (
+    <div>
+      {/*Including components*/}
+      <Header />
+      <TokenCookie />
+      <main className="container mx-auto">
+        <h1>Hantera händelse för djur</h1>
+        <label htmlFor="handle">Vilken typ av händelse vill du hantera?</label>
+        <br/>
+        <select
+          id="handle"
+          name="handle" value={optionValue} onChange={handleOptions}>
+          <option disabled value="">Välj händelse att rapportera</option>
+          <option value="optionMilk">Mjölkning</option>
+          <option value="optionVaccine">Vaccinering</option>
+          <option value="optionMedicine">Medicinering</option>
+          <option value="optionCalves">Kalvning</option>
+        </select>
+        {/* Return the correct component dynamically */}
+        {components()}
+      </main>
+      <Footer />
+    </div>
+  );
 }; //export
 export default HandlePage;
