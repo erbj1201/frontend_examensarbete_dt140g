@@ -14,6 +14,7 @@ function Milk() {
     //States
     const cookies = new Cookies();
     const token = cookies.get("token");
+    const [showMessage, setShowMessage] = useState<string | null>(null);
     const [chosenAnimalId, setChosenAnimalId] = useState<string>("");
     const [animals, setAnimals] = useState<{ id: string; animalId: string }[]>([]);
     const [milks, setMilks] = useState<Milk[]>([]);
@@ -24,7 +25,23 @@ function Milk() {
         milkDate: "",
         animal_id: "",
     });
+  //State for error store data
+  const [formError, setFormError] = useState({
+    kgMilk: "",
+    milkDate: "",
+    animal_id: "",
+  });
 
+  // Function to clear update and delete messages after a specified time
+  const clearMessages = () => {
+    //clear messages
+    setShowMessage(null);
+    setFormError({
+        kgMilk: "",
+        milkDate: "",
+        animal_id: "",
+    });
+  };
     // Fetch all milks and animals with useEffect
     useEffect(() => {
         getAnimals();
@@ -44,11 +61,61 @@ function Milk() {
         }));
     };
 
-
     //Add Milk data with fetch 
     const addMilk = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-
+ //Object to track input errors
+ let inputError = {
+    kgMilk: "",
+    milkDate: "",
+    animal_id: "",
+ }
+ //check if all fields empty
+ if (
+    !newMilk.kgMilk &&
+    !newMilk.milkDate &&
+    !chosenAnimalId
+  ) {
+    setFormError({
+      ...inputError,
+      animal_id: "Välj ett djur",
+      kgMilk: "Fyll i mängden mjölk (kg/mjölk)",
+      milkDate: "Fyll i datum för mjölkning",
+    });
+    // Clear message after  3 seconds
+    setTimeout(clearMessages, 3000);
+    return;
+  }
+        //Check if animal_id empty
+    if (!chosenAnimalId) {
+        setFormError({
+          ...inputError,
+          animal_id: "Välj ett djur",
+        });
+        // Clear message after  3 seconds
+        setTimeout(clearMessages, 3000);
+        return;
+      }
+//Check if date empty
+if (!newMilk.kgMilk) {
+    setFormError({
+      ...inputError,
+      kgMilk: "Fyll i mängden mjölk (kg/mjölk)",
+    });
+    // Clear message after  3 seconds
+    setTimeout(clearMessages, 3000);
+    return;
+  }
+  //Check if type empty
+  if (!newMilk.milkDate) {
+    setFormError({
+      ...inputError,
+      milkDate: "Fyll i datum för mjölkning",
+    });
+    // Clear message after  3 seconds
+    setTimeout(clearMessages, 3000);
+    return;
+  }
         //Sanitize input fields with DOMPurify
         const sanitizedKgMilk = DOMPurify.sanitize(newMilk.kgMilk);
         const sanitizedMilkDate = DOMPurify.sanitize(newMilk.milkDate);
@@ -78,7 +145,6 @@ function Milk() {
             console.log(responseData);
             //if response ok
             if (response.ok) {
-
                 // Update state for milk
                 setNewMilk({
                     id: responseData.id,
@@ -86,11 +152,15 @@ function Milk() {
                     milkDate: "",
                     animal_id: chosenAnimalId,
                 });
-
+                //get all milk from animal
+                getMilkByAnimals(chosenAnimalId);
+                setShowMessage("Mjölkningen är tillagd");
+        // Clear message after  3 seconds
+        setTimeout(clearMessages, 3000);
             }
-
         } catch (error) {
             console.log(error);
+            setShowMessage("Fel vid lagring av mjölkning");
         }
     };
 
@@ -119,9 +189,11 @@ function Milk() {
             }
             else {
                 throw new Error("Något gick fel");
+                
             }
         } catch (error) {
             console.error("Fel vid hämtning av mjölk");
+
         }
     };
     
@@ -199,6 +271,7 @@ function Milk() {
                             <option key={animal.id} value={animal.id}>{animal.animalId}</option>
                         ))}
                     </select>
+                    <p className="error-message">{formError.animal_id}</p>
                 </div>
                 <div className="form-group">
                     <label htmlFor="kgMilk" className="form-label">
@@ -210,6 +283,7 @@ function Milk() {
                         name="kgMilk"
                         className="form-control"
                         onChange={handleInputChange} />
+                        <p className="error-message">{formError.kgMilk}</p>
                 </div>
                 <div className="form-group">
                     <label htmlFor="kgMilk" className="form-label">
@@ -222,12 +296,15 @@ function Milk() {
                         className="form-control"
                         value={newMilk.milkDate}
                         onChange={handleInputChange} />
+                        <p className="error-message">{formError.milkDate}</p>
                 </div>
                 <button type="submit" className="button w-50 mt-2">
                     Lägg till
                 </button>
             </form>
-
+            {showMessage && (
+        <p className="alert alert-light text-center mt-2">{showMessage}</p>
+      )}
             <h2>Senaste mjölkningarna för:</h2>
 
             <table className="table table-responsive table-hover">
