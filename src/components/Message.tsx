@@ -17,12 +17,15 @@ interface Message {
     description: string;
     created_at: string;
 }
+
 //new instance of cookies
 const cookies = new Cookies();
 //get token from cookies
 const token = cookies.get("token");
+
 //get userid from sessionstorage
 const userid = sessionStorage.getItem("userid")!;
+
 
 const Message: React.FC = () => {
  
@@ -59,7 +62,6 @@ const Message: React.FC = () => {
       title: "",
       description: "",
     });
-    console.log("Message cleared");
   };
 
 // Fetch all herds and animals by user on component mount
