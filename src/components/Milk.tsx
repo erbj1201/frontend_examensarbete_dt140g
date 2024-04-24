@@ -74,23 +74,21 @@ function Milk() {
                     animal_id: chosenAnimalId,
                 }),
             });
- const responseData = await response.json();
- console.log(responseData);
+            const responseData = await response.json();
+            console.log(responseData);
             //if response ok
             if (response.ok) {
-                
-           
-            // Update state for milk
-           
+
+                // Update state for milk
                 setNewMilk({
                     id: responseData.id,
                     kgMilk: "",
                     milkDate: "",
                     animal_id: chosenAnimalId,
                 });
-             
+
             }
-           
+
         } catch (error) {
             console.log(error);
         }
@@ -126,6 +124,7 @@ function Milk() {
             console.error("Fel vid hämtning av mjölk");
         }
     };
+    
     // Get all animals with their animalId´s and id:s from the database
     const getAnimals = async () => {
         try {
@@ -178,13 +177,13 @@ function Milk() {
 
     return (
         <div>
-          
-        
+
+
             <form
                 className="form-control handleForm form-control-sm border-2 p-5 mx-auto w-50 "
                 onSubmit={addMilk}
             >
-                  <h2>Mjölkning</h2>
+                <h2>Mjölkning</h2>
                 <div className="form-group">
                     <label htmlFor="animal_id" className="form-label">
                         SE-nummer:
@@ -228,9 +227,9 @@ function Milk() {
                     Lägg till
                 </button>
             </form>
-      
+
             <h2>Senaste mjölkningarna för:</h2>
-           
+
             <table className="table table-responsive table-hover">
 
                 <thead>
@@ -244,7 +243,7 @@ function Milk() {
                 <tbody>
                     {milks.map((milk) => (
                         <tr key={milk.id}>
-                            
+
                             <td>{milk.animal_id}</td>
                             <td>{milk.kgMilk} Kg</td>
                             <td>{milk.milkDate}</td>
@@ -254,7 +253,7 @@ function Milk() {
                                 className="button m-2">Radera</button></td>
                         </tr>))}
                 </tbody>
-            </table>    
+            </table>
         </div>
     );
 };

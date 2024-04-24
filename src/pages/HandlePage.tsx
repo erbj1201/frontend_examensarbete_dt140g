@@ -6,7 +6,7 @@ import TokenCookie from "../components/TokenCookie";
 import Milk from "../components/Milk";
 import Vaccine from "../components/Vaccine";
 import Medicine from "../components/Medicine";
-import Calves from "../components/Calves";
+import Calf from "../components/Calf";
 
 const HandlePage: React.FC = () => {
 
@@ -27,7 +27,7 @@ const HandlePage: React.FC = () => {
       case "optionMedicine":
         return <Medicine />
       case "optionCalves":
-        return <Calves />;
+        return <Calf />;
       default:
         return null;
     }
