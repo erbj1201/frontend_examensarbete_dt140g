@@ -82,7 +82,7 @@ function Medicine() {
       recurrent: "",
       animal_id: "",
     };
-//check if all fields empty
+    //check if all fields empty
     if (
       !newMedicine.date &&
       !newMedicine.type &&
