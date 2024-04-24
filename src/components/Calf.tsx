@@ -207,6 +207,7 @@ function Calf() {
       <form
         className="form-control handleForm form-control-sm border-2 p-5 mx-auto w-50 "
         onSubmit={addCalf}
+        noValidate //The formdata is not automaticallly validated by the browser
       >
         <h2>Kalvning</h2>
         <div className="form-group">
@@ -284,53 +285,53 @@ function Calf() {
         </div>
      <div className="form-check">
           <p>Kön:</p>
-          <label htmlFor="hona" className="form-check-label">
+          <label htmlFor="female" className="form-check-label">
             Hona
           </label>
           <input
             type="radio"
-            id="hona"
+            id="female"
             name="sex"
             className="form-check-input"
-           
+            value={"hona"}
             onChange={handleInputChange} checked
             />
         </div>
         <div className="form-check">
-          <label htmlFor="male-false" className="form-check-label">
+          <label htmlFor="male" className="form-check-label">
             Hane
           </label>
           <input
             type="radio"
-            id="male-false"
+            id="male"
             name="sex"
             className="form-check-input"
-           
+            value={"hane"}
             onChange={handleInputChange} />
         </div>
         <div className="form-check">
           <p>Kategori:</p>
-          <label htmlFor="kött" className="form-check-label">
+          <label htmlFor="meatAnimal" className="form-check-label">
             Köttdjur
           </label>
           <input
             type="radio"
-            id="kött"
+            id="meatAnimal"
             name="category"
             className="form-check-input"
-           
+            value={"kött"}
             onChange={handleInputChange} checked/>
         </div>
         <div className="form-check">
-          <label htmlFor="milkAnimal-false" className="form-check-label">
+          <label htmlFor="milkAnimal" className="form-check-label">
             Mjölkdjur
           </label>
           <input
             type="radio"
-            id="milkAnimal-false"
+            id="milkAnimal"
             name="category"
             className="form-check-input"
-            
+            value={"mjölk"}
             onChange={handleInputChange} />
         </div>
         <div className="form-group">
