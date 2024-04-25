@@ -8,7 +8,7 @@ interface Medicine {
   date: string;
   type: string;
   amount: string;
-  recurrent: boolean;
+  recurrent: string;
   animal_id: string;
 }
 
@@ -28,7 +28,7 @@ function Medicine() {
     date: "",
     type: "",
     amount: "",
-    recurrent: true,
+    recurrent: "",
     animal_id: "",
   });
   //State for error store data
@@ -186,7 +186,7 @@ function Medicine() {
           date: "",
           type: "",
           amount: "",
-          recurrent: false,
+          recurrent: "",
           animal_id: chosenAnimalId,
         });
         //get all medicine from animal
@@ -290,6 +290,7 @@ function Medicine() {
       <form
         className="form-control handleForm form-control-sm border-2 p-5 mx-auto w-50 "
         onSubmit={addMedicine}
+        noValidate
       >
         <h2>Medicinering</h2>
         <div className="form-group">
@@ -379,7 +380,6 @@ function Medicine() {
             className="form-check-input"
             value={"0"}
             onChange={handleInputChange}
-            checked
           />
         </div>
         <button type="submit" className="button w-50 mt-2">
