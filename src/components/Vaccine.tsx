@@ -33,6 +33,7 @@ function Vaccine() {
         getAnimals();
 
     }, [chosenAnimalId]);
+    
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
         const sanitizedData = DOMPurify.sanitize(value);
