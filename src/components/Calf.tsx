@@ -108,8 +108,8 @@ function Calf() {
     if (
       !newCalf.animalId &&
       !newCalf.earNo &&
-      !newCalf.name &&
       !newCalf.breed &&
+      !newCalf.name &&
       !newCalf.expectedBirthDate &&
       !newCalf.birthDate &&
       !chosenAnimalId &&
@@ -120,8 +120,8 @@ function Calf() {
         ...inputError,
         animalId: "Skriv dit ett id för kalven",
         earNo: "Skriv ett öronnummer",
-        name: "Skriv ett namn",
-        breed: "Skriv en ras",
+         breed: "Skriv en ras",
+         name: "Skriv ett namn",
         expectedBirthDate: "Skriv det förväntade födelsedatumet",
         birthDate: "Skriv födelsedatum",
         sex: "Välj kön",
@@ -133,11 +133,12 @@ function Calf() {
       return;
     }
 
-    //Check if animal_id empty
-    if (!chosenAnimalId) {
+
+    //Check if animalId empty
+    if (!newCalf.animalId) {
       setFormError({
         ...inputError,
-        animal_id: "Välj kalvens mamma",
+        animalId: "Skriv dit ett id för kalven",
       });
       // Clear message after  3 seconds
       setTimeout(clearMessages, 3000);
@@ -153,22 +154,23 @@ function Calf() {
       setTimeout(clearMessages, 3000);
       return;
     }
-    //Check if name empty
-    if (!newCalf.name) {
-      setFormError({
-        ...inputError,
-        name: "Skriv ett namn",
-      });
-      // Clear message after  3 seconds
-      setTimeout(clearMessages, 3000);
-      return;
-    }
     //Check if breed empty
     if (!newCalf.breed) {
       setFormError({
         ...inputError,
         breed: "Skriv en ras",
       });
+      //Check if name empty
+      if (!newCalf.name) {
+        setFormError({
+          ...inputError,
+          name: "Skriv ett namn",
+        });
+        // Clear message after  3 seconds
+        setTimeout(clearMessages, 3000);
+        return;
+      }
+
       // Clear message after  3 seconds
       setTimeout(clearMessages, 3000);
       return;
@@ -203,27 +205,27 @@ function Calf() {
       setTimeout(clearMessages, 3000);
       return;
     }
-      //Check if category is empty
-      if (!newCalf.category) {
-        setFormError({
-          ...inputError,
-          category: "Välj kön",
-        });
-        // Clear message after  3 seconds
-        setTimeout(clearMessages, 3000);
-        return;
-      }
-
-    //Check if animalId empty
-    if (!newCalf.animalId) {
+    //Check if category is empty
+    if (!newCalf.category) {
       setFormError({
         ...inputError,
-        animalId: "Skriv dit ett id för kalven",
+        category: "Välj kategori",
       });
       // Clear message after  3 seconds
       setTimeout(clearMessages, 3000);
       return;
     }
+    //Check if animal_id empty
+    if (!chosenAnimalId) {
+      setFormError({
+        ...inputError,
+        animal_id: "Välj kalvens mamma",
+      });
+      // Clear message after  3 seconds
+      setTimeout(clearMessages, 3000);
+      return;
+    }
+
     //Sanitize input fields with DOMPurify
     const sanitizedAnimalId = DOMPurify.sanitize(newCalf.animalId);
     const sanitizedEarNo = DOMPurify.sanitize(newCalf.earNo);
@@ -474,7 +476,7 @@ function Calf() {
           <label htmlFor="male" className="form-check-label">
             Hane
           </label>
-          
+
           <input
             type="radio"
             id="male"
@@ -486,7 +488,7 @@ function Calf() {
         </div>
         <div className="form-check">
           <p>Kategori:</p>
-       
+
           <label htmlFor="meatAnimal" className="form-check-label">
             Köttdjur
           </label>
@@ -496,7 +498,7 @@ function Calf() {
             name="category"
             className="form-check-input"
             value={"kött"}
-            onChange={handleInputChange} />   
+            onChange={handleInputChange} />
         </div>
         <div className="form-check">
           <label htmlFor="milkAnimal" className="form-check-label">
@@ -509,7 +511,7 @@ function Calf() {
             className="form-check-input"
             value={"mjölk"}
             onChange={handleInputChange} />
-              <p className="error-message">{formError.category}</p>
+          <p className="error-message">{formError.category}</p>
         </div>
         <div className="form-group">
           <label htmlFor="animal_id" className="form-label">
@@ -533,7 +535,7 @@ function Calf() {
         <button type="submit" className="button w-50 mt-2">
           Lägg till
         </button>
-       
+
       </form>
       {/*Show messages to form */}
       {showMessage && (
