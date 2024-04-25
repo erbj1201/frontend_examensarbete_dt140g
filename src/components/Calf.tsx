@@ -121,9 +121,11 @@ function Calf() {
         animalId: "Skriv dit ett id för kalven",
         earNo: "Skriv ett öronnummer",
         name: "Skriv ett namn",
+        breed: "Skriv en ras",
         expectedBirthDate: "Skriv det förväntade födelsedatumet",
         birthDate: "Skriv födelsedatum",
         sex: "Välj kön",
+        category: "Välj kategori",
         animal_id: "Välj kalvens mamma",
       });
       // Clear message after  3 seconds
@@ -495,7 +497,6 @@ function Calf() {
             className="form-check-input"
             value={"kött"}
             onChange={handleInputChange} />   
-            <p className="error-message">{formError.category}</p>
         </div>
         <div className="form-check">
           <label htmlFor="milkAnimal" className="form-check-label">
@@ -508,6 +509,7 @@ function Calf() {
             className="form-check-input"
             value={"mjölk"}
             onChange={handleInputChange} />
+              <p className="error-message">{formError.category}</p>
         </div>
         <div className="form-group">
           <label htmlFor="animal_id" className="form-label">
