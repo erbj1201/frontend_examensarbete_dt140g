@@ -284,9 +284,16 @@ function Calf() {
           category: "",
           animal_id: chosenAnimalId
         });
+        getCalfByAnimals(chosenAnimalId);
+        setShowMessage("Kalven är tillagd");
+         // Clear message after  3 seconds
+         setTimeout(clearMessages, 3000);
       }
     } catch (error) {
       console.log(error);
+      setShowMessage("Fel vid lagring av kalv");
+      // Clear message after  3 seconds
+      setTimeout(clearMessages, 3000);
     }
   };
   //Trigger that shows the last calves from the chosen id (animal). 
