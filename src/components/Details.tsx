@@ -220,10 +220,25 @@ const DetailsPage: React.FC = () => {
               </div>
             </article>
             <article>
-              <div className="container">
+              <div className="container handlecontainer">
                 <Collapsible open title="Mjölkning">
-                  <p>Test Test</p>
+                  <p>Mjölkning testtest</p>
                   
+                </Collapsible>
+                 </div>
+                <div className="container handlecontainer">
+                <Collapsible open title="Medicinering">
+                  <p>Medicinering Test Test</p>
+                </Collapsible>
+              </div>
+              <div className="container handlecontainer">
+                <Collapsible open title="Vaccinering">
+                  <p>Vaccinering Test Test</p>
+                </Collapsible>
+              </div>
+              <div className="container handlecontainer">
+                <Collapsible open title="Kalvning">
+                  <p>Kalvning Test Test</p>
                 </Collapsible>
               </div>
             </article>

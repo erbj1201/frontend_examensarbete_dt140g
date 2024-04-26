@@ -323,7 +323,12 @@ function Milk() {
                 <button className="button">Ändra</button>
                 <button
                   onClick={() => {
+                    const confirmBox = window.confirm(
+                      "Vill du radera mjölkning?"
+                    )
+                    if (confirmBox === true) {
                     deleteMilk(milk.id);
+                    }
                   }}
                   className="button m-2"
                 >

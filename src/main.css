@@ -81,22 +81,34 @@ button{
     background-color: #F5F4F4;
     border: #000000 solid;
 }
+.handlecontainer{
+    background-color: #F2F2F2;
+    width: 80%;
+    margin-top: 4%;
+    border:#000000 solid 1px;
+    box-shadow: 1px 1px 6px;
+    margin-bottom: 2%;
+}
+.alertDiv{
+    margin-left: auto;
+    margin-right: auto;
+    position: absolute;
 
-tr .active{
-    background-color: #F29354;
+    top: 50em;
+    width: 50%;
+    background-color:aquamarine;
+    display: flex;
+    flex-direction: column;
+    z-index: 1;
 }
-.btn-alert{
-    background-color: #F29354;
-    border-radius: 10%;
-    padding: 0.5em;
+
+.buttonDiv{
+    margin:auto;
+    width: 50%;
+    display: flex;
+    justify-content: space-around;
 }
-.btn-alert:hover{
-    background-color: black;
-    color: white;
-}
-.modal{
-    background-color: rgba(0, 0, 0, 0.30);
-}
+
 /*tablet screen */
 @media screen and (min-width: 600px) and (max-width: 1024px){
     
