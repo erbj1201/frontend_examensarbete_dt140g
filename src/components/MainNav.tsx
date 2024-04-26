@@ -27,7 +27,7 @@ const Navbar = () => {
           </li>
           <li className="nav-item">
             <NavLink className="nav-link text-black px-4 m-1" to="/handle">
-              Hantera ärenden
+              Hantera händelser
             </NavLink>
           </li>
           <li className="nav-item">
