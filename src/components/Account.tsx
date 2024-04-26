@@ -1,4 +1,4 @@
-import DOMPurify from "dompurify";
+/* import DOMPurify from "dompurify";
 import React, { useEffect, useState, FormEvent } from "react";
 interface User{
     name: string;
@@ -55,3 +55,4 @@ const AccountPage: React.FC = () => {
 
 //export
 export default AccountPage;
+ */

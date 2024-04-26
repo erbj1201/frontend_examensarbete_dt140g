@@ -575,11 +575,16 @@ function Calf() {
               <td>{calf.sex}</td>
               <td>{calf.category}</td>
               <td><button className="button">Ändra</button>
-                <button
+                <button className="button m-2"
                   onClick={() => {
+                    const confirmBox = window.confirm(
+                      "Vill du radera kalven?"
+                    )
+                    if (confirmBox === true) {
                     deleteCalf(calf.id);
+                    }
                   }}
-                  className="button m-2"
+                 
                 >
                   Radera
                 </button></td>

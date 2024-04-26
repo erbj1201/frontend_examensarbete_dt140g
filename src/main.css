@@ -89,6 +89,25 @@ button{
     box-shadow: 1px 1px 6px;
     margin-bottom: 2%;
 }
+.alertDiv{
+    margin-left: auto;
+    margin-right: auto;
+    position: absolute;
+
+    top: 50em;
+    width: 50%;
+    background-color:aquamarine;
+    display: flex;
+    flex-direction: column;
+    z-index: 1;
+}
+
+.buttonDiv{
+    margin:auto;
+    width: 50%;
+    display: flex;
+    justify-content: space-around;
+}
 
 /*tablet screen */
 @media screen and (min-width: 600px) and (max-width: 1024px){
