@@ -1,7 +1,9 @@
 //import
 import DOMPurify from "dompurify";
 import React, { useEffect, useState, FormEvent } from "react";
+import { useNavigate } from "react-router-dom";
 import Cookies from "universal-cookie";
+
 //structure of medicine
 interface Medicine {
   id: string;
@@ -18,9 +20,14 @@ function Medicine() {
   const token = cookies.get("token");
   const [showMessage, setShowMessage] = useState<string | null>(null);
   const [chosenAnimalId, setChosenAnimalId] = useState<string>("");
+  const [chosenMedicineId, setChosenMedicinelId] = useState<string>("");
   const [animals, setAnimals] = useState<{ id: string; animalId: string }[]>(
     []
   );
+ 
+  const [show, setShow] = useState(false);
+
+  const handleClose = () => setShow(false);
   const [medicines, setMedicines] = useState<Medicine[]>([]);
   //States store data
   const [newMedicine, setNewMedicine] = useState<Medicine>({
@@ -31,6 +38,7 @@ function Medicine() {
     recurrent: "",
     animal_id: "",
   });
+
   //State for error store data
   const [formError, setFormError] = useState({
     date: "",
@@ -47,7 +55,7 @@ function Medicine() {
       date: "",
       type: "",
       amount: "",
-      recurrent: "false",
+      recurrent: "",
       animal_id: "",
     });
   };
@@ -87,6 +95,7 @@ function Medicine() {
       !newMedicine.date &&
       !newMedicine.type &&
       !newMedicine.amount &&
+      !newMedicine.recurrent &&
       !chosenAnimalId
     ) {
       setFormError({
@@ -95,6 +104,7 @@ function Medicine() {
         date: "Fyll i datum och tid",
         type: "Fyll i typ av medicin",
         amount: "Fyll i medicinens mängd/dos",
+        recurrent: "Fyll i om medicineringen är återkommande eller inte",
       });
       // Clear message after  3 seconds
       setTimeout(clearMessages, 3000);
@@ -137,6 +147,16 @@ function Medicine() {
       setFormError({
         ...inputError,
         amount: "Fyll i medicinens mängd/dos",
+      });
+      // Clear message after  3 seconds
+      setTimeout(clearMessages, 3000);
+      return;
+    }
+
+    if (!newMedicine.recurrent) {
+      setFormError({
+        ...inputError,
+        recurrent: "Fyll i om medicineringen är återkommande eller inte",
       });
       // Clear message after  3 seconds
       setTimeout(clearMessages, 3000);
@@ -243,7 +263,7 @@ function Medicine() {
           Authorization: `Bearer ${token}`,
           Accept: "application/json",
         },
-      });
+      }); //if response ok
       if (response.ok) {
         const jsonData = await response.json();
         //Map function to transform objects in the array.
@@ -259,11 +279,23 @@ function Medicine() {
       console.error("Fel vid hämtning");
     }
   };
+
+   //use navigate
+   const navigate = useNavigate();
+   //navigate to details
+   const navigateToMedicine = (id: string) => {
+     //navigate to handle with id from chosen product (id)
+     navigate(`/handle/${id}`);
+     setShow(true);
+     setChosenMedicinelId(id);
+   };
+  
+
   //Delete Milk with id
-  const deleteMedicine = async (id: string) => {
+  const deleteMedicine = async (chosenMedicineId: string) => {
     try {
       const response = await fetch(
-        `http://localhost:8000/api/medicines/${id}`,
+        `http://localhost:8000/api/medicines/${chosenMedicineId}`,
         {
           method: "DELETE",
           headers: {
@@ -274,9 +306,16 @@ function Medicine() {
         }
       );
       if (response.ok) {
-        alert("Medicineringen är raderad");
+         //get all medicine from animal
+         getMedicinesByAnimals(chosenAnimalId);
+         setShow(false);
+        setShowMessage("Medicineringen är raderad");
+         // Clear message after  3 seconds
+      setTimeout(clearMessages, 3000);
       } else {
-        throw new Error("Något gick fel vid radering av medicinering");
+        setShowMessage("Medicineringen kunde inte raderas");
+         // Clear message after  3 seconds
+      setTimeout(clearMessages, 3000);
       }
     } catch (error) {
       console.error("Något gick fel:", error);
@@ -382,10 +421,12 @@ function Medicine() {
             onChange={handleInputChange}
           />
         </div>
+        <p className="error-message">{formError.recurrent}</p>
         <button type="submit" className="button w-50 mt-2">
           Lägg till
         </button>
       </form>
+      {/**Messages to form */}
       {showMessage && (
         <p className="alert alert-light text-center mt-2">{showMessage}</p>
       )}
@@ -402,6 +443,7 @@ function Medicine() {
           </tr>
         </thead>
         <tbody>
+          {/**Write medicines */}
           {medicines.map((medicine) => (
             <tr key={medicine.id}>
               <td>{medicine.animal_id}</td>
@@ -411,20 +453,34 @@ function Medicine() {
               {/**Check if medicine.recurrent is true or false */}
               <td>{medicine.recurrent ? "Ja" : "Nej"}</td>
               <td>
-                <button className="button">Ändra</button>
-                <button
-                  onClick={() => {
-                    deleteMedicine(medicine.id);
-                  }}
-                  className="button m-2"
-                >
-                  Radera
-                </button>
+              <button className="btn btn-danger" onClick={() => navigateToMedicine(medicine.id)}>Radera</button>
               </td>
             </tr>
           ))}
         </tbody>
       </table>
+      {show && (
+        <div className="modal" role="dialog" style={{ display: 'block' }}>
+          <div className="modal-dialog" role="document">
+            <div className="modal-content">
+              <div className="modal-header">
+                <h5 className="modal-title">Vill du radera?</h5>
+              </div>
+              <div className="modal-body">
+                Är du säker på att du vill radera medicineringen? 
+              </div>
+              <div className="modal-footer">
+                <button type="button" className="btn-alert" onClick={() => deleteMedicine(chosenMedicineId)}>
+                  Ja
+                </button>
+                <button type="button" className="btn-alert" onClick={handleClose}>
+                  Nej
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

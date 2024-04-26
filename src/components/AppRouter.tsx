@@ -27,6 +27,7 @@ const AppRouter: React.FC = () => {
         <Route path="/details/:id" element={<DetailsPage />} />
         {/**Handle (hantera ärenden) */}
         <Route path="/handle" element={<HandlePage />} />
+        <Route path="/handle/:id" element={<HandlePage />} />
         {/**Register (registrera användare) */}
         <Route path="/register" element={<RegisterPage />} />
         {/**Login (logga in användare*/}
