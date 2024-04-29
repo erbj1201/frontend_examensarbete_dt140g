@@ -1,22 +1,31 @@
+//import
 import DOMPurify from "dompurify";
 import React, { useEffect, useState, FormEvent } from "react";
+import { useNavigate } from "react-router-dom";
 import Cookies from "universal-cookie";
-
+//structure of milk
 interface Milk {
   id: string;
   kgMilk: string;
   milkDate: string;
   animal_id: string;
 }
+
 function Milk() {
-  //States
+  //cookies
   const cookies = new Cookies();
   const token = cookies.get("token");
+  //use navigate
+  const navigate = useNavigate();
+  //states
   const [showMessage, setShowMessage] = useState<string | null>(null);
   const [chosenAnimalId, setChosenAnimalId] = useState<string>("");
+  const [chosenMilkId, setChosenMilkId] = useState<string>("");
   const [animals, setAnimals] = useState<{ id: string; animalId: string }[]>(
     []
   );
+  const [show, setShow] = useState(false);
+  const handleClose = () => setShow(false);
   const [milks, setMilks] = useState<Milk[]>([]);
   //States store data
   const [newMilk, setNewMilk] = useState<Milk>({
@@ -72,13 +81,14 @@ function Milk() {
     };
     //check if all fields empty
     if (!newMilk.kgMilk && !newMilk.milkDate && !chosenAnimalId) {
+      //error messages when empty fields
       setFormError({
         ...inputError,
-        animal_id: "Välj ett djur",
         kgMilk: "Fyll i mängden mjölk (kg/mjölk)",
         milkDate: "Fyll i datum för mjölkning",
+        animal_id: "Välj ett djur",
       });
-      // Clear message after  3 seconds
+      // Clear message after 3 seconds
       setTimeout(clearMessages, 3000);
       return;
     }
@@ -122,7 +132,7 @@ function Milk() {
       kgMilk: sanitizedKgMilk,
       milkDate: sanitizedMilkDate,
       animal_id: chosenAnimalId,
-    });
+    }); //fetch post
     try {
       const response = await fetch(
         `http://localhost:8000/api/milks/animals/${chosenAnimalId}`,
@@ -132,19 +142,17 @@ function Milk() {
             "Content-Type": "application/json",
             Authorization: `Bearer ${token}`,
             Accept: "application/json",
-          },
+          }, //send sanitized data
           body: JSON.stringify({
             kgMilk: sanitizedKgMilk,
             milkDate: sanitizedMilkDate,
             animal_id: chosenAnimalId,
           }),
         }
-      );
+      ); //await response
       const responseData = await response.json();
-      console.log(responseData);
-      //if response ok
+      //if response ok, clear form
       if (response.ok) {
-        // Update state for milk
         setNewMilk({
           id: responseData.id,
           kgMilk: "",
@@ -153,23 +161,30 @@ function Milk() {
         });
         //get all milk from animal
         getMilkByAnimals(chosenAnimalId);
+        //show message
         setShowMessage("Mjölkningen är tillagd");
         // Clear message after  3 seconds
         setTimeout(clearMessages, 3000);
       }
+      console.log(responseData);
     } catch (error) {
-      console.log(error);
+      //error message
       setShowMessage("Fel vid lagring av mjölkning");
+      // Clear message after  3 seconds
+      setTimeout(clearMessages, 3000);
+      console.log(error);
     }
   };
 
   //Trigger that shows the last milks from the chosen id (animal).
   const changeAnimal = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const { value } = e.target;
+    //set chosen animal
     setChosenAnimalId(value);
   };
   // Gets all milk from the animal with fetch
   const getMilkByAnimals = async (chosenAnimalId: string) => {
+    //fetch get
     try {
       const response = await fetch(
         `http://localhost:8000/api/milks/animals/${chosenAnimalId}`,
@@ -181,9 +196,10 @@ function Milk() {
             Accept: "application/json",
           },
         }
-      );
+      ); //if response ok
       if (response.ok) {
         const jsonData = await response.json();
+        //set milks
         setMilks(jsonData);
       } else {
         throw new Error("Något gick fel");
@@ -195,6 +211,7 @@ function Milk() {
 
   // Get all animals with their animalId´s and id:s from the database
   const getAnimals = async () => {
+    //Fetch get
     try {
       const response = await fetch(`http://localhost:8000/api/animals`, {
         method: "GET",
@@ -203,14 +220,14 @@ function Milk() {
           Authorization: `Bearer ${token}`,
           Accept: "application/json",
         },
-      });
+      }); //if response ok
       if (response.ok) {
         const jsonData = await response.json();
         //Map function to transform objects in the array.
         const animalIds = jsonData.map((animal: any) => ({
           id: animal.id,
           animalId: animal.animalId,
-        }));
+        })); //set animal
         setAnimals(animalIds);
       } else {
         throw new Error("Något gick fel");
@@ -219,8 +236,18 @@ function Milk() {
       console.error("Fel vid hämtning");
     }
   };
+  //change url and add id
+  const navigateToMilk = (id: string) => {
+    //navigate to handle with id from chosen medicine
+    navigate(`/handle/${id}`);
+    //change states
+    setShow(true);
+    //save id
+    setChosenMilkId(id);
+  };
   //Delete Milk with id
   const deleteMilk = async (id: string) => {
+    //fetch delete
     try {
       const response = await fetch(`http://localhost:8000/api/milks/${id}`, {
         method: "DELETE",
@@ -229,11 +256,19 @@ function Milk() {
           Authorization: `Bearer ${token}`,
           Accept: "application/json",
         },
-      });
+      }); //if response ok
       if (response.ok) {
-        alert("Mjölkning är nu raderad");
+        //get all milks from animal
+        getMilkByAnimals(chosenAnimalId);
+        //change show to false and show message
+        setShow(false);
+        setShowMessage("Mjölkning är raderad");
+        // Clear message after  3 seconds
+        setTimeout(clearMessages, 3000);
       } else {
-        throw new Error("Något gick fel vid radering av mjölkning");
+        setShowMessage("Mjölkningen kunde inte raderas");
+        // Clear message after  3 seconds
+        setTimeout(clearMessages, 3000);
       }
     } catch (error) {
       console.error("Något gick fel:", error);
@@ -242,6 +277,7 @@ function Milk() {
 
   return (
     <div>
+      {/*form for adding milk*/}
       <form
         className="form-control handleForm form-control-sm border-2 p-5 mx-auto w-50 "
         onSubmit={addMilk}
@@ -276,12 +312,13 @@ function Milk() {
             id="kgMilk"
             name="kgMilk"
             className="form-control"
+            value={newMilk.kgMilk}
             onChange={handleInputChange}
           />
           <p className="error-message">{formError.kgMilk}</p>
         </div>
         <div className="form-group">
-          <label htmlFor="kgMilk" className="form-label">
+          <label htmlFor="milkDate" className="form-label">
             Datum för mjölkning:
           </label>
           <input
@@ -303,7 +340,6 @@ function Milk() {
         <p className="alert alert-light text-center mt-2">{showMessage}</p>
       )}
       <h2>Senaste mjölkningarna för:</h2>
-
       <table className="table table-responsive table-hover">
         <thead>
           <tr>
@@ -314,23 +350,17 @@ function Milk() {
           </tr>
         </thead>
         <tbody>
+          {/**Write milks */}
           {milks.map((milk) => (
             <tr key={milk.id}>
               <td>{milk.animal_id}</td>
               <td>{milk.kgMilk} Kg</td>
               <td>{milk.milkDate}</td>
               <td>
-                <button className="button">Ändra</button>
+                {/**Change url when clicking at delete */}
                 <button
-                  onClick={() => {
-                    const confirmBox = window.confirm(
-                      "Vill du radera mjölkning?"
-                    )
-                    if (confirmBox === true) {
-                    deleteMilk(milk.id);
-                    }
-                  }}
-                  className="button m-2"
+                  className="btn btn-danger"
+                  onClick={() => navigateToMilk(milk.id)}
                 >
                   Radera
                 </button>
@@ -339,6 +369,37 @@ function Milk() {
           ))}
         </tbody>
       </table>
+      {/**Popup for deleating */}
+      {show && (
+        <div className="modal" role="dialog" style={{ display: "block" }}>
+          <div className="modal-dialog" role="document">
+            <div className="modal-content">
+              <div className="modal-header">
+                <h5 className="modal-title">Vill du radera?</h5>
+              </div>
+              <div className="modal-body">
+                Är du säker på att du vill radera medicineringen?
+              </div>
+              <div className="modal-footer">
+                <button
+                  type="button"
+                  className="btn-alert"
+                  onClick={() => deleteMilk(chosenMilkId)}
+                >
+                  Ja
+                </button>
+                <button
+                  type="button"
+                  className="btn-alert"
+                  onClick={handleClose}
+                >
+                  Nej
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
