@@ -365,7 +365,12 @@ function Vaccine() {
                 <button className="button">Ändra</button>
                 <button
                   onClick={() => {
+                    const confirmBox = window.confirm(
+                      "Vill du radera vaccineringen?"
+                    )
+                    if (confirmBox === true) {
                     deleteVaccine(vaccine.id);
+                    }
                   }}
                   className="button m-2"
                 >
