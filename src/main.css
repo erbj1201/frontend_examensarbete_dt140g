@@ -81,6 +81,22 @@ button{
     background-color: #F5F4F4;
     border: #000000 solid;
 }
+
+tr .active{
+    background-color: #F29354;
+}
+.btn-alert{
+    background-color: #F29354;
+    border-radius: 10%;
+    padding: 0.5em;
+}
+.btn-alert:hover{
+    background-color: black;
+    color: white;
+}
+.modal{
+    background-color: rgba(0, 0, 0, 0.30);
+}
 .handlecontainer{
     background-color: #F2F2F2;
     width: 80%;
