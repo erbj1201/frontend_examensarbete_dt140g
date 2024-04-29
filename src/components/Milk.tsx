@@ -21,6 +21,7 @@ function Milk() {
   const [showMessage, setShowMessage] = useState<string | null>(null);
   const [chosenAnimalId, setChosenAnimalId] = useState<string>("");
   const [chosenMilkId, setChosenMilkId] = useState<string>("");
+  const [editMilk, setEditMilk] = useState(false);
   const [animals, setAnimals] = useState<{ id: string; animalId: string }[]>(
     []
   );
@@ -34,6 +35,14 @@ function Milk() {
     milkDate: "",
     animal_id: "",
   });
+
+  const [inputData, setInputData] = useState({
+    id: "",
+    kgMilk: "",
+    milkDate: "",
+    animal_id: "",
+  });
+
   //State for error store data
   const [formError, setFormError] = useState({
     kgMilk: "",
@@ -69,6 +78,7 @@ function Milk() {
       [name]: sanitizedData,
     }));
   };
+
 
   //Add Milk data with fetch
   const addMilk = async (e: FormEvent<HTMLFormElement>) => {
@@ -235,6 +245,16 @@ function Milk() {
     } catch (error) {
       console.error("Fel vid hämtning");
     }
+  }; 
+  
+  const editData = () => {
+    setEditMilk(true);
+    setInputData({
+      id: newMilk.id,
+      kgMilk: newMilk.kgMilk,
+      milkDate: newMilk.milkDate,
+      animal_id: chosenAnimalId,
+    });
   };
   //change url and add id
   const navigateToMilk = (id: string) => {
@@ -245,6 +265,54 @@ function Milk() {
     //save id
     setChosenMilkId(id);
   };
+
+  //Update milk
+
+  const updateMilk = async ( e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    //Sanitize input fields
+    const { id, kgMilk, milkDate} = inputData;
+    const sanitizedKgMilk = DOMPurify.sanitize(kgMilk);
+    const sanitizedMilkDate = DOMPurify.sanitize(milkDate);
+   
+    setNewMilk({
+      id: chosenMilkId,
+      kgMilk: sanitizedKgMilk,
+      milkDate: sanitizedMilkDate,
+      animal_id: chosenAnimalId
+    })
+    try {
+      const response = await fetch(`http://localhost:8000/api/milks/${id}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+          Accept: "application/json",
+        },
+        body: JSON.stringify({
+          kgMilk: sanitizedKgMilk,
+          milkDate: sanitizedMilkDate,
+        })
+      });
+      const responseData = await response.json();
+      console.log(responseData);
+
+      //if response ok
+      if (response.ok) {
+        setShowMessage("Ändringarna är sparade");
+        //Clear message after 3 seconds
+        setTimeout(clearMessages, 3000);
+        setEditMilk(false);
+      }
+      else {
+        setShowMessage("Mjölkningen kunde inte ändras");
+        // Clear message after  3 seconds
+        setTimeout(clearMessages, 3000);
+      }
+    } catch {
+      console.error("Något gick fel:");
+    }
+  }
   //Delete Milk with id
   const deleteMilk = async (id: string) => {
     //fetch delete
@@ -276,68 +344,132 @@ function Milk() {
   };
 
   return (
+
     <div>
-      {/*form for adding milk*/}
-      <form
-        className="form-control handleForm form-control-sm border-2 p-5 mx-auto w-50 "
-        onSubmit={addMilk}
-      >
-        <h2>Mjölkning</h2>
-        <div className="form-group">
-          <label htmlFor="animal_id" className="form-label">
-            SE-nummer:
-          </label>
-          <select
-            id="animal_id"
-            name="animal_id"
-            className="form-control"
-            value={chosenAnimalId}
-            onChange={changeAnimal}
+      {/* Boolean if Edit milk, else show form for add milk */}
+      {/*form for changing milk*/}
+      {editMilk ? (
+        <div>
+          <form className="form-control handleForm form-control-sm border-2 p-5 mx-auto w-50 "
+            onSubmit={(e) => updateMilk(e)}>
+            <h2>Ändra Mjölkning</h2>
+            <div className="form-group">
+              <label htmlFor="animal_id" className="form-label">
+                SE-nummer:
+              </label>
+              <select
+                id="animal_id"
+                name="animal_id"
+                className="form-control"
+                value={chosenAnimalId}
+              >
+                <option value="inget">Välj ett djur</option>
+                {animals.map((animal) => (
+                  <option key={animal.id} value={animal.id}>
+                    {animal.animalId}
+                  </option>
+                ))}
+              </select>
+              <p className="error-message">{formError.animal_id}</p>
+            </div>
+            <div className="form-group">
+              <label htmlFor="kgMilk" className="form-label">
+                Mjölk i kg:
+              </label>
+              <input
+                type="text"
+                id="kgMilk"
+                name="kgMilk"
+                className="form-control"
+                value={newMilk.kgMilk}
+                onChange={handleInputChange} 
+              />
+              <p className="error-message">{formError.kgMilk}</p>
+            </div>
+            <div className="form-group">
+              <label htmlFor="milkDate" className="form-label">
+                Datum för mjölkning:
+              </label>
+              <input
+                type="datetime-local"
+                id="milkDate"
+                name="milkDate"
+                className="form-control"
+                value={newMilk.milkDate}
+                onChange={handleInputChange} 
+              />
+              <p className="error-message">{formError.milkDate}</p>
+            </div>
+            <button onClick={editData}>Ändra</button>
+          </form>
+        </div>
+      ) : (
+        /* form for adding milk */
+        <div>
+          <form
+            className="form-control handleForm form-control-sm border-2 p-5 mx-auto w-50 "
+            onSubmit={addMilk}
           >
-            <option value="inget">Välj ett djur</option>
-            {animals.map((animal) => (
-              <option key={animal.id} value={animal.id}>
-                {animal.animalId}
-              </option>
-            ))}
-          </select>
-          <p className="error-message">{formError.animal_id}</p>
+            <h2>Mjölkning</h2>
+            <div className="form-group">
+              <label htmlFor="animal_id" className="form-label">
+                SE-nummer:
+              </label>
+              <select
+                id="animal_id"
+                name="animal_id"
+                className="form-control"
+                value={chosenAnimalId}
+                onChange={changeAnimal}
+              >
+                <option value="inget">Välj ett djur</option>
+                {animals.map((animal) => (
+                  <option key={animal.id} value={animal.id}>
+                    {animal.animalId}
+                  </option>
+                ))}
+              </select>
+              <p className="error-message">{formError.animal_id}</p>
+            </div>
+            <div className="form-group">
+              <label htmlFor="kgMilk" className="form-label">
+                Mjölk i kg:
+              </label>
+              <input
+                type="text"
+                id="kgMilk"
+                name="kgMilk"
+                className="form-control"
+                value={newMilk.kgMilk}
+                onChange={handleInputChange}
+              />
+              <p className="error-message">{formError.kgMilk}</p>
+            </div>
+            <div className="form-group">
+              <label htmlFor="milkDate" className="form-label">
+                Datum för mjölkning:
+              </label>
+              <input
+                type="datetime-local"
+                id="milkDate"
+                name="milkDate"
+                className="form-control"
+                value={newMilk.milkDate}
+                onChange={handleInputChange}
+              />
+              <p className="error-message">{formError.milkDate}</p>
+            </div>
+            <button type="submit" className="button w-50 mt-2">
+              Lägg till
+            </button>
+          </form>
+
+
+          {/*Show messages to form */}
+          {showMessage && (
+            <p className="alert alert-light text-center mt-2">{showMessage}</p>
+          )}
         </div>
-        <div className="form-group">
-          <label htmlFor="kgMilk" className="form-label">
-            Mjölk i kg:
-          </label>
-          <input
-            type="text"
-            id="kgMilk"
-            name="kgMilk"
-            className="form-control"
-            value={newMilk.kgMilk}
-            onChange={handleInputChange}
-          />
-          <p className="error-message">{formError.kgMilk}</p>
-        </div>
-        <div className="form-group">
-          <label htmlFor="milkDate" className="form-label">
-            Datum för mjölkning:
-          </label>
-          <input
-            type="datetime-local"
-            id="milkDate"
-            name="milkDate"
-            className="form-control"
-            value={newMilk.milkDate}
-            onChange={handleInputChange}
-          />
-          <p className="error-message">{formError.milkDate}</p>
-        </div>
-        <button type="submit" className="button w-50 mt-2">
-          Lägg till
-        </button>
-      </form>
-      {/*Show messages to form */}
-      {showMessage && (
-        <p className="alert alert-light text-center mt-2">{showMessage}</p>
       )}
       <h2>Senaste mjölkningarna för:</h2>
       <table className="table table-responsive table-hover">
@@ -357,6 +489,20 @@ function Milk() {
               <td>{milk.kgMilk} Kg</td>
               <td>{milk.milkDate}</td>
               <td>
+                <button
+                  className="btn "
+                  onClick={() => {
+                    setEditMilk(true); // Uppdatera editMilk-tillståndet till true för att visa redigeringsläge
+                    setNewMilk({
+                      id: milk.id,
+                      kgMilk: milk.kgMilk,
+                      milkDate: milk.milkDate,
+                      animal_id: milk.animal_id
+                    }); // Fyll i formuläret med befintliga värden för mjölkning
+                  }}
+                >
+                  Ändra
+                </button>
                 {/**Change url when clicking at delete */}
                 <button
                   className="btn btn-danger"
@@ -366,9 +512,11 @@ function Milk() {
                 </button>
               </td>
             </tr>
+
           ))}
         </tbody>
       </table>
+
       {/**Popup for deleating */}
       {show && (
         <div className="modal" role="dialog" style={{ display: "block" }}>
@@ -398,7 +546,9 @@ function Milk() {
               </div>
             </div>
           </div>
+
         </div>
+
       )}
     </div>
   );
