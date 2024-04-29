@@ -179,7 +179,7 @@ function Medicine() {
       recurrent: newMedicine.recurrent,
       animal_id: chosenAnimalId,
     });
-    //fetch
+    //fetch post
     try {
       const response = await fetch(
         `http://localhost:8000/api/medicines/animals/${chosenAnimalId}`,
@@ -231,10 +231,12 @@ function Medicine() {
   //Trigger that shows the last medicines from the chosen id (animal).
   const changeAnimal = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const { value } = e.target;
+     //set chosen animal
     setChosenAnimalId(value);
   };
   // Gets all medicine from the animal with fetch
   const getMedicinesByAnimals = async (chosenAnimalId: string) => {
+    //fetch get
     try {
       const response = await fetch(
         `http://localhost:8000/api/medicines/animals/${chosenAnimalId}`,
@@ -332,7 +334,6 @@ function Medicine() {
   return (
     <div>
       {/*form for adding medicine*/}
-
       <form
         className="form-control handleForm form-control-sm border-2 p-5 mx-auto w-50 "
         onSubmit={addMedicine}
