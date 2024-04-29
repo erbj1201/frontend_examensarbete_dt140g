@@ -1,58 +1,169 @@
-/* import DOMPurify from "dompurify";
-import React, { useEffect, useState, FormEvent } from "react";
-interface User{
-    name: string;
-    email: string;
+import React, { useEffect, useState } from "react";
+import Cookies from "universal-cookie";
+
+interface User {
+  name: string;
+  email: string;
+  password: string;
+  id: string;
 }
 
-const [User, setUser] = useState<User[]>([]);
-
-
+const cookies = new Cookies();
+const token = cookies.get("token");
+const userid = sessionStorage.getItem("userid");
 
 const AccountPage: React.FC = () => {
+  const [editUser, setEditUser] = useState(false);
+  const [users, setUsers] = useState<User[]>([]);
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [errorPassword, setErrorPassword] = useState("");
 
-    return(
-        <div>
-             <form
-        className="form-control handleForm form-control-sm border-0 p-2 mx-auto w-100"
-        >
-            <div className="form-group">
-              <label htmlFor="name" className="form-label">
-            Namn:
-          </label>
- <input
-            type="name"
-            id="name"
-            name="name"
-            className="form-control"
-            required /></div>
-               <div className="form-group">
-          <label htmlFor="email" className="form-label">
-            Mejladress:
-          </label>
-          <input
-            type="email"
-            id="email"
-            name="email"
-            className="form-control"
-            required
-            />
-            <label htmlFor="herdId" className="form-label">
-           Besättningsnummer:
-          </label>
-            <input
-            type="herdId"
-            id="herdId"
-            name="herdId"
-            className="form-control"
-            required
-            />
+
+  useEffect(() => {
+    //Set the mail from database
+    if (users.length > 0) {
+      setEmail(users[0].email);
+    }
+    fetchUsers();
+  }, [users]);
+
+  const fetchUsers = async () => {
+    try {
+      const response = await fetch(`http://localhost:8000/api/users`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+          Accept: "application/json",
+        },
+      });
+      if (response.ok) {
+        const jsonData = await response.json();
+        setUsers(jsonData);
+        
+      } else {
+        throw new Error("Något gick fel");
+      }
+    } catch (error) {
+      console.error("Fel vid hämtning av användare", error);
+    }
+  };
+
+  const handleForm= async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    try{
+      console.log("Användarens lösenord:", password);
+ 
+    if(users.length > 0 && users[0].password){
+         console.log("Lösenordet från användaren i databasen:", users[0].password);
+    }
+    
+        if (password !== users[0].password) {
+    setErrorPassword("Fel lösenord");
+    return;
+  }
+  else {
+  updateProfile();
+
+  }
+    } catch (error) {
+      console.error("Fel vid inloggning");
+    }
+  };
+  
+  
+  const updateProfile = async () => {
+    try {
+      const requestBody = {userid, name, email}
+      await fetch(`http://localhost:8000/api/users/${userid}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+          Accept: "application/json",
+        },
+        body: JSON.stringify(requestBody),
+      });
+      console.log("Data som skickas till servern:", requestBody); 
+      setEditUser(false);
+      fetchUsers();
+    
+    } catch (error) {
+      console.error("Error updating user", error);
+    
+  }
+};
+  
+
+  return (
+    <div>
+      {users.map((user) => (
+        <div key={user.id}>
+          {editUser ? (
+            <form
+              className="form-control handleForm form-control-sm border-0 p-2 mx-auto w-100"
+              onSubmit={handleForm}
+            >
+              <div className="form-group">
+
+                <label htmlFor="name" className="form-label">
+                  Namn:
+                </label>
+                <input
+                  type="name"
+                  id="name"
+                  name="name"
+                  defaultValue={user.name}
+                  className="form-control"
+                  onChange={(e) => setName(e.target.value)}
+                  required
+                />
+              </div>
+              <div className="form-group">
+                <label htmlFor="email" className="form-label">
+                  Mejladress:
+                </label>
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  defaultValue={email} // Förskrivet värde
+            
+                  className="form-control"
+                  onChange={(e) => setEmail(e.target.value)}
+                  required
+                />
+                <label htmlFor="password" className="form-label">
+                  Skriv ditt aktuella lösenord för att spara ändringar:
+                </label>
+                <input
+                  type="password"
+                  id="password"
+                  name="password"
+
+                  className="form-control"
+                  onChange={(e) => setPassword(e.target.value)}
+                  required
+                />
+                {errorPassword && <p>{errorPassword}</p>}
+                <button type="submit" className="btn btn-primary">
+                  Spara ändringar
+                </button>
+              </div>
+            </form>
+          ) : (
+            <div>
+              <p>Name: {user.name}</p>
+              <p>Email: {user.email}</p>
+              <button onClick={() => setEditUser(true)}>Edit</button>
             </div>
-        </form>
+          )}
         </div>
-    )
-}
+      ))}
+    </div>
+  );
+};
 
-//export
 export default AccountPage;
- */
