@@ -335,6 +335,7 @@ function Vaccine() {
             id="batchNo"
             name="batchNo"
             className="form-control"
+            value={newVaccine.batchNo}
             onChange={handleInputChange}
           />
           <p className="error-message">{formError.batchNo}</p>
@@ -348,6 +349,7 @@ function Vaccine() {
             id="name"
             name="name"
             className="form-control"
+            value={newVaccine.name}
             onChange={handleInputChange}
           />
           <p className="error-message">{formError.name}</p>
@@ -362,6 +364,7 @@ function Vaccine() {
             name="date"
             placeholder="yyyy-mm-dd hh-MM"
             className="form-control"
+            value={newVaccine.date}
             onChange={handleInputChange}
           />
           <p className="error-message">{formError.date}</p>
