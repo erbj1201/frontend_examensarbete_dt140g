@@ -105,6 +105,10 @@ export default function Account() {
         // Clear message after  3 seconds
         setTimeout(clearMessages, 3000);
         setEditUser(false);
+      } else if( response.status==400){
+        setShowMessage("Fel lösenord, kunde inte spara");
+        // Clear message after  3 seconds
+        setTimeout(clearMessages, 3000);
       }
     } catch (error) {
       setShowMessage("Ändringarna kunde inte sparas");
@@ -121,6 +125,9 @@ export default function Account() {
           className="form-control handleForm form-control-sm border-0 p-2 mx-auto w-100"
           onSubmit={updateProfile}
         >
+          {showMessage && (
+            <p className="alert alert-light text-center mt-2">{showMessage}</p>
+          )}
           <div className="form-group">
             <label htmlFor="name" className="form-label">
               Namn:
