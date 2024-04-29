@@ -1,7 +1,9 @@
+//import
 import DOMPurify from "dompurify";
 import React, { useEffect, useState, FormEvent } from "react";
+import { useNavigate } from "react-router-dom";
 import Cookies from "universal-cookie";
-
+//structure of vaccine
 interface Vaccine {
   id: string;
   batchNo: string;
@@ -11,14 +13,21 @@ interface Vaccine {
 }
 
 function Vaccine() {
-  //States
+  //token
   const cookies = new Cookies();
   const token = cookies.get("token");
+    //use navigate
+    const navigate = useNavigate();
+   //States
   const [showMessage, setShowMessage] = useState<string | null>(null);
   const [chosenAnimalId, setChosenAnimalId] = useState<string>("");
   const [animals, setAnimals] = useState<{ id: string; animalId: string }[]>(
     []
   );
+  const [chosenVaccineId, setChosenVaccineId] = useState<string>("");
+  const [show, setShow] = useState(false);
+  const handleClose = () => setShow(false);
+  //States store data
   const [vaccines, setVaccines] = useState<Vaccine[]>([]);
   //States store data
   const [newVaccine, setNewVaccine] = useState<Vaccine>({
@@ -53,9 +62,10 @@ function Vaccine() {
       getVaccineByAnimals(chosenAnimalId);
     }
   }, [chosenAnimalId]);
-
+  // Handle changes in input field
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
+     //Sanitize value
     const sanitizedData = DOMPurify.sanitize(value);
     setNewVaccine((prevState) => ({
       ...prevState,
@@ -63,7 +73,7 @@ function Vaccine() {
     }));
   };
 
-  //Post Vaccine with fetch
+  //Add vaccine data with fetch
   const addVaccine = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     //Object to track input errors
@@ -80,7 +90,7 @@ function Vaccine() {
       !newVaccine.name &&
       !newVaccine.date &&
       !chosenAnimalId
-    ) {
+    ) { //error messages when empty fields
       setFormError({
         ...inputError,
         animal_id: "Välj ett djur",
@@ -139,7 +149,7 @@ function Vaccine() {
     const sanitizedBatchNo = DOMPurify.sanitize(newVaccine.batchNo);
     const sanitizedName = DOMPurify.sanitize(newVaccine.name);
     const sanitizedDate = DOMPurify.sanitize(newVaccine.date);
-
+  //Update state with sanitized values
     setNewVaccine({
       id: newVaccine.id,
       batchNo: sanitizedBatchNo,
@@ -147,7 +157,7 @@ function Vaccine() {
       date: sanitizedDate,
       animal_id: chosenAnimalId,
     });
-
+//fetch (post)
     try {
       const response = await fetch(
         `http://localhost:8000/api/vaccines/animals/${chosenAnimalId}`,
@@ -157,7 +167,7 @@ function Vaccine() {
             "Content-Type": "application/json",
             Authorization: `Bearer ${token}`,
             Accept: "application/json",
-          },
+          },  //Send with sanitized data
           body: JSON.stringify({
             batchNo: sanitizedBatchNo,
             name: sanitizedName,
@@ -166,9 +176,9 @@ function Vaccine() {
           }),
         }
       );
-
+    //await response
       const responseData = await response.json();
-      //if response ok
+      //if response ok, clear form
       if (response.ok) {
         setNewVaccine({
           id: responseData.id,
@@ -179,6 +189,7 @@ function Vaccine() {
         });
         //get all vaccine from animal
         getVaccineByAnimals(chosenAnimalId);
+        //show message
         setShowMessage("Vaccineringen är tillagd");
         // Clear message after  3 seconds
         setTimeout(clearMessages, 3000);
@@ -194,10 +205,12 @@ function Vaccine() {
   //Trigger that Shows the last vaccines from the chosen id (animal)
   const changeAnimal = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const { value } = e.target;
+    //change state after chosen animal
     setChosenAnimalId(value);
   };
   //Gets all vaccines from the animal with fetch
   const getVaccineByAnimals = async (chosenAnimalId: string) => {
+    //fetch get
     try {
       const response = await fetch(
         `http://localhost:8000/api/vaccines/animals/${chosenAnimalId}`,
@@ -209,7 +222,7 @@ function Vaccine() {
             Accept: "application/json",
           },
         }
-      );
+      ); //if response ok, set vaccine
       if (response.ok) {
         const jsonData = await response.json();
         setVaccines(jsonData);
@@ -222,6 +235,7 @@ function Vaccine() {
   };
   // Get's all animals with animalId´s and the id:s from the database
   const getAnimals = async () => {
+    //fetch get
     try {
       const response = await fetch(`http://localhost:8000/api/animals`, {
         method: "GET",
@@ -230,14 +244,14 @@ function Vaccine() {
           Authorization: `Bearer ${token}`,
           Accept: "application/json",
         },
-      });
+      }); //if response ok
       if (response.ok) {
         const jsonData = await response.json();
         //Map function to transform objects in the array.
         const animalIds = jsonData.map((animal: any) => ({
           id: animal.id,
           animalId: animal.animalId,
-        }));
+        })); //set animal
         setAnimals(animalIds);
       } else {
         throw new Error("Något gick fel");
@@ -247,38 +261,51 @@ function Vaccine() {
     }
   };
   //Delete vaccine with Id
-  const deleteVaccine = async (id: string) => {
+  const deleteVaccine = async (chosenVaccineId: string) => {
+    //fetch delete
     try {
-      const response = await fetch(`http://localhost:8000/api/vaccines/${id}`, {
+      const response = await fetch(`http://localhost:8000/api/vaccines/${chosenVaccineId}`, {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
           Accept: "application/json",
         },
-      });
+      });//if response ok
       if (response.ok) {
-        alert("Vaccinering är nu raderad");
+        //get all vaccine from chosen animals
+        getVaccineByAnimals(chosenAnimalId)
+        //change show to false and show message
+        setShow(false);
+        setShowMessage("Vaccineringen är raderad");
       } else {
-        throw new Error("Något gick fel vid radering av vaccinering");
+        throw new Error("Vaccineringen kunde inte raderas");
       }
     } catch (error) {
       console.error("Något gick fel:", error);
     }
   };
 
+  //change url and add id
+  const navigateToVaccine = (id: string) => {
+    //navigate to handle with id from chosen vaccine
+    navigate(`/handle/${id}`);
+    //change states
+    setShow(true);
+    //save id
+    setChosenVaccineId(id);
+  };
+
+
   return (
     <div>
+        {/*form for adding vaccine*/}
       <form
         className="form-control handleForm form-control-sm border-2 p-5 mx-auto w-50 "
         onSubmit={addVaccine}
-        noValidate
-      >
-        {" "}
+        noValidate //The formdata is not automaticallly validated by the browser
+      > 
         <h2>Vaccinering</h2>
-        {showMessage && (
-          <p className="alert alert-light text-center mt-2">{showMessage}</p>
-        )}
         <div className="form-group">
           <label htmlFor="animal_id" className="form-label">
             SE-nummer:
@@ -343,6 +370,11 @@ function Vaccine() {
           Lägg till
         </button>
       </form>
+         {/*Show messages to form */}
+         {showMessage && (
+          <p className="alert alert-light text-center mt-2">{showMessage}</p>
+        )}
+        {/*Table to write calves*/}
       <h2> Senaste Vaccinationerna för:</h2>
       <table className="table table-responsive table-hover">
         <thead>
@@ -355,6 +387,7 @@ function Vaccine() {
           </tr>
         </thead>
         <tbody>
+           {/**Loop and Write vaccine */}
           {vaccines.map((vaccine) => (
             <tr key={vaccine.id}>
               <td>{vaccine.id}</td>
@@ -362,17 +395,10 @@ function Vaccine() {
               <td>{vaccine.batchNo}</td>
               <td>{vaccine.date}</td>
               <td>
-                <button className="button">Ändra</button>
-                <button
-                  onClick={() => {
-                    const confirmBox = window.confirm(
-                      "Vill du radera vaccineringen?"
-                    )
-                    if (confirmBox === true) {
-                    deleteVaccine(vaccine.id);
-                    }
-                  }}
-                  className="button m-2"
+                 {/**Change url when clicking at delete */}
+                 <button
+                  className="btn btn-danger"
+                  onClick={() => navigateToVaccine(vaccine.id)}
                 >
                   Radera
                 </button>
@@ -381,6 +407,37 @@ function Vaccine() {
           ))}
         </tbody>
       </table>
+       {/**Popup for deleating */}
+       {show && (
+        <div className="modal" role="dialog" style={{ display: "block" }}>
+          <div className="modal-dialog" role="document">
+            <div className="modal-content">
+              <div className="modal-header">
+                <h5 className="modal-title">Vill du radera?</h5>
+              </div>
+              <div className="modal-body">
+                Är du säker på att du vill radera kalvningen?
+              </div>
+              <div className="modal-footer">
+                <button
+                  type="button"
+                  className="btn-alert"
+                  onClick={() => deleteVaccine(chosenVaccineId)}
+                >
+                  Ja
+                </button>
+                <button
+                  type="button"
+                  className="btn-alert"
+                  onClick={handleClose}
+                >
+                  Nej
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

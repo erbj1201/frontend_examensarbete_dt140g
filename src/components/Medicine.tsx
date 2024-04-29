@@ -15,16 +15,18 @@ interface Medicine {
 }
 
 function Medicine() {
-  //States
+  //cookies
   const cookies = new Cookies();
   const token = cookies.get("token");
+  //use navigate
+  const navigate = useNavigate();
+  //States
   const [showMessage, setShowMessage] = useState<string | null>(null);
   const [chosenAnimalId, setChosenAnimalId] = useState<string>("");
   const [chosenMedicineId, setChosenMedicinelId] = useState<string>("");
   const [animals, setAnimals] = useState<{ id: string; animalId: string }[]>(
     []
   );
- 
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
@@ -97,7 +99,7 @@ function Medicine() {
       !newMedicine.amount &&
       !newMedicine.recurrent &&
       !chosenAnimalId
-    ) {
+    ) { //error messages when empty fields
       setFormError({
         ...inputError,
         animal_id: "Välj ett djur",
@@ -187,7 +189,7 @@ function Medicine() {
             "Content-Type": "application/json",
             Authorization: `Bearer ${token}`,
             Accept: "application/json",
-          },
+          }, //send sanitized data
           body: JSON.stringify({
             date: sanitizedDate,
             type: sanitizedType,
@@ -199,7 +201,7 @@ function Medicine() {
       );
       //await response
       const responseData = await response.json();
-      //if response ok
+      //if response ok, clear form
       if (response.ok) {
         setNewMedicine({
           id: responseData.id,
@@ -209,14 +211,16 @@ function Medicine() {
           recurrent: "",
           animal_id: chosenAnimalId,
         });
-        //get all medicine from animal
+        //get all medicine from chosen animal
         getMedicinesByAnimals(chosenAnimalId);
+        //show message
         setShowMessage("Medicineringen är tillagd");
         // Clear message after  3 seconds
         setTimeout(clearMessages, 3000);
       }
       console.log(responseData);
     } catch (error) {
+      //error message
       setShowMessage("Fel vid lagring av medicinering");
       // Clear message after  3 seconds
       setTimeout(clearMessages, 3000);
@@ -245,6 +249,7 @@ function Medicine() {
       ); //if response ok
       if (response.ok) {
         const jsonData = await response.json();
+        //set medicines
         setMedicines(jsonData);
       } else {
         throw new Error("Något gick fel");
@@ -255,6 +260,7 @@ function Medicine() {
   };
   // Get all animals with their animalId´s and id:s from the database
   const getAnimals = async () => {
+    //fetch get
     try {
       const response = await fetch(`http://localhost:8000/api/animals`, {
         method: "GET",
@@ -270,7 +276,7 @@ function Medicine() {
         const animalIds = jsonData.map((animal: any) => ({
           id: animal.id,
           animalId: animal.animalId,
-        }));
+        })); //set animal
         setAnimals(animalIds);
       } else {
         throw new Error("Något gick fel");
@@ -280,19 +286,19 @@ function Medicine() {
     }
   };
 
-   //use navigate
-   const navigate = useNavigate();
-   //navigate to details
-   const navigateToMedicine = (id: string) => {
-     //navigate to handle with id from chosen product (id)
-     navigate(`/handle/${id}`);
-     setShow(true);
-     setChosenMedicinelId(id);
-   };
-  
+  //change url and add id
+  const navigateToMedicine = (id: string) => {
+    //navigate to handle with id from chosen medicine
+    navigate(`/handle/${id}`);
+    //change states
+    setShow(true);
+    //save id
+    setChosenMedicinelId(id);
+  };
 
   //Delete Milk with id
   const deleteMedicine = async (chosenMedicineId: string) => {
+    //fetch (delete)
     try {
       const response = await fetch(
         `http://localhost:8000/api/medicines/${chosenMedicineId}`,
@@ -304,18 +310,19 @@ function Medicine() {
             Accept: "application/json",
           },
         }
-      );
+      ); //if response ok
       if (response.ok) {
-         //get all medicine from animal
-         getMedicinesByAnimals(chosenAnimalId);
-         setShow(false);
+        //get all medicine from animal
+        getMedicinesByAnimals(chosenAnimalId);
+        //change show to false and show message
+        setShow(false);
         setShowMessage("Medicineringen är raderad");
-         // Clear message after  3 seconds
-      setTimeout(clearMessages, 3000);
+        // Clear message after  3 seconds
+        setTimeout(clearMessages, 3000);
       } else {
         setShowMessage("Medicineringen kunde inte raderas");
-         // Clear message after  3 seconds
-      setTimeout(clearMessages, 3000);
+        // Clear message after  3 seconds
+        setTimeout(clearMessages, 3000);
       }
     } catch (error) {
       console.error("Något gick fel:", error);
@@ -453,27 +460,42 @@ function Medicine() {
               {/**Check if medicine.recurrent is true or false */}
               <td>{medicine.recurrent ? "Ja" : "Nej"}</td>
               <td>
-              <button className="btn btn-danger" onClick={() => navigateToMedicine(medicine.id)}>Radera</button>
+                {/**Change url when clicking at delete */}
+                <button
+                  className="btn btn-danger"
+                  onClick={() => navigateToMedicine(medicine.id)}
+                >
+                  Radera
+                </button>
               </td>
             </tr>
           ))}
         </tbody>
       </table>
+      {/**Popup for deleating */}
       {show && (
-        <div className="modal" role="dialog" style={{ display: 'block' }}>
+        <div className="modal" role="dialog" style={{ display: "block" }}>
           <div className="modal-dialog" role="document">
             <div className="modal-content">
               <div className="modal-header">
                 <h5 className="modal-title">Vill du radera?</h5>
               </div>
               <div className="modal-body">
-                Är du säker på att du vill radera medicineringen? 
+                Är du säker på att du vill radera medicineringen?
               </div>
               <div className="modal-footer">
-                <button type="button" className="btn-alert" onClick={() => deleteMedicine(chosenMedicineId)}>
+                <button
+                  type="button"
+                  className="btn-alert"
+                  onClick={() => deleteMedicine(chosenMedicineId)}
+                >
                   Ja
                 </button>
-                <button type="button" className="btn-alert" onClick={handleClose}>
+                <button
+                  type="button"
+                  className="btn-alert"
+                  onClick={handleClose}
+                >
                   Nej
                 </button>
               </div>
