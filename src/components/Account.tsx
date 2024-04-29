@@ -190,6 +190,7 @@ export default function Account() {
         setTimeout(clearMessages, 3000);
         setEditImageData(false);
         fetchUser();
+
         }
       } catch (error) {
         console.error("Error uploading image:", error);
@@ -260,7 +261,7 @@ export default function Account() {
           <p>Namn: {user.name}</p>
           <p>Mejladress: {user.email}</p>
           <button onClick={editData}>Ändra</button>
-          <img src={user.imagepath} alt="Bild på användare"/>
+          <img className="userImage" src={user.imagepath} alt="Bild på användare"/>
           
           <button onClick={editImage}>Byt bild</button>
         </div>
@@ -280,9 +281,6 @@ export default function Account() {
   className="form-control"
   onChange={handleImageChange}
 />
-<button type="submit" className="btn btn-primary">
-              Spara ändringar
-            </button>
           </div>
           </form>
        ) : (
