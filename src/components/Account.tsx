@@ -22,13 +22,16 @@ const AccountPage: React.FC = () => {
 
 
   useEffect(() => {
-    //Set the mail from database
-    if (users.length > 0) {
+   
+    //Set name the mail from database
+    if (users.length  > 0) {
       setEmail(users[0].email);
+      setName(users[0].name);
     }
     fetchUsers();
   }, [users]);
 
+//Get users
   const fetchUsers = async () => {
     try {
       const response = await fetch(`http://localhost:8000/api/users`, {
@@ -39,6 +42,7 @@ const AccountPage: React.FC = () => {
           Accept: "application/json",
         },
       });
+      //If response.ok
       if (response.ok) {
         const jsonData = await response.json();
         setUsers(jsonData);
@@ -50,7 +54,7 @@ const AccountPage: React.FC = () => {
       console.error("Fel vid hämtning av användare", error);
     }
   };
-
+//Handle form and compare password in input field with password in database 
   const handleForm= async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try{
@@ -59,24 +63,25 @@ const AccountPage: React.FC = () => {
     if(users.length > 0 && users[0].password){
          console.log("Lösenordet från användaren i databasen:", users[0].password);
     }
-    
+    // If the compared password is incorrect
         if (password !== users[0].password) {
     setErrorPassword("Fel lösenord");
     return;
   }
+  //If password correct use updateProfile function
   else {
   updateProfile();
-
   }
     } catch (error) {
       console.error("Fel vid inloggning");
     }
   };
   
-  
   const updateProfile = async () => {
     try {
+      // Create an object for the values
       const requestBody = {userid, name, email}
+
       await fetch(`http://localhost:8000/api/users/${userid}`, {
         method: "PUT",
         headers: {
@@ -92,11 +97,11 @@ const AccountPage: React.FC = () => {
     
     } catch (error) {
       console.error("Error updating user", error);
-    
+
   }
 };
   
-
+//Form with input fields
   return (
     <div>
       {users.map((user) => (
@@ -107,7 +112,6 @@ const AccountPage: React.FC = () => {
               onSubmit={handleForm}
             >
               <div className="form-group">
-
                 <label htmlFor="name" className="form-label">
                   Namn:
                 </label>
@@ -115,9 +119,9 @@ const AccountPage: React.FC = () => {
                   type="name"
                   id="name"
                   name="name"
-                  defaultValue={user.name}
+                  defaultValue={name}
                   className="form-control"
-                  onChange={(e) => setName(e.target.value)}
+                  onChange={(e) => setName(e.target.value)} //Set new name if it changes
                   required
                 />
               </div>
@@ -129,10 +133,9 @@ const AccountPage: React.FC = () => {
                   type="email"
                   id="email"
                   name="email"
-                  defaultValue={email} // Förskrivet värde
-            
+                  defaultValue={email} 
                   className="form-control"
-                  onChange={(e) => setEmail(e.target.value)}
+                  onChange={(e) => setEmail(e.target.value)} //set new email if it changes 
                   required
                 />
                 <label htmlFor="password" className="form-label">
@@ -142,7 +145,6 @@ const AccountPage: React.FC = () => {
                   type="password"
                   id="password"
                   name="password"
-
                   className="form-control"
                   onChange={(e) => setPassword(e.target.value)}
                   required
