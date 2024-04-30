@@ -91,9 +91,10 @@ export default function Account() {
     //clear messages
     setShowMessage(null);
   };
-
+//update user info (not image)
   const updateProfile = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    //sanitize values
     const { name, email, password } = inputData;
     const sanitizedEmail = DOMPurify.sanitize(email);
     const sanitizedName = DOMPurify.sanitize(name);
@@ -104,6 +105,7 @@ export default function Account() {
       email: sanitizedEmail,
       password: sanitizedPassword,
     });
+    //fetch (put)
     try {
       const response = await fetch(`http://localhost:8000/api/users/${userid}`, {
         method: "PUT",
@@ -111,7 +113,7 @@ export default function Account() {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
           Accept: "application/json",
-        },
+        }, // send data with body
         body: JSON.stringify({
           name: sanitizedName,
           email: sanitizedEmail,
@@ -120,19 +122,24 @@ export default function Account() {
         }),
       });
       const responseData = await response.json();
-      console.log(responseData);
+      //if response ok
       if (response.ok) {
+        //show message
         setShowMessage("Ändringarna är sparade");
         // Clear message after  3 seconds
         setTimeout(clearMessages, 3000);
+        //set edit user to false and get user info 
         setEditUser(false);
         fetchUser();
+        //if response 400, password is not correct
       } else if( response.status==400){
+        //show message
         setShowMessage("Fel lösenord, kunde inte spara");
         // Clear message after  3 seconds
         setTimeout(clearMessages, 3000);
       }
     } catch (error) {
+      //error message
       setShowMessage("Ändringarna kunde inte sparas");
       // Clear message after  3 seconds
       setTimeout(clearMessages, 3000);
@@ -141,57 +148,63 @@ export default function Account() {
   };
   const handleSubmitImage = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    //get file input from input-field
     const fileInput = e.currentTarget.querySelector('#imagepath') as HTMLInputElement;
+    //pass the file to a new form data object
     const formData = new FormData(e.currentTarget);
+    //sunthetic change event to simulate file input changes
     const event = {
       target: {
         files: fileInput.files,
       },
     } as React.ChangeEvent<HTMLInputElement>;
+    //call handleimagechange 
     handleImageChange(event);
     console.log(formData)
   };
 
   const handleImageChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    //get file if exists
     const file = e.target?.files && e.target.files[0];
     if (file) {
-      // Förhandsvisa bilden för användaren
+      //Preview the image for the user
       const reader = new FileReader();
+      //when file is loaded, set img url
       reader.onload = (event) => {
         const result = event.target?.result;
         if (typeof result === "string") {
           setImageUrl(result);
         }
-      };
+      }; //if error reading file, show in console
         reader.onerror = (error) => {
       console.error("Error reading file:", error);
-    };
-
+    }; //read image as data url
       reader.readAsDataURL(file);
-  
-      // Skicka bilden till servern för uppladdning
+      //Send image to server
       const formData = new FormData();
       formData.append("imagepath", file);
-  
+      //fetch (post)
       try {
         const response = await fetch(`http://localhost:8000/api/users/images/${userid}`, {
           method: "POST",
           headers: {
             Authorization: `Bearer ${token}`,
             Accept: "application/json",
-          },
+          }, //send data with body
           body: formData,
         });
         const responseData = await response.json();
-        console.log(responseData);
+       //if response ok
         if (response.ok) {
+          //show message
       setShowMessage("Bilden är ändrad");
         // Clear message after  3 seconds
         setTimeout(clearMessages, 3000);
+        //Set edit image to false
         setEditImageData(false);
+        //get user 
         fetchUser();
-
-        }
+        } //if error
       } catch (error) {
         console.error("Error uploading image:", error);
       }
@@ -199,12 +212,13 @@ export default function Account() {
   };
 
   return (
-    <div>
+    <div className="container d-flex">
+      {/** If edituser is true, show form */}
       {editUser ? (
         <form
-          className="form-control handleForm form-control-sm border-0 p-2 mx-auto w-100"
+          className="form-control handleForm form-control-sm border-0 p-2 mx-auto w-50"
           onSubmit={updateProfile}
-        >
+        > {/*Message for form */}
           {showMessage && (
             <p className="alert alert-light text-center mt-2">{showMessage}</p>
           )}
@@ -253,26 +267,37 @@ export default function Account() {
           </div>
         </form>
       ) : user ? (
-        <div>
+        <div className="bg-light p-2 m-3 mx-auto w-100 border-secondary d-flex flex-column ">
           {/**Messages to form */}
           {showMessage && (
-            <p className="alert alert-light text-center mt-2">{showMessage}</p>
+            <p className="alert alert-light text-center mx-auto">{showMessage}</p>
           )}
-          <p>Namn: {user.name}</p>
-          <p>Mejladress: {user.email}</p>
-          <button onClick={editData}>Ändra</button>
-          <img className="userImage" src={user.imagepath} alt="Bild på användare"/>
+          <h3 className="mx-auto p-4">Användaruppgifter</h3>
+          <div className="container d-flex justify-content-center ">
+          <div className="d-flex flex-column">
+          <img className="userImage mx-auto img-thumbnail m-5" src={user.imagepath} alt="Bild på användare"/>
           
-          <button onClick={editImage}>Byt bild</button>
+          </div>
+          <div className="d-flex flex-column mt-5 p-5">
+          <p><strong>Namn:</strong> {user.name}</p>
+          <p><strong>Mejladress:</strong> {user.email}</p>
+          </div>
+          </div>
+          <div className="mx-auto d-flex justify-content-between">
+          <button className="m-3" onClick={editImage}>Byt bild</button>
+          <button className="m-3" onClick={editData}>Ändra användaruppgifter</button>
+            </div>
+          
         </div>
       ) : (
         <p>Ingen användare hittades.</p>
-      )}
+        
+      )} {/*if editimagedata is true, show form*/}
        {editImageData? (
-<form onSubmit={handleSubmitImage}>
+<form className="form-control mx-auto bg-light handleForm form-control-sm border-0 mx-auto w-50" onSubmit={handleSubmitImage}>
 <div className="form-group" >
             <label htmlFor="imagepath" className="form-label">
-              Bild:
+              Välj en ny bild
             </label>
             <input
   type="file"
