@@ -263,9 +263,10 @@ export default function Account() {
               onChange={handleChange}
               required
             />
-            <button type="submit" className="btn btn-primary">
+            <button type="submit" className="m-3">
               Spara ändringar
             </button>
+            <button className=" mb-2" onClick={() => setEditUser(false)}>Tillbaka</button>
           </div>
         </form>
         </div>
@@ -301,7 +302,7 @@ export default function Account() {
 <form className="form-control mx-auto bg-light handleForm form-control-sm border-0 mx-auto w-50" onSubmit={handleSubmitImage}>
 <div className="form-group" >
             <label htmlFor="imagepath" className="form-label">
-              Välj en ny bild
+              Ladda upp en ny bild
             </label>
             <input
   type="file"
@@ -311,6 +312,7 @@ export default function Account() {
   onChange={handleImageChange}
 />
           </div>
+          <button className="mx-auto m-4" onClick={() => setEditImageData(false)}>Avbryt</button>
           </form>
           </div>
        ) : (
