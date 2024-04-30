@@ -37,7 +37,7 @@ const Navbar = () => {
           </li>
           {/**Icon for ? (support, contact) */}
           <li className="nav-item">
-            <NavLink className="menyicon" to="/account">
+            <NavLink className="menyicon" to="/help">
               <img className="pt-2" src="\src\content\image.png" />
             </NavLink>
           </li>
