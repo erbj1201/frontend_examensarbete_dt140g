@@ -121,7 +121,7 @@ export default function Account() {
       
         }),
       });
-      const responseData = await response.json();
+    
       //if response ok
       if (response.ok) {
         //show message
@@ -193,7 +193,7 @@ export default function Account() {
           }, //send data with body
           body: formData,
         });
-        const responseData = await response.json();
+      
        //if response ok
         if (response.ok) {
           //show message
