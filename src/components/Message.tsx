@@ -190,15 +190,15 @@ const Message: React.FC = () => {
 
   return (
     <div>
-      <h2>Skicka ett meddelande till oss</h2>
+      <h2 className="text-center m-5">Skicka ett meddelande till oss</h2>
       <div>
         {showMessage !== null && (
-          <p className="alert alert-light text-center mt-2">
+          <p className="alert alert-light text-center mx-auto">
             {showMessage || ""}
           </p>
         )}
         <form
-          className="form-control form-control-sm border-0 p-2 mx-auto w-100"
+          className="form-control form-control-sm p-3 mx-auto w-50"
           onSubmit={sendMessage}
           noValidate //The formdata is not automaticallly validated by the browser
         >
@@ -237,14 +237,13 @@ const Message: React.FC = () => {
             />
             <p className="error-message">{formError.description}</p>
           </div>
-          <button type="submit" className="btn btn-secondary mt-2">
+          <button type="submit" className="mt-2">
             Skicka meddelande
           </button>
         </form>
       </div>
-      <section>
-        <h3>Alla skickade meddelanden</h3>
-
+      <section className="bg-light m-4 mx-auto p-4 w-50">
+        <h3 className="text-center">Alla skickade meddelanden</h3>
         {fetchMessages.map((message) => {
           // Convert created_at to a new Date-Object
           const createNewDate = new Date(message.created_at);
@@ -254,7 +253,7 @@ const Message: React.FC = () => {
           )} ${createNewDate.toLocaleTimeString("sv-SE")}`;
 
           return (
-            <article key={message.id}>
+            <article className="mx-auto p-2 bg-white m-3" key={message.id}>
               <h4>{message.title}</h4>
               <p>
                 <em>Skickat: {formattedDateTime}</em>

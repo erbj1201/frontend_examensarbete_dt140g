@@ -10,6 +10,7 @@ import DetailsPage from "../pages/DetailsPage";
 import RegisterPage from "../pages/RegisterPage";
 import LoginPage from "../pages/LoginPage";
 import HandlePage from "../pages/HandlePage";
+import HelpPage from "../pages/HelpPage";
 //Component with routes
 const AppRouter: React.FC = () => {
   return (
@@ -32,6 +33,8 @@ const AppRouter: React.FC = () => {
         <Route path="/register" element={<RegisterPage />} />
         {/**Login (logga in användare*/}
         <Route path="/login" element={<LoginPage />} />
+
+        <Route path="/help" element={<HelpPage />} />
       </Routes>
     </Router>
   );
