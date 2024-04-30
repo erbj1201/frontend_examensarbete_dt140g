@@ -299,10 +299,11 @@ export default function Account() {
       )} {/*if editimagedata is true, show form*/}
        {editImageData? (
  <div className="bg-light p-2 m-3 mx-auto w-100 border-secondary d-flex flex-column ">
-<form className="form-control mx-auto bg-light handleForm form-control-sm border-0 mx-auto w-50" onSubmit={handleSubmitImage}>
+  <p className="text-center"><strong>Ladda upp en ny bild, bilden byts ut automatiskt</strong></p>
+<form className="form-control mx-auto handleForm form-control-sm border-0 mx-auto w-50" onSubmit={handleSubmitImage}>
 <div className="form-group" >
             <label htmlFor="imagepath" className="form-label">
-              Ladda upp en ny bild
+              Välj bild
             </label>
             <input
   type="file"
