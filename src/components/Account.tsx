@@ -212,9 +212,11 @@ export default function Account() {
   };
 
   return (
-    <div className="container d-flex">
+    <div className="container">
       {/** If edituser is true, show form */}
       {editUser ? (
+         <div className="bg-light p-2 m-3 mx-auto w-100 border-secondary d-flex flex-column ">
+        <h3 className="mx-auto">Uppdatera dina uppgifter</h3>
         <form
           className="form-control handleForm form-control-sm border-0 p-2 mx-auto w-50"
           onSubmit={updateProfile}
@@ -266,6 +268,7 @@ export default function Account() {
             </button>
           </div>
         </form>
+        </div>
       ) : user ? (
         <div className="bg-light p-2 m-3 mx-auto w-100 border-secondary d-flex flex-column ">
           {/**Messages to form */}
@@ -294,6 +297,7 @@ export default function Account() {
         
       )} {/*if editimagedata is true, show form*/}
        {editImageData? (
+ <div className="bg-light p-2 m-3 mx-auto w-100 border-secondary d-flex flex-column ">
 <form className="form-control mx-auto bg-light handleForm form-control-sm border-0 mx-auto w-50" onSubmit={handleSubmitImage}>
 <div className="form-group" >
             <label htmlFor="imagepath" className="form-label">
@@ -308,10 +312,12 @@ export default function Account() {
 />
           </div>
           </form>
+          </div>
        ) : (
         null
        )
       }
     </div>
+    
   );
 }
