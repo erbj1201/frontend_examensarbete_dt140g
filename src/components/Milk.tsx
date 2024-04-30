@@ -35,7 +35,7 @@ function Milk() {
     milkDate: "",
     animal_id: "",
   });
-
+// state data in edit form
   const [inputData, setInputData] = useState({
     id: "",
     kgMilk: "",
@@ -247,7 +247,7 @@ function Milk() {
       console.error("Fel vid hämtning");
     }
   };
-
+//edit input fields in form
   const editData = () => {
     setEditMilk(true);
     setInputData({
@@ -324,6 +324,8 @@ function Milk() {
         //Clear message after 3 seconds
         setTimeout(clearMessages, 3000);
         setEditMilk(false);
+        //Write the data of the changed animal in table directly
+        getMilkByAnimals(chosenAnimalId);
       }
       else {
         setShowMessage("Mjölkningen kunde inte ändras");
@@ -367,12 +369,13 @@ function Milk() {
   return (
 
     <div>
-      {/* Boolean, if Edit milk, else show form for add milk */}
+      {/* Boolean, if Edit milk true show edit form, else show form for add milk */}
       {/*form for changing milk*/}
       {editMilk ? (
         <div>
           <form className="form-control handleForm form-control-sm border-2 p-5 mx-auto w-50 "
-            onSubmit={(e) => updateMilk(e)}>
+            onSubmit={(e) => updateMilk(e)}
+              noValidate>
             <h2>Ändra Mjölkning</h2>
             <div className="form-group">
               <label htmlFor="animal_id" className="form-label">
@@ -423,6 +426,10 @@ function Milk() {
             </div>
             <button className="w-50 mt-2" onClick={editData}>Ändra</button>
           </form>
+           {/**Messages to form */}
+      {showMessage && (
+        <p className="alert alert-light text-center mt-2">{showMessage}</p>
+      )}
         </div>
       ) : (
         /* form for adding milk */
@@ -513,13 +520,13 @@ function Milk() {
                 <button
                   className="btn btn-success"
                   onClick={() => {
-                    setEditMilk(true); // Uppdatera editMilk-tillståndet till true för att visa redigeringsläge
+                    setEditMilk(true); // Update editMilk-state to true to edit
                     setNewMilk({
                       id: milk.id,
                       kgMilk: milk.kgMilk,
                       milkDate: milk.milkDate,
                       animal_id: milk.animal_id
-                    }); // Fyll i formuläret med befintliga värden för mjölkning
+                    });
                   }}
                 >
                   Ändra

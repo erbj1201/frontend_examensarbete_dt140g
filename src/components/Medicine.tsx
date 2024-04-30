@@ -24,6 +24,8 @@ function Medicine() {
   const [showMessage, setShowMessage] = useState<string | null>(null);
   const [chosenAnimalId, setChosenAnimalId] = useState<string>("");
   const [chosenMedicineId, setChosenMedicinelId] = useState<string>("");
+  const [editMedicine, setEditMedicine] = useState(false);
+  const [selectedButton, setSeletedButton] = useState("1");
   const [animals, setAnimals] = useState<{ id: string; animalId: string }[]>(
     []
   );
@@ -40,6 +42,16 @@ function Medicine() {
     recurrent: "",
     animal_id: "",
   });
+  // state data in edit form
+  const [inputData, setInputData] = useState({
+    id: "",
+    date: "",
+    type: "",
+    amount: "",
+    recurrent: "",
+    animal_id: "",
+  }
+  );
 
   //State for error store data
   const [formError, setFormError] = useState({
@@ -231,7 +243,7 @@ function Medicine() {
   //Trigger that shows the last medicines from the chosen id (animal).
   const changeAnimal = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const { value } = e.target;
-     //set chosen animal
+    //set chosen animal
     setChosenAnimalId(value);
   };
   // Gets all medicine from the animal with fetch
@@ -287,6 +299,24 @@ function Medicine() {
       console.error("Fel vid hämtning");
     }
   };
+  //edit input fields in form
+  const editData = () => {
+    setEditMedicine(true);
+    setInputData({
+      id: newMedicine.id,
+      date: newMedicine.date,
+      type: newMedicine.type,
+      amount: newMedicine.amount,
+      recurrent: newMedicine.recurrent,
+      animal_id: chosenAnimalId,
+    });
+  };
+
+  const handleRadioButton = (
+    value: string) => {
+      setSeletedButton(value);
+    };
+  
 
   //change url and add id
   const navigateToMedicine = (id: string) => {
@@ -297,6 +327,95 @@ function Medicine() {
     //save id
     setChosenMedicinelId(id);
   };
+
+  const updateMedicine = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    //Sanitize input fields
+    const {id, date, type, amount, recurrent } = inputData;
+    const sanitizedDate = DOMPurify.sanitize(date);
+    const sanitizedType = DOMPurify.sanitize(type);
+    const sanitizedAmount = DOMPurify.sanitize(amount);
+    const sanitizedRecurrent = DOMPurify.sanitize(recurrent);
+
+    // Control if input fields are empty 
+    if (!sanitizedDate) {
+      setFormError({
+        ...formError,
+        date: "Fyll i datum och tid",
+      });
+      setTimeout(clearMessages, 3000);
+      return;
+    }
+
+    if (!sanitizedType) {
+      setFormError({
+        ...formError,
+        type: "Fyll i typ av medicin",
+      });
+      setTimeout(clearMessages, 3000);
+      return;
+    }
+    
+    if (!sanitizedAmount) {
+      setFormError({
+        ...formError,
+        amount: "Fyll i medicinens mängd/dos",
+      });
+      setTimeout(clearMessages, 3000);
+      return;
+    }
+
+    if (!sanitizedRecurrent) {
+      setFormError({
+        ...formError,
+        recurrent: "Fyll i om medicineringen är återkommande eller inte",
+      });
+      setTimeout(clearMessages, 3000);
+      return;
+    }
+    setNewMedicine({
+      id: chosenMedicineId,
+      date: sanitizedDate,
+      type: sanitizedType,
+      amount: sanitizedAmount,
+      recurrent: sanitizedRecurrent,
+      animal_id: chosenAnimalId
+    })
+    try{
+      const response = await fetch(`http://localhost:8000/api/medicines/${id}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+          Accept: "application/json",
+        },
+        body: JSON.stringify({
+          date: sanitizedDate,
+          type: sanitizedType,
+          amount: sanitizedAmount,
+          recurrent: sanitizedRecurrent,
+        })
+    });
+    if (response.ok) {
+       //get all medicine from animal
+       getMedicinesByAnimals(chosenAnimalId);
+      setShowMessage("Ändringarna är sparade");
+      //Clear message after 3 seconds
+      setTimeout(clearMessages, 3000);
+      setEditMedicine(false);
+    }
+    else{
+      setShowMessage("Medicinen kunde inte ändras");
+        // Clear message after  3 seconds
+        setTimeout(clearMessages, 3000);
+    }
+    } catch {
+      console.error("Något gick fel:");
+    }
+  }
+  
+
+
 
   //Delete Milk with id
   const deleteMedicine = async (chosenMedicineId: string) => {
@@ -333,7 +452,119 @@ function Medicine() {
 
   return (
     <div>
-      {/*form for adding medicine*/}
+{/* Boolean, if Edit medicine = true, show Edit form. Else show form form add medicine*/}
+{/* Form for chaging medicine */}
+{editMedicine ? (
+  <div>
+    <form className="form-control handleForm form-control-sm border-2 p-5 mx-auto w-50 "
+            onSubmit={(e) => updateMedicine(e)}
+            noValidate>
+            <h2>Ändra Medicinering</h2>
+            <div className="form-group">
+            <label htmlFor="animal_id" className="form-label">
+            SE-nummer:
+          </label>
+          <select
+            id="animal_id"
+            name="animal_id"
+            className="form-control"
+            value={chosenAnimalId}
+            onChange={changeAnimal} 
+          >
+            <option value="">Välj ett djur</option>
+            {animals.map((animal) => (
+              <option key={animal.id} value={animal.id}>
+                {animal.animalId}
+              </option>
+            ))}
+          </select>
+          <p className="error-message">{formError.animal_id}</p>
+        </div>
+        <div className="form-group">
+          <label htmlFor="date" className="form-label">
+            Datum och tid för medicinering:
+          </label>
+          <input
+            type="datetime-local"
+            id="date"
+            name="date"
+            className="form-control"
+            value={newMedicine.date}
+            onChange={handleInputChange}
+          />
+          <p className="error-message">{formError.date}</p>
+        </div>
+        <div className="form-group">
+          <label htmlFor="type" className="form-label">
+            Typ av medicin:
+          </label>
+          <input
+            type="text"
+            id="type"
+            name="type"
+            className="form-control"
+            value={newMedicine.type}
+            onChange={handleInputChange}
+          />
+          <p className="error-message">{formError.type}</p>
+        </div>
+        <div className="form-group">
+          <label htmlFor="amount" className="form-label">
+            Mängd/dos av medicin:
+          </label>
+          <input
+            type="text"
+            id="amount"
+            name="amount"
+            className="form-control"
+            value={newMedicine.amount}
+            onChange={handleInputChange}
+          />
+          <p className="error-message">{formError.amount}</p>
+        </div>
+        <div className="form-check">
+          <p>Ska medicineringen återkomma?</p>
+          <label htmlFor="0" className="form-check-label">
+            Ja
+          </label>
+          <input
+            type="radio"
+            id="0"
+            name="recurrent"
+            className="form-check-input"
+            value="0"
+            onChange={() => handleRadioButton("0")}
+        /*     checked ={selectedButton === "0"}  */
+          />
+        </div>
+        <div className="form-check">
+          <label htmlFor="1" className="form-check-label">
+            Nej
+          </label>
+          <input
+            type="radio"
+            id="1"
+            name="recurrent"
+            className="form-check-input"
+            value="1"
+            onChange={() => handleRadioButton("1")}
+          /*    checked ={selectedButton === "1"}  */
+           
+          />
+        </div>
+        <p className="error-message">{formError.recurrent}</p>
+        <button className="button w-50 mt-2" onClick={editData}>
+          Ändra
+        </button>
+      </form>
+      {/**Messages to form */}
+      {showMessage && (
+        <p className="alert alert-light text-center mt-2">{showMessage}</p>
+      )}
+      </div>
+) : (
+      /*form for adding medicine*/
+      <div>
       <form
         className="form-control handleForm form-control-sm border-2 p-5 mx-auto w-50 "
         onSubmit={addMedicine}
@@ -434,10 +665,13 @@ function Medicine() {
           Lägg till
         </button>
       </form>
+      
       {/**Messages to form */}
       {showMessage && (
         <p className="alert alert-light text-center mt-2">{showMessage}</p>
       )}
+    </div>
+  )}
       <h2>Senaste medicineringarna:</h2>
       <table className="table table-responsive table-hover">
         <thead>
@@ -461,6 +695,22 @@ function Medicine() {
               {/**Check if medicine.recurrent is true or false */}
               <td>{medicine.recurrent ? "Ja" : "Nej"}</td>
               <td>
+              <button
+                  className="btn btn-success"
+                  onClick={() => {
+                    setEditMedicine(true); // Update editMilk-state to true to edit
+                    setNewMedicine({
+                      id: medicine.id,
+                      date: medicine.date,
+                      type: medicine.type,
+                      amount: medicine.amount,
+                      recurrent: medicine.recurrent,
+                      animal_id: medicine.animal_id
+                    }); 
+                  }}
+                >
+                  Ändra
+                </button>
                 {/**Change url when clicking at delete */}
                 <button
                   className="btn btn-danger"
