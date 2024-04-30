@@ -307,7 +307,7 @@ function Medicine() {
       date: newMedicine.date,
       type: newMedicine.type,
       amount: newMedicine.amount,
-      recurrent: newMedicine.recurrent,
+      recurrent: selectedButton,
       animal_id: chosenAnimalId,
     });
   };
