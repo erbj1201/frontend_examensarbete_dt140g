@@ -132,6 +132,7 @@ function Milk() {
       setTimeout(clearMessages, 3000);
       return;
     }
+
     //Sanitize input fields with DOMPurify
     const sanitizedKgMilk = DOMPurify.sanitize(newMilk.kgMilk);
     const sanitizedMilkDate = DOMPurify.sanitize(newMilk.milkDate);
@@ -245,8 +246,8 @@ function Milk() {
     } catch (error) {
       console.error("Fel vid hämtning");
     }
-  }; 
-  
+  };
+
   const editData = () => {
     setEditMilk(true);
     setInputData({
@@ -268,13 +269,33 @@ function Milk() {
 
   //Update milk
 
-  const updateMilk = async ( e: React.FormEvent<HTMLFormElement>) => {
+  const updateMilk = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     //Sanitize input fields
-    const { id, kgMilk, milkDate} = inputData;
+    const { id, kgMilk, milkDate } = inputData;
     const sanitizedKgMilk = DOMPurify.sanitize(kgMilk);
     const sanitizedMilkDate = DOMPurify.sanitize(milkDate);
-   
+
+    /* Control if input fields are empty */
+    // if kgMilk is empty
+    if (!sanitizedKgMilk) {
+      setFormError({
+        ...formError,
+        kgMilk: "Fyll i mängden mjölk (kg/mjölk)",
+      });
+      setTimeout(clearMessages, 3000);
+      return;
+    }
+
+    // if milkkDate is empty
+    if (!sanitizedMilkDate) {
+      setFormError({
+        ...formError,
+        milkDate: "Fyll i datum för mjölkning",
+      });
+      setTimeout(clearMessages, 3000);
+      return;
+    }
     setNewMilk({
       id: chosenMilkId,
       kgMilk: sanitizedKgMilk,
@@ -346,7 +367,7 @@ function Milk() {
   return (
 
     <div>
-      {/* Boolean if Edit milk, else show form for add milk */}
+      {/* Boolean, if Edit milk, else show form for add milk */}
       {/*form for changing milk*/}
       {editMilk ? (
         <div>
@@ -382,7 +403,7 @@ function Milk() {
                 name="kgMilk"
                 className="form-control"
                 value={newMilk.kgMilk}
-                onChange={handleInputChange} 
+                onChange={handleInputChange}
               />
               <p className="error-message">{formError.kgMilk}</p>
             </div>
@@ -396,11 +417,11 @@ function Milk() {
                 name="milkDate"
                 className="form-control"
                 value={newMilk.milkDate}
-                onChange={handleInputChange} 
+                onChange={handleInputChange}
               />
               <p className="error-message">{formError.milkDate}</p>
             </div>
-            <button onClick={editData}>Ändra</button>
+            <button className="w-50 mt-2" onClick={editData}>Ändra</button>
           </form>
         </div>
       ) : (
@@ -490,7 +511,7 @@ function Milk() {
               <td>{milk.milkDate}</td>
               <td>
                 <button
-                  className="btn "
+                  className="btn btn-success"
                   onClick={() => {
                     setEditMilk(true); // Uppdatera editMilk-tillståndet till true för att visa redigeringsläge
                     setNewMilk({
