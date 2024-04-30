@@ -31,6 +31,7 @@ function Calf() {
   const [showMessage, setShowMessage] = useState<string | null>(null);
   const [chosenCalfId, setChosenCalfId] = useState<string>("");
   const [show, setShow] = useState(false);
+  const [editCalf, setEditCalf] = useState(false);
   const handleClose = () => setShow(false);
   //States store data
   const [newCalf, setNewCalf] = useState<Calf>({
@@ -45,6 +46,22 @@ function Calf() {
     category: "",
     animal_id: "",
   });
+
+   // state data in edit form
+   const [inputData, setInputData] = useState({
+    id: "",
+    animalId: "",
+    earNo: "",
+    breed: "",
+    name: "",
+    expectedBirthDate: "",
+    birthDate: "",
+    sex: "",
+    category: "",
+    animal_id: "",
+  }
+  );
+
   // Function to error store Data
   const [formError, setFormError] = useState({
     animalId: "",
@@ -366,6 +383,103 @@ function Calf() {
       console.error("Fel vid hämtning");
     }
   };
+
+   //edit input fields in form
+   const editData = () => {
+    setEditCalf(true);
+    setInputData({
+      id: newCalf.id,
+      animalId: newCalf.animalId,
+      earNo: newCalf.earNo,
+      breed: newCalf.breed,
+      name: newCalf.name,
+      expectedBirthDate: newCalf.expectedBirthDate, 
+      birthDate: newCalf.birthDate,
+      sex: newCalf.sex,
+      category: newCalf.category,
+      animal_id: chosenAnimalId,
+    });
+  };
+
+  const updateCalf = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const {id, animalId, earNo, breed, name, expectedBirthDate, birthDate} = inputData;
+    //Sanitize input fields with DOMPurify
+    const sanitizedAnimalId = DOMPurify.sanitize(inputData.animalId);
+    const sanitizedEarNo = DOMPurify.sanitize(inputData.earNo);
+    const sanitizedBreed = DOMPurify.sanitize(inputData.breed);
+    const sanitizedName = DOMPurify.sanitize(inputData.name);
+    const sanitizedExpectedBirthDate = DOMPurify.sanitize(inputData.expectedBirthDate);
+    const sanitizedBirthDate = DOMPurify.sanitize(inputData.birthDate);
+
+ 
+    //Check if animalId empty
+    if (!sanitizedAnimalId) {
+      setFormError({
+        ...formError,
+        animalId: "Skriv dit ett id för kalven",
+      });
+      // Clear message after  3 seconds
+      setTimeout(clearMessages, 3000);
+      return;
+    }
+    //Check if earNo empty
+    if (!sanitizedEarNo) {
+      setFormError({
+        ...formError,
+        earNo: "Skriv ett öronnummer",
+      });
+      // Clear message after  3 seconds
+      setTimeout(clearMessages, 3000);
+      return;
+    }
+    //Check if breed empty
+    if (!sanitizedBreed) {
+      setFormError({
+        ...formError,
+        breed: "Skriv en ras",
+      });
+      //Check if name empty
+      if (!sanitizedName) {
+        setFormError({
+          ...formError,
+          name: "Skriv ett namn",
+        });
+        // Clear message after  3 seconds
+        setTimeout(clearMessages, 3000);
+        return;
+      }
+    //Check if expectedBirthDate empty
+    if (!sanitizedExpectedBirthDate) {
+      setFormError({
+        ...formError,
+        expectedBirthDate: "Skriv förväntat födelsedatum",
+      });
+      // Clear message after  3 seconds
+      setTimeout(clearMessages, 3000);
+      return;
+    }
+    //Check if birthDate empty
+    if (!sanitizedBirthDate) {
+      setFormError({
+        ...formError,
+        birthDate: "Skriv födelsedatum",
+      });
+      // Clear message after  3 seconds
+      setTimeout(clearMessages, 3000);
+      return;
+    }
+
+    //Check if animal_id empty
+    if (!chosenAnimalId) {
+      setFormError({
+        ...formError,
+        animal_id: "Välj kalvens mamma",
+      });
+      // Clear message after  3 seconds
+      setTimeout(clearMessages, 3000);
+      return;
+    }
 
   //Delete Calf with id
   const deleteCalf = async (chosenCalfId: string) => {
