@@ -136,7 +136,8 @@ function Calf() {
       !chosenAnimalId &&
       !newCalf.sex &&
       !newCalf.category
-    ) { //error messages when empty fields
+    ) 
+    { //error messages when empty fields
       setFormError({
         ...inputError,
         animalId: "Skriv dit ett id för kalven",
@@ -190,7 +191,6 @@ function Calf() {
         setTimeout(clearMessages, 3000);
         return;
       }
-
       // Clear message after  3 seconds
       setTimeout(clearMessages, 3000);
       return;
@@ -403,7 +403,6 @@ function Calf() {
 
   const updateCalf = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const {id, animalId, earNo, breed, name, expectedBirthDate, birthDate} = inputData;
     //Sanitize input fields with DOMPurify
     const sanitizedAnimalId = DOMPurify.sanitize(inputData.animalId);
     const sanitizedEarNo = DOMPurify.sanitize(inputData.earNo);
@@ -423,6 +422,7 @@ function Calf() {
       setTimeout(clearMessages, 3000);
       return;
     }
+
     //Check if earNo empty
     if (!sanitizedEarNo) {
       setFormError({
@@ -433,12 +433,15 @@ function Calf() {
       setTimeout(clearMessages, 3000);
       return;
     }
+
     //Check if breed empty
     if (!sanitizedBreed) {
       setFormError({
         ...formError,
         breed: "Skriv en ras",
       });
+    }
+
       //Check if name empty
       if (!sanitizedName) {
         setFormError({
@@ -480,6 +483,7 @@ function Calf() {
       setTimeout(clearMessages, 3000);
       return;
     }
+  }
 
   //Delete Calf with id
   const deleteCalf = async (chosenCalfId: string) => {
