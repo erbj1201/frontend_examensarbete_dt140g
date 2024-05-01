@@ -271,7 +271,7 @@ export default function Account() {
         </form>
         </div>
       ) : user ? (
-        <div className="bglight p-2 m-3 mx-auto w-75 border-dark d-flex flex-column shadow-sm">
+        <div className="bglight p-2 m-3 mx-auto w-75 shadow-sm border border-dark d-flex flex-column ">
           {/**Messages to form */}
           {showMessage && (
             <p className="alert alert-light text-center mx-auto">{showMessage}</p>
@@ -298,7 +298,7 @@ export default function Account() {
         
       )} {/*if editimagedata is true, show form*/}
        {editImageData? (
- <div className="bglight p-2 m-3 mx-auto w-75 border-secondary d-flex flex-column shadow-sm">
+ <div className="bglight p-2 m-3 mx-auto w-75 border border-dark d-flex flex-column shadow-sm">
   <p className="text-center"><strong>Ladda upp en ny bild, bilden byts ut automatiskt</strong></p>
 <form className="form-control mx-auto handleForm form-control-sm border-0 mx-auto w-50" onSubmit={handleSubmitImage}>
 <div className="form-group" >
