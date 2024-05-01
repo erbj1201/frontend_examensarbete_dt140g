@@ -38,7 +38,7 @@ const Footer: React.FC = () => {
               </p>
             </div>
           </div>
-          <p className="text-center mx-auto p-3"> © Växa Sverige 2024 </p>
+          <p className="vxa text-center mx-auto p-3"> © Växa Sverige 2024 </p>
         </footer>
       ) : (
         //if no token, show just "växa"
