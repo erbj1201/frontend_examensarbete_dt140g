@@ -151,25 +151,25 @@ const DetailsPage: React.FC = () => {
 
       {animalDataWithIndex.length > 0 && (
         <div key={animalsByHerds[animalIndex].id}>
-          <section className=" detailsArticle mx-auto border m-3 w-100 position-relative">
-            <header className="detailsHeader w-100 d-flex justify-content-between align-items-center ">
+          <section className=" detailsArticle mx-auto m-3 w-100 border border-dark position-relative">
+            <header className="detailsHeader w-100 p-2 d-flex justify-content-between  align-items-center ">
               <button onClick={() => clickPrev()}>
                 {" "}
                 <RiArrowLeftSLine size={32} />{" "}
               </button>
-              <p>
+              <h2>
                 {animalsByHerds[animalIndex].name}{" "}
                 {animalsByHerds[animalIndex].id}
-              </p>
+              </h2>
               <button onClick={() => clickNext()}>
                 {" "}
                 <RiArrowRightSLine size={32} />{" "}
               </button>
             </header>
-            <article className=" w-75 mx-auto detailsDiv">
+            <article className=" w-75 mx-auto border border-dark detailsDiv">
               <div>
-                <h2 className="h2details">Grundinformation</h2>
-                <div>
+                <h3 className="h3details border border-bottom p-2">Grundinformation</h3>
+                <div className="p-3">
                   {animalsByHerds[animalIndex].imagepath !== null ? (
                     <img
                       className="img-thumbnail cow-image"
@@ -184,7 +184,7 @@ const DetailsPage: React.FC = () => {
                     />
                   )}
                 </div>
-                <div>
+                <div className="p-3">
                   <p>
                     <b>Id: </b>
                     {animalsByHerds[animalIndex].id}
@@ -219,7 +219,7 @@ const DetailsPage: React.FC = () => {
                 </div>
               </div>
             </article>
-            <article className="w-75 mx-auto">
+            <article className="w-75 mx-auto m-2">
               <div>
                 <Collapsible open title="Mjölkning">
                   <p>Mjölkning testtest</p>
@@ -227,21 +227,21 @@ const DetailsPage: React.FC = () => {
                 </Collapsible>
                  </div>
                  </article>
-                 <article className="w-75 mx-auto">
+                 <article className="w-75 mx-auto m-2">
                 <div>
                 <Collapsible open title="Medicinering">
                   <p>Medicinering Test Test</p>
                 </Collapsible>
               </div>
               </article>
-              <article className="w-75 mx-auto">
+              <article className="w-75 mx-auto m-2">
               <div>
                 <Collapsible open title="Vaccinering">
                   <p>Vaccinering Test Test</p>
                 </Collapsible>
               </div>
               </article>
-              <article className="w-75 mx-auto">
+              <article className="w-75 mx-auto m-2">
               <div>
                 <Collapsible open title="Kalvning">
                   <p>Kalvning Test Test</p>
