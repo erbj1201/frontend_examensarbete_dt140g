@@ -85,14 +85,13 @@ a:hover{
 /*first div around "grundinformation" */
 .detailsDiv{
     background-color: #FDFDFD;
- width: 80%;
    margin-top: 2em;
 }
 /*h2 at detailpage*/
 .h2details{
     background-color: #F2F2F2;
     border: 1px solid black;
- padding: 0.2em;   
+   
 }
 
 .cow-image{
@@ -100,7 +99,10 @@ a:hover{
     width: 100%;
     max-width: 200px;
 }
-
+/* category buttons*/
+.category-btn{
+     background-color: #504F4F;
+}
 .handleForm{
     background-color: #F5F4F4;
 }
@@ -119,14 +121,6 @@ tr .active{
 }
 .modal{
     background-color: rgba(0, 0, 0, 0.30);
-}
-.handlecontainer{
-    background-color: #F2F2F2;
-    width: 80%;
-    margin-top: 4%;
-    border:#000000 solid 1px;
-    box-shadow: 1px 1px 6px;
-    margin-bottom: 2%;
 }
 .userImage{
     max-width: 200px;

@@ -152,7 +152,7 @@ const DetailsPage: React.FC = () => {
       {animalDataWithIndex.length > 0 && (
         <div key={animalsByHerds[animalIndex].id}>
           <section className=" detailsArticle mx-auto border m-3 w-100 position-relative">
-            <header className="detailsHeader p-2 w-100 d-flex justify-content-between align-items-center ">
+            <header className="detailsHeader w-100 d-flex justify-content-between align-items-center ">
               <button onClick={() => clickPrev()}>
                 {" "}
                 <RiArrowLeftSLine size={32} />{" "}
@@ -166,10 +166,10 @@ const DetailsPage: React.FC = () => {
                 <RiArrowRightSLine size={32} />{" "}
               </button>
             </header>
-            <article>
-              <div className="container detailsDiv p-3">
+            <article className=" w-75 mx-auto detailsDiv">
+              <div>
                 <h2 className="h2details">Grundinformation</h2>
-                <div className="container">
+                <div>
                   {animalsByHerds[animalIndex].imagepath !== null ? (
                     <img
                       className="img-thumbnail cow-image"
@@ -184,7 +184,7 @@ const DetailsPage: React.FC = () => {
                     />
                   )}
                 </div>
-                <div className="container">
+                <div>
                   <p>
                     <b>Id: </b>
                     {animalsByHerds[animalIndex].id}
@@ -219,24 +219,30 @@ const DetailsPage: React.FC = () => {
                 </div>
               </div>
             </article>
-            <article>
-              <div className="container handlecontainer">
+            <article className="w-75 mx-auto">
+              <div>
                 <Collapsible open title="Mjölkning">
                   <p>Mjölkning testtest</p>
                   
                 </Collapsible>
                  </div>
-                <div className="container handlecontainer">
+                 </article>
+                 <article className="w-75 mx-auto">
+                <div>
                 <Collapsible open title="Medicinering">
                   <p>Medicinering Test Test</p>
                 </Collapsible>
               </div>
-              <div className="container handlecontainer">
+              </article>
+              <article className="w-75 mx-auto">
+              <div>
                 <Collapsible open title="Vaccinering">
                   <p>Vaccinering Test Test</p>
                 </Collapsible>
               </div>
-              <div className="container handlecontainer">
+              </article>
+              <article className="w-75 mx-auto">
+              <div>
                 <Collapsible open title="Kalvning">
                   <p>Kalvning Test Test</p>
                 </Collapsible>
