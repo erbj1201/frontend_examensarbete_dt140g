@@ -247,6 +247,7 @@ function Milk() {
       console.error("Fel vid hämtning");
     }
   };
+  
 //edit input fields in form
   const editData = () => {
     setEditMilk(true);
@@ -320,6 +321,13 @@ function Milk() {
 
       //if response ok
       if (response.ok) {
+        //Clean input fields
+        setNewMilk({
+          id: newMilk.id,
+          kgMilk: "",
+          milkDate: "",
+          animal_id: chosenAnimalId
+        })
         setShowMessage("Ändringarna är sparade");
         //Clear message after 3 seconds
         setTimeout(clearMessages, 3000);
@@ -499,7 +507,9 @@ function Milk() {
           )}
         </div>
       )}
-      <h2>Senaste mjölkningarna för:</h2>
+ 
+      <h2>Senaste mjölkningarna för: </h2> 
+
       <table className="table table-responsive table-hover">
         <thead>
           <tr>
