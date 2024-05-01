@@ -16,9 +16,9 @@ function Vaccine() {
   //token
   const cookies = new Cookies();
   const token = cookies.get("token");
-    //use navigate
-    const navigate = useNavigate();
-   //States
+  //use navigate
+  const navigate = useNavigate();
+  //States
   const [showMessage, setShowMessage] = useState<string | null>(null);
   const [chosenAnimalId, setChosenAnimalId] = useState<string>("");
   const [animals, setAnimals] = useState<{ id: string; animalId: string }[]>(
@@ -26,6 +26,7 @@ function Vaccine() {
   );
   const [chosenVaccineId, setChosenVaccineId] = useState<string>("");
   const [show, setShow] = useState(false);
+  const [editVaccine, setEditVaccine] = useState(false);
   const handleClose = () => setShow(false);
   //States store data
   const [vaccines, setVaccines] = useState<Vaccine[]>([]);
@@ -37,6 +38,17 @@ function Vaccine() {
     date: "",
     animal_id: "",
   });
+
+  // State data in edit form
+  const [inputData, setInputData] = useState({
+    id: "",
+    batchNo: "",
+    name: "",
+    date: "",
+    animal_id: "",
+  }
+  );
+
   //State for error store data
   const [formError, setFormError] = useState({
     batchNo: "",
@@ -59,13 +71,13 @@ function Vaccine() {
   useEffect(() => {
     getAnimals();
     if (chosenAnimalId) {
-      getVaccineByAnimals(chosenAnimalId);
+      getVaccinesByAnimals(chosenAnimalId);
     }
   }, [chosenAnimalId]);
   // Handle changes in input field
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-     //Sanitize value
+    //Sanitize value
     const sanitizedData = DOMPurify.sanitize(value);
     setNewVaccine((prevState) => ({
       ...prevState,
@@ -149,7 +161,7 @@ function Vaccine() {
     const sanitizedBatchNo = DOMPurify.sanitize(newVaccine.batchNo);
     const sanitizedName = DOMPurify.sanitize(newVaccine.name);
     const sanitizedDate = DOMPurify.sanitize(newVaccine.date);
-  //Update state with sanitized values
+    //Update state with sanitized values
     setNewVaccine({
       id: newVaccine.id,
       batchNo: sanitizedBatchNo,
@@ -157,7 +169,7 @@ function Vaccine() {
       date: sanitizedDate,
       animal_id: chosenAnimalId,
     });
-//fetch (post)
+    //fetch (post)
     try {
       const response = await fetch(
         `http://localhost:8000/api/vaccines/animals/${chosenAnimalId}`,
@@ -176,7 +188,7 @@ function Vaccine() {
           }),
         }
       );
-    //await response
+      //await response
       const responseData = await response.json();
       //if response ok, clear form
       if (response.ok) {
@@ -188,7 +200,7 @@ function Vaccine() {
           animal_id: chosenAnimalId,
         });
         //get all vaccine from animal
-        getVaccineByAnimals(chosenAnimalId);
+        getVaccinesByAnimals(chosenAnimalId);
         //show message
         setShowMessage("Vaccineringen är tillagd");
         // Clear message after  3 seconds
@@ -209,7 +221,7 @@ function Vaccine() {
     setChosenAnimalId(value);
   };
   //Gets all vaccines from the animal with fetch
-  const getVaccineByAnimals = async (chosenAnimalId: string) => {
+  const getVaccinesByAnimals = async (chosenAnimalId: string) => {
     //fetch get
     try {
       const response = await fetch(
@@ -260,6 +272,102 @@ function Vaccine() {
       console.error("Fel vid hämtning");
     }
   };
+
+  const editData = () => {
+    setEditVaccine(true);
+    setInputData({
+      id: newVaccine.id,
+      batchNo: newVaccine.batchNo,
+      name: newVaccine.name,
+      date: newVaccine.date,
+      animal_id: chosenAnimalId,
+    })
+  }
+
+  const updateVaccine = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    //Sanitize input fields
+    const { id, batchNo, name, date } = inputData;
+    const sanitizedBatchNo = DOMPurify.sanitize(batchNo);
+    const sanitizedName = DOMPurify.sanitize(name);
+    const sanitizedDate = DOMPurify.sanitize(date);
+
+    // Control if input fields are empty 
+    if (!sanitizedBatchNo) {
+      setFormError({
+        ...formError,
+        batchNo: "Fyll i ett batchnummer",
+      });
+      setTimeout(clearMessages, 3000);
+      return;
+    }
+
+    if (!sanitizedName) {
+      setFormError({
+        ...formError,
+        name: "Fyll i namnet på¨vaccinet",
+      });
+      setTimeout(clearMessages, 3000);
+      return;
+    }
+
+    if (!sanitizedDate) {
+      setFormError({
+        ...formError,
+        date: "Fyll i datum och tid",
+      });
+      setTimeout(clearMessages, 3000);
+      return;
+    }
+
+    setNewVaccine({
+      id: chosenVaccineId,
+      batchNo: sanitizedBatchNo,
+      name: sanitizedName,
+      date: sanitizedDate,
+      animal_id: chosenAnimalId
+    })
+    try {
+      const response = await fetch(`http://localhost:8000/api/vaccines/${id}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+          Accept: "application/json",
+        },
+        body: JSON.stringify({
+          batchNo: sanitizedBatchNo,
+          name: sanitizedName,
+          date: sanitizedDate,
+
+        })
+      });
+      if (response.ok) {
+        setNewVaccine({
+          id: newVaccine.id,
+          batchNo: "",
+          name: "",
+          date: "",
+          animal_id: chosenAnimalId,
+        });
+        //get all vaccine from animal
+        getVaccinesByAnimals(chosenAnimalId);
+        setShowMessage("Ändringarna är sparade");
+        //Clear message after 3 seconds
+        setTimeout(clearMessages, 3000);
+        setEditVaccine(false);
+      }
+      else {
+        setShowMessage("Vaccinet kunde inte ändras");
+        // Clear message after  3 seconds
+        setTimeout(clearMessages, 3000);
+      }
+
+    } catch {
+      console.error("Något gick fel:");
+    }
+  }
+
   //Delete vaccine with Id
   const deleteVaccine = async (chosenVaccineId: string) => {
     //fetch delete
@@ -274,7 +382,7 @@ function Vaccine() {
       });//if response ok
       if (response.ok) {
         //get all vaccine from chosen animals
-        getVaccineByAnimals(chosenAnimalId)
+        getVaccinesByAnimals(chosenAnimalId)
         //change show to false and show message
         setShow(false);
         setShowMessage("Vaccineringen är raderad");
@@ -299,85 +407,172 @@ function Vaccine() {
 
   return (
     <div>
-        {/*form for adding vaccine*/}
-      <form
-        className="form-control handleForm form-control-sm border-2 p-5 mx-auto w-50 "
-        onSubmit={addVaccine}
-        noValidate //The formdata is not automaticallly validated by the browser
-      > 
-        <h2>Vaccinering</h2>
-        <div className="form-group">
-          <label htmlFor="animal_id" className="form-label">
-            SE-nummer:
-          </label>
-          <select
-            id="animal_id"
-            name="animal_id"
-            className="form-control"
-            value={chosenAnimalId}
-            onChange={changeAnimal}
+      {/* Boolean, if Edit vaccine = true, show Edit form. Else show form form add medicine*/}
+      {/* Form for changing vaccine */}
+      {editVaccine ? (
+        <div>
+          <form
+            className="form-control handleForm form-control-sm border-2 p-5 mx-auto w-50 "
+            onSubmit={(e) => updateVaccine(e)}
+            noValidate //The formdata is not automaticallly validated by the browser
           >
-            <option value="">Välj ett djur</option>
-            {animals.map((animal) => (
-              <option key={animal.id} value={animal.id}>
-                {animal.animalId}
-              </option>
-            ))}
-          </select>
-          <p className="error-message">{formError.animal_id}</p>
+            <h2>Ändra vaccinering</h2>
+            <div className="form-group">
+              <label htmlFor="animal_id" className="form-label">
+                SE-nummer:
+              </label>
+              <select
+                id="animal_id"
+                name="animal_id"
+                className="form-control"
+                value={chosenAnimalId}
+                onChange={changeAnimal}
+              >
+                <option value="">Välj ett djur</option>
+                {animals.map((animal) => (
+                  <option key={animal.id} value={animal.id}>
+                    {animal.animalId}
+                  </option>
+                ))}
+              </select>
+              <p className="error-message">{formError.animal_id}</p>
+            </div>
+            <div className="form-group">
+              <label htmlFor="batchNo" className="form-label">
+                Batchnummer:
+              </label>
+              <input
+                type="text"
+                id="batchNo"
+                name="batchNo"
+                className="form-control"
+                value={newVaccine.batchNo}
+                onChange={handleInputChange}
+              />
+              <p className="error-message">{formError.batchNo}</p>
+            </div>
+            <div className="form-group">
+              <label htmlFor="name" className="form-label">
+                Namn:
+              </label>
+              <input
+                type="text"
+                id="name"
+                name="name"
+                className="form-control"
+                value={newVaccine.name}
+                onChange={handleInputChange}
+              />
+              <p className="error-message">{formError.name}</p>
+            </div>
+            <div className="form-group">
+              <label htmlFor="date" className="form-label">
+                Datum och tid för vaccin:
+              </label>
+              <input
+                type="datetime-local"
+                id="date"
+                name="date"
+                placeholder="yyyy-mm-dd hh-MM"
+                className="form-control"
+                value={newVaccine.date}
+                onChange={handleInputChange}
+              />
+              <p className="error-message">{formError.date}</p>
+            </div>
+            <button type="submit" className="button w-50 mt-2" onClick={editData}>
+              Ändra
+            </button>
+          </form>
+
+          {/*Show messages to form */}
+          {showMessage && (
+            <p className="alert alert-light text-center mt-2">{showMessage}</p>
+          )}
+        </div>) : (
+        <div>
+          {/*form for adding vaccine*/}
+          <form
+            className="form-control handleForm form-control-sm border-2 p-5 mx-auto w-50 "
+            onSubmit={addVaccine}
+            noValidate //The formdata is not automaticallly validated by the browser
+          >
+            <h2>Vaccinering</h2>
+            <div className="form-group">
+              <label htmlFor="animal_id" className="form-label">
+                SE-nummer:
+              </label>
+              <select
+                id="animal_id"
+                name="animal_id"
+                className="form-control"
+                value={chosenAnimalId}
+                onChange={changeAnimal}
+              >
+                <option value="">Välj ett djur</option>
+                {animals.map((animal) => (
+                  <option key={animal.id} value={animal.id}>
+                    {animal.animalId}
+                  </option>
+                ))}
+              </select>
+              <p className="error-message">{formError.animal_id}</p>
+            </div>
+            <div className="form-group">
+              <label htmlFor="batchNo" className="form-label">
+                Batchnummer:
+              </label>
+              <input
+                type="text"
+                id="batchNo"
+                name="batchNo"
+                className="form-control"
+                value={newVaccine.batchNo}
+                onChange={handleInputChange}
+              />
+              <p className="error-message">{formError.batchNo}</p>
+            </div>
+            <div className="form-group">
+              <label htmlFor="name" className="form-label">
+                Namn:
+              </label>
+              <input
+                type="text"
+                id="name"
+                name="name"
+                className="form-control"
+                value={newVaccine.name}
+                onChange={handleInputChange}
+              />
+              <p className="error-message">{formError.name}</p>
+            </div>
+            <div className="form-group">
+              <label htmlFor="date" className="form-label">
+                Datum och tid för vaccin:
+              </label>
+              <input
+                type="datetime-local"
+                id="date"
+                name="date"
+                placeholder="yyyy-mm-dd hh-MM"
+                className="form-control"
+                value={newVaccine.date}
+                onChange={handleInputChange}
+              />
+              <p className="error-message">{formError.date}</p>
+            </div>
+            <button type="submit" className="button w-50 mt-2">
+              Lägg till
+            </button>
+          </form>
+          {/*Show messages to form */}
+          {showMessage && (
+            <p className="alert alert-light text-center mt-2">{showMessage}</p>
+          )}
         </div>
-        <div className="form-group">
-          <label htmlFor="batchNo" className="form-label">
-            Batchnummer:
-          </label>
-          <input
-            type="text"
-            id="batchNo"
-            name="batchNo"
-            className="form-control"
-            value={newVaccine.batchNo}
-            onChange={handleInputChange}
-          />
-          <p className="error-message">{formError.batchNo}</p>
-        </div>
-        <div className="form-group">
-          <label htmlFor="name" className="form-label">
-            Namn:
-          </label>
-          <input
-            type="text"
-            id="name"
-            name="name"
-            className="form-control"
-            value={newVaccine.name}
-            onChange={handleInputChange}
-          />
-          <p className="error-message">{formError.name}</p>
-        </div>
-        <div className="form-group">
-          <label htmlFor="date" className="form-label">
-            Datum och tid för vaccin:
-          </label>
-          <input
-            type="datetime-local"
-            id="date"
-            name="date"
-            placeholder="yyyy-mm-dd hh-MM"
-            className="form-control"
-            value={newVaccine.date}
-            onChange={handleInputChange}
-          />
-          <p className="error-message">{formError.date}</p>
-        </div>
-        <button type="submit" className="button w-50 mt-2">
-          Lägg till
-        </button>
-      </form>
-         {/*Show messages to form */}
-         {showMessage && (
-          <p className="alert alert-light text-center mt-2">{showMessage}</p>
-        )}
-        {/*Table to write calves*/}
+      )}
+
+      {/*Table to write calves*/}
       <h2> Senaste Vaccinationerna för:</h2>
       <table className="table table-responsive table-hover">
         <thead>
@@ -390,7 +585,7 @@ function Vaccine() {
           </tr>
         </thead>
         <tbody>
-           {/**Loop and Write vaccine */}
+          {/**Loop and Write vaccine */}
           {vaccines.map((vaccine) => (
             <tr key={vaccine.id}>
               <td>{vaccine.id}</td>
@@ -398,8 +593,23 @@ function Vaccine() {
               <td>{vaccine.batchNo}</td>
               <td>{vaccine.date}</td>
               <td>
-                 {/**Change url when clicking at delete */}
-                 <button
+                <button
+                  className="btn btn-success"
+                  onClick={() => {
+                    setEditVaccine(true); // Update editMilk-state to true to edit
+                    setNewVaccine({
+                      id: vaccine.id,
+                      batchNo: vaccine.batchNo,
+                      name: vaccine.name,
+                      date: vaccine.date,
+                      animal_id: vaccine.animal_id
+                    });
+                  }}
+                >
+                  Ändra
+                </button>
+                {/**Change url when clicking at delete */}
+                <button
                   className="btn btn-danger"
                   onClick={() => navigateToVaccine(vaccine.id)}
                 >
@@ -410,8 +620,8 @@ function Vaccine() {
           ))}
         </tbody>
       </table>
-       {/**Popup for deleating */}
-       {show && (
+      {/**Popup for deleating */}
+      {show && (
         <div className="modal" role="dialog" style={{ display: "block" }}>
           <div className="modal-dialog" role="document">
             <div className="modal-content">

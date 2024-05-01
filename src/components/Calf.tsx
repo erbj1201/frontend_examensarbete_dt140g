@@ -589,7 +589,7 @@ function Calf() {
             onSubmit={(e) => updateCalf(e)}
             noValidate //The formdata is not automatically validated by the browser
           >
-            <h2>Kalvning</h2>
+            <h2>Ändra kalvning</h2>
             <div className="form-group">
               <label htmlFor="animal_id" className="form-label">
                 Mamma:
