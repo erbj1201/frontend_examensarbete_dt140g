@@ -50,15 +50,15 @@ button{
     margin: 0.5em;
 }
 button:hover{
-    background-color: black;
+    background-color: #ffc6a0;
     color: white;
 }
-
 
 .search-btn{
     border: none;
     width: 1.5em;
     box-shadow: none;   
+    color: white;
 }
 /*DetailsPage*/
 .detailsHeader{
