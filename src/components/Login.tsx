@@ -127,15 +127,15 @@ function Login() {
   return (
     <div>
       {/*Login-form*/}
-      <h1 className="p-5 m-5">Logga in</h1>
       {showMessage && (
         <p className="alert alert-light text-center mt-2">{showMessage}</p>
       )}
+      
       <form
-        className="form-control form-control-sm border-0 p-2 mx-auto w-100"
+        className="form-control shadow form-control-sm border-0 p-5 mx-auto mb-5 mt-5 w-50 h-50 bglight"
         onSubmit={loginUser}
         noValidate
-      >
+      > <h1 className="mb-5">Logga in</h1>
         <div className="form-group">
           <label htmlFor="email" className="form-label">
             Mejladress:
@@ -166,11 +166,11 @@ function Login() {
           />
           <p className="error-message">{formError.password}</p>
         </div>
-        <button type="submit" className="btn btn-secondary mt-2">
+        <button type="submit" className="mt-2">
           Logga in
         </button>
       </form>
-    </div>
+      </div>
   );
 }
 //export

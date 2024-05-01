@@ -9,7 +9,7 @@ import Logout from "./Logout";
 const Header: React.FC = () => {
   return (
     <div>
-      <header className="container-fluid w-100 mx-auto border-bottom">
+      <header className="container-fluid w-100 mx-auto border-bottom shadow-sm">
         <div>
           {/**import components */}
           <Navbar />

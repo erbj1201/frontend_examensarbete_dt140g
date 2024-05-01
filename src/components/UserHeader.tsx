@@ -30,7 +30,7 @@ const UserHeader: React.FC = () => {
   }
   return (
     <div>
-      <header className="container-fluid w-100 mx-auto border-bottom">
+      <header className="container-fluid shadow-sm w-100 mx-auto border-bottom">
         <div>
           {/**logo */}
           <nav className="navbar">

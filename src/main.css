@@ -13,6 +13,9 @@ p{
     font-size: 1em;
     color: black;
 }
+h1{
+padding: 0.5em 0.2em;
+}
 header, footer{
     background-color: #F2F2F2;
     width: 100%;
@@ -79,7 +82,6 @@ button{
 
 .handleForm{
     background-color: #F5F4F4;
-    border: #000000 solid;
 }
 
 tr .active{
@@ -105,30 +107,14 @@ tr .active{
     box-shadow: 1px 1px 6px;
     margin-bottom: 2%;
 }
-.alertDiv{
-    margin-left: auto;
-    margin-right: auto;
-    position: absolute;
-
-    top: 50em;
-    width: 50%;
-    background-color:aquamarine;
-    display: flex;
-    flex-direction: column;
-    z-index: 1;
-}
-
-.buttonDiv{
-    margin:auto;
-    width: 50%;
-    display: flex;
-    justify-content: space-around;
-}
 .userImage{
     max-width: 200px;
     max-height: 200px;
     width: 100%;
     height: 100%;
+}
+.bglight{
+    background-color: #f2f2f2;
 }
 
 /*tablet screen */
