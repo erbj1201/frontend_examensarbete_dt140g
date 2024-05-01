@@ -132,7 +132,7 @@ function Login() {
       )}
       
       <form
-        className="form-control shadow form-control-sm border-0 p-5 mx-auto mb-5 mt-5 w-50 h-50 bglight"
+        className="form-control shadow-sm border-dark form-control-sm border-0 p-5 mx-auto mb-5 mt-5 w-50 h-50 bglight"
         onSubmit={loginUser}
         noValidate
       > <h1 className="mb-5">Logga in</h1>
@@ -144,7 +144,7 @@ function Login() {
             type="email"
             id="email"
             name="email"
-            className="form-control"
+            className="form-control shadow-sm border-dark"
             required
             value={userData.email}
             onChange={handleInputChange}
@@ -159,7 +159,7 @@ function Login() {
             type="password"
             id="password"
             name="password"
-            className="form-control"
+            className="form-control shadow-sm border-dark"
             required
             value={userData.password}
             onChange={handleInputChange}

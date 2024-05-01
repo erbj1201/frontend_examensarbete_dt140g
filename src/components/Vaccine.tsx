@@ -412,7 +412,7 @@ function Vaccine() {
       {editVaccine ? (
         <div>
           <form
-            className="form-control handleForm form-control-sm border-2 p-5 mx-auto w-50 "
+            className="form-control handleForm form-control-sm border-dark border-1 shadow p-5 mx-auto w-50 "
             onSubmit={(e) => updateVaccine(e)}
             noValidate //The formdata is not automaticallly validated by the browser
           >
@@ -424,7 +424,7 @@ function Vaccine() {
               <select
                 id="animal_id"
                 name="animal_id"
-                className="form-control"
+                className="form-select shadow-sm border-dark"
                 value={chosenAnimalId}
                 onChange={changeAnimal}
               >
@@ -445,7 +445,7 @@ function Vaccine() {
                 type="text"
                 id="batchNo"
                 name="batchNo"
-                className="form-control"
+                className="form-control shadow-sm border-dark"
                 value={newVaccine.batchNo}
                 onChange={handleInputChange}
               />
@@ -459,7 +459,7 @@ function Vaccine() {
                 type="text"
                 id="name"
                 name="name"
-                className="form-control"
+                className="form-control shadow-sm border-dark"
                 value={newVaccine.name}
                 onChange={handleInputChange}
               />
@@ -474,13 +474,13 @@ function Vaccine() {
                 id="date"
                 name="date"
                 placeholder="yyyy-mm-dd hh-MM"
-                className="form-control"
+                className="form-control shadow-sm border-dark"
                 value={newVaccine.date}
                 onChange={handleInputChange}
               />
               <p className="error-message">{formError.date}</p>
             </div>
-            <button type="submit" className="button w-50 mt-2" onClick={editData}>
+            <button type="submit" className="shadow-sm w-50 mt-2" onClick={editData}>
               Ändra
             </button>
           </form>
@@ -493,7 +493,7 @@ function Vaccine() {
         <div>
           {/*form for adding vaccine*/}
           <form
-            className="form-control handleForm form-control-sm border-2 p-5 mx-auto w-50 "
+            className="form-control handleForm form-control-sm border-dark border-1 shadow p-5 mx-auto w-50 "
             onSubmit={addVaccine}
             noValidate //The formdata is not automaticallly validated by the browser
           >
@@ -505,7 +505,7 @@ function Vaccine() {
               <select
                 id="animal_id"
                 name="animal_id"
-                className="form-control"
+                className="form-select shadow-sm border-dark"
                 value={chosenAnimalId}
                 onChange={changeAnimal}
               >
@@ -526,7 +526,7 @@ function Vaccine() {
                 type="text"
                 id="batchNo"
                 name="batchNo"
-                className="form-control"
+                className="form-control shadow-sm border-dark"
                 value={newVaccine.batchNo}
                 onChange={handleInputChange}
               />
@@ -540,7 +540,7 @@ function Vaccine() {
                 type="text"
                 id="name"
                 name="name"
-                className="form-control"
+                className="form-control shadow-sm border-dark"
                 value={newVaccine.name}
                 onChange={handleInputChange}
               />
@@ -555,13 +555,13 @@ function Vaccine() {
                 id="date"
                 name="date"
                 placeholder="yyyy-mm-dd hh-MM"
-                className="form-control"
+                className="form-control shadow-sm border-dark"
                 value={newVaccine.date}
                 onChange={handleInputChange}
               />
               <p className="error-message">{formError.date}</p>
             </div>
-            <button type="submit" className="button w-50 mt-2">
+            <button type="submit" className="shadow-sm w-50 mt-2">
               Lägg till
             </button>
           </form>
@@ -594,7 +594,7 @@ function Vaccine() {
               <td>{vaccine.date}</td>
               <td>
                 <button
-                  className="btn btn-success"
+                  className=""
                   onClick={() => {
                     setEditVaccine(true); // Update editMilk-state to true to edit
                     setNewVaccine({
@@ -610,7 +610,7 @@ function Vaccine() {
                 </button>
                 {/**Change url when clicking at delete */}
                 <button
-                  className="btn btn-danger"
+                  className=""
                   onClick={() => navigateToVaccine(vaccine.id)}
                 >
                   Radera

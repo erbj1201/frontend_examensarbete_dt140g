@@ -233,7 +233,7 @@ export default function Account() {
               id="name"
               name="name"
               value={inputData.name}
-              className="form-control"
+              className="form-control shadow-sm border-dark"
               onChange={handleChange}
               required
             />
@@ -247,7 +247,7 @@ export default function Account() {
               id="email"
               name="email"
               value={inputData.email}
-              className="form-control"
+              className="form-control shadow-sm border-dark"
               onChange={handleChange}
               required
             />
@@ -259,7 +259,7 @@ export default function Account() {
               id="password"
               name="password"
               value={inputData.password}
-              className="form-control"
+              className="form-control shadow-sm border-dark"
               onChange={handleChange}
               required
             />
@@ -271,7 +271,7 @@ export default function Account() {
         </form>
         </div>
       ) : user ? (
-        <div className="bglight p-2 m-3 mx-auto w-75 border-secondary d-flex flex-column shadow-sm">
+        <div className="bglight p-2 m-3 mx-auto w-75 border-dark d-flex flex-column shadow-sm">
           {/**Messages to form */}
           {showMessage && (
             <p className="alert alert-light text-center mx-auto">{showMessage}</p>
@@ -309,7 +309,7 @@ export default function Account() {
   type="file"
   id="imagepath"
   name="imagepath"
-  className="form-control"
+  className="form-control shadow-sm border-dark"
   onChange={handleImageChange}
 />
           </div>

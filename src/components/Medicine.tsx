@@ -465,7 +465,7 @@ function Medicine() {
 {/* Form for chaging medicine */}
 {editMedicine ? (
   <div>
-    <form className="form-control handleForm form-control-sm border-2 p-5 mx-auto w-50 "
+    <form className="form-control handleForm form-control-sm border-dark border-1 shadow p-5 mx-auto w-50 "
             onSubmit={(e) => updateMedicine(e)}
             noValidate>
             <h2>Ändra Medicinering</h2>
@@ -476,7 +476,7 @@ function Medicine() {
           <select
             id="animal_id"
             name="animal_id"
-            className="form-control"
+            className="form-select shadow-sm border-dark"
             value={chosenAnimalId}
             onChange={changeAnimal} 
           >
@@ -497,7 +497,7 @@ function Medicine() {
             type="datetime-local"
             id="date"
             name="date"
-            className="form-control"
+            className="form-control shadow-sm border-dark"
             value={newMedicine.date}
             onChange={handleInputChange}
           />
@@ -511,7 +511,7 @@ function Medicine() {
             type="text"
             id="type"
             name="type"
-            className="form-control"
+            className="form-control shadow-sm border-dark"
             value={newMedicine.type}
             onChange={handleInputChange}
           />
@@ -525,7 +525,7 @@ function Medicine() {
             type="text"
             id="amount"
             name="amount"
-            className="form-control"
+            className="form-control shadow-sm border-dark"
             value={newMedicine.amount}
             onChange={handleInputChange}
           />
@@ -540,7 +540,7 @@ function Medicine() {
             type="radio"
             id="0"
             name="recurrent"
-            className="form-check-input"
+            className="form-check-input shadow-sm border-dark"
             value="0"
             onChange={() => handleRadioButton("0")}
         /*     checked ={selectedButton === "0"}  */
@@ -554,7 +554,7 @@ function Medicine() {
             type="radio"
             id="1"
             name="recurrent"
-            className="form-check-input"
+            className="form-check-input shadow-sm border-dark"
             value="1"
             onChange={() => handleRadioButton("1")}
           /*    checked ={selectedButton === "1"}  */
@@ -562,7 +562,7 @@ function Medicine() {
           />
         </div>
         <p className="error-message">{formError.recurrent}</p>
-        <button className="button w-50 mt-2" onClick={editData}>
+        <button className="shadow-sm w-50 mt-2" onClick={editData}>
           Ändra
         </button>
       </form>
@@ -575,7 +575,7 @@ function Medicine() {
       /*form for adding medicine*/
       <div>
       <form
-        className="form-control handleForm form-control-sm border-2 p-5 mx-auto w-50 "
+        className="form-control handleForm form-control-sm border-dark border-1 shadow p-5 mx-auto w-50 "
         onSubmit={addMedicine}
         noValidate
       >
@@ -587,7 +587,7 @@ function Medicine() {
           <select
             id="animal_id"
             name="animal_id"
-            className="form-control"
+            className="form-select shadow-sm border-dark"
             value={chosenAnimalId}
             onChange={changeAnimal}
           >
@@ -608,7 +608,7 @@ function Medicine() {
             type="datetime-local"
             id="date"
             name="date"
-            className="form-control"
+            className="form-control shadow-sm border-dark"
             value={newMedicine.date}
             onChange={handleInputChange}
           />
@@ -622,7 +622,7 @@ function Medicine() {
             type="text"
             id="type"
             name="type"
-            className="form-control"
+            className="form-control shadow-sm border-dark"
             value={newMedicine.type}
             onChange={handleInputChange}
           />
@@ -636,7 +636,7 @@ function Medicine() {
             type="text"
             id="amount"
             name="amount"
-            className="form-control"
+            className="form-control shadow-sm border-dark"
             value={newMedicine.amount}
             onChange={handleInputChange}
           />
@@ -651,7 +651,7 @@ function Medicine() {
             type="radio"
             id="recurrent-true"
             name="recurrent"
-            className="form-check-input"
+            className="form-check-input shadow-sm border-dark"
             value={"1"}
             onChange={handleInputChange}
           />
@@ -664,13 +664,13 @@ function Medicine() {
             type="radio"
             id="recurrent-false"
             name="recurrent"
-            className="form-check-input"
+            className="form-check-input shadow-sm border-dark"
             value={"0"}
             onChange={handleInputChange}
           />
         </div>
         <p className="error-message">{formError.recurrent}</p>
-        <button type="submit" className="button w-50 mt-2">
+        <button type="submit" className="shadow-sm w-50 mt-2">
           Lägg till
         </button>
       </form>
@@ -705,7 +705,7 @@ function Medicine() {
               <td>{medicine.recurrent ? "Ja" : "Nej"}</td>
               <td>
               <button
-                  className="btn btn-success"
+                  className=""
                   onClick={() => {
                     setEditMedicine(true); // Update editMilk-state to true to edit
                     setNewMedicine({
@@ -722,7 +722,7 @@ function Medicine() {
                 </button>
                 {/**Change url when clicking at delete */}
                 <button
-                  className="btn btn-danger"
+                  className="shadow-sm"
                   onClick={() => navigateToMedicine(medicine.id)}
                 >
                   Radera

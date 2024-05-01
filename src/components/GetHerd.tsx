@@ -143,11 +143,14 @@ const GetHerdComponent: React.FC = () => {
       {/*If there are more than one herd, show select with option*/}
       {!isLoading && !error && herds.length > 1 && (
         <div>
-          <label htmlFor="herds">Välj en besättning:</label>
+          <form className="form-control form-control-sm border-0 mx-auto">
+          <div className="form-group mx-auto">
+          <label className="form-label" htmlFor="herds">Välj en besättning:</label>
           <br />
           <select
             id="herds"
             name="herds"
+            className="form-select w-25 shadow-sm border-dark"
             onChange={handleSelectChange}
             value={selectedOption}
           >
@@ -158,6 +161,8 @@ const GetHerdComponent: React.FC = () => {
               </option>
             ))}
           </select>
+          </div>
+          </form>
         </div>
       )}
       {/* Buttons to sort out by category */}

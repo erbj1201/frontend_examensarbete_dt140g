@@ -35,11 +35,17 @@ header, footer{
 } /*button search in header*/
 button{
     border: none;
-    border-radius: 5%;
-    box-shadow: none;
+    border-radius: 10%;
     background-color: #F29354;
     height: 2.5em;
+    margin: 0.5em;
 }
+button:hover{
+    background-color: black;
+    color: white;
+}
+
+
 .search-btn{
     border: none;
     width: 1.5em;

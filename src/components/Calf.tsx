@@ -600,7 +600,7 @@ function Calf() {
         <div>
           {/*form for adding calf*/}
           <form
-            className="form-control handleForm form-control-sm border-2 p-5 mx-auto w-50 "
+            className="form-control handleForm form-control-sm border-dark border-1 shadow p-5 mx-auto w-50 "
             onSubmit={(e) => updateCalf(e)}
             noValidate //The formdata is not automatically validated by the browser
           >
@@ -612,7 +612,7 @@ function Calf() {
               <select
                 id="animal_id"
                 name="animal_id"
-                className="form-control"
+                className="form-select shadow-sm"
                 value={chosenAnimalId}
                 onChange={changeAnimal}
               >
@@ -634,7 +634,7 @@ function Calf() {
                 type="radio"
                 id="female"
                 name="sex"
-                className="form-check-input"
+                className="form-check-input shadow-sm"
                 value={"Hona"}
                 onChange={handleInputChange}
               />
@@ -647,7 +647,7 @@ function Calf() {
                 type="radio"
                 id="male"
                 name="sex"
-                className="form-check-input"
+                className="form-check-input shadow-sm"
                 value={"Hane"}
                 onChange={handleInputChange}
               />
@@ -663,7 +663,7 @@ function Calf() {
                 type="radio"
                 id="meatAnimal"
                 name="category"
-                className="form-check-input"
+                className="form-check-input shadow-sm"
                 value={"Kött"}
                 onChange={handleInputChange}
               />
@@ -676,7 +676,7 @@ function Calf() {
                 type="radio"
                 id="milkAnimal"
                 name="category"
-                className="form-check-input"
+                className="form-check-input shadow-sm"
                 value={"Mjölk"}
                 onChange={handleInputChange}
               />
@@ -691,7 +691,7 @@ function Calf() {
                 type="text"
                 id="animalId"
                 name="animalId"
-                className="form-control"
+                className="form-control shadow-sm"
                 value={newCalf.animalId}
                 onChange={handleInputChange}
               />
@@ -705,7 +705,7 @@ function Calf() {
                 type="text"
                 id="earNo"
                 name="earNo"
-                className="form-control"
+                className="form-control shadow-sm"
                 value={newCalf.earNo}
                 onChange={handleInputChange}
               />
@@ -719,7 +719,7 @@ function Calf() {
                 type="text"
                 id="breed"
                 name="breed"
-                className="form-control"
+                className="form-control shadow-sm"
                 value={newCalf.breed}
                 onChange={handleInputChange}
               />
@@ -733,7 +733,7 @@ function Calf() {
                 type="text"
                 id="name"
                 name="name"
-                className="form-control"
+                className="form-control shadow-sm"
                 value={newCalf.name}
                 onChange={handleInputChange}
               />
@@ -747,7 +747,7 @@ function Calf() {
                 type="date"
                 id="expectedBirthDate"
                 name="expectedBirthDate"
-                className="form-control"
+                className="form-control shadow-sm"
                 value={newCalf.expectedBirthDate}
                 onChange={handleInputChange}
               />
@@ -761,13 +761,13 @@ function Calf() {
                 type="date"
                 id="birthDate"
                 name="birthDate"
-                className="form-control"
+                className="form-control shadow-sm"
                 value={newCalf.birthDate}
                 onChange={handleInputChange}
               />
               <p className="error-message">{formError.birthDate}</p>
             </div>
-            <button className="button w-50 mt-2" onClick={editData}>
+            <button className="shadow-sm w-50 mt-2" onClick={editData}>
               Ändra
             </button>
           </form>
@@ -780,7 +780,7 @@ function Calf() {
         <div>
           {/*form for adding calf*/}
           <form
-            className="form-control handleForm form-control-sm border-2 p-5 mx-auto w-50 "
+            className="form-control handleForm form-control-sm border-dark border-1 shadow p-5 mx-auto w-50"
             onSubmit={addCalf}
             noValidate //The formdata is not automatically validated by the browser
           >
@@ -792,7 +792,7 @@ function Calf() {
               <select
                 id="animal_id"
                 name="animal_id"
-                className="form-control"
+                className="form-select shadow-sm border-dark"
                 value={chosenAnimalId}
                 onChange={changeAnimal}
               >
@@ -814,7 +814,7 @@ function Calf() {
                 type="radio"
                 id="female"
                 name="sex"
-                className="form-check-input"
+                className="form-check-input shadow-sm border-dark"
                 value={"Hona"}
                 onChange={handleInputChange}
               />
@@ -827,7 +827,7 @@ function Calf() {
                 type="radio"
                 id="male"
                 name="sex"
-                className="form-check-input"
+                className="form-check-input shadow-sm border-dark"
                 value={"Hane"}
                 onChange={handleInputChange}
               />
@@ -843,7 +843,7 @@ function Calf() {
                 type="radio"
                 id="meatAnimal"
                 name="category"
-                className="form-check-input"
+                className="form-check-input shadow-sm border-dark"
                 value={"Kött"}
                 onChange={handleInputChange}
               />
@@ -856,7 +856,7 @@ function Calf() {
                 type="radio"
                 id="milkAnimal"
                 name="category"
-                className="form-check-input"
+                className="form-check-input shadow-sm border-dark"
                 value={"Mjölk"}
                 onChange={handleInputChange}
               />
@@ -871,7 +871,7 @@ function Calf() {
                 type="text"
                 id="animalId"
                 name="animalId"
-                className="form-control"
+                className="form-control shadow-sm border-dark"
                 value={newCalf.animalId}
                 onChange={handleInputChange}
               />
@@ -885,7 +885,7 @@ function Calf() {
                 type="text"
                 id="earNo"
                 name="earNo"
-                className="form-control"
+                className="form-control shadow-sm border-dark"
                 value={newCalf.earNo}
                 onChange={handleInputChange}
               />
@@ -899,7 +899,7 @@ function Calf() {
                 type="text"
                 id="breed"
                 name="breed"
-                className="form-control"
+                className="form-control shadow-sm border-dark"
                 value={newCalf.breed}
                 onChange={handleInputChange}
               />
@@ -913,7 +913,7 @@ function Calf() {
                 type="text"
                 id="name"
                 name="name"
-                className="form-control"
+                className="form-control shadow-sm border-dark"
                 value={newCalf.name}
                 onChange={handleInputChange}
               />
@@ -927,7 +927,7 @@ function Calf() {
                 type="date"
                 id="expectedBirthDate"
                 name="expectedBirthDate"
-                className="form-control"
+                className="form-control shadow-sm border-dark"
                 value={newCalf.expectedBirthDate}
                 onChange={handleInputChange}
               />
@@ -941,13 +941,13 @@ function Calf() {
                 type="date"
                 id="birthDate"
                 name="birthDate"
-                className="form-control"
+                className="form-control shadow-sm border-dark"
                 value={newCalf.birthDate}
                 onChange={handleInputChange}
               />
               <p className="error-message">{formError.birthDate}</p>
             </div>
-            <button type="submit" className="button w-50 mt-2">
+            <button type="submit" className="shadow-sm w-50 mt-2">
               Lägg till
             </button>
           </form>
@@ -987,7 +987,7 @@ function Calf() {
               <td>{calf.category}</td>
               <td>
                 <button
-                  className="btn btn-success"
+                  className=""
                   onClick={() => {
                     setEditCalf(true); // Update editMilk-state to true to edit
                     setNewCalf({
@@ -1008,7 +1008,7 @@ function Calf() {
                 </button>
                 {/**Change url when clicking at delete */}
                 <button
-                  className="btn btn-danger"
+                  className=""
                   onClick={() => navigateToCalf(calf.id)}
                 >
                   Radera
