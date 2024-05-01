@@ -154,7 +154,7 @@ const GetHerdComponent: React.FC = () => {
             onChange={handleSelectChange}
             value={selectedOption}
           >
-            <option value="AllAnimals">Visa alla djur</option>
+            <option value="AllAnimals">Visa alla besättningar</option>
             {herds.map((herd) => (
               <option key={herd.id} value={herd.id}>
                 Besättning: {herd.herdId}, {herd.address}
@@ -168,7 +168,7 @@ const GetHerdComponent: React.FC = () => {
       {/* Buttons to sort out by category */}
       <div className="container mx-auto p-3">
         <button
-          className="btn btn-primary btn-lg active m-3"
+          className="category-btn active m-3"
           onClick={() => {
             //Undefined to stop sort the categories
             handleFilterCategory(undefined);
@@ -178,7 +178,7 @@ const GetHerdComponent: React.FC = () => {
         </button>
         {/**Köttdjur */}
         <button
-          className="btn btn-primary btn-lg active m-3"
+          className="category-btn active m-3"
           onClick={() => {
             handleFilterCategory("kött");
           }}
@@ -187,7 +187,7 @@ const GetHerdComponent: React.FC = () => {
         </button>
         {/**Mjölkdjur */}
         <button
-          className="btn btn-primary btn-lg active m-3"
+          className="category-btn active m-3"
           onClick={() => {
             handleFilterCategory("mjölk");
           }}

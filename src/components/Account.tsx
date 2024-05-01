@@ -215,7 +215,7 @@ export default function Account() {
     <div className="container">
       {/** If edituser is true, show form */}
       {editUser ? (
-         <div className="bglight p-2 m-3 mx-auto w-75 d-flex flex-column shadow-sm">
+         <div className="bglight p-2 m-3 mx-auto w-75 border border-dark d-flex flex-column shadow-sm">
         <h3 className="mx-auto">Uppdatera dina uppgifter</h3>
         <form
           className="form-control handleForm form-control-sm border-0 p-2 mx-auto w-50"
@@ -263,10 +263,10 @@ export default function Account() {
               onChange={handleChange}
               required
             />
-            <button type="submit" className="m-3">
+            <button type="submit" className="button m-3">
               Spara ändringar
             </button>
-            <button className=" mb-2" onClick={() => setEditUser(false)}>Tillbaka</button>
+            <button className="button mb-2" onClick={() => setEditUser(false)}>Tillbaka</button>
           </div>
         </form>
         </div>
@@ -288,8 +288,8 @@ export default function Account() {
           </div>
           </div>
           <div className="mx-auto d-flex justify-content-between">
-          <button className="m-3" onClick={editImage}>Byt bild</button>
-          <button className="m-3" onClick={editData}>Ändra användaruppgifter</button>
+          <button className="button m-3" onClick={editImage}>Byt bild</button>
+          <button className="button m-3" onClick={editData}>Ändra användaruppgifter</button>
             </div>
           
         </div>
@@ -313,7 +313,7 @@ export default function Account() {
   onChange={handleImageChange}
 />
           </div>
-          <button className="mx-auto m-4" onClick={() => setEditImageData(false)}>Avbryt</button>
+          <button className="button mx-auto m-4" onClick={() => setEditImageData(false)}>Avbryt</button>
           </form>
           </div>
        ) : (
