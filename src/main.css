@@ -8,27 +8,32 @@ body {
     max-width: 2000px;
     margin: auto;
 }
+header, footer{
+    background-color: #F2F2F2;
+    width: 100%;
+}
 p{
     font-family: 'Roboto', sans-serif;
     font-size: 1em;
     color: black;
 }
+h1{
+    padding: 0.5em 0.2em;
+    }
+/*Links*/
 a{
     color: #75160E;
 }
 a:hover{
     color: #370C0C;
 }
+/*Växa in footer*/
 .vxa{
-    color: #652901;
+    color: #75160E;
 }
-h1{
-padding: 0.5em 0.2em;
-}
-header, footer{
-    background-color: #F2F2F2;
-    width: 100%;
-}
+
+
+
 /*Text in userheader for register, login*/
 .headerdiv{
     font-family: 'Sigmar One', cursive;
