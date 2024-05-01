@@ -670,7 +670,7 @@ function Medicine() {
           />
         </div>
         <p className="error-message">{formError.recurrent}</p>
-        <button type="submit" className="shadow-sm w-50 mt-2">
+        <button type="submit" className=" button shadow-sm w-50 mt-2">
           Lägg till
         </button>
       </form>
@@ -705,7 +705,7 @@ function Medicine() {
               <td>{medicine.recurrent ? "Ja" : "Nej"}</td>
               <td>
               <button
-                  className=""
+                  className="button"
                   onClick={() => {
                     setEditMedicine(true); // Update editMilk-state to true to edit
                     setNewMedicine({
@@ -722,7 +722,7 @@ function Medicine() {
                 </button>
                 {/**Change url when clicking at delete */}
                 <button
-                  className="shadow-sm"
+                  className="button shadow-sm"
                   onClick={() => navigateToMedicine(medicine.id)}
                 >
                   Radera

@@ -18,7 +18,7 @@ const SearchForm = () => {
             </select>
           </div>
           <div className="col align-content-center mt-4">
-            <button className="d-flex justify-content-center max-auto p-3 shadow-sm">
+            <button className="d-flex search-btn-btn justify-content-center mx-auto p-3 shadow-sm">
               <img
                 className="search-btn align-self-center"
                 src="\src\content\search.png"

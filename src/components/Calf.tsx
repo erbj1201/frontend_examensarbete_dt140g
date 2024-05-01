@@ -767,7 +767,7 @@ function Calf() {
               />
               <p className="error-message">{formError.birthDate}</p>
             </div>
-            <button className="shadow-sm w-50 mt-2" onClick={editData}>
+            <button className="button shadow-sm w-50 mt-2" onClick={editData}>
               Ändra
             </button>
           </form>
@@ -947,7 +947,7 @@ function Calf() {
               />
               <p className="error-message">{formError.birthDate}</p>
             </div>
-            <button type="submit" className="shadow-sm w-50 mt-2">
+            <button type="submit" className="button shadow-sm w-50 mt-2">
               Lägg till
             </button>
           </form>
@@ -987,7 +987,7 @@ function Calf() {
               <td>{calf.category}</td>
               <td>
                 <button
-                  className=""
+                  className="button"
                   onClick={() => {
                     setEditCalf(true); // Update editMilk-state to true to edit
                     setNewCalf({
@@ -1008,7 +1008,7 @@ function Calf() {
                 </button>
                 {/**Change url when clicking at delete */}
                 <button
-                  className=""
+                  className="button"
                   onClick={() => navigateToCalf(calf.id)}
                 >
                   Radera

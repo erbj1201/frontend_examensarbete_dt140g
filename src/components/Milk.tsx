@@ -381,7 +381,7 @@ function Milk() {
       {/*form for changing milk*/}
       {editMilk ? (
         <div>
-          <form className="form-control handleForm form-control-sm border-2 p-5 mx-auto w-50 "
+          <form className="form-control handleForm form-control-sm shadow-sm border-dark p-5 mx-auto w-50 "
             onSubmit={(e) => updateMilk(e)}
               noValidate>
             <h2>Ändra Mjölkning</h2>
@@ -392,7 +392,7 @@ function Milk() {
               <select
                 id="animal_id"
                 name="animal_id"
-                className="form-control"
+                className="form-select shadow-sm border-dark"
                 value={chosenAnimalId}
               >
                 <option value="inget">Välj ett djur</option>
@@ -412,7 +412,7 @@ function Milk() {
                 type="text"
                 id="kgMilk"
                 name="kgMilk"
-                className="form-control"
+                className="form-control shadow-sm border-dark"
                 value={newMilk.kgMilk}
                 onChange={handleInputChange}
               />
@@ -426,7 +426,7 @@ function Milk() {
                 type="datetime-local"
                 id="milkDate"
                 name="milkDate"
-                className="form-control"
+                className="form-control shadow-sm border-dark"
                 value={newMilk.milkDate}
                 onChange={handleInputChange}
               />
@@ -443,7 +443,7 @@ function Milk() {
         /* form for adding milk */
         <div>
           <form
-            className="form-control handleForm form-control-sm border-2 p-5 mx-auto w-50 "
+            className="form-control handleForm form-control-sm shadow-sm border-dark p-5 mx-auto w-50 "
             onSubmit={addMilk}
           >
             <h2>Mjölkning</h2>
@@ -454,7 +454,7 @@ function Milk() {
               <select
                 id="animal_id"
                 name="animal_id"
-                className="form-control"
+                className="form-control shadow-sm border-dark"
                 value={chosenAnimalId}
                 onChange={changeAnimal}
               >
@@ -475,7 +475,7 @@ function Milk() {
                 type="text"
                 id="kgMilk"
                 name="kgMilk"
-                className="form-control"
+                className="form-control shadow-sm border-dark"
                 value={newMilk.kgMilk}
                 onChange={handleInputChange}
               />
@@ -489,13 +489,13 @@ function Milk() {
                 type="datetime-local"
                 id="milkDate"
                 name="milkDate"
-                className="form-control"
+                className="form-control shadow-sm border-dark"
                 value={newMilk.milkDate}
                 onChange={handleInputChange}
               />
               <p className="error-message">{formError.milkDate}</p>
             </div>
-            <button type="submit" className="button w-50 mt-2">
+            <button type="submit" className="button shadow-sm w-50 mt-2">
               Lägg till
             </button>
           </form>
@@ -528,7 +528,7 @@ function Milk() {
               <td>{milk.milkDate}</td>
               <td>
                 <button
-                  className="btn btn-success"
+                  className="button"
                   onClick={() => {
                     setEditMilk(true); // Update editMilk-state to true to edit
                     setNewMilk({
@@ -543,7 +543,7 @@ function Milk() {
                 </button>
                 {/**Change url when clicking at delete */}
                 <button
-                  className="btn btn-danger"
+                  className="button"
                   onClick={() => navigateToMilk(milk.id)}
                 >
                   Radera

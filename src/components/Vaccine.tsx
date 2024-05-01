@@ -561,7 +561,7 @@ function Vaccine() {
               />
               <p className="error-message">{formError.date}</p>
             </div>
-            <button type="submit" className="shadow-sm w-50 mt-2">
+            <button type="submit" className="button shadow-sm w-50 mt-2">
               Lägg till
             </button>
           </form>
@@ -594,7 +594,7 @@ function Vaccine() {
               <td>{vaccine.date}</td>
               <td>
                 <button
-                  className=""
+                  className="button"
                   onClick={() => {
                     setEditVaccine(true); // Update editMilk-state to true to edit
                     setNewVaccine({
@@ -610,7 +610,7 @@ function Vaccine() {
                 </button>
                 {/**Change url when clicking at delete */}
                 <button
-                  className=""
+                  className="button"
                   onClick={() => navigateToVaccine(vaccine.id)}
                 >
                   Radera

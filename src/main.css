@@ -31,9 +31,6 @@ a:hover{
 .vxa{
     color: #75160E;
 }
-
-
-
 /*Text in userheader for register, login*/
 .headerdiv{
     font-family: 'Sigmar One', cursive;
@@ -46,24 +43,28 @@ a:hover{
 } /*"mingård" text under logo */
 .navbar-brand p{
     color: #F29354;
-} /*button search in header*/
-button{
+} 
+.button{
     border: none;
     border-radius: 10%;
     background-color: #F29354;
     height: 2.5em;
     margin: 0.5em;
 }
-button:hover{
-    background-color: #ffc6a0;
+.button:hover{
+    background-color: black;
     color: white;
-}
-
+} /*button search in header*/
 .search-btn{
-    border: none;
     width: 1.5em;
-    box-shadow: none;   
-    color: white;
+}
+.search-btn-btn {
+    background-color: #F29354;
+    border: none;
+    border-radius: 5%;
+}
+.search-btn-btn:hover{
+   background-color:  #ffc6a0;
 }
 /*DetailsPage*/
 .detailsHeader{
