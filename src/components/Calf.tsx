@@ -518,12 +518,27 @@ function Calf() {
           animal_id: chosenAnimalId
         })
       });
+
       if (response.ok) {
+        //Clean input fields
+        setNewCalf({
+          id: newCalf.id,
+          animalId: "",
+          earNo: "",
+          breed: "",
+          name: "",
+          expectedBirthDate: "",
+          birthDate: "",
+          sex: "",
+          category: "",
+          animal_id: chosenAnimalId
+        })
+
         getCalvesByAnimals(chosenAnimalId);
         setShowMessage("Ändringarna är sparade");
-      //Clear message after 3 seconds
-      setTimeout(clearMessages, 3000);
-      setEditCalf(false);
+        //Clear message after 3 seconds
+        setTimeout(clearMessages, 3000);
+        setEditCalf(false);
       }
       else {
         setShowMessage("Medicinen kunde inte ändras");
@@ -534,55 +549,55 @@ function Calf() {
       console.error("Något gick fel:");
     }
   }
-      //Delete Calf with id
-      const deleteCalf = async (chosenCalfId: string) => {
-        //fetch (delete)
-        try {
-          const response = await fetch(
-            `http://localhost:8000/api/calves/${chosenCalfId}`,
-            {
-              method: "DELETE",
-              headers: {
-                "Content-Type": "application/json",
-                Authorization: `Bearer ${token}`,
-                Accept: "application/json",
-              },
-            }
-          ); //if response ok
-          if (response.ok) {
-            //get all medicine from animal
-            getCalvesByAnimals(chosenAnimalId);
-            //change show to false and show message
-            setShow(false);
-            setShowMessage("Kalvningen är raderad");
-            // Clear message after  3 seconds
-            setTimeout(clearMessages, 3000);
-          } else {
-            setShowMessage("Kalvningen kunde inte raderas");
-            // Clear message after  3 seconds
-            setTimeout(clearMessages, 3000);
-          }
-        } catch (error) {
-          console.error("Något gick fel:", error);
+  //Delete Calf with id
+  const deleteCalf = async (chosenCalfId: string) => {
+    //fetch (delete)
+    try {
+      const response = await fetch(
+        `http://localhost:8000/api/calves/${chosenCalfId}`,
+        {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+            Accept: "application/json",
+          },
         }
-      };
+      ); //if response ok
+      if (response.ok) {
+        //get all medicine from animal
+        getCalvesByAnimals(chosenAnimalId);
+        //change show to false and show message
+        setShow(false);
+        setShowMessage("Kalvningen är raderad");
+        // Clear message after  3 seconds
+        setTimeout(clearMessages, 3000);
+      } else {
+        setShowMessage("Kalvningen kunde inte raderas");
+        // Clear message after  3 seconds
+        setTimeout(clearMessages, 3000);
+      }
+    } catch (error) {
+      console.error("Något gick fel:", error);
+    }
+  };
 
-      //change url and add id
-      const navigateToCalf = (id: string) => {
-        //navigate to handle with id from chosen medicine
-        navigate(`/handle/${id}`);
-        //change states
-        setShow(true);
-        //save id
-        setChosenCalfId(id);
-      };
+  //change url and add id
+  const navigateToCalf = (id: string) => {
+    //navigate to handle with id from chosen medicine
+    navigate(`/handle/${id}`);
+    //change states
+    setShow(true);
+    //save id
+    setChosenCalfId(id);
+  };
 
-      return (
+  return (
+    <div>
+      {/* Boolean, if Edit calf = true, show Edit form. Else show form form add calf*/}
+      {/* Form for chaging medicine */}
+      {editCalf ? (
         <div>
-          {/* Boolean, if Edit calf = true, show Edit form. Else show form form add calf*/}
-{/* Form for chaging medicine */}
-{ editCalf ? (
-  <div>
           {/*form for adding calf*/}
           <form
             className="form-control handleForm form-control-sm border-2 p-5 mx-auto w-50 "
@@ -753,225 +768,225 @@ function Calf() {
               <p className="error-message">{formError.birthDate}</p>
             </div>
             <button className="button w-50 mt-2" onClick={editData}>
-          Ändra
-        </button>
+              Ändra
+            </button>
           </form>
           {/*Show messages to form */}
           {showMessage && (
             <p className="alert alert-light text-center mt-2">{showMessage}</p>
           )}
-          </div>
-) : (
-   <div>
-  {/*form for adding calf*/}
-  <form
-    className="form-control handleForm form-control-sm border-2 p-5 mx-auto w-50 "
-    onSubmit={addCalf}
-    noValidate //The formdata is not automatically validated by the browser
-  >
-    <h2>Kalvning</h2>
-    <div className="form-group">
-      <label htmlFor="animal_id" className="form-label">
-        Mamma:
-      </label>
-      <select
-        id="animal_id"
-        name="animal_id"
-        className="form-control"
-        value={chosenAnimalId}
-        onChange={changeAnimal}
-      >
-        <option value="">Välj ett djur</option>
-        {animals.map((animal) => (
-          <option key={animal.id} value={animal.id}>
-            {animal.animalId}
-          </option>
-        ))}
-      </select>
-      <p className="error-message">{formError.animal_id}</p>
-    </div>
-    <div className="form-check">
-      <p>Kön:</p>
-      <label htmlFor="female" className="form-check-label">
-        Hona
-      </label>
-      <input
-        type="radio"
-        id="female"
-        name="sex"
-        className="form-check-input"
-        value={"Hona"}
-        onChange={handleInputChange}
-      />
-    </div>
-    <div className="form-check">
-      <label htmlFor="male" className="form-check-label">
-        Hane
-      </label>
-      <input
-        type="radio"
-        id="male"
-        name="sex"
-        className="form-check-input"
-        value={"Hane"}
-        onChange={handleInputChange}
-      />
-      <p className="error-message">{formError.sex}</p>
-    </div>
-    <div className="form-check">
-      <br />
-      <p>Kategori:</p>
-      <label htmlFor="meatAnimal" className="form-check-label">
-        Köttdjur
-      </label>
-      <input
-        type="radio"
-        id="meatAnimal"
-        name="category"
-        className="form-check-input"
-        value={"Kött"}
-        onChange={handleInputChange}
-      />
-    </div>
-    <div className="form-check">
-      <label htmlFor="milkAnimal" className="form-check-label">
-        Mjölkdjur
-      </label>
-      <input
-        type="radio"
-        id="milkAnimal"
-        name="category"
-        className="form-check-input"
-        value={"Mjölk"}
-        onChange={handleInputChange}
-      />
-      <p className="error-message">{formError.category}</p>
-    </div>
-    <br />
-    <div className="form-group">
-      <label htmlFor="animalId" className="form-label">
-        SE-nummer:
-      </label>
-      <input
-        type="text"
-        id="animalId"
-        name="animalId"
-        className="form-control"
-        value={newCalf.animalId}
-        onChange={handleInputChange}
-      />
-      <p className="error-message">{formError.animalId}</p>
-    </div>
-    <div className="form-group">
-      <label htmlFor="earNo" className="form-label">
-        Öronnummer:
-      </label>
-      <input
-        type="text"
-        id="earNo"
-        name="earNo"
-        className="form-control"
-        value={newCalf.earNo}
-        onChange={handleInputChange}
-      />
-      <p className="error-message">{formError.earNo}</p>
-    </div>
-    <div className="form-group">
-      <label htmlFor="breed" className="form-label">
-        Ras:
-      </label>
-      <input
-        type="text"
-        id="breed"
-        name="breed"
-        className="form-control"
-        value={newCalf.breed}
-        onChange={handleInputChange}
-      />
-      <p className="error-message">{formError.breed}</p>
-    </div>
-    <div className="form-group">
-      <label htmlFor="name" className="form-label">
-        Namn:
-      </label>
-      <input
-        type="text"
-        id="name"
-        name="name"
-        className="form-control"
-        value={newCalf.name}
-        onChange={handleInputChange}
-      />
-      <p className="error-message">{formError.name}</p>
-    </div>
-    <div className="form-group">
-      <label htmlFor="expectedBirthDate" className="form-label">
-        Förväntat födelsedatum:
-      </label>
-      <input
-        type="date"
-        id="expectedBirthDate"
-        name="expectedBirthDate"
-        className="form-control"
-        value={newCalf.expectedBirthDate}
-        onChange={handleInputChange}
-      />
-      <p className="error-message">{formError.expectedBirthDate}</p>
-    </div>
-    <div className="form-group">
-      <label htmlFor="birthDate" className="form-label">
-        Födelsedatum:
-      </label>
-      <input
-        type="date"
-        id="birthDate"
-        name="birthDate"
-        className="form-control"
-        value={newCalf.birthDate}
-        onChange={handleInputChange}
-      />
-      <p className="error-message">{formError.birthDate}</p>
-    </div>
-    <button type="submit" className="button w-50 mt-2">
-  Lägg till
-</button>
-  </form>
-  {/**Messages to form */}
-  {showMessage && (
-        <p className="alert alert-light text-center mt-2">{showMessage}</p>
-  )}
-  </div>
+        </div>
+      ) : (
+        <div>
+          {/*form for adding calf*/}
+          <form
+            className="form-control handleForm form-control-sm border-2 p-5 mx-auto w-50 "
+            onSubmit={addCalf}
+            noValidate //The formdata is not automatically validated by the browser
+          >
+            <h2>Kalvning</h2>
+            <div className="form-group">
+              <label htmlFor="animal_id" className="form-label">
+                Mamma:
+              </label>
+              <select
+                id="animal_id"
+                name="animal_id"
+                className="form-control"
+                value={chosenAnimalId}
+                onChange={changeAnimal}
+              >
+                <option value="">Välj ett djur</option>
+                {animals.map((animal) => (
+                  <option key={animal.id} value={animal.id}>
+                    {animal.animalId}
+                  </option>
+                ))}
+              </select>
+              <p className="error-message">{formError.animal_id}</p>
+            </div>
+            <div className="form-check">
+              <p>Kön:</p>
+              <label htmlFor="female" className="form-check-label">
+                Hona
+              </label>
+              <input
+                type="radio"
+                id="female"
+                name="sex"
+                className="form-check-input"
+                value={"Hona"}
+                onChange={handleInputChange}
+              />
+            </div>
+            <div className="form-check">
+              <label htmlFor="male" className="form-check-label">
+                Hane
+              </label>
+              <input
+                type="radio"
+                id="male"
+                name="sex"
+                className="form-check-input"
+                value={"Hane"}
+                onChange={handleInputChange}
+              />
+              <p className="error-message">{formError.sex}</p>
+            </div>
+            <div className="form-check">
+              <br />
+              <p>Kategori:</p>
+              <label htmlFor="meatAnimal" className="form-check-label">
+                Köttdjur
+              </label>
+              <input
+                type="radio"
+                id="meatAnimal"
+                name="category"
+                className="form-check-input"
+                value={"Kött"}
+                onChange={handleInputChange}
+              />
+            </div>
+            <div className="form-check">
+              <label htmlFor="milkAnimal" className="form-check-label">
+                Mjölkdjur
+              </label>
+              <input
+                type="radio"
+                id="milkAnimal"
+                name="category"
+                className="form-check-input"
+                value={"Mjölk"}
+                onChange={handleInputChange}
+              />
+              <p className="error-message">{formError.category}</p>
+            </div>
+            <br />
+            <div className="form-group">
+              <label htmlFor="animalId" className="form-label">
+                SE-nummer:
+              </label>
+              <input
+                type="text"
+                id="animalId"
+                name="animalId"
+                className="form-control"
+                value={newCalf.animalId}
+                onChange={handleInputChange}
+              />
+              <p className="error-message">{formError.animalId}</p>
+            </div>
+            <div className="form-group">
+              <label htmlFor="earNo" className="form-label">
+                Öronnummer:
+              </label>
+              <input
+                type="text"
+                id="earNo"
+                name="earNo"
+                className="form-control"
+                value={newCalf.earNo}
+                onChange={handleInputChange}
+              />
+              <p className="error-message">{formError.earNo}</p>
+            </div>
+            <div className="form-group">
+              <label htmlFor="breed" className="form-label">
+                Ras:
+              </label>
+              <input
+                type="text"
+                id="breed"
+                name="breed"
+                className="form-control"
+                value={newCalf.breed}
+                onChange={handleInputChange}
+              />
+              <p className="error-message">{formError.breed}</p>
+            </div>
+            <div className="form-group">
+              <label htmlFor="name" className="form-label">
+                Namn:
+              </label>
+              <input
+                type="text"
+                id="name"
+                name="name"
+                className="form-control"
+                value={newCalf.name}
+                onChange={handleInputChange}
+              />
+              <p className="error-message">{formError.name}</p>
+            </div>
+            <div className="form-group">
+              <label htmlFor="expectedBirthDate" className="form-label">
+                Förväntat födelsedatum:
+              </label>
+              <input
+                type="date"
+                id="expectedBirthDate"
+                name="expectedBirthDate"
+                className="form-control"
+                value={newCalf.expectedBirthDate}
+                onChange={handleInputChange}
+              />
+              <p className="error-message">{formError.expectedBirthDate}</p>
+            </div>
+            <div className="form-group">
+              <label htmlFor="birthDate" className="form-label">
+                Födelsedatum:
+              </label>
+              <input
+                type="date"
+                id="birthDate"
+                name="birthDate"
+                className="form-control"
+                value={newCalf.birthDate}
+                onChange={handleInputChange}
+              />
+              <p className="error-message">{formError.birthDate}</p>
+            </div>
+            <button type="submit" className="button w-50 mt-2">
+              Lägg till
+            </button>
+          </form>
+          {/**Messages to form */}
+          {showMessage && ( 
+            <p className="alert alert-light text-center mt-2">{showMessage}</p>
+          )}
+        </div>
       )}
-          {/*Table to write calves*/}
-          <h2> Senaste kalvarna</h2>
-          <table className="table table-responsive table-hover">
-            <thead>
-              <tr>
-                <th>Djur-Id</th>
-                <th>Öronnummer</th>
-                <th>Ras</th>
-                <th>Namn</th>
-                <th>Förväntat födelsedatum</th>
-                <th>Födelsedatum</th>
-                <th>Kön</th>
-                <th>Kategori</th>
-                <th>Hantera</th>
-              </tr>
-            </thead>
-            <tbody>
-              {/**Loop and Write calves */}
-              {calves.map((calf) => (
-                <tr key={calf.id}>
-                  <td>{calf.animalId}</td>
-                  <td>{calf.earNo}</td>
-                  <td>{calf.breed}</td>
-                  <td>{calf.name}</td>
-                  <td>{calf.expectedBirthDate}</td>
-                  <td>{calf.birthDate}</td>
-                  <td>{calf.sex}</td>
-                  <td>{calf.category}</td>
-                  <td>
-                  <button
+      {/*Table to write calves*/}
+      <h2> Senaste kalvarna för {newCalf.animalId}</h2>
+      <table className="table table-responsive table-hover">
+        <thead>
+          <tr>
+            <th>Djur-Id</th>
+            <th>Öronnummer</th>
+            <th>Ras</th>
+            <th>Namn</th>
+            <th>Förväntat födelsedatum</th>
+            <th>Födelsedatum</th>
+            <th>Kön</th>
+            <th>Kategori</th>
+            <th>Hantera</th>
+          </tr>
+        </thead>
+        <tbody>
+          {/**Loop and Write calves */}
+          {calves.map((calf) => (
+            <tr key={calf.id}>
+              <td>{calf.animalId}</td>
+              <td>{calf.earNo}</td>
+              <td>{calf.breed}</td>
+              <td>{calf.name}</td>
+              <td>{calf.expectedBirthDate}</td>
+              <td>{calf.birthDate}</td>
+              <td>{calf.sex}</td>
+              <td>{calf.category}</td>
+              <td>
+                <button
                   className="btn btn-success"
                   onClick={() => {
                     setEditCalf(true); // Update editMilk-state to true to edit
@@ -986,55 +1001,55 @@ function Calf() {
                       sex: calf.sex,
                       category: calf.id,
                       animal_id: calf.animal_id
-                    }); 
+                    });
                   }}
                 >
                   Ändra
                 </button>
-                    {/**Change url when clicking at delete */}
-                    <button
-                      className="btn btn-danger"
-                      onClick={() => navigateToCalf(calf.id)}
-                    >
-                      Radera
-                    </button>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-          {/**Popup for deleating */}
-          {show && (
-            <div className="modal" role="dialog" style={{ display: "block" }}>
-              <div className="modal-dialog" role="document">
-                <div className="modal-content">
-                  <div className="modal-header">
-                    <h5 className="modal-title">Vill du radera?</h5>
-                  </div>
-                  <div className="modal-body">
-                    Är du säker på att du vill radera kalvningen?
-                  </div>
-                  <div className="modal-footer">
-                    <button
-                      type="button"
-                      className="btn-alert"
-                      onClick={() => deleteCalf(chosenCalfId)}
-                    >
-                      Ja
-                    </button>
-                    <button
-                      type="button"
-                      className="btn-alert"
-                      onClick={handleClose}
-                    >
-                      Nej
-                    </button>
-                  </div>
-                </div>
+                {/**Change url when clicking at delete */}
+                <button
+                  className="btn btn-danger"
+                  onClick={() => navigateToCalf(calf.id)}
+                >
+                  Radera
+                </button>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+      {/**Popup for deleating */}
+      {show && (
+        <div className="modal" role="dialog" style={{ display: "block" }}>
+          <div className="modal-dialog" role="document">
+            <div className="modal-content">
+              <div className="modal-header">
+                <h5 className="modal-title">Vill du radera?</h5>
+              </div>
+              <div className="modal-body">
+                Är du säker på att du vill radera kalvningen?
+              </div>
+              <div className="modal-footer">
+                <button
+                  type="button"
+                  className="btn-alert"
+                  onClick={() => deleteCalf(chosenCalfId)}
+                >
+                  Ja
+                </button>
+                <button
+                  type="button"
+                  className="btn-alert"
+                  onClick={handleClose}
+                >
+                  Nej
+                </button>
               </div>
             </div>
-          )}
+          </div>
         </div>
-      );
-    }
+      )}
+    </div>
+  );
+}
 export default Calf;

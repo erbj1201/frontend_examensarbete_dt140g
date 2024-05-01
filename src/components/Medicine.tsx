@@ -397,6 +397,15 @@ function Medicine() {
         })
     });
     if (response.ok) {
+      //Clean input fields
+      setNewMedicine({
+        id: newMedicine.id,
+        date: "",
+        type: "",
+        amount: "",
+        recurrent: "",
+        animal_id: chosenAnimalId
+      })
        //get all medicine from animal
        getMedicinesByAnimals(chosenAnimalId);
       setShowMessage("Ändringarna är sparade");
