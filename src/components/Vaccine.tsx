@@ -220,6 +220,7 @@ function Vaccine() {
     //change state after chosen animal
     setChosenAnimalId(value);
   };
+
   //Gets all vaccines from the animal with fetch
   const getVaccinesByAnimals = async (chosenAnimalId: string) => {
     //fetch get

@@ -423,9 +423,6 @@ function Medicine() {
     }
   }
   
-
-
-
   //Delete Milk with id
   const deleteMedicine = async (chosenMedicineId: string) => {
     //fetch (delete)

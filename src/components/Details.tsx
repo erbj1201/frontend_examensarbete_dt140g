@@ -6,6 +6,7 @@ import { RiArrowRightSLine } from "react-icons/ri";
 import { RiArrowLeftSLine } from "react-icons/ri";
 import { useNavigate } from "react-router-dom";
 
+
 const DetailsPage: React.FC = () => {
   //Define whazt type of data
   interface Animal {
@@ -34,16 +35,106 @@ const DetailsPage: React.FC = () => {
   let { id } = useParams();
   //use navigate
   const navigate = useNavigate();
-
+// milkData
   const [milkingData, setMilkingData] = useState<any[]>([]);
-  const [loading, setLoading] = useState<boolean>(true);
+  //Medicinedata
+  const [medicineData, setMedicineData] = useState<any[]>([]);
+  //Vaccinedata
+  const [vaccineData, setVaccineData] = useState<any[]>([]);
+//Calfdata
+const [calfData, setCalfData] = useState<any[]>([]);
+
+/*   const [loading, setLoading] = useState<boolean>(true); */
 
 
   useEffect(() => {
     if (id) {
       getMilkByAnimals(id);
+      getMedicinesByAnimals(id);
+      getVaccinesByAnimals(id);
+      getCalvesByAnimals(id);
     }
   }, [id]);
+
+  
+  // Gets all calf from the animal with fetch
+  const getCalvesByAnimals = async (animal_id: string) => {
+    //fetch (get)
+    try {
+      const response = await fetch(
+        `http://localhost:8000/api/calves/animals/${animal_id}`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+            Accept: "application/json",
+          },
+        }
+      ); //if response ok, set calves
+      if (response.ok) {
+        const jsonData = await response.json();
+        setCalfData(jsonData);
+      } else {
+        throw new Error("Något gick fel");
+      }
+    } catch (error) {
+      console.error("Fel vid hämtning av mjölk");
+    }
+  };
+
+  //Gets all vaccines from the animal with fetch
+  const getVaccinesByAnimals = async (animal_id: string) => {
+    //fetch get
+    try {
+      const response = await fetch(
+        `http://localhost:8000/api/vaccines/animals/${animal_id}`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+            Accept: "application/json",
+          },
+        }
+      ); //if response ok, set vaccine
+      if (response.ok) {
+        const jsonData = await response.json();
+        setVaccineData(jsonData);
+      } else {
+        throw new Error("Något gick fel");
+      }
+    } catch (error) {
+      console.error("Fel vid hämtning av vaccin");
+    }
+  };
+  // Gets all medicine from the animal with fetch
+  const getMedicinesByAnimals = async (animal_id: string) => {
+    //fetch get
+    try {
+      const response = await fetch(
+        `http://localhost:8000/api/medicines/animals/${animal_id}`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+            Accept: "application/json",
+          },
+        }
+      ); //if response ok
+      if (response.ok) {
+        const jsonData = await response.json();
+        //set medicines
+        setMedicineData(jsonData);
+      } else {
+        throw new Error("Något gick fel");
+      }
+    } catch (error) {
+      console.error("Fel vid hämtning av medicinering");
+    }
+  };
+
 // Gets all milk from the animal with fetch
 const getMilkByAnimals = async (animal_id: string) => {
   //fetch get
@@ -63,7 +154,7 @@ const getMilkByAnimals = async (animal_id: string) => {
       const jsonData = await response.json();
       //set milks
       setMilkingData(jsonData);
-      setLoading(false); 
+     
     } else {
       throw new Error("Något gick fel");
     }
@@ -276,21 +367,52 @@ const getMilkByAnimals = async (animal_id: string) => {
                  <article className="w-75 mx-auto m-2">
                 <div>
                 <Collapsible open title="Medicinering">
-                  <p>Medicinering Test Test</p>
+                {medicineData.length > 0 ? (
+                    medicineData.map((medicine, index) => (
+                      <div key={index}>
+                        <p>Datum: {medicine.date}</p>
+                        <p>Typ: {medicine.type} </p>
+                        <p>Mängd: {medicine.amount} </p>
+                        <p>Återkommande: {medicine.recurrent} </p>
+                      </div>
+                    ))
+                  ) : ( <p> Ingen medicin för detta djur</p>)}
                 </Collapsible>
               </div>
               </article>
               <article className="w-75 mx-auto m-2">
               <div>
                 <Collapsible open title="Vaccinering">
-                  <p>Vaccinering Test Test</p>
+                {vaccineData.length > 0 ? (
+                    vaccineData.map((vaccine, index) => (
+                      <div key={index}>
+                        <p>Batchnummer: {vaccine.batchNo}</p>
+                        <p>Namn: {vaccine.name} </p>
+                        <p>Datum och tid: {vaccine.date} </p>
+                       
+                      </div>
+                    ))
+                  ) : ( <p> Inget vaccin för detta djur</p>)}
                 </Collapsible>
               </div>
               </article>
               <article className="w-75 mx-auto m-2">
               <div>
                 <Collapsible open title="Kalvning">
-                  <p>Kalvning Test Test</p>
+                {calfData.length > 0 ? (
+                    calfData.map((calf, index) => (
+                      <div key={index}>
+                         <p>Öronnummer: {calf.earNo}</p>
+                         <p>Ras: {calf.breed}</p>
+                         <p>Namn: {calf.name}</p>
+                        <p>Förväntat födelsedatum: {calf.expectedBirthDate}</p>
+                        <p>Födelsedatum:: {calf.birthDate} </p>
+                        <p>Kön: {calf.sex} </p>
+                        <p>Kategori: {calf.category} </p>
+                       
+                      </div>
+                    ))
+                  ) : ( <p> Ingen kalv för detta djur</p>)}
                 </Collapsible>
               </div>
             </article>
