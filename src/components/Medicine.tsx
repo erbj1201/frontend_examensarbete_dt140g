@@ -85,13 +85,14 @@ function Medicine() {
   //Handle changes in the input field
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
+      setSeletedButton(value); 
     //Sanitize value
     const sanitizedData = DOMPurify.sanitize(value);
     setNewMedicine((prevState) => ({
       ...prevState,
       [name]: sanitizedData,
     }));
-  };
+  }
 
   //Add Medicine data with fetch
   const addMedicine = async (e: FormEvent<HTMLFormElement>) => {
@@ -248,7 +249,7 @@ function Medicine() {
   };
   // Gets all medicine from the animal with fetch
   const getMedicinesByAnimals = async (chosenAnimalId: string) => {
-    //fetch get
+       //fetch get
     try {
       const response = await fetch(
         `http://localhost:8000/api/medicines/animals/${chosenAnimalId}`,
@@ -274,6 +275,7 @@ function Medicine() {
   };
   // Get all animals with their animalId´s and id:s from the database
   const getAnimals = async () => {
+    const token = cookies.get!("token");
     //fetch get
     try {
       const response = await fetch(`http://localhost:8000/api/animals`, {
@@ -299,25 +301,23 @@ function Medicine() {
       console.error("Fel vid hämtning");
     }
   };
-  //edit input fields in form
-  const editData = () => {
-    setEditMedicine(true);
-    setInputData({
-      id: newMedicine.id,
-      date: newMedicine.date,
-      type: newMedicine.type,
-      amount: newMedicine.amount,
-      recurrent: selectedButton,
-      animal_id: chosenAnimalId,
-    });
-  };
+//edit input fields in form
+const editData = () => {
+  setEditMedicine(true);
+  setInputData({
+    id: newMedicine.id,
+    date: newMedicine.date,
+    type: newMedicine.type,
+    amount: newMedicine.amount,
+    recurrent: selectedButton,
+    animal_id: chosenAnimalId,
+  });
+};
 
-  const handleRadioButton = (
-    value: string) => {
-      setSeletedButton(value);
+  const handleRadioButton = (e:any) => {
+      setSeletedButton(e.target.value);
     };
   
-
   //change url and add id
   const navigateToMedicine = (id: string) => {
     //navigate to handle with id from chosen medicine
@@ -533,36 +533,35 @@ function Medicine() {
         </div>
         <div className="form-check">
           <p>Ska medicineringen återkomma?</p>
-          <label htmlFor="0" className="form-check-label">
-            Ja
-          </label>
-          <input
-            type="radio"
-            id="0"
-            name="recurrent"
-            className="form-check-input shadow-sm border-dark"
-            value="0"
-            onChange={() => handleRadioButton("0")}
-        /*     checked ={selectedButton === "0"}  */
-          />
-        </div>
-        <div className="form-check">
           <label htmlFor="1" className="form-check-label">
-            Nej
+            Ja
           </label>
           <input
             type="radio"
             id="1"
             name="recurrent"
+            value={"1"}
+            checked={selectedButton === "1"}
+            onChange={handleRadioButton}
             className="form-check-input shadow-sm border-dark"
-            value="1"
-            onChange={() => handleRadioButton("1")}
-          /*    checked ={selectedButton === "1"}  */
-           
+          />
+        </div>
+        <div className="form-check">
+          <label htmlFor="0" className="form-check-label">
+            Nej
+          </label>
+          <input
+            type="radio"
+            id="0"
+            name="recurrent"
+            value={"0"}
+            checked={selectedButton === "0"}
+            onChange={handleRadioButton}
+            className="form-check-input shadow-sm border-dark"
           />
         </div>
         <p className="error-message">{formError.recurrent}</p>
-        <button className="shadow-sm w-50 mt-2" onClick={editData}>
+        <button className="button shadow-sm w-50 mt-2" onClick={editData}>
           Ändra
         </button>
       </form>
@@ -644,29 +643,31 @@ function Medicine() {
         </div>
         <div className="form-check">
           <p>Ska medicineringen återkomma?</p>
-          <label htmlFor="recurrent-true" className="form-check-label">
+          <label htmlFor="1" className="form-check-label">
             Ja
           </label>
           <input
             type="radio"
-            id="recurrent-true"
+            id="1"
             name="recurrent"
             className="form-check-input shadow-sm border-dark"
             value={"1"}
             onChange={handleInputChange}
+            checked={selectedButton==="1" && newMedicine.recurrent === "1"}
           />
         </div>
         <div className="form-check">
-          <label htmlFor="recurrent-false" className="form-check-label">
+          <label htmlFor="0" className="form-check-label">
             Nej
           </label>
           <input
             type="radio"
-            id="recurrent-false"
+            id="0"
             name="recurrent"
             className="form-check-input shadow-sm border-dark"
             value={"0"}
             onChange={handleInputChange}
+            checked={selectedButton==="0" && newMedicine.recurrent === "0"}
           />
         </div>
         <p className="error-message">{formError.recurrent}</p>

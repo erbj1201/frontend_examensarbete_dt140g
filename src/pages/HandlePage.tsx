@@ -7,9 +7,14 @@ import Milk from "../components/Milk";
 import Vaccine from "../components/Vaccine";
 import Medicine from "../components/Medicine";
 import Calf from "../components/Calf";
+import Cookies from "universal-cookie";
 
 const HandlePage: React.FC = () => {
-
+ //cookies
+ const cookies = new Cookies();
+ const token = cookies.get("token");
+ console.log(token);
+ 
   const [optionValue, setOptionValue] = useState("");
 
   //Handle options in the select list
