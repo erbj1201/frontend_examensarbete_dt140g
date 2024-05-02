@@ -83,9 +83,9 @@ function Medicine() {
   }, [chosenAnimalId]);
 
   //Handle changes in the input field
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
-      setSeletedButton(value); 
+
     //Sanitize value
     const sanitizedData = DOMPurify.sanitize(value);
     setNewMedicine((prevState) => ({
@@ -249,7 +249,7 @@ function Medicine() {
   };
   // Gets all medicine from the animal with fetch
   const getMedicinesByAnimals = async (chosenAnimalId: string) => {
-       //fetch get
+    //fetch get
     try {
       const response = await fetch(
         `http://localhost:8000/api/medicines/animals/${chosenAnimalId}`,
@@ -301,23 +301,23 @@ function Medicine() {
       console.error("Fel vid hämtning");
     }
   };
-//edit input fields in form
-const editData = () => {
-  setEditMedicine(true);
-  setInputData({
-    id: newMedicine.id,
-    date: newMedicine.date,
-    type: newMedicine.type,
-    amount: newMedicine.amount,
-    recurrent: selectedButton,
-    animal_id: chosenAnimalId,
-  });
-};
+  //edit input fields in form
+  const editData = () => {
+    setEditMedicine(true);
+    setInputData({
+      id: newMedicine.id,
+      date: newMedicine.date,
+      type: newMedicine.type,
+      amount: newMedicine.amount,
+      recurrent: selectedButton,
+      animal_id: chosenAnimalId,
+    });
+  };
 
-  const handleRadioButton = (e:any) => {
-      setSeletedButton(e.target.value);
-    };
-  
+  const handleRadioButton = (e: any) => {
+    setSeletedButton(e.target.value);
+  };
+
   //change url and add id
   const navigateToMedicine = (id: string) => {
     //navigate to handle with id from chosen medicine
@@ -331,7 +331,7 @@ const editData = () => {
   const updateMedicine = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     //Sanitize input fields
-    const {id, date, type, amount, recurrent } = inputData;
+    const { id, date, type, amount, recurrent } = inputData;
     const sanitizedDate = DOMPurify.sanitize(date);
     const sanitizedType = DOMPurify.sanitize(type);
     const sanitizedAmount = DOMPurify.sanitize(amount);
@@ -355,7 +355,7 @@ const editData = () => {
       setTimeout(clearMessages, 3000);
       return;
     }
-    
+
     if (!sanitizedAmount) {
       setFormError({
         ...formError,
@@ -381,7 +381,7 @@ const editData = () => {
       recurrent: sanitizedRecurrent,
       animal_id: chosenAnimalId
     })
-    try{
+    try {
       const response = await fetch(`http://localhost:8000/api/medicines/${id}`, {
         method: "PUT",
         headers: {
@@ -395,34 +395,34 @@ const editData = () => {
           amount: sanitizedAmount,
           recurrent: sanitizedRecurrent,
         })
-    });
-    if (response.ok) {
-      //Clean input fields
-      setNewMedicine({
-        id: newMedicine.id,
-        date: "",
-        type: "",
-        amount: "",
-        recurrent: "",
-        animal_id: chosenAnimalId
-      })
-       //get all medicine from animal
-       getMedicinesByAnimals(chosenAnimalId);
-      setShowMessage("Ändringarna är sparade");
-      //Clear message after 3 seconds
-      setTimeout(clearMessages, 3000);
-      setEditMedicine(false);
-    }
-    else{
-      setShowMessage("Medicinen kunde inte ändras");
+      });
+      if (response.ok) {
+        //Clean input fields
+        setNewMedicine({
+          id: newMedicine.id,
+          date: "",
+          type: "",
+          amount: "",
+          recurrent: "",
+          animal_id: chosenAnimalId
+        })
+        //get all medicine from animal
+        getMedicinesByAnimals(chosenAnimalId);
+        setShowMessage("Ändringarna är sparade");
+        //Clear message after 3 seconds
+        setTimeout(clearMessages, 3000);
+        setEditMedicine(false);
+      }
+      else {
+        setShowMessage("Medicinen kunde inte ändras");
         // Clear message after  3 seconds
         setTimeout(clearMessages, 3000);
-    }
+      }
     } catch {
       console.error("Något gick fel:");
     }
   }
-  
+
   //Delete Milk with id
   const deleteMedicine = async (chosenMedicineId: string) => {
     //fetch (delete)
@@ -458,227 +458,200 @@ const editData = () => {
 
   return (
     <div>
-{/* Boolean, if Edit medicine = true, show Edit form. Else show form form add medicine*/}
-{/* Form for chaging medicine */}
-{editMedicine ? (
-  <div>
-    <form className="form-control handleForm form-control-sm border-dark border-1 shadow p-5 mx-auto w-50 "
+      {/* Boolean, if Edit medicine = true, show Edit form. Else show form form add medicine*/}
+      {/* Form for chaging medicine */}
+      {editMedicine ? (
+        <div>
+          <form className="form-control handleForm form-control-sm border-dark border-1 shadow p-5 mx-auto w-50 "
             onSubmit={(e) => updateMedicine(e)}
             noValidate>
             <h2>Ändra Medicinering</h2>
             <div className="form-group">
-            <label htmlFor="animal_id" className="form-label">
-            SE-nummer:
-          </label>
-          <select
-            id="animal_id"
-            name="animal_id"
-            className="form-select shadow-sm border-dark"
-            value={chosenAnimalId}
-            onChange={changeAnimal} 
+              <label htmlFor="animal_id" className="form-label">
+                SE-nummer:
+              </label>
+              <select
+                id="animal_id"
+                name="animal_id"
+                className="form-select shadow-sm border-dark"
+                value={chosenAnimalId}
+                onChange={changeAnimal}
+              >
+                <option value="">Välj ett djur</option>
+                {animals.map((animal) => (
+                  <option key={animal.id} value={animal.id}>
+                    {animal.animalId}
+                  </option>
+                ))}
+              </select>
+              <p className="error-message">{formError.animal_id}</p>
+            </div>
+            <div className="form-group">
+              <label htmlFor="date" className="form-label">
+                Datum och tid för medicinering:
+              </label>
+              <input
+                type="datetime-local"
+                id="date"
+                name="date"
+                className="form-control shadow-sm border-dark"
+                value={newMedicine.date}
+                onChange={handleInputChange}
+              />
+              <p className="error-message">{formError.date}</p>
+            </div>
+            <div className="form-group">
+              <label htmlFor="type" className="form-label">
+                Typ av medicin:
+              </label>
+              <input
+                type="text"
+                id="type"
+                name="type"
+                className="form-control shadow-sm border-dark"
+                value={newMedicine.type}
+                onChange={handleInputChange}
+              />
+              <p className="error-message">{formError.type}</p>
+            </div>
+            <div className="form-group">
+              <label htmlFor="amount" className="form-label">
+                Mängd/dos av medicin:
+              </label>
+              <input
+                type="text"
+                id="amount"
+                name="amount"
+                className="form-control shadow-sm border-dark"
+                value={newMedicine.amount}
+                onChange={handleInputChange}
+              />
+              <p className="error-message">{formError.amount}</p>
+            </div>
+            <div className="form-group">
+            <label htmlFor="recurrent" className="form-label">
+            Ska medicineringen återkomma?
+            </label>
+            <select
+              id="recurrent"
+              name="recurrent"
+              className="form-select shadow-sm border-dark"
+              value={newMedicine.recurrent}
+              onChange={handleInputChange}>
+                
+              <option value="1">Ja</option>
+              <option value="0">Nej</option>
+            </select>
+          </div>
+          
+            <p className="error-message">{formError.recurrent}</p>
+            <button className="button shadow-sm w-50 mt-2" onClick={editData}>
+              Ändra
+            </button>
+          </form>
+          {/**Messages to form */}
+          {showMessage && (
+            <p className="alert alert-light text-center mt-2">{showMessage}</p>
+          )}
+        </div>
+      ) : (
+        /*form for adding medicine*/
+        <div>
+          <form
+            className="form-control handleForm form-control-sm border-dark border-1 shadow p-5 mx-auto w-50 "
+            onSubmit={addMedicine}
+            noValidate
           >
-            <option value="">Välj ett djur</option>
-            {animals.map((animal) => (
-              <option key={animal.id} value={animal.id}>
-                {animal.animalId}
-              </option>
-            ))}
-          </select>
-          <p className="error-message">{formError.animal_id}</p>
+            <h2>Medicinering</h2>
+            <div className="form-group">
+              <label htmlFor="animal_id" className="form-label">
+                SE-nummer:
+              </label>
+              <select
+                id="animal_id"
+                name="animal_id"
+                className="form-select shadow-sm border-dark"
+                value={chosenAnimalId}
+                onChange={changeAnimal}
+              >
+                <option value="">Välj ett djur</option>
+                {animals.map((animal) => (
+                  <option key={animal.id} value={animal.id}>
+                    {animal.animalId}
+                  </option>
+                ))}
+              </select>
+              <p className="error-message">{formError.animal_id}</p>
+            </div>
+            <div className="form-group">
+              <label htmlFor="date" className="form-label">
+                Datum och tid för medicinering:
+              </label>
+              <input
+                type="datetime-local"
+                id="date"
+                name="date"
+                className="form-control shadow-sm border-dark"
+                value={newMedicine.date}
+                onChange={handleInputChange}
+              />
+              <p className="error-message">{formError.date}</p>
+            </div>
+            <div className="form-group">
+              <label htmlFor="type" className="form-label">
+                Typ av medicin:
+              </label>
+              <input
+                type="text"
+                id="type"
+                name="type"
+                className="form-control shadow-sm border-dark"
+                value={newMedicine.type}
+                onChange={handleInputChange}
+              />
+              <p className="error-message">{formError.type}</p>
+            </div>
+            <div className="form-group">
+              <label htmlFor="amount" className="form-label">
+                Mängd/dos av medicin:
+              </label>
+              <input
+                type="text"
+                id="amount"
+                name="amount"
+                className="form-control shadow-sm border-dark"
+                value={newMedicine.amount}
+                onChange={handleInputChange}
+              />
+              <p className="error-message">{formError.amount}</p>
+            </div>
+            <div className="form-group">
+              <label htmlFor="recurrent" className="form-label">
+              Ska medicineringen återkomma?
+              </label>
+              <select
+                id="recurrent"
+                name="recurrent"
+                className="form-select shadow-sm border-dark"
+                value={newMedicine.recurrent}
+                onChange={handleInputChange}>
+                  <option disabled value="">Välj Ja/Nej</option>
+                <option value="1">Ja</option>
+                <option value="0">Nej</option>
+              </select>
+            </div>
+            <p className="error-message">{formError.recurrent}</p>
+            <button type="submit" className=" button shadow-sm w-50 mt-2">
+              Lägg till
+            </button>
+          </form>
+
+          {/**Messages to form */}
+          {showMessage && (
+            <p className="alert alert-light text-center mt-2">{showMessage}</p>
+          )}
         </div>
-        <div className="form-group">
-          <label htmlFor="date" className="form-label">
-            Datum och tid för medicinering:
-          </label>
-          <input
-            type="datetime-local"
-            id="date"
-            name="date"
-            className="form-control shadow-sm border-dark"
-            value={newMedicine.date}
-            onChange={handleInputChange}
-          />
-          <p className="error-message">{formError.date}</p>
-        </div>
-        <div className="form-group">
-          <label htmlFor="type" className="form-label">
-            Typ av medicin:
-          </label>
-          <input
-            type="text"
-            id="type"
-            name="type"
-            className="form-control shadow-sm border-dark"
-            value={newMedicine.type}
-            onChange={handleInputChange}
-          />
-          <p className="error-message">{formError.type}</p>
-        </div>
-        <div className="form-group">
-          <label htmlFor="amount" className="form-label">
-            Mängd/dos av medicin:
-          </label>
-          <input
-            type="text"
-            id="amount"
-            name="amount"
-            className="form-control shadow-sm border-dark"
-            value={newMedicine.amount}
-            onChange={handleInputChange}
-          />
-          <p className="error-message">{formError.amount}</p>
-        </div>
-        <div className="form-check">
-          <p>Ska medicineringen återkomma?</p>
-          <label htmlFor="1" className="form-check-label">
-            Ja
-          </label>
-          <input
-            type="radio"
-            id="1"
-            name="recurrent"
-            value={"1"}
-            checked={selectedButton === "1"}
-            onChange={handleRadioButton}
-            className="form-check-input shadow-sm border-dark"
-          />
-        </div>
-        <div className="form-check">
-          <label htmlFor="0" className="form-check-label">
-            Nej
-          </label>
-          <input
-            type="radio"
-            id="0"
-            name="recurrent"
-            value={"0"}
-            checked={selectedButton === "0"}
-            onChange={handleRadioButton}
-            className="form-check-input shadow-sm border-dark"
-          />
-        </div>
-        <p className="error-message">{formError.recurrent}</p>
-        <button className="button shadow-sm w-50 mt-2" onClick={editData}>
-          Ändra
-        </button>
-      </form>
-      {/**Messages to form */}
-      {showMessage && (
-        <p className="alert alert-light text-center mt-2">{showMessage}</p>
       )}
-      </div>
-) : (
-      /*form for adding medicine*/
-      <div>
-      <form
-        className="form-control handleForm form-control-sm border-dark border-1 shadow p-5 mx-auto w-50 "
-        onSubmit={addMedicine}
-        noValidate
-      >
-        <h2>Medicinering</h2>
-        <div className="form-group">
-          <label htmlFor="animal_id" className="form-label">
-            SE-nummer:
-          </label>
-          <select
-            id="animal_id"
-            name="animal_id"
-            className="form-select shadow-sm border-dark"
-            value={chosenAnimalId}
-            onChange={changeAnimal}
-          >
-            <option value="">Välj ett djur</option>
-            {animals.map((animal) => (
-              <option key={animal.id} value={animal.id}>
-                {animal.animalId}
-              </option>
-            ))}
-          </select>
-          <p className="error-message">{formError.animal_id}</p>
-        </div>
-        <div className="form-group">
-          <label htmlFor="date" className="form-label">
-            Datum och tid för medicinering:
-          </label>
-          <input
-            type="datetime-local"
-            id="date"
-            name="date"
-            className="form-control shadow-sm border-dark"
-            value={newMedicine.date}
-            onChange={handleInputChange}
-          />
-          <p className="error-message">{formError.date}</p>
-        </div>
-        <div className="form-group">
-          <label htmlFor="type" className="form-label">
-            Typ av medicin:
-          </label>
-          <input
-            type="text"
-            id="type"
-            name="type"
-            className="form-control shadow-sm border-dark"
-            value={newMedicine.type}
-            onChange={handleInputChange}
-          />
-          <p className="error-message">{formError.type}</p>
-        </div>
-        <div className="form-group">
-          <label htmlFor="amount" className="form-label">
-            Mängd/dos av medicin:
-          </label>
-          <input
-            type="text"
-            id="amount"
-            name="amount"
-            className="form-control shadow-sm border-dark"
-            value={newMedicine.amount}
-            onChange={handleInputChange}
-          />
-          <p className="error-message">{formError.amount}</p>
-        </div>
-        <div className="form-check">
-          <p>Ska medicineringen återkomma?</p>
-          <label htmlFor="1" className="form-check-label">
-            Ja
-          </label>
-          <input
-            type="radio"
-            id="1"
-            name="recurrent"
-            className="form-check-input shadow-sm border-dark"
-            value={"1"}
-            onChange={handleInputChange}
-            checked={selectedButton==="1" && newMedicine.recurrent === "1"}
-          />
-        </div>
-        <div className="form-check">
-          <label htmlFor="0" className="form-check-label">
-            Nej
-          </label>
-          <input
-            type="radio"
-            id="0"
-            name="recurrent"
-            className="form-check-input shadow-sm border-dark"
-            value={"0"}
-            onChange={handleInputChange}
-            checked={selectedButton==="0" && newMedicine.recurrent === "0"}
-          />
-        </div>
-        <p className="error-message">{formError.recurrent}</p>
-        <button type="submit" className=" button shadow-sm w-50 mt-2">
-          Lägg till
-        </button>
-      </form>
-      
-      {/**Messages to form */}
-      {showMessage && (
-        <p className="alert alert-light text-center mt-2">{showMessage}</p>
-      )}
-    </div>
-  )}
       <h2 className="p-5 mx-auto">Senaste medicineringarna för valt djur:</h2>
       <table className="table table-responsive table-hover w-75 mx-auto">
         <thead>
@@ -702,7 +675,7 @@ const editData = () => {
               {/**Check if medicine.recurrent is true or false */}
               <td>{medicine.recurrent ? "Ja" : "Nej"}</td>
               <td>
-              <button
+                <button
                   className="button"
                   onClick={() => {
                     setEditMedicine(true); // Update editMilk-state to true to edit
@@ -713,7 +686,7 @@ const editData = () => {
                       amount: medicine.amount,
                       recurrent: medicine.recurrent,
                       animal_id: medicine.animal_id
-                    }); 
+                    });
                   }}
                 >
                   Ändra
