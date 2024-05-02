@@ -35,6 +35,46 @@ const DetailsPage: React.FC = () => {
   //use navigate
   const navigate = useNavigate();
 
+  const [milkingData, setMilkingData] = useState<any[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
+
+
+  useEffect(() => {
+    if (id) {
+      getMilkByAnimals(id);
+    }
+  }, [id]);
+// Gets all milk from the animal with fetch
+const getMilkByAnimals = async (animal_id: string) => {
+  //fetch get
+  try {
+    const response = await fetch(
+      `http://localhost:8000/api/milks/animals/${animal_id}`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+          Accept: "application/json",
+        },
+      }
+    ); //if response ok
+    if (response.ok) {
+      const jsonData = await response.json();
+      //set milks
+      setMilkingData(jsonData);
+      setLoading(false); 
+    } else {
+      throw new Error("Något gick fel");
+    }
+  } catch (error) {
+    console.error("Fel vid hämtning av mjölk");
+  }
+};
+
+
+
+
   const fetchAnimalsByHerd = async (herdId: string | null) => {
     //Fetch
     try {
@@ -222,8 +262,14 @@ const DetailsPage: React.FC = () => {
             <article className="w-75 mx-auto m-2">
               <div>
                 <Collapsible open title="Mjölkning">
-                  <p>Mjölkning testtest</p>
-                  
+                {milkingData.length > 0 ? (
+                    milkingData.map((milk, index) => (
+                      <div key={index}>
+                        <p>Datum: {milk.milkDate}</p>
+                        <p>Mängd mjölk: {milk.kgMilk} kg</p>
+                      </div>
+                    ))
+                  ) : ( <p> Ingen mjölkning för detta djur</p>)}
                 </Collapsible>
                  </div>
                  </article>

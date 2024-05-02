@@ -3,6 +3,7 @@ import DOMPurify from "dompurify";
 import React, { useEffect, useState, FormEvent } from "react";
 import { useNavigate } from "react-router-dom";
 import Cookies from "universal-cookie";
+
 //structure of milk
 interface Milk {
   id: string;
@@ -194,7 +195,7 @@ function Milk() {
     setChosenAnimalId(value);
   };
   // Gets all milk from the animal with fetch
-  const getMilkByAnimals = async (chosenAnimalId: string) => {
+   const getMilkByAnimals = async (chosenAnimalId: string) => {
     //fetch get
     try {
       const response = await fetch(
@@ -591,4 +592,5 @@ function Milk() {
     </div>
   );
 }
+
 export default Milk;
