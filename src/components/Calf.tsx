@@ -958,8 +958,8 @@ function Calf() {
         </div>
       )}
       {/*Table to write calves*/}
-      <h2> Senaste kalvarna för {newCalf.animalId}</h2>
-      <table className="table table-responsive table-hover">
+      <h2 className="p-5 mx-auto"> Senaste kalvarna för {newCalf.animalId}</h2>
+      <table className="table table-responsive table-hover w-75 mx-auto">
         <thead>
           <tr>
             <th>Djur-Id</th>

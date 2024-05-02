@@ -1,6 +1,6 @@
 /*Login component*/
 //import
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Cookies from "universal-cookie";
 
@@ -12,13 +12,16 @@ function Login() {
     email: "",
     password: "",
   });
- //State for error to form
- const [formError, setFormError] = useState({
-  email: "",
-  password: "",
-});
+  //State for error to form
+  const [formError, setFormError] = useState({
+    email: "",
+    password: "",
+  });
   //Create new instance of cookie
   const cookies = new Cookies();
+  //get token
+  const token = cookies.get("token");
+
   //One hour in milliseconds
   const oneHour = 60 * 60 * 1000;
   //Expire date is one hour
@@ -32,6 +35,12 @@ function Login() {
       [e.target.name]: e.target.value,
     });
   };
+  //check if token exist, send to startpage
+  useEffect(() => {
+    if (token) {
+      navigate("/");
+    }
+  }, [token, navigate]);
 
   // Function to clear update and delete messages after a specified time
   const clearMessages = () => {
@@ -46,34 +55,34 @@ function Login() {
   const loginUser = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
- //Object to track input errors
- let inputError = {
-  email: "",
-  password: "",
-};
+    //Object to track input errors
+    let inputError = {
+      email: "",
+      password: "",
+    };
 
-  // check if title, description are empty
-  if (!userData.email && !userData.password) {
-    setFormError({
-      ...inputError,
-      email: "Fyll i en mejladress",
-      password: "Fyll i ett lösenord",
-    });
-    // Clear message after  3 seconds
-    setTimeout(clearMessages, 3000);
-    return;
-  }
+    // check if title, description are empty
+    if (!userData.email && !userData.password) {
+      setFormError({
+        ...inputError,
+        email: "Fyll i en mejladress",
+        password: "Fyll i ett lösenord",
+      });
+      // Clear message after  3 seconds
+      setTimeout(clearMessages, 3000);
+      return;
+    }
 
-  // check if title, description are empty
-  if (!userData.email) {
-    setFormError({
-      ...inputError,
-      email: "Fyll i en mejladress",
-    });
-    // Clear message after  3 seconds
-    setTimeout(clearMessages, 3000);
-    return;
-  }
+    // check if title, description are empty
+    if (!userData.email) {
+      setFormError({
+        ...inputError,
+        email: "Fyll i en mejladress",
+      });
+      // Clear message after  3 seconds
+      setTimeout(clearMessages, 3000);
+      return;
+    }
 
     // check if title, description are empty
     if (!userData.password) {
@@ -85,8 +94,6 @@ function Login() {
       setTimeout(clearMessages, 3000);
       return;
     }
-
-
 
     //Fetch
     try {
@@ -116,7 +123,7 @@ function Login() {
         //Error login
         setShowMessage("Felaktig inloggning, fel mejladress eller lösenord");
         // Clear message after  3 seconds
-      setTimeout(clearMessages, 3000);
+        setTimeout(clearMessages, 3000);
       } //Error login
     } catch (error) {
       setShowMessage("Fel vid inloggning");
@@ -130,12 +137,14 @@ function Login() {
       {showMessage && (
         <p className="alert alert-light text-center mt-2">{showMessage}</p>
       )}
-      
+
       <form
-        className="form-control shadow-sm border-dark form-control-sm border-0 p-5 mx-auto mb-5 mt-5 w-50 h-50 bglight"
+        className="form-control shadow-sm form-control-sm  border border-dark p-5 mx-auto mb-5 mt-5 w-50 h-50 bglight"
         onSubmit={loginUser}
         noValidate
-      > <h1 className="mb-5">Logga in</h1>
+      >
+        {" "}
+        <h1 className="mb-5">Logga in</h1>
         <div className="form-group">
           <label htmlFor="email" className="form-label">
             Mejladress:
@@ -149,7 +158,7 @@ function Login() {
             value={userData.email}
             onChange={handleInputChange}
           />
-           <p className="error-message">{formError.email}</p>
+          <p className="error-message">{formError.email}</p>
         </div>
         <div className="form-group">
           <label htmlFor="password" className="form-label">
@@ -166,11 +175,11 @@ function Login() {
           />
           <p className="error-message">{formError.password}</p>
         </div>
-        <button type="submit" className="mt-2">
+        <button type="submit" className="button mt-2">
           Logga in
         </button>
       </form>
-      </div>
+    </div>
   );
 }
 //export
