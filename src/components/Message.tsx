@@ -190,7 +190,7 @@ const Message: React.FC = () => {
 
   return (
     <div>
-      <h2 className="text-center m-5">Skicka ett meddelande till oss</h2>
+      <h2 className="text-center m-5">Vill du ha hjälp med eller komma i kontakt med support?</h2>
       <div>
         {showMessage !== null && (
           <p className="alert alert-light text-center mx-auto">
@@ -201,7 +201,8 @@ const Message: React.FC = () => {
           className="form-control bglight shadow-sm border-dark form-control-sm p-3 mx-auto w-50"
           onSubmit={sendMessage}
           noValidate //The formdata is not automaticallly validated by the browser
-        >
+        > 
+        <h3 className="p-4 mb-3">Skicka ett meddelande till oss</h3>
           <input type="hidden" value={messageData.userid} />
           <div className="form-group">
             <label htmlFor="title" className="form-label">

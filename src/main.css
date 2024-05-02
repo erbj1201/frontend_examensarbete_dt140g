@@ -99,6 +99,13 @@ a:hover{
     font-size: 1.2em;
     font-weight: 300;
 }
+.nav-link{
+    color: black;
+}
+.nav-link:hover{
+    text-decoration: underline;
+    color: #8a3903;
+}
 
 .cow-image{
     height: 100%;
