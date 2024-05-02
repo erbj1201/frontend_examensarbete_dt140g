@@ -681,8 +681,8 @@ function Medicine() {
       )}
     </div>
   )}
-      <h2>Senaste medicineringarna:</h2>
-      <table className="table table-responsive table-hover">
+      <h2 className="p-5 mx-auto">Senaste medicineringarna för valt djur:</h2>
+      <table className="table table-responsive table-hover w-75 mx-auto">
         <thead>
           <tr>
             <th>Djur-Id</th>

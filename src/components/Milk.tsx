@@ -12,6 +12,7 @@ interface Milk {
   animal_id: string;
 }
 
+
 function Milk() {
   //cookies
   const cookies = new Cookies();
@@ -36,7 +37,7 @@ function Milk() {
     milkDate: "",
     animal_id: "",
   });
-// state data in edit form
+  // state data in edit form
   const [inputData, setInputData] = useState({
     id: "",
     kgMilk: "",
@@ -79,7 +80,6 @@ function Milk() {
       [name]: sanitizedData,
     }));
   };
-
 
   //Add Milk data with fetch
   const addMilk = async (e: FormEvent<HTMLFormElement>) => {
@@ -248,8 +248,8 @@ function Milk() {
       console.error("Fel vid hämtning");
     }
   };
-  
-//edit input fields in form
+
+  //edit input fields in form
   const editData = () => {
     setEditMilk(true);
     setInputData({
@@ -273,14 +273,21 @@ function Milk() {
 
   const updateMilk = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    //Sanitize input fields
+
     const { id, kgMilk, milkDate } = inputData;
-    const sanitizedKgMilk = DOMPurify.sanitize(kgMilk);
-    const sanitizedMilkDate = DOMPurify.sanitize(milkDate);
 
     /* Control if input fields are empty */
+    if (!newMilk.kgMilk && !newMilk.milkDate) {
+      setFormError({
+        ...formError,
+        kgMilk: "Fyll i mängden mjölk (kg/mjölk)",
+        milkDate: "Fyll i datum för mjölkning",
+      });
+      setTimeout(clearMessages, 3000);
+      return;
+    }
     // if kgMilk is empty
-    if (!sanitizedKgMilk) {
+    if (!newMilk.kgMilk) {
       setFormError({
         ...formError,
         kgMilk: "Fyll i mängden mjölk (kg/mjölk)",
@@ -288,9 +295,8 @@ function Milk() {
       setTimeout(clearMessages, 3000);
       return;
     }
-
     // if milkkDate is empty
-    if (!sanitizedMilkDate) {
+    if (!newMilk.milkDate) {
       setFormError({
         ...formError,
         milkDate: "Fyll i datum för mjölkning",
@@ -298,12 +304,16 @@ function Milk() {
       setTimeout(clearMessages, 3000);
       return;
     }
+    //sanitize input
+    const sanitizedKgMilk = DOMPurify.sanitize(kgMilk);
+    const sanitizedMilkDate = DOMPurify.sanitize(milkDate);
+    //set
     setNewMilk({
       id: chosenMilkId,
       kgMilk: sanitizedKgMilk,
       milkDate: sanitizedMilkDate,
-      animal_id: chosenAnimalId
-    })
+      animal_id: chosenAnimalId,
+    }); //fetch (put)
     try {
       const response = await fetch(`http://localhost:8000/api/milks/${id}`, {
         method: "PUT",
@@ -315,7 +325,7 @@ function Milk() {
         body: JSON.stringify({
           kgMilk: sanitizedKgMilk,
           milkDate: sanitizedMilkDate,
-        })
+        }),
       });
       const responseData = await response.json();
       console.log(responseData);
@@ -327,16 +337,15 @@ function Milk() {
           id: newMilk.id,
           kgMilk: "",
           milkDate: "",
-          animal_id: chosenAnimalId
-        })
+          animal_id: chosenAnimalId,
+        });
         setShowMessage("Ändringarna är sparade");
         //Clear message after 3 seconds
         setTimeout(clearMessages, 3000);
         setEditMilk(false);
         //Write the data of the changed animal in table directly
         getMilkByAnimals(chosenAnimalId);
-      }
-      else {
+      } else {
         setShowMessage("Mjölkningen kunde inte ändras");
         // Clear message after  3 seconds
         setTimeout(clearMessages, 3000);
@@ -344,7 +353,7 @@ function Milk() {
     } catch {
       console.error("Något gick fel:");
     }
-  }
+  };
   //Delete Milk with id
   const deleteMilk = async (id: string) => {
     //fetch delete
@@ -374,17 +383,17 @@ function Milk() {
       console.error("Något gick fel:", error);
     }
   };
-
   return (
-
     <div>
       {/* Boolean, if Edit milk true show edit form, else show form for add milk */}
       {/*form for changing milk*/}
       {editMilk ? (
         <div>
-          <form className="form-control handleForm form-control-sm shadow-sm border-dark p-5 mx-auto w-50 "
+          <form
+            className="form-control handleForm form-control-sm shadow-sm border-dark p-5 mx-auto w-50 "
             onSubmit={(e) => updateMilk(e)}
-              noValidate>
+            noValidate
+          >
             <h2>Ändra Mjölkning</h2>
             <div className="form-group">
               <label htmlFor="animal_id" className="form-label">
@@ -433,12 +442,14 @@ function Milk() {
               />
               <p className="error-message">{formError.milkDate}</p>
             </div>
-            <button className="w-50 mt-2" onClick={editData}>Ändra</button>
+            <button className="button w-50 mt-2" onClick={editData}>
+              Ändra
+            </button>
           </form>
-           {/**Messages to form */}
-      {showMessage && (
-        <p className="alert alert-light text-center mt-2">{showMessage}</p>
-      )}
+          {/**Messages to form */}
+          {showMessage && (
+            <p className="alert alert-light text-center mt-2">{showMessage}</p>
+          )}
         </div>
       ) : (
         /* form for adding milk */
@@ -501,17 +512,16 @@ function Milk() {
             </button>
           </form>
 
-
           {/*Show messages to form */}
           {showMessage && (
             <p className="alert alert-light text-center mt-2">{showMessage}</p>
           )}
         </div>
       )}
- 
-      <h2>Senaste mjölkningarna för: </h2> 
 
-      <table className="table table-responsive table-hover">
+      <h2 className="p-5 mx-auto">Senaste mjölkningarna för valt djur: </h2>
+
+      <table className="table table-responsive table-hover w-75 mx-auto">
         <thead>
           <tr>
             <th>Djur-Id</th>
@@ -536,7 +546,7 @@ function Milk() {
                       id: milk.id,
                       kgMilk: milk.kgMilk,
                       milkDate: milk.milkDate,
-                      animal_id: milk.animal_id
+                      animal_id: milk.animal_id,
                     });
                   }}
                 >
@@ -551,7 +561,6 @@ function Milk() {
                 </button>
               </td>
             </tr>
-
           ))}
         </tbody>
       </table>
@@ -585,9 +594,7 @@ function Milk() {
               </div>
             </div>
           </div>
-
         </div>
-
       )}
     </div>
   );

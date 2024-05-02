@@ -173,11 +173,11 @@ const RegisterPage: React.FC = () => {
         <p className="alert alert-light text-center mt-2">{showMessage}</p>
       )}
       <form
-        className="form-control form-control-sm border-0 p-2 mx-auto w-100"
+        className="form-control form-control-sm p-4 mx-auto w-50 shadow border border-dark mb-5 mt-5 w-50 h-50 bglight"
         onSubmit={registerUser}
         noValidate //The formdata is not automaticallly validated by the browser
       >
-        
+        <h2 className="p-3 mb-4">Fyll i dina uppgifter</h2>
         {/*Form to add user*/}
         <div className="form-group">
           <label htmlFor="name" className="form-label">
@@ -187,7 +187,7 @@ const RegisterPage: React.FC = () => {
             type="name"
             id="name"
             name="name"
-            className="form-control"
+            className="form-control shadow-sm border border-dark"
             required
             value={newUser.name}
             onChange={({ target }) =>
@@ -204,7 +204,7 @@ const RegisterPage: React.FC = () => {
             type="email"
             id="email"
             name="email"
-            className="form-control"
+            className="form-control shadow-sm border border-dark"
             required
             value={newUser.email}
             onChange={({ target }) =>
@@ -222,7 +222,7 @@ const RegisterPage: React.FC = () => {
             type="password"
             id="password"
             name="password"
-            className="form-control"
+            className="form-control shadow-sm border border-dark"
             required
             value={newUser.password}
             onChange={({ target }) =>
@@ -239,7 +239,7 @@ const RegisterPage: React.FC = () => {
             type="password"
             id="confirmPassword"
             name="confirmPassword"
-            className="form-control"
+            className="form-control shadow-sm border border-dark"
             required
             value={newUser.confirmPassword}
             onChange={({ target }) =>
@@ -248,7 +248,7 @@ const RegisterPage: React.FC = () => {
           />
           <p className="error-message">{formError.confirmPassword}</p>
         </div>
-        <button type="submit" className="btn btn-secondary mt-2">
+        <button type="submit" className="button mt-2">
           Skapa användare
         </button>
       </form>
