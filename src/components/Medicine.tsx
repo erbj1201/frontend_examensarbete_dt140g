@@ -314,9 +314,17 @@ function Medicine() {
     });
   };
 
-  const handleRadioButton = (e: any) => {
-    setSeletedButton(e.target.value);
-  };
+  const goBack = () => {
+    setEditMedicine(false);
+    setNewMedicine({
+    id: "",
+    date: "",
+    type: "",
+    amount: "",
+    recurrent: "",
+    animal_id: "",
+  });
+};
 
   //change url and add id
   const navigateToMedicine = (id: string) => {
@@ -547,6 +555,9 @@ function Medicine() {
             <p className="error-message">{formError.recurrent}</p>
             <button className="button shadow-sm w-50 mt-2" onClick={editData}>
               Ändra
+            </button>
+            <button className="button shadow-sm w-50 mt-2" onClick={goBack}>
+             Avbryt
             </button>
           </form>
           {/**Messages to form */}
