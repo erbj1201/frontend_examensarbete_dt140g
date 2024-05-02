@@ -25,7 +25,6 @@ function Medicine() {
   const [chosenAnimalId, setChosenAnimalId] = useState<string>("");
   const [chosenMedicineId, setChosenMedicinelId] = useState<string>("");
   const [editMedicine, setEditMedicine] = useState(false);
-  const [selectedButton, setSeletedButton] = useState("1");
   const [animals, setAnimals] = useState<{ id: string; animalId: string }[]>(
     []
   );
@@ -275,7 +274,7 @@ function Medicine() {
   };
   // Get all animals with their animalId´s and id:s from the database
   const getAnimals = async () => {
-    const token = cookies.get!("token");
+  
     //fetch get
     try {
       const response = await fetch(`http://localhost:8000/api/animals`, {
@@ -309,7 +308,7 @@ function Medicine() {
       date: newMedicine.date,
       type: newMedicine.type,
       amount: newMedicine.amount,
-      recurrent: selectedButton,
+      recurrent: newMedicine.recurrent,
       animal_id: chosenAnimalId,
     });
   };

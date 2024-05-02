@@ -2,18 +2,13 @@
 import React, { useState } from "react";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
-import TokenCookie from "../components/TokenCookie";
 import Milk from "../components/Milk";
 import Vaccine from "../components/Vaccine";
 import Medicine from "../components/Medicine";
 import Calf from "../components/Calf";
-import Cookies from "universal-cookie";
 
 const HandlePage: React.FC = () => {
- //cookies
- const cookies = new Cookies();
- const token = cookies.get("token");
- console.log(token);
+
  
   const [optionValue, setOptionValue] = useState("");
 
@@ -42,7 +37,6 @@ const HandlePage: React.FC = () => {
     <div>
       {/*Including components*/}
       <Header />
-      <TokenCookie />
       <main className="container mx-auto">
         <h1>Hantera händelse för djur</h1>
         <form className="mx-auto w-50">
