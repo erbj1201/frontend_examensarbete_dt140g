@@ -17,6 +17,8 @@ function Milk() {
   //cookies
   const cookies = new Cookies();
   const token = cookies.get("token");
+  // Get userid from sessionstorage
+const userid = sessionStorage.getItem("userid");
   //use navigate
   const navigate = useNavigate();
   //states
@@ -24,6 +26,7 @@ function Milk() {
   const [chosenAnimalId, setChosenAnimalId] = useState<string>("");
   const [chosenMilkId, setChosenMilkId] = useState<string>("");
   const [editMilk, setEditMilk] = useState(false);
+  const [herdId, setHerdId] = useState<string>("");
   const [animals, setAnimals] = useState<{ id: string; animalId: string }[]>(
     []
   );
@@ -64,11 +67,13 @@ function Milk() {
   };
   // Fetch all milks and animals with useEffect
   useEffect(() => {
+    getHerd();
+    getMilksByHerd(herdId);
     getAnimals();
     if (chosenAnimalId) {
       getMilkByAnimals(chosenAnimalId);
     }
-  }, [chosenAnimalId]);
+  }, [chosenAnimalId, herdId]);
 
   //Handle changes in the input field
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -97,7 +102,7 @@ function Milk() {
         ...inputError,
         kgMilk: "Fyll i mängden mjölk (kg/mjölk)",
         milkDate: "Fyll i datum för mjölkning",
-        animal_id: "Välj ett djur",
+        animal_id: "Välj djuridentitet",
       });
       // Clear message after 3 seconds
       setTimeout(clearMessages, 3000);
@@ -220,6 +225,28 @@ function Milk() {
       console.error("Fel vid hämtning av mjölk");
     }
   };
+  const getHerd = async () => {
+    try{
+      const response = await fetch(`http://localhost:8000/api/herds/users/${userid}`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+          Accept: "application/json",
+        }, 
+    });
+    if (response.ok){
+      const herdData = await response.json();
+      const chosenHerd = herdData[0];
+      setHerdId(chosenHerd.id);
+    } else {
+      throw new Error("Något gick fel vid hämtning av besättningsdata.");
+    }
+  } catch (error) {
+    console.error(error);
+  }
+    }
+  
   const getMilksByHerd = async (herdId: string) => {
     try {
       const response = await fetch(`http://localhost:8000/api/milks/herds/${herdId}`, {
@@ -239,7 +266,7 @@ function Milk() {
     } catch (error) {
       console.error(error);
     }
-  };
+  }; 
   
   // Get all animals with their animalId´s and id:s from the database
   const getAnimals = async () => {
@@ -278,6 +305,15 @@ function Milk() {
       milkDate: newMilk.milkDate,
       animal_id: chosenAnimalId,
     });
+  };
+    const goBack = () => {
+      setEditMilk(false);
+      setNewMilk({
+        id: "",
+        kgMilk: "",
+        milkDate: "",
+        animal_id: "",
+      });
   };
   //change url and add id
   const navigateToMilk = (id: string) => {
@@ -414,25 +450,25 @@ function Milk() {
             onSubmit={(e) => updateMilk(e)}
             noValidate
           >
-            <h2>Ändra Mjölkning</h2>
+            <h2 className="py-3">Ändra mjölkning</h2>
             <div className="form-group">
               <label htmlFor="animal_id" className="form-label">
-                SE-nummer:
+                Djuridentitet:
               </label>
               <select
                 id="animal_id"
                 name="animal_id"
-                className="form-select shadow-sm border-dark"
+                className="form-select form-select-sm shadow-sm border-dark"
                 value={chosenAnimalId}
               >
-                <option value="inget">Välj ett djur</option>
+                <option disabled value="">Välj ett djur</option>
                 {animals.map((animal) => (
                   <option key={animal.id} value={animal.id}>
                     {animal.animalId}
                   </option>
                 ))}
               </select>
-              <p className="error-message">{formError.animal_id}</p>
+              <p className="error-message text-danger fw-bold">{formError.animal_id}</p>
             </div>
             <div className="form-group">
               <label htmlFor="kgMilk" className="form-label">
@@ -442,11 +478,11 @@ function Milk() {
                 type="text"
                 id="kgMilk"
                 name="kgMilk"
-                className="form-control shadow-sm border-dark"
+                className="form-control form-control-sm shadow-sm border-dark"
                 value={newMilk.kgMilk}
                 onChange={handleInputChange}
               />
-              <p className="error-message">{formError.kgMilk}</p>
+              <p className="error-message text-danger fw-bold">{formError.kgMilk}</p>
             </div>
             <div className="form-group">
               <label htmlFor="milkDate" className="form-label">
@@ -456,15 +492,20 @@ function Milk() {
                 type="datetime-local"
                 id="milkDate"
                 name="milkDate"
-                className="form-control shadow-sm border-dark"
+                className="form-control form-control-sm shadow-sm border-dark"
                 value={newMilk.milkDate}
                 onChange={handleInputChange}
               />
-              <p className="error-message">{formError.milkDate}</p>
+              <p className="error-message text-danger fw-bold">{formError.milkDate}</p>
             </div>
-            <button className="button w-50 mt-2" onClick={editData}>
-              Ändra
-            </button>
+            <div className="form-btn-div d-flex justify-content-around">
+              <button className="button shadow-sm mt-2" onClick={editData}>
+                Ändra
+              </button>
+              <button className="button shadow-sm mt-2" onClick={goBack}>
+                Avbryt
+              </button>
+            </div>
           </form>
           {/**Messages to form */}
         {/*   {showMessage && (
@@ -478,15 +519,16 @@ function Milk() {
             className="form-control handleForm form-control-sm shadow-sm border-dark p-5 mx-auto w-50 "
             onSubmit={addMilk}
           >
-            <h2>Mjölkning</h2>
+            <h2 className="py-3">Lägg till mjölkning</h2>
+            <h2>{herdId}</h2>
             <div className="form-group">
               <label htmlFor="animal_id" className="form-label">
-                SE-nummer:
+                Djuridentitet
               </label>
               <select
                 id="animal_id"
                 name="animal_id"
-                className="form-control shadow-sm border-dark"
+                className="form-control form-select-sm shadow-sm border-dark"
                 value={chosenAnimalId}
                 onChange={changeAnimal}
               >
@@ -497,7 +539,7 @@ function Milk() {
                   </option>
                 ))}
               </select>
-              <p className="error-message">{formError.animal_id}</p>
+              <p className="error-message text-danger fw-bold">{formError.animal_id}</p>
             </div>
             <div className="form-group">
               <label htmlFor="kgMilk" className="form-label">
@@ -507,11 +549,11 @@ function Milk() {
                 type="text"
                 id="kgMilk"
                 name="kgMilk"
-                className="form-control shadow-sm border-dark"
+                className="form-control form-control-sm shadow-sm border-dark"
                 value={newMilk.kgMilk}
                 onChange={handleInputChange}
               />
-              <p className="error-message">{formError.kgMilk}</p>
+              <p className="error-message text-danger fw-bold">{formError.kgMilk}</p>
             </div>
             <div className="form-group">
               <label htmlFor="milkDate" className="form-label">
@@ -521,13 +563,13 @@ function Milk() {
                 type="datetime-local"
                 id="milkDate"
                 name="milkDate"
-                className="form-control shadow-sm border-dark"
+                className="form-control form-control-sm shadow-sm border-dark"
                 value={newMilk.milkDate}
                 onChange={handleInputChange}
               />
-              <p className="error-message">{formError.milkDate}</p>
+              <p className="error-message text-danger fw-bold">{formError.milkDate}</p>
             </div>
-            <button type="submit" className="button shadow-sm w-50 mt-2">
+            <button type="submit" className="button shadow-sm mt-2">
               Lägg till
             </button>
           </form>
@@ -557,6 +599,7 @@ function Milk() {
               <td>{milk.animal_id}</td>
               <td>{milk.kgMilk} Kg</td>
               <td>{milk.milkDate}</td>
+           
               <td>
                 <button
                   className="button"
