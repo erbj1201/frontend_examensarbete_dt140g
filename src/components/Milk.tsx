@@ -220,7 +220,27 @@ function Milk() {
       console.error("Fel vid hämtning av mjölk");
     }
   };
-
+  const getMilksByHerd = async (herdId: string) => {
+    try {
+      const response = await fetch(`http://localhost:8000/api/milks/herds/${herdId}`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+          Accept: "application/json",
+        },
+      });
+      if (response.ok) {
+        const jsonData = await response.json();
+        setMilks(jsonData);
+      } else {
+        throw new Error("Något gick fel vid hämtning av mjölkdata för besättningen.");
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+  
   // Get all animals with their animalId´s and id:s from the database
   const getAnimals = async () => {
     //Fetch get
@@ -447,9 +467,9 @@ function Milk() {
             </button>
           </form>
           {/**Messages to form */}
-          {showMessage && (
-            <p className="alert alert-light text-center mt-2">{showMessage}</p>
-          )}
+        {/*   {showMessage && (
+            <p className="alert alert-success text-center mt-2">{showMessage}</p>
+          )} */}
         </div>
       ) : (
         /* form for adding milk */
@@ -514,7 +534,7 @@ function Milk() {
 
           {/*Show messages to form */}
           {showMessage && (
-            <p className="alert alert-light text-center mt-2">{showMessage}</p>
+            <p className="alert mx-auto alert-success text-dark w-25 text-center mt-2">{showMessage}</p>
           )}
         </div>
       )}
