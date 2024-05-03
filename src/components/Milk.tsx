@@ -18,7 +18,7 @@ function Milk() {
   const cookies = new Cookies();
   const token = cookies.get("token");
   // Get userid from sessionstorage
-const userid = sessionStorage.getItem("userid");
+
   //use navigate
   const navigate = useNavigate();
   //states
@@ -26,7 +26,6 @@ const userid = sessionStorage.getItem("userid");
   const [chosenAnimalId, setChosenAnimalId] = useState<string>("");
   const [chosenMilkId, setChosenMilkId] = useState<string>("");
   const [editMilk, setEditMilk] = useState(false);
-  const [herdId, setHerdId] = useState<string>("");
   const [animals, setAnimals] = useState<{ id: string; animalId: string }[]>(
     []
   );
@@ -67,13 +66,12 @@ const userid = sessionStorage.getItem("userid");
   };
   // Fetch all milks and animals with useEffect
   useEffect(() => {
-    getHerd();
-    getMilksByHerd(herdId);
+   
     getAnimals();
     if (chosenAnimalId) {
       getMilkByAnimals(chosenAnimalId);
     }
-  }, [chosenAnimalId, herdId]);
+  }, [chosenAnimalId]);
 
   //Handle changes in the input field
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -225,48 +223,7 @@ const userid = sessionStorage.getItem("userid");
       console.error("Fel vid hämtning av mjölk");
     }
   };
-  const getHerd = async () => {
-    try{
-      const response = await fetch(`http://localhost:8000/api/herds/users/${userid}`, {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-          Accept: "application/json",
-        }, 
-    });
-    if (response.ok){
-      const herdData = await response.json();
-      const chosenHerd = herdData[0];
-      setHerdId(chosenHerd.id);
-    } else {
-      throw new Error("Något gick fel vid hämtning av besättningsdata.");
-    }
-  } catch (error) {
-    console.error(error);
-  }
-    }
-  
-  const getMilksByHerd = async (herdId: string) => {
-    try {
-      const response = await fetch(`http://localhost:8000/api/milks/herds/${herdId}`, {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-          Accept: "application/json",
-        },
-      });
-      if (response.ok) {
-        const jsonData = await response.json();
-        setMilks(jsonData);
-      } else {
-        throw new Error("Något gick fel vid hämtning av mjölkdata för besättningen.");
-      }
-    } catch (error) {
-      console.error(error);
-    }
-  }; 
+ 
   
   // Get all animals with their animalId´s and id:s from the database
   const getAnimals = async () => {
@@ -520,7 +477,7 @@ const userid = sessionStorage.getItem("userid");
             onSubmit={addMilk}
           >
             <h2 className="py-3">Lägg till mjölkning</h2>
-            <h2>{herdId}</h2>
+            
             <div className="form-group">
               <label htmlFor="animal_id" className="form-label">
                 Djuridentitet
