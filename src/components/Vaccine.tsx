@@ -466,7 +466,7 @@ function Vaccine() {
             onSubmit={(e) => updateVaccine(e)}
             noValidate //The formdata is not automaticallly validated by the browser
           >
-            <h2>Ändra vaccinering</h2>
+            <h2 className="py-3">Ändra vaccinering</h2>
             <div className="form-group">
               <label htmlFor="animal_id" className="form-label">
                 Djuridentitet:
@@ -561,10 +561,10 @@ function Vaccine() {
             onSubmit={addVaccine}
             noValidate //The formdata is not automaticallly validated by the browser
           >
-            <h2>Vaccinering</h2>
+            <h2 className="py-3">Lägg till vaccinering</h2>
             <div className="form-group">
               <label htmlFor="animal_id" className="form-label">
-                SE-nummer:
+                Djuridentitet:
               </label>
               <select
                 id="animal_id"
