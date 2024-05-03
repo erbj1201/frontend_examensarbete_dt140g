@@ -139,7 +139,7 @@ function Calf() {
         !newCalf.birthDate
       ) {
         setFormError({
-          ...formError,
+          ...inputError,
           animal_id: "Välj kalvens mamma",
           sex: "Välj ett kön",
           animalId: "Fyll i kalvens djuridentitet",
@@ -157,7 +157,7 @@ function Calf() {
       //Check if animalId empty
       if (!chosenAnimalId) {
         setFormError({
-          ...formError,
+          ...inputError,
           animal_id: "Välj kalvens mamma",
         });
         // Clear message after  3 seconds
@@ -168,7 +168,7 @@ function Calf() {
       //Check if empty
       if (!newCalf.sex) {
         setFormError({
-          ...formError,
+          ...inputError,
           sex: "Välj ett kön",
         });
         // Clear message after  3 seconds
@@ -178,7 +178,7 @@ function Calf() {
       //Check if empty
       if (!newCalf.category) {
         setFormError({
-          ...formError,
+          ...inputError,
           category: "Välj om kalven är ett köttdjur eller mjölkdjur",
         });
         // Clear message after  3 seconds
@@ -189,7 +189,7 @@ function Calf() {
       //Check if earNo empty
       if (!newCalf.earNo) {
         setFormError({
-          ...formError,
+          ...inputError,
           earNo: "Fyll i ett öronnummer",
         });
         // Clear message after  3 seconds
@@ -199,7 +199,7 @@ function Calf() {
       //Check if  empty
       if (!newCalf.animalId) {
         setFormError({
-          ...formError,
+          ...inputError,
           animalId: "Fyll i kalvens djuridentitet",
         });
         // Clear message after  3 seconds
@@ -209,14 +209,14 @@ function Calf() {
       //Check if breed empty
       if (!newCalf.breed) {
         setFormError({
-          ...formError,
+          ...inputError,
           breed: "Fyll i en ras",
         });
       }
       //Check if name empty
       if (!newCalf.name) {
         setFormError({
-          ...formError,
+          ...inputError,
           name: "Fyll i ett namn",
         });
         // Clear message after  3 seconds
@@ -226,7 +226,7 @@ function Calf() {
       //Check if expectedBirthDate empty
       if (!newCalf.expectedBirthDate) {
         setFormError({
-          ...formError,
+          ...inputError,
           expectedBirthDate: "Fyll i förväntat födelsedatum",
         });
         // Clear message after  3 seconds
@@ -236,7 +236,7 @@ function Calf() {
       //Check if birthDate empty
       if (!newCalf.birthDate) {
         setFormError({
-          ...formError,
+          ...inputError,
           birthDate: "Fyll i födelsedatum",
         });
         // Clear message after  3 seconds
@@ -417,6 +417,19 @@ function Calf() {
 
   const updateCalf = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+//Object to track input errors
+let inputError = {
+  animalId: "",
+  earNo: "",
+  breed: "",
+  name: "",
+  expectedBirthDate: "",
+  birthDate: "",
+  sex: "",
+  category: "",
+  animal_id: "",
+};
+
     const {
       id,
       animalId,
@@ -442,7 +455,7 @@ function Calf() {
       !newCalf.birthDate
     ) {
       setFormError({
-        ...formError,
+        ...inputError,
         animal_id: "Välj kalvens mamma",
         sex: "Välj ett kön",
         animalId: "Fyll i kalvens djuridentitet",
@@ -460,7 +473,7 @@ function Calf() {
     //Check if animalId empty
     if (!chosenAnimalId) {
       setFormError({
-        ...formError,
+        ...inputError,
         animal_id: "Välj kalvens mamma",
       });
       // Clear message after  3 seconds
@@ -471,7 +484,7 @@ function Calf() {
     //Check if empty
     if (!newCalf.sex) {
       setFormError({
-        ...formError,
+        ...inputError,
         sex: "Välj ett kön",
       });
       // Clear message after  3 seconds
@@ -481,7 +494,7 @@ function Calf() {
     //Check if empty
     if (!newCalf.category) {
       setFormError({
-        ...formError,
+        ...inputError,
         category: "Välj om kalven är ett köttdjur eller mjölkdjur",
       });
       // Clear message after  3 seconds
@@ -492,7 +505,7 @@ function Calf() {
     //Check if earNo empty
     if (!newCalf.earNo) {
       setFormError({
-        ...formError,
+        ...inputError,
         earNo: "Fyll i ett öronnummer",
       });
       // Clear message after  3 seconds
@@ -502,7 +515,7 @@ function Calf() {
     //Check if  empty
     if (!newCalf.animalId) {
       setFormError({
-        ...formError,
+        ...inputError,
         animalId: "Fyll i kalvens djuridentitet",
       });
       // Clear message after  3 seconds
@@ -512,14 +525,14 @@ function Calf() {
     //Check if breed empty
     if (!newCalf.breed) {
       setFormError({
-        ...formError,
+        ...inputError,
         breed: "Fyll i en ras",
       });
     }
     //Check if name empty
     if (!newCalf.name) {
       setFormError({
-        ...formError,
+        ...inputError,
         name: "Fyll i ett namn",
       });
       // Clear message after  3 seconds
@@ -529,7 +542,7 @@ function Calf() {
     //Check if expectedBirthDate empty
     if (!newCalf.expectedBirthDate) {
       setFormError({
-        ...formError,
+        ...inputError,
         expectedBirthDate: "Fyll i förväntat födelsedatum",
       });
       // Clear message after  3 seconds
@@ -539,7 +552,7 @@ function Calf() {
     //Check if birthDate empty
     if (!newCalf.birthDate) {
       setFormError({
-        ...formError,
+        ...inputError,
         birthDate: "Fyll i födelsedatum",
       });
       // Clear message after  3 seconds
