@@ -100,7 +100,7 @@ function Calf() {
   }, [chosenAnimalId]);
 
   // Handle changes in input field
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
     //Sanitize value
     const sanitizedData = DOMPurify.sanitize(value);
@@ -400,6 +400,23 @@ function Calf() {
     });
   };
 
+  const goBack = () => {
+    setEditCalf(false);
+    setNewCalf({
+      id: "",
+      animalId: "",
+      earNo: "",
+      breed: "",
+      name: "",
+      expectedBirthDate: "",
+      birthDate: "",
+      sex: "",
+      category: "",
+      animal_id: "",
+  });
+};
+
+
   const updateCalf = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     //Sanitize input fields with DOMPurify
@@ -600,19 +617,19 @@ function Calf() {
         <div>
           {/*form for adding calf*/}
           <form
-            className="form-control handleForm form-control-sm border-dark border-1 shadow p-5 mx-auto w-50 "
+            className="form-control form-control-sm handleForm border border-dark shadow mx-auto"
             onSubmit={(e) => updateCalf(e)}
             noValidate //The formdata is not automatically validated by the browser
           >
-            <h2>Ändra kalvning</h2>
-            <div className="form-group">
+            <h2 className="py-3">Ändra kalvning</h2>
+            <div className="form-group ">
               <label htmlFor="animal_id" className="form-label">
                 Mamma:
               </label>
               <select
                 id="animal_id"
                 name="animal_id"
-                className="form-select shadow-sm"
+                className="form-select form-select-sm shadow-sm border border-dark"
                 value={chosenAnimalId}
                 onChange={changeAnimal}
               >
@@ -625,64 +642,38 @@ function Calf() {
               </select>
               <p className="error-message">{formError.animal_id}</p>
             </div>
-            <div className="form-check">
-              <p>Kön:</p>
-              <label htmlFor="female" className="form-check-label">
-                Hona
+            <div className="form-group">
+              <label htmlFor="sex" className="form-label">
+                Kön:
               </label>
-              <input
-                type="radio"
-                id="female"
+              <select
+                id="sex"
                 name="sex"
-                className="form-check-input shadow-sm"
-                value={"Hona"}
-                onChange={handleInputChange}
-              />
+                className="form-select form-select-sm shadow-sm border-dark"
+                value={newCalf.sex}
+                onChange={handleInputChange}>
+                   <option disabled value="">Välj kön</option>
+                <option value="Hona">Hona</option>
+                <option value="Hane">Hane</option>
+                </select>
+                <p className="error-message">{formError.sex}</p>
             </div>
-            <div className="form-check">
-              <label htmlFor="male" className="form-check-label">
-                Hane
+            <div className="form-group-sm">
+              <label htmlFor="category" className="form-label">
+                Kategori:
               </label>
-              <input
-                type="radio"
-                id="male"
-                name="sex"
-                className="form-check-input shadow-sm"
-                value={"Hane"}
-                onChange={handleInputChange}
-              />
-              <p className="error-message">{formError.sex}</p>
-            </div>
-            <div className="form-check">
-              <br />
-              <p>Kategori:</p>
-              <label htmlFor="meatAnimal" className="form-check-label">
-                Köttdjur
-              </label>
-              <input
-                type="radio"
-                id="meatAnimal"
+              <select
+                id="category"
                 name="category"
-                className="form-check-input shadow-sm"
-                value={"Kött"}
-                onChange={handleInputChange}
-              />
+                className="form-select form-select-sm shadow-sm border-dark"
+                value={newCalf.category}
+                onChange={handleInputChange}>
+                   <option disabled value="">Välj om det är köttdjur/mjölkdjur</option>
+                <option value="Kött">Kött</option>
+                <option value="Mjölk">Mjölk</option>
+                </select>
+                <p className="error-message">{formError.category}</p>
             </div>
-            <div className="form-check">
-              <label htmlFor="milkAnimal" className="form-check-label">
-                Mjölkdjur
-              </label>
-              <input
-                type="radio"
-                id="milkAnimal"
-                name="category"
-                className="form-check-input shadow-sm"
-                value={"Mjölk"}
-                onChange={handleInputChange}
-              />
-              <p className="error-message">{formError.category}</p>
-            </div>
-            <br />
             <div className="form-group">
               <label htmlFor="animalId" className="form-label">
                 SE-nummer:
@@ -691,7 +682,7 @@ function Calf() {
                 type="text"
                 id="animalId"
                 name="animalId"
-                className="form-control shadow-sm"
+                className="form-control form-control-sm shadow-sm border border-dark"
                 value={newCalf.animalId}
                 onChange={handleInputChange}
               />
@@ -705,7 +696,7 @@ function Calf() {
                 type="text"
                 id="earNo"
                 name="earNo"
-                className="form-control shadow-sm"
+                className="form-control form-control-sm shadow-sm border border-dark"
                 value={newCalf.earNo}
                 onChange={handleInputChange}
               />
@@ -719,7 +710,7 @@ function Calf() {
                 type="text"
                 id="breed"
                 name="breed"
-                className="form-control shadow-sm"
+                className="form-control form-control-sm shadow-sm border border-dark"
                 value={newCalf.breed}
                 onChange={handleInputChange}
               />
@@ -733,7 +724,7 @@ function Calf() {
                 type="text"
                 id="name"
                 name="name"
-                className="form-control shadow-sm"
+                className="form-control form-control-sm shadow-sm border border-dark"
                 value={newCalf.name}
                 onChange={handleInputChange}
               />
@@ -747,7 +738,7 @@ function Calf() {
                 type="date"
                 id="expectedBirthDate"
                 name="expectedBirthDate"
-                className="form-control shadow-sm"
+                className="form-control form-control-sm shadow-sm border border-dark"
                 value={newCalf.expectedBirthDate}
                 onChange={handleInputChange}
               />
@@ -761,15 +752,20 @@ function Calf() {
                 type="date"
                 id="birthDate"
                 name="birthDate"
-                className="form-control shadow-sm"
+                className="form-control form-control-sm shadow-sm border border-dark"
                 value={newCalf.birthDate}
                 onChange={handleInputChange}
               />
               <p className="error-message">{formError.birthDate}</p>
             </div>
-            <button className="button shadow-sm w-50 mt-2" onClick={editData}>
+            <div className="form-btn-div d-flex justify-content-around">
+            <button className="button shadow-sm mt-2" onClick={editData}>
               Ändra
             </button>
+            <button className="button shadow-sm mt-2" onClick={goBack}>
+             Avbryt
+            </button>
+            </div>
           </form>
           {/*Show messages to form */}
           {showMessage && (
@@ -780,11 +776,11 @@ function Calf() {
         <div>
           {/*form for adding calf*/}
           <form
-            className="form-control handleForm form-control-sm border-dark border-1 shadow p-5 mx-auto w-50"
+            className="form-control handleForm form-control-sm border border-dark shadow mx-auto"
             onSubmit={addCalf}
             noValidate //The formdata is not automatically validated by the browser
           >
-            <h2>Kalvning</h2>
+            <h2 className="py-3">Lägg till kalvning</h2>
             <div className="form-group">
               <label htmlFor="animal_id" className="form-label">
                 Mamma:
@@ -792,7 +788,7 @@ function Calf() {
               <select
                 id="animal_id"
                 name="animal_id"
-                className="form-select shadow-sm border-dark"
+                className="form-select form-select-sm shadow-sm border-dark"
                 value={chosenAnimalId}
                 onChange={changeAnimal}
               >
@@ -805,64 +801,39 @@ function Calf() {
               </select>
               <p className="error-message">{formError.animal_id}</p>
             </div>
-            <div className="form-check">
-              <p>Kön:</p>
-              <label htmlFor="female" className="form-check-label">
-                Hona
+            <div className="form-group">
+              <label htmlFor="sex" className="form-label">
+                Kön:
               </label>
-              <input
-                type="radio"
-                id="female"
+              <select
+                id="sex"
                 name="sex"
-                className="form-check-input shadow-sm border-dark"
-                value={"Hona"}
-                onChange={handleInputChange}
-              />
+                className="form-select form-select-sm shadow-sm border-dark"
+                value={newCalf.sex}
+                onChange={handleInputChange}>
+                   <option disabled value="">Välj kön</option>
+                <option value="Hona">Hona</option>
+                <option value="Hane">Hane</option>
+                </select>
+                <p className="error-message">{formError.sex}</p>
             </div>
-            <div className="form-check">
-              <label htmlFor="male" className="form-check-label">
-                Hane
+             
+            <div className="form-group">
+              <label htmlFor="category" className="form-label">
+                Kategori:
               </label>
-              <input
-                type="radio"
-                id="male"
-                name="sex"
-                className="form-check-input shadow-sm border-dark"
-                value={"Hane"}
-                onChange={handleInputChange}
-              />
-              <p className="error-message">{formError.sex}</p>
-            </div>
-            <div className="form-check">
-              <br />
-              <p>Kategori:</p>
-              <label htmlFor="meatAnimal" className="form-check-label">
-                Köttdjur
-              </label>
-              <input
-                type="radio"
-                id="meatAnimal"
+              <select
+                id="category"
                 name="category"
-                className="form-check-input shadow-sm border-dark"
-                value={"Kött"}
-                onChange={handleInputChange}
-              />
+                className="form-select form-select-sm shadow-sm border-dark"
+                value={newCalf.category}
+                onChange={handleInputChange}>
+                   <option disabled value="">Välj om det är köttdjur/mjölkdjur</option>
+                <option value="Kött">Kött</option>
+                <option value="Mjölk">Mjölk</option>
+                </select>
+                <p className="error-message">{formError.category}</p>
             </div>
-            <div className="form-check">
-              <label htmlFor="milkAnimal" className="form-check-label">
-                Mjölkdjur
-              </label>
-              <input
-                type="radio"
-                id="milkAnimal"
-                name="category"
-                className="form-check-input shadow-sm border-dark"
-                value={"Mjölk"}
-                onChange={handleInputChange}
-              />
-              <p className="error-message">{formError.category}</p>
-            </div>
-            <br />
             <div className="form-group">
               <label htmlFor="animalId" className="form-label">
                 SE-nummer:
@@ -871,7 +842,7 @@ function Calf() {
                 type="text"
                 id="animalId"
                 name="animalId"
-                className="form-control shadow-sm border-dark"
+                className="form-control form-control-sm shadow-sm border-dark"
                 value={newCalf.animalId}
                 onChange={handleInputChange}
               />
@@ -885,7 +856,7 @@ function Calf() {
                 type="text"
                 id="earNo"
                 name="earNo"
-                className="form-control shadow-sm border-dark"
+                className="form-control form-control-sm shadow-sm border-dark"
                 value={newCalf.earNo}
                 onChange={handleInputChange}
               />
@@ -899,7 +870,7 @@ function Calf() {
                 type="text"
                 id="breed"
                 name="breed"
-                className="form-control shadow-sm border-dark"
+                className="form-control form-control-sm shadow-sm border-dark"
                 value={newCalf.breed}
                 onChange={handleInputChange}
               />
@@ -913,7 +884,7 @@ function Calf() {
                 type="text"
                 id="name"
                 name="name"
-                className="form-control shadow-sm border-dark"
+                className="form-control form-control-sm shadow-sm border-dark"
                 value={newCalf.name}
                 onChange={handleInputChange}
               />
@@ -927,7 +898,7 @@ function Calf() {
                 type="date"
                 id="expectedBirthDate"
                 name="expectedBirthDate"
-                className="form-control shadow-sm border-dark"
+                className="form-control form-control-sm shadow-sm border-dark"
                 value={newCalf.expectedBirthDate}
                 onChange={handleInputChange}
               />
@@ -941,7 +912,7 @@ function Calf() {
                 type="date"
                 id="birthDate"
                 name="birthDate"
-                className="form-control shadow-sm border-dark"
+                className="form-control form-control-sm shadow-sm border-dark"
                 value={newCalf.birthDate}
                 onChange={handleInputChange}
               />
