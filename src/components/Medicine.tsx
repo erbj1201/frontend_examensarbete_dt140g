@@ -114,7 +114,7 @@ function Medicine() {
     ) { //error messages when empty fields
       setFormError({
         ...inputError,
-        animal_id: "Välj ett djur",
+        animal_id: "Välj djuridentitet",
         date: "Fyll i datum och tid",
         type: "Fyll i typ av medicin",
         amount: "Fyll i medicinens mängd/dos",
@@ -129,7 +129,7 @@ function Medicine() {
     if (!chosenAnimalId) {
       setFormError({
         ...inputError,
-        animal_id: "Välj ett djur",
+        animal_id: "Välj djuridentitet",
       });
       // Clear message after  3 seconds
       setTimeout(clearMessages, 3000);
@@ -485,10 +485,10 @@ function Medicine() {
           <form className="form-control form-control-sm handleForm border border-dark shadow mx-auto"
             onSubmit={(e) => updateMedicine(e)}
             noValidate>
-            <h2>Ändra Medicinering</h2>
+            <h2 className="py-3">Ändra medicinering</h2>
             <div className="form-group">
               <label htmlFor="animal_id" className="form-label">
-                SE-nummer:
+              Djuridentitet:
               </label>
               <select
                 id="animal_id"
@@ -585,10 +585,10 @@ function Medicine() {
             onSubmit={addMedicine}
             noValidate
           >
-            <h2>Medicinering</h2>
+            <h2 className="py-3">Lägg till medicinering</h2>
             <div className="form-group">
               <label htmlFor="animal_id" className="form-label">
-                SE-nummer:
+                Djuridentitet:
               </label>
               <select
                 id="animal_id"

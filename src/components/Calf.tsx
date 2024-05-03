@@ -140,7 +140,7 @@ function Calf() {
       ) {
         setFormError({
           ...inputError,
-          animal_id: "Välj kalvens mamma",
+          animal_id: "Välj djuridentitet på kalvens mamma",
           sex: "Välj ett kön",
           animalId: "Fyll i kalvens djuridentitet",
           category: "Välj om kalven är ett köttdjur eller mjölkdjur",
@@ -158,7 +158,7 @@ function Calf() {
       if (!chosenAnimalId) {
         setFormError({
           ...inputError,
-          animal_id: "Välj kalvens mamma",
+          animal_id: "Välj djuridentitet på kalvens mamma",
         });
         // Clear message after  3 seconds
         setTimeout(clearMessages, 3000);
@@ -456,7 +456,7 @@ let inputError = {
     ) {
       setFormError({
         ...inputError,
-        animal_id: "Välj kalvens mamma",
+        animal_id: "Välj djuridentitet på kalvens mamma",
         sex: "Välj ett kön",
         animalId: "Fyll i kalvens djuridentitet",
         category: "Välj om kalven är ett köttdjur eller mjölkdjur",
@@ -474,7 +474,7 @@ let inputError = {
     if (!chosenAnimalId) {
       setFormError({
         ...inputError,
-        animal_id: "Välj kalvens mamma",
+        animal_id: "Välj djuridentitet på kalvens mamma",
       });
       // Clear message after  3 seconds
       setTimeout(clearMessages, 3000);
@@ -691,7 +691,7 @@ let inputError = {
             <h2 className="py-3">Ändra kalvning</h2>
             <div className="form-group ">
               <label htmlFor="animal_id" className="form-label">
-                Mamma:
+                Djuridentitet på mamma:
               </label>
               <select
                 id="animal_id"
@@ -755,7 +755,7 @@ let inputError = {
             </div>
             <div className="form-group">
               <label htmlFor="animalId" className="form-label">
-                SE-nummer:
+                Djuridentitet på kalv:
               </label>
               <input
                 type="text"
@@ -874,7 +874,7 @@ let inputError = {
             <h2 className="py-3">Lägg till kalvning</h2>
             <div className="form-group">
               <label htmlFor="animal_id" className="form-label">
-                Mamma:
+                Djuridentitet på mamma:
               </label>
               <select
                 id="animal_id"
@@ -896,7 +896,7 @@ let inputError = {
             </div>
             <div className="form-group">
               <label htmlFor="sex" className="form-label">
-                Kön:
+                Kön
               </label>
               <select
                 id="sex"
@@ -928,7 +928,7 @@ let inputError = {
                 onChange={handleInputChange}
               >
                 <option disabled value="">
-                  Välj om kalven är köttdjur/mjölkdjur
+                  Välj om kalven är köttdjur/mjölkdjur:
                 </option>
                 <option value="Kött">Kött</option>
                 <option value="Mjölk">Mjölk</option>
@@ -939,7 +939,7 @@ let inputError = {
             </div>
             <div className="form-group">
               <label htmlFor="animalId" className="form-label">
-                SE-nummer:
+                Djuridentitet på kalv:
               </label>
               <input
                 type="text"
