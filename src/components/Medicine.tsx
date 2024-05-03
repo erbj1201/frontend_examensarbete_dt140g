@@ -469,7 +469,7 @@ function Medicine() {
       {/* Form for chaging medicine */}
       {editMedicine ? (
         <div>
-          <form className="form-control handleForm form-control-sm border-dark border-1 shadow p-5 mx-auto w-50 "
+          <form className="form-control form-control-sm handleForm border border-dark shadow mx-auto"
             onSubmit={(e) => updateMedicine(e)}
             noValidate>
             <h2>Ändra Medicinering</h2>
@@ -480,7 +480,7 @@ function Medicine() {
               <select
                 id="animal_id"
                 name="animal_id"
-                className="form-select shadow-sm border-dark"
+                className="form-select form-select-sm shadow-sm border-dark"
                 value={chosenAnimalId}
                 onChange={changeAnimal}
               >
@@ -501,7 +501,7 @@ function Medicine() {
                 type="datetime-local"
                 id="date"
                 name="date"
-                className="form-control shadow-sm border-dark"
+                className="form-control form-select-sm shadow-sm border-dark"
                 value={newMedicine.date}
                 onChange={handleInputChange}
               />
@@ -515,7 +515,7 @@ function Medicine() {
                 type="text"
                 id="type"
                 name="type"
-                className="form-control shadow-sm border-dark"
+                className="form-control form-control-sm shadow-sm border-dark"
                 value={newMedicine.type}
                 onChange={handleInputChange}
               />
@@ -529,7 +529,7 @@ function Medicine() {
                 type="text"
                 id="amount"
                 name="amount"
-                className="form-control shadow-sm border-dark"
+                className="form-control form-control-sm  shadow-sm border-dark"
                 value={newMedicine.amount}
                 onChange={handleInputChange}
               />
@@ -542,7 +542,7 @@ function Medicine() {
             <select
               id="recurrent"
               name="recurrent"
-              className="form-select shadow-sm border-dark"
+              className="form-select form-control-sm shadow-sm border-dark"
               value={newMedicine.recurrent}
               onChange={handleInputChange}>
                 
@@ -568,7 +568,7 @@ function Medicine() {
         /*form for adding medicine*/
         <div>
           <form
-            className="form-control handleForm form-control-sm border-dark border-1 shadow p-5 mx-auto w-50 "
+            className="form-control handleForm form-control-sm border border-dark shadow mx-auto"
             onSubmit={addMedicine}
             noValidate
           >
@@ -580,7 +580,7 @@ function Medicine() {
               <select
                 id="animal_id"
                 name="animal_id"
-                className="form-select shadow-sm border-dark"
+                className="form-select form-select-sm shadow-sm border-dark"
                 value={chosenAnimalId}
                 onChange={changeAnimal}
               >
@@ -601,7 +601,7 @@ function Medicine() {
                 type="datetime-local"
                 id="date"
                 name="date"
-                className="form-control shadow-sm border-dark"
+                className="form-control form-control-sm shadow-sm border-dark"
                 value={newMedicine.date}
                 onChange={handleInputChange}
               />
@@ -615,7 +615,7 @@ function Medicine() {
                 type="text"
                 id="type"
                 name="type"
-                className="form-control shadow-sm border-dark"
+                className="form-control form-control-sm shadow-sm border-dark"
                 value={newMedicine.type}
                 onChange={handleInputChange}
               />
@@ -629,7 +629,7 @@ function Medicine() {
                 type="text"
                 id="amount"
                 name="amount"
-                className="form-control shadow-sm border-dark"
+                className="form-control form-control-sm shadow-sm border-dark"
                 value={newMedicine.amount}
                 onChange={handleInputChange}
               />
@@ -642,16 +642,16 @@ function Medicine() {
               <select
                 id="recurrent"
                 name="recurrent"
-                className="form-select shadow-sm border-dark"
+                className="form-select form-select-sm shadow-sm border-dark"
                 value={newMedicine.recurrent}
                 onChange={handleInputChange}>
-                  <option disabled value="">Välj Ja/Nej</option>
+                  <option disabled value="">Välj ja/nej</option>
                 <option value="1">Ja</option>
                 <option value="0">Nej</option>
               </select>
             </div>
             <p className="error-message">{formError.recurrent}</p>
-            <button type="submit" className=" button shadow-sm w-50 mt-2">
+            <button type="submit" className="button shadow-sm w-50 mt-2">
               Lägg till
             </button>
           </form>

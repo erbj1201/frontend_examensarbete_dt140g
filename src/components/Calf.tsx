@@ -652,7 +652,7 @@ function Calf() {
                 className="form-select form-select-sm shadow-sm border-dark"
                 value={newCalf.sex}
                 onChange={handleInputChange}>
-                   <option disabled value="">Välj kön</option>
+                   <option disabled value="">Välj kalvens kön</option>
                 <option value="Hona">Hona</option>
                 <option value="Hane">Hane</option>
                 </select>
@@ -668,7 +668,7 @@ function Calf() {
                 className="form-select form-select-sm shadow-sm border-dark"
                 value={newCalf.category}
                 onChange={handleInputChange}>
-                   <option disabled value="">Välj om det är köttdjur/mjölkdjur</option>
+                   <option disabled value="">Välj om kalven är köttdjur/mjölkdjur</option>
                 <option value="Kött">Kött</option>
                 <option value="Mjölk">Mjölk</option>
                 </select>
