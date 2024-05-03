@@ -487,9 +487,9 @@ function Vaccine() {
           </form>
 
           {/*Show messages to form */}
-          {showMessage && (
+         {/*  {showMessage && (
             <p className="alert alert-light text-center mt-2">{showMessage}</p>
-          )}
+          )} */}
         </div>) : (
         <div>
           {/*form for adding vaccine*/}
@@ -568,7 +568,7 @@ function Vaccine() {
           </form>
           {/*Show messages to form */}
           {showMessage && (
-            <p className="alert alert-light text-center mt-2">{showMessage}</p>
+            <p className="alert mx-auto alert-success text-dark w-25 text-center mt-2">{showMessage}</p>
           )}
         </div>
       )}
