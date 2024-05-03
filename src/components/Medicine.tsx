@@ -337,15 +337,21 @@ function Medicine() {
 
   const updateMedicine = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    //Sanitize input fields
-    const { id, date, type, amount, recurrent } = inputData;
-    const sanitizedDate = DOMPurify.sanitize(date);
-    const sanitizedType = DOMPurify.sanitize(type);
-    const sanitizedAmount = DOMPurify.sanitize(amount);
-    const sanitizedRecurrent = DOMPurify.sanitize(recurrent);
 
     // Control if input fields are empty 
-    if (!sanitizedDate) {
+    if (!newMedicine.date && !newMedicine.type && newMedicine.amount && !newMedicine.recurrent) {
+      setFormError({
+        ...formError,
+        date: "Fyll i datum och tid",
+        type: "Fyll i typ av medicin",
+        amount: "Fyll i medicinens mängd/dos",
+        recurrent: "Fyll i om medicineringen är återkommande eller inte",
+      });
+      setTimeout(clearMessages, 3000);
+      return;
+    }
+
+    if (!newMedicine.date) {
       setFormError({
         ...formError,
         date: "Fyll i datum och tid",
@@ -353,8 +359,8 @@ function Medicine() {
       setTimeout(clearMessages, 3000);
       return;
     }
-
-    if (!sanitizedType) {
+    
+    if (!newMedicine.type) {
       setFormError({
         ...formError,
         type: "Fyll i typ av medicin",
@@ -363,7 +369,7 @@ function Medicine() {
       return;
     }
 
-    if (!sanitizedAmount) {
+    if (!newMedicine.amount) {
       setFormError({
         ...formError,
         amount: "Fyll i medicinens mängd/dos",
@@ -372,7 +378,7 @@ function Medicine() {
       return;
     }
 
-    if (!sanitizedRecurrent) {
+    if (!newMedicine.recurrent) {
       setFormError({
         ...formError,
         recurrent: "Fyll i om medicineringen är återkommande eller inte",
@@ -380,6 +386,13 @@ function Medicine() {
       setTimeout(clearMessages, 3000);
       return;
     }
+     //Sanitize input fields
+     const { id, date, type, amount, recurrent } = inputData;
+     const sanitizedDate = DOMPurify.sanitize(date);
+     const sanitizedType = DOMPurify.sanitize(type);
+     const sanitizedAmount = DOMPurify.sanitize(amount);
+     const sanitizedRecurrent = DOMPurify.sanitize(recurrent);
+
     setNewMedicine({
       id: chosenMedicineId,
       date: sanitizedDate,
@@ -387,7 +400,7 @@ function Medicine() {
       amount: sanitizedAmount,
       recurrent: sanitizedRecurrent,
       animal_id: chosenAnimalId
-    })
+    }) // fetch (post)
     try {
       const response = await fetch(`http://localhost:8000/api/medicines/${id}`, {
         method: "PUT",
@@ -402,7 +415,7 @@ function Medicine() {
           amount: sanitizedAmount,
           recurrent: sanitizedRecurrent,
         })
-      });
+      }); //if response ok
       if (response.ok) {
         //Clean input fields
         setNewMedicine({
@@ -415,13 +428,13 @@ function Medicine() {
         })
         //get all medicine from animal
         getMedicinesByAnimals(chosenAnimalId);
-        setShowMessage("Ändringarna är sparade");
+        setShowMessage("Medicineringen är ändrad");
         //Clear message after 3 seconds
         setTimeout(clearMessages, 3000);
         setEditMedicine(false);
       }
       else {
-        setShowMessage("Medicinen kunde inte ändras");
+        setShowMessage("Medicineringen kunde inte ändras");
         // Clear message after  3 seconds
         setTimeout(clearMessages, 3000);
       }
@@ -491,7 +504,7 @@ function Medicine() {
                   </option>
                 ))}
               </select>
-              <p className="error-message">{formError.animal_id}</p>
+              <p className="error-message text-danger fw-bold">{formError.animal_id}</p>
             </div>
             <div className="form-group">
               <label htmlFor="date" className="form-label">
@@ -505,7 +518,7 @@ function Medicine() {
                 value={newMedicine.date}
                 onChange={handleInputChange}
               />
-              <p className="error-message">{formError.date}</p>
+              <p className="error-message text-danger fw-bold">{formError.date}</p>
             </div>
             <div className="form-group">
               <label htmlFor="type" className="form-label">
@@ -519,7 +532,7 @@ function Medicine() {
                 value={newMedicine.type}
                 onChange={handleInputChange}
               />
-              <p className="error-message">{formError.type}</p>
+              <p className="error-message text-danger fw-bold">{formError.type}</p>
             </div>
             <div className="form-group">
               <label htmlFor="amount" className="form-label">
@@ -533,7 +546,7 @@ function Medicine() {
                 value={newMedicine.amount}
                 onChange={handleInputChange}
               />
-              <p className="error-message">{formError.amount}</p>
+              <p className="error-message text-danger fw-bold">{formError.amount}</p>
             </div>
             <div className="form-group">
             <label htmlFor="recurrent" className="form-label">
@@ -542,26 +555,26 @@ function Medicine() {
             <select
               id="recurrent"
               name="recurrent"
-              className="form-select form-control-sm shadow-sm border-dark"
+              className="form-select form-select-sm shadow-sm border-dark"
               value={newMedicine.recurrent}
               onChange={handleInputChange}>
-                
               <option value="1">Ja</option>
               <option value="0">Nej</option>
             </select>
+            <p className="error-message text-danger fw-bold">{formError.recurrent}</p>
           </div>
-          
-            <p className="error-message">{formError.recurrent}</p>
-            <button className="button shadow-sm w-50 mt-2" onClick={editData}>
+            <div className="form-btn-div d-flex justify-content-around">
+            <button className="button shadow-sm mt-2" onClick={editData}>
               Ändra
             </button>
-            <button className="button shadow-sm w-50 mt-2" onClick={goBack}>
+            <button className="button shadow-sm mt-2" onClick={goBack}>
              Avbryt
             </button>
+            </div>
           </form>
           {/**Messages to form */}
           {showMessage && (
-            <p className="alert alert-light text-center mt-2">{showMessage}</p>
+            <p className="alert mx-auto alert-success text-dark w-25 text-center mt-2">{showMessage}</p>
           )}
         </div>
       ) : (
@@ -591,7 +604,7 @@ function Medicine() {
                   </option>
                 ))}
               </select>
-              <p className="error-message">{formError.animal_id}</p>
+              <p className="error-message text-danger fw-bold">{formError.animal_id}</p>
             </div>
             <div className="form-group">
               <label htmlFor="date" className="form-label">
@@ -605,7 +618,7 @@ function Medicine() {
                 value={newMedicine.date}
                 onChange={handleInputChange}
               />
-              <p className="error-message">{formError.date}</p>
+              <p className="error-message text-danger fw-bold">{formError.date}</p>
             </div>
             <div className="form-group">
               <label htmlFor="type" className="form-label">
@@ -619,7 +632,7 @@ function Medicine() {
                 value={newMedicine.type}
                 onChange={handleInputChange}
               />
-              <p className="error-message">{formError.type}</p>
+              <p className="error-message text-danger fw-bold">{formError.type}</p>
             </div>
             <div className="form-group">
               <label htmlFor="amount" className="form-label">
@@ -633,7 +646,7 @@ function Medicine() {
                 value={newMedicine.amount}
                 onChange={handleInputChange}
               />
-              <p className="error-message">{formError.amount}</p>
+              <p className="error-message text-danger fw-bold">{formError.amount}</p>
             </div>
             <div className="form-group">
               <label htmlFor="recurrent" className="form-label">
@@ -649,16 +662,16 @@ function Medicine() {
                 <option value="1">Ja</option>
                 <option value="0">Nej</option>
               </select>
+              <p className="error-message text-danger fw-bold">{formError.recurrent}</p>
             </div>
-            <p className="error-message">{formError.recurrent}</p>
-            <button type="submit" className="button shadow-sm w-50 mt-2">
+            <button type="submit" className="button shadow-sm mt-2">
               Lägg till
             </button>
           </form>
 
           {/**Messages to form */}
           {showMessage && (
-            <p className="alert alert-light text-center mt-2">{showMessage}</p>
+            <p className="alert mx-auto alert-success text-dark w-25 text-center mt-2">{showMessage}</p>
           )}
         </div>
       )}
