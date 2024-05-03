@@ -198,7 +198,7 @@ const Message: React.FC = () => {
           </p>
         )}
         <form
-          className="form-control bglight shadow-sm border-dark form-control-sm p-3 mx-auto w-50"
+          className="form-control handleForm bglight shadow-sm border-dark form-control-sm p-3 mx-auto w-50"
           onSubmit={sendMessage}
           noValidate //The formdata is not automaticallly validated by the browser
         > 
@@ -212,7 +212,7 @@ const Message: React.FC = () => {
               type="text"
               id="title"
               name="title"
-              className="form-control border-dark shadow-sm"
+              className="form-control form-control-sm border-dark shadow-sm"
               required
               value={messageData.title}
               onChange={({ target }) =>
@@ -240,7 +240,7 @@ const Message: React.FC = () => {
           </button>
         </form>
       </div>
-      <section className="bglight m-4 mx-auto p-4 w-50 shadow">
+      <section className="bglight m-4 mx-auto border border-dark p-4 w-50 shadow">
         <h3 className="text-center">Alla skickade meddelanden</h3>
         {fetchMessages.map((message) => {
           // Convert created_at to a new Date-Object
@@ -251,7 +251,7 @@ const Message: React.FC = () => {
           )} ${createNewDate.toLocaleTimeString("sv-SE")}`;
 
           return (
-            <article className="mx-auto p-2 bg-white m-3 w-50 shadow-sm" key={message.id}>
+            <article className="mx-auto p-2 border border-dark bg-white m-3 w-50 shadow-sm" key={message.id}>
               <h4>{message.title}</h4>
               <p>
                 <em>Skickat: {formattedDateTime}</em>
