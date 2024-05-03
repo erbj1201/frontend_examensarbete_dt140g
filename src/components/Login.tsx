@@ -135,11 +135,11 @@ function Login() {
     <div>
       {/*Login-form*/}
       {showMessage && (
-        <p className="alert alert-light text-center mt-2">{showMessage}</p>
+        <p className="alert alert-danger text-dark text-center mx-auto mt-2 w-50">{showMessage}</p>
       )}
 
       <form
-        className="form-control shadow-sm form-control-sm  border border-dark p-5 mx-auto mb-5 mt-5 w-50 h-50 bglight"
+        className="form-control handleForm shadow-sm form-control-sm border border-dark p-5 mx-auto mb-5 mt-5 w-50 h-50 bglight"
         onSubmit={loginUser}
         noValidate
       >
@@ -153,12 +153,12 @@ function Login() {
             type="email"
             id="email"
             name="email"
-            className="form-control shadow-sm border-dark"
+            className="form-control form-control-sm shadow-sm border-dark"
             required
             value={userData.email}
             onChange={handleInputChange}
           />
-          <p className="error-message">{formError.email}</p>
+          <p className="error-message text-danger fw-bold">{formError.email}</p>
         </div>
         <div className="form-group">
           <label htmlFor="password" className="form-label">
@@ -168,12 +168,12 @@ function Login() {
             type="password"
             id="password"
             name="password"
-            className="form-control shadow-sm border-dark"
+            className="form-control form-control-sm shadow-sm border-dark"
             required
             value={userData.password}
             onChange={handleInputChange}
           />
-          <p className="error-message">{formError.password}</p>
+          <p className="error-message text-danger fw-bold">{formError.password}</p>
         </div>
         <button type="submit" className="button mt-2">
           Logga in

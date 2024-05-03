@@ -170,10 +170,10 @@ const RegisterPage: React.FC = () => {
       <h1>Registrera konto</h1>
       {/*form to register user*/}
       {showMessage && (
-        <p className="alert alert-light text-center mt-2">{showMessage}</p>
+        <p className="alert mx-auto alert-success text-dark w-25 mx-auto text-center mt-2">{showMessage}</p>
       )}
       <form
-        className="form-control form-control-sm p-4 mx-auto w-50 shadow border border-dark mb-5 mt-5 w-50 h-50 bglight"
+        className="form-control form-control-sm mx-auto handleForm shadow border border-dark bglight"
         onSubmit={registerUser}
         noValidate //The formdata is not automaticallly validated by the browser
       >
@@ -187,14 +187,14 @@ const RegisterPage: React.FC = () => {
             type="name"
             id="name"
             name="name"
-            className="form-control shadow-sm border border-dark"
+            className="form-control form-control-sm shadow-sm border border-dark"
             required
             value={newUser.name}
             onChange={({ target }) =>
               handleUserInput(target.name, target.value)
             }
           />
-          <p className="error-message">{formError.name}</p>
+          <p className="error-message text-danger fw-bold">{formError.name}</p>
         </div>
         <div className="form-group">
           <label htmlFor="email" className="form-label">
@@ -204,7 +204,7 @@ const RegisterPage: React.FC = () => {
             type="email"
             id="email"
             name="email"
-            className="form-control shadow-sm border border-dark"
+            className="form-control form-control-sm shadow-sm border border-dark"
             required
             value={newUser.email}
             onChange={({ target }) =>
@@ -212,7 +212,7 @@ const RegisterPage: React.FC = () => {
             }
             autoComplete="new-email" 
           />
-          <p className="error-message">{formError.email}</p>
+          <p className="error-message text-danger fw-bold">{formError.email}</p>
         </div>
         <div className="form-group">
           <label htmlFor="password" className="form-label">
@@ -222,14 +222,14 @@ const RegisterPage: React.FC = () => {
             type="password"
             id="password"
             name="password"
-            className="form-control shadow-sm border border-dark"
+            className="form-control form-control-sm shadow-sm border border-dark"
             required
             value={newUser.password}
             onChange={({ target }) =>
               handleUserInput(target.name, target.value)
             }
           />
-          <p className="error-message">{formError.password}</p>
+          <p className="error-message text-danger fw-bold">{formError.password}</p>
         </div>
         <div className="form-group">
           <label htmlFor="confirmPassword" className="form-label">
@@ -239,14 +239,14 @@ const RegisterPage: React.FC = () => {
             type="password"
             id="confirmPassword"
             name="confirmPassword"
-            className="form-control shadow-sm border border-dark"
+            className="form-control form-control-sm shadow-sm border border-dark"
             required
             value={newUser.confirmPassword}
             onChange={({ target }) =>
               handleUserInput(target.name, target.value)
             }
           />
-          <p className="error-message">{formError.confirmPassword}</p>
+          <p className="error-message text-danger fw-bold">{formError.confirmPassword}</p>
         </div>
         <button type="submit" className="button mt-2">
           Skapa användare

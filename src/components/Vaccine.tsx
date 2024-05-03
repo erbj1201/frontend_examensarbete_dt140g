@@ -639,7 +639,7 @@ function Vaccine() {
           </form>
           {/*Show messages to form */}
           {showMessage && (
-            <p className="alert mx-auto alert-success text-dark w-25 text-center mt-2">
+            <p className="alert mx-auto alert-success text-dark w-25 mx-auto text-center mt-2">
               {showMessage}
             </p>
           )}
@@ -651,7 +651,7 @@ function Vaccine() {
       <table className="table table-responsive table-hover w-75 mx-auto">
         <thead>
           <tr>
-            <th>Djur-Id</th>
+            <th>Djuridentitet</th>
             <th>Namn</th>
             <th>Batchnummer</th>
             <th>Datum</th>

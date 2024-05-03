@@ -222,7 +222,7 @@ export default function Account() {
           onSubmit={updateProfile}
         > {/*Message for form */}
           {showMessage && (
-            <p className="alert alert-light text-center mt-2">{showMessage}</p>
+            <p className="alert mx-auto alert-success text-dark w-25 mx-auto text-center mt-2">{showMessage}</p>
           )}
           <div className="form-group">
             <label htmlFor="name" className="form-label">
@@ -233,7 +233,7 @@ export default function Account() {
               id="name"
               name="name"
               value={inputData.name}
-              className="form-control shadow-sm border-dark"
+              className="form-control form-control-sm shadow-sm border-dark"
               onChange={handleChange}
               required
             />
@@ -247,7 +247,7 @@ export default function Account() {
               id="email"
               name="email"
               value={inputData.email}
-              className="form-control shadow-sm border-dark"
+              className="form-control form-control-sm shadow-sm border-dark"
               onChange={handleChange}
               required
             />
@@ -259,7 +259,7 @@ export default function Account() {
               id="password"
               name="password"
               value={inputData.password}
-              className="form-control shadow-sm border-dark"
+              className="form-control form-control-sm shadow-sm border-dark"
               onChange={handleChange}
               required
             />
@@ -274,7 +274,7 @@ export default function Account() {
         <div className="bglight p-2 m-3 mx-auto w-75 shadow-sm border border-dark d-flex flex-column ">
           {/**Messages to form */}
           {showMessage && (
-            <p className="alert alert-light text-center mx-auto">{showMessage}</p>
+            <p className="alert mx-auto alert-success text-dark w-25 mx-auto text-center mt-2">{showMessage}</p>
           )}
           <h3 className="mx-auto p-4">Användaruppgifter</h3>
           <div className="container d-flex justify-content-center ">
@@ -309,7 +309,7 @@ export default function Account() {
   type="file"
   id="imagepath"
   name="imagepath"
-  className="form-control shadow-sm border-dark"
+  className="form-control form-control-sm shadow-sm border-dark"
   onChange={handleImageChange}
 />
           </div>

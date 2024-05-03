@@ -1,26 +1,26 @@
 /*search in header component*/
 const SearchForm = () => {
   return (
-    <div className="container p-3 mx-auto">
-      <form className="mx-auto">
+    <div className="mx-auto">
+      <form className="form-control form-control-sm mx-auto bglight border-0 w-50">
         {/**search-input and button in header */}
         <div className="row mx-auto">
           <div className="col">
             <label>Sökord:</label>
-            <input type="text" className="form-control shadow-sm border-dark" />
+            <input type="text" className="form-control form-control-sm shadow-sm border-dark" />
           </div>
           <div className="col">
             <label htmlFor="filter">Filtrera</label>
-            <select className="form-select shadow-sm border-dark">
+            <select className="form-select form-select-sm shadow-sm border-dark">
               <option value={1}>1</option>
               <option value={2}>2</option>
               <option value={3}>3</option>
             </select>
-          </div>
-          <div className="col align-content-center mt-4">
-            <button className="d-flex search-btn-btn justify-content-center mx-auto p-3 shadow-sm">
+            </div>
+            <div className="col d-flex align-items-center">
+            <button className="search-btn-btn d-flex align-items-center mx-auto p-2 shadow-sm">
               <img
-                className="search-btn align-self-center"
+                className="search-btn"
                 src="\src\content\search.png"
                 alt="sök här"
               />

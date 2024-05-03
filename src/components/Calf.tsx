@@ -1044,11 +1044,11 @@ let inputError = {
         </div>
       )}
       {/*Table to write calves*/}
-      <h2 className="p-5 mx-auto"> Senaste kalvarna för {newCalf.animalId}</h2>
+      <h2 className="p-5 mx-auto"> Senaste kalvningarna för valt djur:</h2>
       <table className="table table-responsive table-hover w-75 mx-auto">
         <thead>
           <tr>
-            <th>Djur-Id</th>
+            <th>Djuridentitet</th>
             <th>Öronnummer</th>
             <th>Ras</th>
             <th>Namn</th>
