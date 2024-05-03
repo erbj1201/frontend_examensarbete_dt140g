@@ -18,7 +18,7 @@ const SearchForm = () => {
             </select>
             </div>
             <div className="col mt-3">
-            <button className="search-btn-btn mx-auto my-1 py-1 px-5 shadow border border-dark">
+            <button className="search-btn-btn mx-auto my-1 py-1 px-4 shadow border border-dark">
               <img
                 className="search-btn"
                 src="\src\content\search.png"
