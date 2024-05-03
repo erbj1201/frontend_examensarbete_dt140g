@@ -18,7 +18,7 @@ function Milk() {
   const cookies = new Cookies();
   const token = cookies.get("token");
   // Get userid from sessionstorage
-
+  const userid = sessionStorage.getItem("userid");
   //use navigate
   const navigate = useNavigate();
   //states
@@ -66,12 +66,12 @@ function Milk() {
   };
   // Fetch all milks and animals with useEffect
   useEffect(() => {
-   
-    getAnimals();
+
+    getAnimalsByUser(userid);
     if (chosenAnimalId) {
       getMilkByAnimals(chosenAnimalId);
     }
-  }, [chosenAnimalId]);
+  }, [chosenAnimalId, userid]);
 
   //Handle changes in the input field
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -198,7 +198,7 @@ function Milk() {
     setChosenAnimalId(value);
   };
   // Gets all milk from the animal with fetch
-   const getMilkByAnimals = async (chosenAnimalId: string) => {
+  const getMilkByAnimals = async (chosenAnimalId: string) => {
     //fetch get
     try {
       const response = await fetch(
@@ -223,13 +223,13 @@ function Milk() {
       console.error("Fel vid hämtning av mjölk");
     }
   };
- 
-  
+
+
   // Get all animals with their animalId´s and id:s from the database
-  const getAnimals = async () => {
+  const getAnimalsByUser = async (userid: string | null) => {
     //Fetch get
     try {
-      const response = await fetch(`http://localhost:8000/api/animals`, {
+      const response = await fetch(`http://localhost:8000/api/animals/users/${userid}`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -263,14 +263,14 @@ function Milk() {
       animal_id: chosenAnimalId,
     });
   };
-    const goBack = () => {
-      setEditMilk(false);
-      setNewMilk({
-        id: "",
-        kgMilk: "",
-        milkDate: "",
-        animal_id: "",
-      });
+  const goBack = () => {
+    setEditMilk(false);
+    setNewMilk({
+      id: "",
+      kgMilk: "",
+      milkDate: "",
+      animal_id: "",
+    });
   };
   //change url and add id
   const navigateToMilk = (id: string) => {
@@ -465,7 +465,7 @@ function Milk() {
             </div>
           </form>
           {/**Messages to form */}
-        {/*   {showMessage && (
+          {/*   {showMessage && (
             <p className="alert alert-success text-center mt-2">{showMessage}</p>
           )} */}
         </div>
@@ -477,7 +477,7 @@ function Milk() {
             onSubmit={addMilk}
           >
             <h2 className="py-3">Lägg till mjölkning</h2>
-            
+
             <div className="form-group">
               <label htmlFor="animal_id" className="form-label">
                 Djuridentitet
@@ -556,7 +556,7 @@ function Milk() {
               <td>{milk.animal_id}</td>
               <td>{milk.kgMilk} Kg</td>
               <td>{milk.milkDate}</td>
-           
+
               <td>
                 <button
                   className="button"
