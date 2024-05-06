@@ -225,7 +225,7 @@ function Milk() {
   };
 
 
-  // Get all animals with their animalId´s and id:s from the database
+  // Get all animals by User
   const getAnimalsByUser = async (userid: string | null) => {
     //Fetch get
     try {

@@ -16,6 +16,8 @@ function Vaccine() {
   //token
   const cookies = new Cookies();
   const token = cookies.get("token");
+   // Get userid from sessionstorage
+   const userid = sessionStorage.getItem("userid");
   //use navigate
   const navigate = useNavigate();
   //States
@@ -68,7 +70,7 @@ function Vaccine() {
   };
 
   useEffect(() => {
-    getAnimals();
+    getAnimalsByUser(userid);
     if (chosenAnimalId) {
       getVaccinesByAnimals(chosenAnimalId);
     }
@@ -247,10 +249,10 @@ function Vaccine() {
     }
   };
   // Get's all animals with animalId´s and the id:s from the database
-  const getAnimals = async () => {
+  const getAnimalsByUser = async (userid: string | null) => {
     //fetch get
     try {
-      const response = await fetch(`http://localhost:8000/api/animals`, {
+      const response = await fetch(`http://localhost:8000/api/animals/users/${userid}`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",

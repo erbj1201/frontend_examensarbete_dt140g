@@ -20,6 +20,8 @@ function Medicine() {
   const token = cookies.get("token");
   //use navigate
   const navigate = useNavigate();
+   // Get userid from sessionstorage
+   const userid = sessionStorage.getItem("userid");
   //States
   const [showMessage, setShowMessage] = useState<string | null>(null);
   const [chosenAnimalId, setChosenAnimalId] = useState<string>("");
@@ -75,11 +77,11 @@ function Medicine() {
   // Fetch all medicines and animals with useEffect
   useEffect(() => {
     //getAnimals
-    getAnimals();
+    getAnimalsByUser(userid);
     if (chosenAnimalId) {
       getMedicinesByAnimals(chosenAnimalId);
     }
-  }, [chosenAnimalId]);
+  }, [chosenAnimalId, userid]);
 
   //Handle changes in the input field
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
@@ -272,12 +274,12 @@ function Medicine() {
       console.error("Fel vid hämtning av medicinering");
     }
   };
-  // Get all animals with their animalId´s and id:s from the database
-  const getAnimals = async () => {
+ // Get all animals by User
+  const getAnimalsByUser = async (userid: string | null) => {
   
     //fetch get
     try {
-      const response = await fetch(`http://localhost:8000/api/animals`, {
+      const response = await fetch(`http://localhost:8000/api/animals/users/${userid}`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -285,21 +287,22 @@ function Medicine() {
           Accept: "application/json",
         },
       }); //if response ok
-      if (response.ok) {
-        const jsonData = await response.json();
-        //Map function to transform objects in the array.
-        const animalIds = jsonData.map((animal: any) => ({
-          id: animal.id,
-          animalId: animal.animalId,
-        })); //set animal
-        setAnimals(animalIds);
-      } else {
-        throw new Error("Något gick fel");
+  
+        if (response.ok) {
+          const jsonData = await response.json();
+          //Map function to transform objects in the array.
+          const animalIds = jsonData.map((animal: any) => ({
+            id: animal.id,
+            animalId: animal.animalId,
+          })); //set animal
+          setAnimals(animalIds);
+        } else {
+          throw new Error("Något gick fel");
+        }
+      } catch (error) {
+        console.error("Fel vid hämtning");
       }
-    } catch (error) {
-      console.error("Fel vid hämtning");
-    }
-  };
+    };
   //edit input fields in form
   const editData = () => {
     setEditMedicine(true);
