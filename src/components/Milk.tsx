@@ -215,12 +215,6 @@ function Milk() {
   };
   // Gets all milk from the animal with fetch
 const getMilkByAnimals = async (chosenAnimalId: string) => {
-  if(chosenAnimalId == "" || chosenAnimalId== "0"){
-    console.log("inget djur är valt")
-    console.log(chosenAnimalId);
-    setShowTable(false);
-    console.log(showTable);
-  } else {
     //fetch get
     try {
       const response = await fetch(
@@ -244,7 +238,6 @@ const getMilkByAnimals = async (chosenAnimalId: string) => {
     } catch (error) {
       console.error("Fel vid hämtning av mjölk");
     }
-  }
 };
 
   // Get all animals by User
@@ -282,7 +275,7 @@ const getMilkByAnimals = async (chosenAnimalId: string) => {
       id: newMilk.id,
       kgMilk: newMilk.kgMilk,
       milkDate: newMilk.milkDate,
-      animal_id: chosenAnimalId,
+      animal_id: selectedAnimal,
     });
   };
   const goBack = () => {
@@ -541,7 +534,7 @@ const getMilkByAnimals = async (chosenAnimalId: string) => {
                 className="form-select form-select-sm shadow-sm border-dark"
                 value={chosenAnimalId}
               >
-                <option value="">Välj ett djur</option>
+                <option disabled value="">Välj ett djur</option>
                 {animals.map((animal) => (
                   <option key={animal.id} value={animal.id}>
                     {animal.animalId}
