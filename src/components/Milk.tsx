@@ -106,6 +106,7 @@ function Milk() {
       milkDate: "",
       animal_id: "",
     };
+
     //check if all fields empty
     if (!newMilk.kgMilk && !newMilk.milkDate && !chosenAnimalId) {
       //error messages when empty fields
@@ -458,22 +459,21 @@ function Milk() {
         }
       );
       const herdsData = await herdsResponse.json();
-      if (herdsResponse.ok){
-       
-      setHerds(herdsData);
-    
-      if (herdsData.length === 1) {
-        setChosenHerdId(herdsData[0].id);
-     
+      if (herdsResponse.ok) {
+
+        setHerds(herdsData);
+
+        if (herdsData.length === 1) {
+          setChosenHerdId(herdsData[0].id);
+        }
+        else {
+          const event = {
+            target: {
+              value: selectedOption
+            }
+          };
+        }
       }
-      else {
-        const event = {
-          target: {
-            value: selectedOption
-          }
-        };
-      }
-    }
     } catch (error) {
       console.log(error);
     } finally {
@@ -676,7 +676,7 @@ function Milk() {
           <table className="table table-responsive table-hover w-75 mx-auto">
             <thead>
               <tr>
-                <th>Djur-Id</th>
+                <th>Djur</th>
                 <th>Mjölkning</th>
                 <th>Datum</th>
                 <th>Hantera</th>
@@ -718,8 +718,6 @@ function Milk() {
             </tbody>
           </table>
         </div>
-
-
       )}
       {/**Popup for deleating */}
       {show && (
