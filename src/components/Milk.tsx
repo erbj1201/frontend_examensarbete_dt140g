@@ -11,7 +11,12 @@ interface Milk {
   milkDate: string;
   animal_id: string;
 }
-
+interface Herd {
+  id: number;
+  herdId: string;
+  address: string;
+  userid: number;
+}
 
 function Milk() {
   //cookies
@@ -25,6 +30,11 @@ function Milk() {
   const [showMessage, setShowMessage] = useState<string | null>(null);
   const [chosenAnimalId, setChosenAnimalId] = useState<string>("");
   const [chosenMilkId, setChosenMilkId] = useState<string>("");
+  const [chosenHerdId, setChosenHerdId] = useState<string>("");
+  const [herds, setHerds] = useState<Herd[]>([]);
+  const [selectedOption, setSelectedOption] = useState<string>("AllAnimals");
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [showTable, setShowTable] = useState<boolean>(true);
   const [editMilk, setEditMilk] = useState(false);
   const [animals, setAnimals] = useState<{ id: string; animalId: string }[]>(
     []
@@ -66,12 +76,15 @@ function Milk() {
   };
   // Fetch all milks and animals with useEffect
   useEffect(() => {
-
     getAnimalsByUser(userid);
+    fetchHerdsAnimals(userid);
+    if (chosenHerdId) {
+      getMilksByHerd(chosenHerdId);
+    }
     if (chosenAnimalId) {
       getMilkByAnimals(chosenAnimalId);
     }
-  }, [chosenAnimalId, userid]);
+  }, [chosenAnimalId, userid, chosenHerdId]);
 
   //Handle changes in the input field
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -93,6 +106,7 @@ function Milk() {
       milkDate: "",
       animal_id: "",
     };
+
     //check if all fields empty
     if (!newMilk.kgMilk && !newMilk.milkDate && !chosenAnimalId) {
       //error messages when empty fields
@@ -395,7 +409,98 @@ function Milk() {
     } catch (error) {
       console.error("Något gick fel:", error);
     }
+  }
+
+
+  // Fetch animals by selected herd (get)
+  const getMilksByHerd = async (chosenHerdId: string) => {
+
+    try {
+      setIsLoading(true);
+      const response = await fetch(
+        `http://localhost:8000/api/milks/herds/${chosenHerdId}`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+            Accept: "application/json",
+          },
+        }
+      );
+      //response
+      const pickedMilks = await response.json();
+      if (response.ok) {
+
+        setMilks(pickedMilks);
+        //get errors
+      }
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setIsLoading(false);
+    }
   };
+
+  const fetchHerdsAnimals = async (userid: string | null) => {
+
+    try {
+      setIsLoading(true);
+      // Fetch all user herds (get)
+      const herdsResponse = await fetch(
+        `http://localhost:8000/api/herds/users/${userid}`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${token}`,
+            "Accept": "application/json",
+          },
+        }
+      );
+      const herdsData = await herdsResponse.json();
+      if (herdsResponse.ok) {
+
+        setHerds(herdsData);
+
+        if (herdsData.length === 1) {
+          setChosenHerdId(herdsData[0].id);
+        }
+        else {
+          const event = {
+            target: {
+              value: selectedOption
+            }
+          };
+        }
+      }
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setIsLoading(false);
+    }
+  }
+
+  // Handle select change in select for herds
+  const handleSelectChange = async (
+    event: React.ChangeEvent<HTMLSelectElement>
+  ) => {
+    const selectedOptionValue = event.target.value;
+    //update after choosen herd
+    setSelectedOption(selectedOptionValue);
+    if (selectedOptionValue === "AllAnimals") {
+      setShowTable(false);
+      // If "AllAnimals" is selected, set animals to all animals
+      await fetchHerdsAnimals(userid);
+      console.log("No herd");
+    } else {
+      setShowTable(true);
+      console.log(selectedOptionValue);
+      // Fetch animals by selected herd
+      getMilksByHerd(selectedOptionValue);
+    }
+  };
+
   return (
     <div>
       {/* Boolean, if Edit milk true show edit form, else show form for add milk */}
@@ -537,54 +642,83 @@ function Milk() {
           )}
         </div>
       )}
+      {!isLoading && herds.length > 1 && (
+        <div>
+          <form className="form-control form-control-sm border-0 mx-auto">
+            <div className="form-group mx-auto">
+              <label className="form-label" htmlFor="herds">Besättningar:</label>
+              <br />
+              <select
+                id="herds"
+                name="herds"
+                className="form-select w-25 shadow-sm border-dark"
+                onChange={handleSelectChange}
+                value={selectedOption}
+              >
+                <option disabled value="AllAnimals">Välj en besättning</option>
+                {herds.map((herd) => (
+                  <option key={herd.id} value={herd.id}>
+                    Besättning: {herd.herdId}, {herd.address}
+                  </option>
+                ))}
+              </select>
+            </div>
+          </form>
+        </div>
+      )}
+      {showTable && milks.length < 1 ? (
 
-      <h2 className="p-5 mx-auto">Senaste mjölkningarna för valt djur: </h2>
+        <p>Går ej att visa</p>
+      ) : (
+        <div>
+          <h2 className="p-5 mx-auto">Senaste mjölkningarna för valt djur: </h2>
 
-      <table className="table table-responsive table-hover w-75 mx-auto">
-        <thead>
-          <tr>
-            <th>Djur-Id</th>
-            <th>Mjölkning</th>
-            <th>Datum</th>
-            <th>Hantera</th>
-          </tr>
-        </thead>
-        <tbody>
-          {/**Write milks */}
-          {milks.map((milk) => (
-            <tr key={milk.id}>
-              <td>{milk.animal_id}</td>
-              <td>{milk.kgMilk} Kg</td>
-              <td>{milk.milkDate}</td>
+          <table className="table table-responsive table-hover w-75 mx-auto">
+            <thead>
+              <tr>
+                <th>Djur</th>
+                <th>Mjölkning</th>
+                <th>Datum</th>
+                <th>Hantera</th>
+              </tr>
+            </thead>
+            <tbody>
+              {/**Write milks */}
+              {milks.map((milk) => (
+                <tr key={milk.id}>
+                  <td>{milk.animal_id}</td>
+                  <td>{milk.kgMilk} Kg</td>
+                  <td>{milk.milkDate}</td>
 
-              <td>
-                <button
-                  className="button"
-                  onClick={() => {
-                    setEditMilk(true); // Update editMilk-state to true to edit
-                    setNewMilk({
-                      id: milk.id,
-                      kgMilk: milk.kgMilk,
-                      milkDate: milk.milkDate,
-                      animal_id: milk.animal_id,
-                    });
-                  }}
-                >
-                  Ändra
-                </button>
-                {/**Change url when clicking at delete */}
-                <button
-                  className="button"
-                  onClick={() => navigateToMilk(milk.id)}
-                >
-                  Radera
-                </button>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-
+                  <td>
+                    <button
+                      className="button"
+                      onClick={() => {
+                        setEditMilk(true); // Update editMilk-state to true to edit
+                        setNewMilk({
+                          id: milk.id,
+                          kgMilk: milk.kgMilk,
+                          milkDate: milk.milkDate,
+                          animal_id: milk.animal_id,
+                        });
+                      }}
+                    >
+                      Ändra
+                    </button>
+                    {/**Change url when clicking at delete */}
+                    <button
+                      className="button"
+                      onClick={() => navigateToMilk(milk.id)}
+                    >
+                      Radera
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      )}
       {/**Popup for deleating */}
       {show && (
         <div className="modal" role="dialog" style={{ display: "block" }}>

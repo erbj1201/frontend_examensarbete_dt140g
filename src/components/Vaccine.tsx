@@ -12,6 +12,13 @@ interface Vaccine {
   animal_id: string;
 }
 
+interface Herd {
+  id: number;
+  herdId: string;
+  address: string;
+  userid: number;
+}
+
 function Vaccine() {
   //token
   const cookies = new Cookies();
@@ -23,10 +30,13 @@ function Vaccine() {
   //States
   const [showMessage, setShowMessage] = useState<string | null>(null);
   const [chosenAnimalId, setChosenAnimalId] = useState<string>("");
-  const [animals, setAnimals] = useState<{ id: string; animalId: string }[]>(
-    []
-  );
+  const [animals, setAnimals] = useState<{ id: string; animalId: string }[]>([]);
   const [chosenVaccineId, setChosenVaccineId] = useState<string>("");
+  const [chosenHerdId, setChosenHerdId] = useState<string>("");
+  const [herds, setHerds] = useState<Herd[]>([]); 
+  const [selectedOption, setSelectedOption] = useState<string>("AllAnimals");
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [showTable, setShowTable] = useState<boolean>(true);
   const [show, setShow] = useState(false);
   const [editVaccine, setEditVaccine] = useState(false);
   const handleClose = () => setShow(false);
@@ -71,10 +81,16 @@ function Vaccine() {
 
   useEffect(() => {
     getAnimalsByUser(userid);
+    fetchHerdsAnimals(userid);
+    if (chosenHerdId) {
+      getVaccinesByHerd(chosenHerdId);
+      console.log(chosenHerdId);
+    } 
     if (chosenAnimalId) {
       getVaccinesByAnimals(chosenAnimalId);
     }
-  }, [chosenAnimalId]);
+  }, [chosenAnimalId, userid, chosenHerdId]);
+
   // Handle changes in input field
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -457,6 +473,96 @@ function Vaccine() {
     setChosenVaccineId(id);
   };
 
+ // Fetch animals by selected herd (get)
+ const getVaccinesByHerd = async (chosenHerdId: string| null) => {
+
+  try {
+    setIsLoading(true);
+    const response = await fetch(
+      `http://localhost:8000/api/vaccines/herds/${chosenHerdId}`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+          Accept: "application/json",
+        },
+      }
+    );
+    //response
+    const pickedVaccines = await response.json();
+    if (response.ok) {
+      setVaccines(pickedVaccines);
+   
+      //get errors
+    }
+  } catch (error) {
+    console.log(error);
+  } finally {
+    setIsLoading(false);
+  }
+};
+
+const fetchHerdsAnimals = async (userid: string | null) => {
+
+  try {
+    setIsLoading(true);
+    // Fetch all user herds (get)
+    const herdsResponse = await fetch(
+      `http://localhost:8000/api/herds/users/${userid}`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${token}`,
+          "Accept": "application/json",
+        },
+      }
+    );
+    const herdsData = await herdsResponse.json();
+    if (herdsResponse.ok){
+    setHerds(herdsData);
+ 
+  
+    if (herdsData.length === 1) {
+      setChosenHerdId(herdsData[0].id);
+
+    }
+     else {
+      const event = {
+        target: {
+          value: selectedOption
+        }
+      }; 
+     }
+  }
+  } catch (error) {
+    console.log(error);
+  } finally {
+    setIsLoading(false);
+  }
+}
+
+ // Handle select change in select for herds
+  const handleSelectChange = async (
+    event: React.ChangeEvent<HTMLSelectElement>
+  ) => {
+    const selectedOptionValue = event.target.value;
+    //update after choosen herd
+    setSelectedOption(selectedOptionValue);
+    if (selectedOptionValue === "AllAnimals") {
+      setShowTable(false);
+      // If "AllAnimals" is selected, set animals to all animals
+      await fetchHerdsAnimals(userid);
+      console.log("No herd");
+    } else {
+      setShowTable(true);
+      console.log(selectedOptionValue);
+      // Fetch animals by selected herd
+      getVaccinesByHerd(selectedOptionValue);
+    }
+  };
+
   return (
     <div>
       {/* Boolean, if Edit vaccine = true, show Edit form. Else show form form add medicine*/}
@@ -647,7 +753,36 @@ function Vaccine() {
           )}
         </div>
       )}
+      {!isLoading && herds.length > 1 && (
+        <div>
+          <form className="form-control form-control-sm border-0 mx-auto">
+            <div className="form-group mx-auto">
+              <label className="form-label" htmlFor="herds">Besättningar:</label>
+              <br />
+              <select
+                id="herds"
+                name="herds"
+                className="form-select w-25 shadow-sm border-dark"
+                onChange={handleSelectChange}
+                value={selectedOption}
+              >
+                <option disabled value="AllAnimals">Välj en besättning</option>
+                {herds.map((herd) => (
+                  <option key={herd.id} value={herd.id}>
+                    Besättning: {herd.herdId}, {herd.address}
+                  </option>
+                ))}
+              </select>
+            </div>
+          </form>
+        </div>
+      )}
+      {showTable && vaccines.length < 1 ? (
 
+        <p>Går ej att visa</p>
+       
+      ) : (
+<div>
       {/*Table to write calves*/}
       <h2 className="p-5 mx-auto"> Senaste vaccinationerna för valt djur:</h2>
       <table className="table table-responsive table-hover w-75 mx-auto">
@@ -696,6 +831,8 @@ function Vaccine() {
           ))}
         </tbody>
       </table>
+      </div>
+      )}
       {/**Popup for deleating */}
       {show && (
         <div className="modal" role="dialog" style={{ display: "block" }}>
