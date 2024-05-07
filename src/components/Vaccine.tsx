@@ -418,12 +418,17 @@ function Vaccine() {
           date: "",
           animal_id: chosenAnimalId,
         });
-        //get all vaccine from animal
-        getVaccinesByAnimals(chosenAnimalId);
         setShowMessage("Vaccineringen är ändrad");
         //Clear message after 3 seconds
         setTimeout(clearMessages, 3000);
         setEditVaccine(false);
+         //And if animal is chosen
+         if(chosenAnimalId){
+          //get all vaccine from animal
+        getVaccinesByAnimals(chosenAnimalId);
+         } else{
+          getVaccinesByHerd(selectedOption);
+         }
       } else {
         setShowMessage("Vaccineringen kunde inte ändras");
         // Clear message after  3 seconds
@@ -434,35 +439,7 @@ function Vaccine() {
     }
   };
 
-  //Delete vaccine with Id
-  const deleteVaccine = async (chosenVaccineId: string) => {
-    //fetch delete
-    try {
-      const response = await fetch(
-        `http://localhost:8000/api/vaccines/${chosenVaccineId}`,
-        {
-          method: "DELETE",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-            Accept: "application/json",
-          },
-        }
-      ); //if response ok
-      if (response.ok) {
-        //get all vaccine from chosen animals
-        getVaccinesByAnimals(chosenAnimalId);
-        //change show to false and show message
-        setShow(false);
-        setShowMessage("Vaccineringen är raderad");
-      } else {
-        throw new Error("Vaccineringen kunde inte raderas");
-      }
-    } catch (error) {
-      console.error("Något gick fel:", error);
-    }
-  };
-
+ 
   //change url and add id
   const navigateToVaccine = (id: string) => {
     //navigate to handle with id from chosen vaccine
@@ -562,6 +539,41 @@ const fetchHerdsAnimals = async (userid: string | null) => {
       getVaccinesByHerd(selectedOptionValue);
     }
   };
+   //Delete vaccine with Id
+   const deleteVaccine = async (chosenVaccineId: string) => {
+    //fetch delete
+    try {
+      const response = await fetch(
+        `http://localhost:8000/api/vaccines/${chosenVaccineId}`,
+        {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+            Accept: "application/json",
+          },
+        }
+      ); //if response ok
+      if (response.ok) {
+        //And if animal is chosen
+        if(chosenAnimalId){
+        //get all vaccine from chosen animals
+        getVaccinesByAnimals(chosenAnimalId);
+        //if no animal chosen, get all vaccines by selected herd
+      } else { 
+        getVaccinesByHerd(selectedOption);
+      }
+        //change show to false and show message
+        setShow(false);
+        setShowMessage("Vaccineringen är raderad");
+      } else {
+        throw new Error("Vaccineringen kunde inte raderas");
+      }
+    } catch (error) {
+      console.error("Något gick fel:", error);
+    }
+  };
+
 
   return (
     <div>
