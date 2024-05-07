@@ -6,6 +6,7 @@ import Milk from "../components/Milk";
 import Vaccine from "../components/Vaccine";
 import Medicine from "../components/Medicine";
 import Calf from "../components/Calf";
+import TokenCookie from "../components/TokenCookie";
 
 const HandlePage: React.FC = () => {
 
@@ -36,6 +37,7 @@ const HandlePage: React.FC = () => {
   return (
     <div>
       {/*Including components*/}
+      <TokenCookie />
       <Header />
       <main className="container mx-auto">
         <h1>Hantera händelse för djur</h1>
