@@ -4,13 +4,14 @@ import React, { useEffect, useState, FormEvent } from "react";
 import { useNavigate } from "react-router-dom";
 import Cookies from "universal-cookie";
 
-//structure of milk
+//Structure of milk
 interface Milk {
   id: string;
   kgMilk: string;
   milkDate: string;
   animal_id: string;
 }
+//Structure of Herd
 interface Herd {
   id: number;
   herdId: string;
@@ -19,14 +20,14 @@ interface Herd {
 }
 
 function Milk() {
-  //cookies
+  //Cookies
   const cookies = new Cookies();
   const token = cookies.get("token");
   // Get userid from sessionstorage
   const userid = sessionStorage.getItem("userid");
-  //use navigate
+  //Use navigate
   const navigate = useNavigate();
-  //states
+  //States
   const [showMessage, setShowMessage] = useState<string | null>(null);
   const [chosenAnimalId, setChosenAnimalId] = useState<string>("");
   const [chosenMilkId, setChosenMilkId] = useState<string>("");
@@ -34,8 +35,11 @@ function Milk() {
   const [herds, setHerds] = useState<Herd[]>([]);
   const [selectedOption, setSelectedOption] = useState<string>("AllAnimals");
   const [selectedAnimal, setSelectedAnimal] = useState<string>("");
+  //Show/Hide dropdown with Herds
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  //Show/Hide Table
   const [showTable, setShowTable] = useState<boolean>(true);
+  //Show/ Hide edit milk form
   const [editMilk, setEditMilk] = useState(false);
   const [animals, setAnimals] = useState<{ id: string; animalId: string }[]>(
     []
@@ -67,7 +71,7 @@ function Milk() {
 
   // Function to clear update and delete messages after a specified time
   const clearMessages = () => {
-    //clear messages
+    //Clear messages
     setShowMessage(null);
     setFormError({
       kgMilk: "",
@@ -162,7 +166,8 @@ function Milk() {
       kgMilk: sanitizedKgMilk,
       milkDate: sanitizedMilkDate,
       animal_id: selectedAnimal,
-    }); //fetch post
+    }); 
+    //Fetch post milk for specific animal
     try {
       const response = await fetch(
         `http://localhost:8000/api/milks/animals/${selectedAnimal}`,
@@ -172,14 +177,14 @@ function Milk() {
             "Content-Type": "application/json",
             Authorization: `Bearer ${token}`,
             Accept: "application/json",
-          }, //send sanitized data
+          }, //Send sanitized data
           body: JSON.stringify({
             kgMilk: sanitizedKgMilk,
             milkDate: sanitizedMilkDate,
             animal_id: selectedAnimal,
           }),
         }
-      ); //await response
+      ); //Await response
       const responseData = await response.json();
       //if response ok, clear form
       if (response.ok) {
@@ -189,16 +194,16 @@ function Milk() {
           milkDate: "",
           animal_id: selectedAnimal,
         });
-        //get all milk from animal
+        //Get all milk from animal
         getMilkByAnimals(selectedAnimal);
-        //show message
+        //Show message
         setShowMessage("Mjölkningen är tillagd");
         // Clear message after  3 seconds
         setTimeout(clearMessages, 3000);
       }
       console.log(responseData);
     } catch (error) {
-      //error message
+      //Error message
       setShowMessage("Fel vid lagring av mjölkning");
       // Clear message after  3 seconds
       setTimeout(clearMessages, 3000);
@@ -209,13 +214,13 @@ function Milk() {
   //Trigger that shows the last milks from the chosen id (animal).
   const changeAnimal = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const { value } = e.target;
-    //set chosen animal
+    //Set chosen animal
     setSelectedAnimal(value);
     /* handleAnimalChange(e); */
   };
   // Gets all milk from the animal with fetch
 const getMilkByAnimals = async (chosenAnimalId: string) => {
-    //fetch get
+    //Fetch get chosen animal
     try {
       const response = await fetch(
         `http://localhost:8000/api/milks/animals/${chosenAnimalId}`,
@@ -227,10 +232,10 @@ const getMilkByAnimals = async (chosenAnimalId: string) => {
             Accept: "application/json",
           },
         }
-      ); //if response ok
+      ); //If response ok
       if (response.ok) {
         const jsonData = await response.json();
-        //set milks
+        //Set milks
         setMilks(jsonData);
       } else {
         throw new Error("Något gick fel");
@@ -242,7 +247,7 @@ const getMilkByAnimals = async (chosenAnimalId: string) => {
 
   // Get all animals by User
   const getAnimalsByUser = async (userid: string | null) => {
-    //Fetch get
+    //Fetch get animals by user
     try {
       const response = await fetch(`http://localhost:8000/api/animals/users/${userid}`, {
         method: "GET",
@@ -251,14 +256,15 @@ const getMilkByAnimals = async (chosenAnimalId: string) => {
           Authorization: `Bearer ${token}`,
           Accept: "application/json",
         },
-      }); //if response ok
+      }); //If response ok
       if (response.ok) {
         const jsonData = await response.json();
         //Map function to transform objects in the array.
         const animalIds = jsonData.map((animal: any) => ({
           id: animal.id,
           animalId: animal.animalId,
-        })); //set animal
+        }));
+         //Set animal
         setAnimals(animalIds);
       } else {
         throw new Error("Något gick fel");
@@ -268,7 +274,7 @@ const getMilkByAnimals = async (chosenAnimalId: string) => {
     }
   };
 
-  //edit input fields in form
+  //Edit input fields in form
   const editData = () => {
     setEditMilk(true);
     setInputData({
@@ -278,6 +284,7 @@ const getMilkByAnimals = async (chosenAnimalId: string) => {
       animal_id: selectedAnimal,
     });
   };
+  //Cancel in edit form
   const goBack = () => {
     setEditMilk(false);
     setNewMilk({
@@ -287,24 +294,23 @@ const getMilkByAnimals = async (chosenAnimalId: string) => {
       animal_id: "",
     });
   };
-  //change url and add id
+  //Change the url and add id
   const navigateToMilk = (id: string) => {
-    //navigate to handle with id from chosen medicine
+    //Navigate to handle with id from chosen medicine
     navigate(`/handle/${id}`);
-    //change states
+    //Change states
     setShow(true);
-    //save id
+    //Save id
     setChosenMilkId(id);
   };
 
   //Update milk
-
   const updateMilk = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     const { id, kgMilk, milkDate } = inputData;
 
-    /* Control if input fields are empty */
+    // Control if input fields are empty 
     if (!newMilk.kgMilk && !newMilk.milkDate && !selectedAnimal) {
       setFormError({
         ...formError,
@@ -314,7 +320,7 @@ const getMilkByAnimals = async (chosenAnimalId: string) => {
       setTimeout(clearMessages, 3000);
       return;
     }
-    // if kgMilk is empty
+    // If kgMilk is empty
     if (!newMilk.kgMilk) {
       setFormError({
         ...formError,
@@ -323,7 +329,7 @@ const getMilkByAnimals = async (chosenAnimalId: string) => {
       setTimeout(clearMessages, 3000);
       return;
     }
-    // if milkkDate is empty
+    // If milkkDate is empty
     if (!newMilk.milkDate) {
       setFormError({
         ...formError,
@@ -332,16 +338,17 @@ const getMilkByAnimals = async (chosenAnimalId: string) => {
       setTimeout(clearMessages, 3000);
       return;
     }
-    //sanitize input
+    //Sanitize input
     const sanitizedKgMilk = DOMPurify.sanitize(kgMilk);
     const sanitizedMilkDate = DOMPurify.sanitize(milkDate);
-    //set
+    //Set milk
     setNewMilk({
       id: chosenMilkId,
       kgMilk: sanitizedKgMilk,
       milkDate: sanitizedMilkDate,
       animal_id: selectedAnimal,
-    }); //fetch (put)
+    }); 
+    //fetch put for milks
     try {
       const response = await fetch(`http://localhost:8000/api/milks/${id}`, {
         method: "PUT",
@@ -358,7 +365,7 @@ const getMilkByAnimals = async (chosenAnimalId: string) => {
       const responseData = await response.json();
       console.log(responseData);
 
-      //if response ok
+      //If response ok
       if (response.ok) {
         //Clean input fields
         setNewMilk({
@@ -439,7 +446,7 @@ const getMilkByAnimals = async (chosenAnimalId: string) => {
       if (herdsResponse.ok) {
 
         setHerds(herdsData);
-
+//If user has one herd, the id of selected herd is set to chosenHerdId
         if (herdsData.length === 1) {
           setChosenHerdId(herdsData[0].id);
         }
@@ -465,6 +472,7 @@ const getMilkByAnimals = async (chosenAnimalId: string) => {
     const selectedOptionValue = event.target.value;
     //update after choosen herd
     setSelectedOption(selectedOptionValue);
+    // If select liston "AllAnimals", no table shows
     if (selectedOptionValue === "AllAnimals") {
       setShowTable(false);
       // If "AllAnimals" is selected, set animals to all animals
@@ -478,7 +486,7 @@ const getMilkByAnimals = async (chosenAnimalId: string) => {
   };
   //Delete Milk with id
   const deleteMilk = async (id: string) => {
-    //fetch delete
+    //Fetch delete
     try {
       const response = await fetch(`http://localhost:8000/api/milks/${id}`, {
         method: "DELETE",
@@ -487,17 +495,17 @@ const getMilkByAnimals = async (chosenAnimalId: string) => {
           Authorization: `Bearer ${token}`,
           Accept: "application/json",
         },
-      }); //if response ok
+      }); //If response ok
       if (response.ok) {
         //And if animal is chosen
         if(selectedAnimal){
-        //get all milks from animal
+        //Get all milks from animal
         getMilkByAnimals(selectedAnimal);
-        //if no animal chosen, get all milks by selected herd
+        //If no animal chosen, get all milks by selected herd
       } else { 
         getMilksByHerd(selectedOption);
       }
-        //change show to false and show message
+        //Change show to false and show message
         setShow(false);
         setShowMessage("Mjölkning är raderad");
         // Clear message after  3 seconds
@@ -515,7 +523,7 @@ const getMilkByAnimals = async (chosenAnimalId: string) => {
   return (
     <div>
       {/* Boolean, if Edit milk true show edit form, else show form for add milk */}
-      {/*form for changing milk*/}
+      {/*Form for changing milk*/}
       {editMilk ? (
         <div>
           <form
@@ -653,6 +661,7 @@ const getMilkByAnimals = async (chosenAnimalId: string) => {
           )}
         </div>
       )}
+      {/* This shows if user has more than one herd */}
       {!isLoading && herds.length > 1 && (
         <div>
           <form className="form-control form-control-sm border-0 mx-auto">
@@ -677,10 +686,12 @@ const getMilkByAnimals = async (chosenAnimalId: string) => {
           </form>
         </div>
       )}
+      {/* This shows if there is no milk registrated in any animal in herd */}
       {showTable && milks.length < 1 || chosenAnimalId == "0" ? (
 
-        <p>Går ej att visa</p>
+        <p>Ingen information finns registrerad</p>
       ) : (
+        /* Else show table with milks */
         <div>
           <h2 className="p-5 mx-auto">Senaste mjölkningarna för valt djur: </h2>
 
@@ -730,7 +741,7 @@ const getMilkByAnimals = async (chosenAnimalId: string) => {
           </table>
         </div>
       )}
-      {/**Popup for deleating */}
+      {/**Popup for deleting */}
       {show && (
         <div className="modal" role="dialog" style={{ display: "block" }}>
           <div className="modal-dialog" role="document">
