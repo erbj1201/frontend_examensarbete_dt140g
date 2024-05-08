@@ -664,7 +664,7 @@ const fetchHerdsAnimals = async (userid: string | null) => {
                 className="button shadow-sm mt-2"
                 onClick={editData}
               >
-                Ändra
+                Spara ändringar
               </button>
               <button className="button shadow-sm mt-2" onClick={goBack}>
                 Avbryt

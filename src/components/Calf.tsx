@@ -854,7 +854,7 @@ let inputError = {
             </div>
             <div className="form-btn-div d-flex justify-content-around">
               <button className="button shadow-sm mt-2" onClick={editData}>
-                Ändra
+                Spara ändringar
               </button>
               <button className="button shadow-sm mt-2" onClick={goBack}>
                 Avbryt
