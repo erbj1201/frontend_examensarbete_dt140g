@@ -1,5 +1,7 @@
 //import
-import React, { useState, FormEvent } from "react";
+import React, { useEffect, useState, FormEvent } from "react";
+import { useNavigate } from "react-router-dom";
+import Cookies from "universal-cookie";
 import DOMPurify from "dompurify";
 //Structure for UserItem
 interface UserItem {
@@ -9,6 +11,12 @@ interface UserItem {
   confirmPassword: string;
 }
 const RegisterPage: React.FC = () => {
+  //Hook navigation
+  const navigate = useNavigate();
+   //Create new instance of cookie
+   const cookies = new Cookies();
+   //get token
+   const token = cookies.get("token");
 //state for messages to form
   const [showMessage, setShowMessage] = useState<string | null>(null);
   //State store data
@@ -40,6 +48,12 @@ const RegisterPage: React.FC = () => {
     });
   };
 
+  //check if token exist, send to startpage
+  useEffect(() => {
+    if (token) {
+      navigate("/");
+    }
+  }, [token, navigate]);
   //handle input
   const handleUserInput = (name: string, value: string) => {
     setNewUser({
