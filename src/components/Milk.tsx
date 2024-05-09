@@ -693,7 +693,7 @@ const getMilkByAnimals = async (chosenAnimalId: string) => {
       ) : (
         /* Else show table with milks */
         <div>
-          <h2 className="p-5 mx-auto">Senaste mjölkningarna för valt djur: </h2>
+          <h2 className="p-5 mx-auto">Senaste mjölkningarna: </h2>
 
           <table className="table table-responsive table-hover w-75 mx-auto">
             <thead>

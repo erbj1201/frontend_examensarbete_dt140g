@@ -22,14 +22,15 @@ interface Animal {
   name: string;
   herd_id: string;
 }
-// Create new instance of cookie
+
+
+const GetHerdComponent: React.FC = () => {
+  // Create new instance of cookie
 const cookies = new Cookies();
 // Get token from cookies
 const token = cookies.get("token");
 // Get userid from sessionstorage
 const userid = sessionStorage.getItem("userid");
-
-const GetHerdComponent: React.FC = () => {
   //States
   const [error, setError] = useState<any>(undefined);
   const [isLoading, setIsLoading] = useState<boolean>(false);
