@@ -698,7 +698,7 @@ const getMilkByAnimals = async (chosenAnimalId: string) => {
           <table className="table table-responsive table-hover w-75 mx-auto">
             <thead>
               <tr>
-                <th>Djur</th>
+                <th>Djuridentitet</th>
                 <th>Mjölkning</th>
                 <th>Datum</th>
                 <th>Hantera</th>
@@ -706,12 +706,15 @@ const getMilkByAnimals = async (chosenAnimalId: string) => {
             </thead>
             <tbody>
               {/**Write milks */}
-              {milks.map((milk) => (
+              {milks.map((milk) =>{
+                //Get milk that matches animal_id in database
+                 const animal = animals.find((animal) => animal.id === milk.animal_id);
+              return (
                 <tr key={milk.id}>
-                  <td>{milk.id}</td>
+                  {/* Ternary operator */}
+                  <td>{animal ? animal.animalId : "Okänt"}</td>
                   <td>{milk.kgMilk} Kg</td>
                   <td>{milk.milkDate}</td>
-
                   <td>
                     <button
                       className="button"
@@ -721,7 +724,7 @@ const getMilkByAnimals = async (chosenAnimalId: string) => {
                           id: milk.id,
                           kgMilk: milk.kgMilk,
                           milkDate: milk.milkDate,
-                          animal_id: milk.animal_id,
+                          animal_id: milk.animal_id
                         });
                       }}
                     >
@@ -736,7 +739,8 @@ const getMilkByAnimals = async (chosenAnimalId: string) => {
                     </button>
                   </td>
                 </tr>
-              ))}
+              );
+            })}
             </tbody>
           </table>
         </div>
