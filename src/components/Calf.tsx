@@ -1,9 +1,9 @@
-//import
+//Import
 import DOMPurify from "dompurify";
 import React, { useEffect, useState, FormEvent } from "react";
 import { useNavigate } from "react-router-dom";
 import Cookies from "universal-cookie";
-//structure of calf
+//Structure of calf
 interface Calf {
   id: string;
   animalId: string;
@@ -22,9 +22,9 @@ function Calf() {
   const token = cookies.get("token");
    // Get userid from sessionstorage
    const userid = sessionStorage.getItem("userid");
-  //use navigate
+  //Use navigate
   const navigate = useNavigate();
-  //states
+  //States
   const [chosenAnimalId, setChosenAnimalId] = useState<string>("");
   const [animals, setAnimals] = useState<{ id: string; animalId: string }[]>(
     []
@@ -49,7 +49,7 @@ function Calf() {
     animal_id: "",
   });
 
-  // state data in edit form
+  // State data in edit form
   const [inputData, setInputData] = useState({
     id: "",
     animalId: "",
@@ -78,7 +78,7 @@ function Calf() {
 
   // Clear update and delete messages after a specified time
   const clearMessages = () => {
-    //clear messages
+    //Clear messages
     setShowMessage(null);
     setFormError({
       animalId: "",
@@ -141,6 +141,7 @@ function Calf() {
         !newCalf.expectedBirthDate &&
         !newCalf.birthDate
       ) {
+        //Messages if empty input fields
         setFormError({
           ...inputError,
           animal_id: "Välj djuridentitet på kalvens mamma",
@@ -270,7 +271,7 @@ function Calf() {
       category: newCalf.category,
       animal_id: chosenAnimalId,
     });
-    //fetch (post)
+    //Fetch calves (post)
     try {
       const response = await fetch(
         `http://localhost:8000/api/calves/animals/${chosenAnimalId}`,
@@ -295,7 +296,7 @@ function Calf() {
         }
       );
       const responseData = await response.json();
-      //if response ok, clear form
+      //If response ok, clear form
       if (response.ok) {
         setNewCalf({
           id: responseData.id,
@@ -309,16 +310,16 @@ function Calf() {
           category: "",
           animal_id: chosenAnimalId,
         });
-        //get all calves for chosen animal
+        //Get all calves for chosen animal
         getCalvesByAnimals(chosenAnimalId);
-        //show message
+        //Show message
         setShowMessage("Kalven är tillagd");
         // Clear message after  3 seconds
         setTimeout(clearMessages, 3000);
       }
     } catch (error) {
       console.log(error);
-      //error message
+      //Error message
       setShowMessage("Fel vid lagring av kalv");
       // Clear message after  3 seconds
       setTimeout(clearMessages, 3000);
@@ -327,13 +328,13 @@ function Calf() {
   //Trigger that shows the last calves from the chosen id (animal).
   const changeAnimal = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const { value } = e.target;
-    //change state after chosen animal
+    //Change state after chosen animal
     setChosenAnimalId(value);
   };
 
   // Gets all calf from the animal with fetch
   const getCalvesByAnimals = async (chosenAnimalId: string) => {
-    //fetch (get)
+    //Fetch (get)
     try {
       const response = await fetch(
         `http://localhost:8000/api/calves/animals/${chosenAnimalId}`,
@@ -345,7 +346,7 @@ function Calf() {
             Accept: "application/json",
           },
         }
-      ); //if response ok, set calves
+      ); //If response ok, set calves
       if (response.ok) {
         const jsonData = await response.json();
         setCalves(jsonData);
@@ -359,7 +360,7 @@ function Calf() {
 
   // Get all animals by User
   const getAnimalsByUser = async (userid: string | null) => {
-    //fetch get
+    //Fetch animals (get)
     try {
       const response = await fetch(`http://localhost:8000/api/animals/users/${userid}`, {
         method: "GET",
@@ -368,14 +369,14 @@ function Calf() {
           Authorization: `Bearer ${token}`,
           Accept: "application/json",
         },
-      }); //if response ok
+      }); //If response ok
       if (response.ok) {
         const jsonData = await response.json();
         //Map function to transform objects in the array.
         const animalIds = jsonData.map((animal: any) => ({
           id: animal.id,
           animalId: animal.animalId,
-        })); //set animal
+        })); //Set animal
         setAnimals(animalIds);
       } else {
         throw new Error("Något gick fel");
@@ -385,7 +386,7 @@ function Calf() {
     }
   };
 
-  //edit input fields in form
+  //Edit input fields in form
   const editData = () => {
     setEditCalf(true);
     setInputData({
@@ -401,7 +402,7 @@ function Calf() {
       animal_id: chosenAnimalId,
     });
   };
-
+//Cancel button
   const goBack = () => {
     setEditCalf(false);
     setNewCalf({
@@ -457,6 +458,7 @@ let inputError = {
       !newCalf.expectedBirthDate &&
       !newCalf.birthDate
     ) {
+      //Messages if empty input fields
       setFormError({
         ...inputError,
         animal_id: "Välj djuridentitet på kalvens mamma",
@@ -572,7 +574,7 @@ let inputError = {
     const sanitizedBirthDate = DOMPurify.sanitize(birthDate);
     const sanitizedSex = DOMPurify.sanitize(sex);
     const sanitizedCategory = DOMPurify.sanitize(category);
-
+//Set new values for calf
     setNewCalf({
       id: chosenCalfId,
       animalId: sanitizedAnimalId,
@@ -638,7 +640,7 @@ let inputError = {
   };
   //Delete Calf with id
   const deleteCalf = async (chosenCalfId: string) => {
-    //fetch (delete)
+    //Fetch (delete)
     try {
       const response = await fetch(
         `http://localhost:8000/api/calves/${chosenCalfId}`,

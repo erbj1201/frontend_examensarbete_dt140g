@@ -7,22 +7,22 @@ import { RiArrowLeftSLine } from "react-icons/ri";
 import { useNavigate } from "react-router-dom";
 
 
-const DetailsPage: React.FC = () => {
-  //Define whazt type of data
-  interface Animal {
-    id: number;
-    animalId: string;
-    earNo: string;
-    birthDate: string;
-    breed: string;
-    sex: string;
-    category: string;
-    name: string;
-    herd_id: string;
-    imagepath: string;
-  }
+//Define type of data
+interface Animal {
+  id: number;
+  animalId: string;
+  earNo: string;
+  birthDate: string;
+  breed: string;
+  sex: string;
+  category: string;
+  name: string;
+  herd_id: string;
+  imagepath: string;
+}
 
-  //states
+const DetailsPage: React.FC = () => {
+  //States
   /* const [animals, setAnimals] = useState<Animal>(); */
   const [herdId, setHerdId] = useState<string | null>(null);
   const [animalsByHerds, setAnimalsByHerds] = useState<Animal[]>([]);
@@ -31,20 +31,20 @@ const DetailsPage: React.FC = () => {
   const cookies = new Cookies();
   //get token from cookies
   const token = cookies.get("token");
-  //get id from URL
+  //Get id from URL
   let { id } = useParams();
-  //use navigate
+  //Use navigate
   const navigate = useNavigate();
-// milkData
+  // MilkData
   const [milkingData, setMilkingData] = useState<any[]>([]);
   //Medicinedata
   const [medicineData, setMedicineData] = useState<any[]>([]);
   //Vaccinedata
   const [vaccineData, setVaccineData] = useState<any[]>([]);
-//Calfdata
-const [calfData, setCalfData] = useState<any[]>([]);
+  //Calfdata
+  const [calfData, setCalfData] = useState<any[]>([]);
 
-/*   const [loading, setLoading] = useState<boolean>(true); */
+  /*   const [loading, setLoading] = useState<boolean>(true); */
 
 
   useEffect(() => {
@@ -56,10 +56,10 @@ const [calfData, setCalfData] = useState<any[]>([]);
     }
   }, [id]);
 
-  
+
   // Gets all calf from the animal with fetch
   const getCalvesByAnimals = async (animal_id: string) => {
-    //fetch (get)
+    //Fetch calves (get)
     try {
       const response = await fetch(
         `http://localhost:8000/api/calves/animals/${animal_id}`,
@@ -71,7 +71,7 @@ const [calfData, setCalfData] = useState<any[]>([]);
             Accept: "application/json",
           },
         }
-      ); //if response ok, set calves
+      ); //If response ok, set calves
       if (response.ok) {
         const jsonData = await response.json();
         setCalfData(jsonData);
@@ -85,7 +85,7 @@ const [calfData, setCalfData] = useState<any[]>([]);
 
   //Gets all vaccines from the animal with fetch
   const getVaccinesByAnimals = async (animal_id: string) => {
-    //fetch get
+    //Fetch vaccines (get)
     try {
       const response = await fetch(
         `http://localhost:8000/api/vaccines/animals/${animal_id}`,
@@ -97,7 +97,7 @@ const [calfData, setCalfData] = useState<any[]>([]);
             Accept: "application/json",
           },
         }
-      ); //if response ok, set vaccine
+      ); //If response ok, set vaccine
       if (response.ok) {
         const jsonData = await response.json();
         setVaccineData(jsonData);
@@ -110,7 +110,7 @@ const [calfData, setCalfData] = useState<any[]>([]);
   };
   // Gets all medicine from the animal with fetch
   const getMedicinesByAnimals = async (animal_id: string) => {
-    //fetch get
+    //Fetch medicines (get)
     try {
       const response = await fetch(
         `http://localhost:8000/api/medicines/animals/${animal_id}`,
@@ -122,10 +122,10 @@ const [calfData, setCalfData] = useState<any[]>([]);
             Accept: "application/json",
           },
         }
-      ); //if response ok
+      ); //If response ok
       if (response.ok) {
         const jsonData = await response.json();
-        //set medicines
+        //Set medicines
         setMedicineData(jsonData);
       } else {
         throw new Error("Något gick fel");
@@ -135,39 +135,36 @@ const [calfData, setCalfData] = useState<any[]>([]);
     }
   };
 
-// Gets all milk from the animal with fetch
-const getMilkByAnimals = async (animal_id: string) => {
-  //fetch get
-  try {
-    const response = await fetch(
-      `http://localhost:8000/api/milks/animals/${animal_id}`,
-      {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-          Accept: "application/json",
-        },
+  // Gets all milk from the animal with fetch
+  const getMilkByAnimals = async (animal_id: string) => {
+    //Fetch get
+    try {
+      const response = await fetch(
+        `http://localhost:8000/api/milks/animals/${animal_id}`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+            Accept: "application/json",
+          },
+        }
+      ); //If response ok
+      if (response.ok) {
+        const jsonData = await response.json();
+        //Set milks
+        setMilkingData(jsonData);
+
+      } else {
+        throw new Error("Något gick fel");
       }
-    ); //if response ok
-    if (response.ok) {
-      const jsonData = await response.json();
-      //set milks
-      setMilkingData(jsonData);
-     
-    } else {
-      throw new Error("Något gick fel");
+    } catch (error) {
+      console.error("Fel vid hämtning av mjölk");
     }
-  } catch (error) {
-    console.error("Fel vid hämtning av mjölk");
-  }
-};
-
-
-
+  };
 
   const fetchAnimalsByHerd = async (herdId: string | null) => {
-    //Fetch
+    //Fetch animals from herd (get) 
     try {
       const response = await fetch(
         `http://localhost:8000/api/animals/herds/${herdId}`,
@@ -179,7 +176,7 @@ const getMilkByAnimals = async (animal_id: string) => {
           },
         }
       );
-      //if response ok
+      //If response ok
       if (response.ok) {
         const jsonData = await response.json();
         //set animals by herds
@@ -196,9 +193,9 @@ const getMilkByAnimals = async (animal_id: string) => {
   //Handle click to next animal in herd
   const clickNext = () => {
     if (animalIndex < animalsByHerds.length - 1) {
-      //set index to this index plus 1
+      //Set index to this index plus 1
       setAnimalIndex(animalIndex + 1);
-      //change and navigate to new url
+      //Change and navigate to new url
       navigate(`/details/${animalsByHerds[animalIndex + 1].id}`);
     }
   };
@@ -353,21 +350,21 @@ const getMilkByAnimals = async (animal_id: string) => {
             <article className="w-75 mx-auto m-2">
               <div>
                 <Collapsible open title="Mjölkning">
-                {milkingData.length > 0 ? (
+                  {milkingData.length > 0 ? (
                     milkingData.map((milk, index) => (
                       <div key={index}>
                         <p>Datum: {milk.milkDate}</p>
                         <p>Mängd mjölk: {milk.kgMilk} kg</p>
                       </div>
                     ))
-                  ) : ( <p> Ingen mjölkning för detta djur</p>)}
+                  ) : (<p> Ingen mjölkning för detta djur</p>)}
                 </Collapsible>
-                 </div>
-                 </article>
-                 <article className="w-75 mx-auto m-2">
-                <div>
+              </div>
+            </article>
+            <article className="w-75 mx-auto m-2">
+              <div>
                 <Collapsible open title="Medicinering">
-                {medicineData.length > 0 ? (
+                  {medicineData.length > 0 ? (
                     medicineData.map((medicine, index) => (
                       <div key={index}>
                         <p>Datum: {medicine.date}</p>
@@ -376,43 +373,43 @@ const getMilkByAnimals = async (animal_id: string) => {
                         <p>Återkommande: {medicine.recurrent} </p>
                       </div>
                     ))
-                  ) : ( <p> Ingen medicin för detta djur</p>)}
+                  ) : (<p> Ingen medicin för detta djur</p>)}
                 </Collapsible>
               </div>
-              </article>
-              <article className="w-75 mx-auto m-2">
+            </article>
+            <article className="w-75 mx-auto m-2">
               <div>
                 <Collapsible open title="Vaccinering">
-                {vaccineData.length > 0 ? (
+                  {vaccineData.length > 0 ? (
                     vaccineData.map((vaccine, index) => (
                       <div key={index}>
                         <p>Batchnummer: {vaccine.batchNo}</p>
                         <p>Namn: {vaccine.name} </p>
                         <p>Datum och tid: {vaccine.date} </p>
-                       
+
                       </div>
                     ))
-                  ) : ( <p> Inget vaccin för detta djur</p>)}
+                  ) : (<p> Inget vaccin för detta djur</p>)}
                 </Collapsible>
               </div>
-              </article>
-              <article className="w-75 mx-auto m-2">
+            </article>
+            <article className="w-75 mx-auto m-2">
               <div>
                 <Collapsible open title="Kalvning">
-                {calfData.length > 0 ? (
+                  {calfData.length > 0 ? (
                     calfData.map((calf, index) => (
                       <div key={index}>
-                         <p>Öronnummer: {calf.earNo}</p>
-                         <p>Ras: {calf.breed}</p>
-                         <p>Namn: {calf.name}</p>
+                        <p>Öronnummer: {calf.earNo}</p>
+                        <p>Ras: {calf.breed}</p>
+                        <p>Namn: {calf.name}</p>
                         <p>Förväntat födelsedatum: {calf.expectedBirthDate}</p>
                         <p>Födelsedatum:: {calf.birthDate} </p>
                         <p>Kön: {calf.sex} </p>
                         <p>Kategori: {calf.category} </p>
-                       
+
                       </div>
                     ))
-                  ) : ( <p> Ingen kalv för detta djur</p>)}
+                  ) : (<p> Ingen kalv för detta djur</p>)}
                 </Collapsible>
               </div>
             </article>

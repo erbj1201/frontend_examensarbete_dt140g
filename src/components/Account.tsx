@@ -14,9 +14,8 @@ interface Image {
   imagepath: string;
 }
 
-
-
 export default function Account() {
+  //States
   const cookies = new Cookies();
   const token = cookies.get("token");
   const userid = sessionStorage.getItem("userid");
@@ -29,12 +28,13 @@ export default function Account() {
     id: "",
     imagepath: "",
   });
+  //State for edit user
   const [inputData, setInputData] = useState({
     name: "",
     email: "",
     password: "",
   });
-
+//State for edit image
   const [image, setImage] = useState<Image>({
     imagepath: "",
   });
@@ -45,7 +45,7 @@ export default function Account() {
   useEffect(() => {
     fetchUser();
   }, []);
-
+//Get user
   const fetchUser = async () => {
     try {
       const response = await fetch(`http://localhost:8000/api/users/${userid}`, {
@@ -92,10 +92,10 @@ export default function Account() {
     //clear messages
     setShowMessage(null);
   };
-  //update user info (not image)
+  //Update user info (not image)
   const updateProfile = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    //sanitize values
+    //Sanitize values
     const { name, email, password } = inputData;
     const sanitizedEmail = DOMPurify.sanitize(email);
     const sanitizedName = DOMPurify.sanitize(name);
@@ -106,7 +106,7 @@ export default function Account() {
       email: sanitizedEmail,
       password: sanitizedPassword,
     });
-    //fetch (put)
+    //Fetch (put)
     try {
       const response = await fetch(`http://localhost:8000/api/users/${userid}`, {
         method: "PUT",
@@ -114,7 +114,7 @@ export default function Account() {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
           Accept: "application/json",
-        }, // send data with body
+        }, // Send data with body
         body: JSON.stringify({
           name: sanitizedName,
           email: sanitizedEmail,
@@ -123,16 +123,16 @@ export default function Account() {
         }),
       });
 
-      //if response ok
+      //If response ok
       if (response.ok) {
-        //show message
+        //Show message
         setShowMessage("Ändringarna är sparade");
         // Clear message after  3 seconds
         setTimeout(clearMessages, 3000);
-        //set edit user to false and get user info 
+        //Set edit user to false and get user info 
         setEditUser(false);
         fetchUser();
-        //if response 400, password is not correct
+        //If response 400, password is not correct
       } else if (response.status == 400) {
         //show message
         setShowMessage("Fel lösenord, kunde inte spara");
@@ -140,7 +140,7 @@ export default function Account() {
         setTimeout(clearMessages, 3000);
       }
     } catch (error) {
-      //error message
+      //Error message
       setShowMessage("Ändringarna kunde inte sparas");
       // Clear message after  3 seconds
       setTimeout(clearMessages, 3000);
@@ -149,63 +149,63 @@ export default function Account() {
   };
   const handleSubmitImage = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    //get file input from input-field
+    //Get file input from input-field
     const fileInput = e.currentTarget.querySelector('#imagepath') as HTMLInputElement;
-    //pass the file to a new form data object
+    //Pass the file to a new form data object
     const formData = new FormData(e.currentTarget);
-    //sunthetic change event to simulate file input changes
+    //Sunthetic change event to simulate file input changes
     const event = {
       target: {
         files: fileInput.files,
       },
     } as React.ChangeEvent<HTMLInputElement>;
-    //call handleimagechange 
+    //Call handleimagechange 
     handleImageChange(event);
     console.log(formData)
   };
 
   const handleImageChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    //get file if exists
+    //Get file if exists
     const file = e.target?.files && e.target.files[0];
     if (file) {
       //Preview the image for the user
       const reader = new FileReader();
-      //when file is loaded, set img url
+      //When file is loaded, set img url
       reader.onload = (event) => {
         const result = event.target?.result;
         if (typeof result === "string") {
           setImageUrl(result);
         }
-      }; //if error reading file, show in console
+      }; //If error reading file, show in console
       reader.onerror = (error) => {
         console.error("Error reading file:", error);
-      }; //read image as data url
+      }; //Read image as data url
       reader.readAsDataURL(file);
       //Send image to server
       const formData = new FormData();
       formData.append("imagepath", file);
-      //fetch (post)
+      //Fetch (post)
       try {
         const response = await fetch(`http://localhost:8000/api/users/images/${userid}`, {
           method: "POST",
           headers: {
             Authorization: `Bearer ${token}`,
             Accept: "application/json",
-          }, //send data with body
+          }, //Send data with body
           body: formData,
         });
 
-        //if response ok
+        //If response ok
         if (response.ok) {
-          //show message
+          //Show message
           setShowMessage("Bilden är ändrad");
           // Clear message after  3 seconds
           setTimeout(clearMessages, 3000);
           //Set edit image to false
           setEditImageData(false);
-          //get user 
+          //Get user 
           fetchUser();
-        } //if error
+        } //If error
       } catch (error) {
         console.error("Error uploading image:", error);
       }

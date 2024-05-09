@@ -9,6 +9,7 @@ interface IProps {
 }
 
 const Collapsible: React.FC<IProps> = ({title, children, open}) => {
+    //State if element is open or close
     const [isOpen, setIsOpen] = useState(open);
 
  const handleOpening = () => {
@@ -21,6 +22,7 @@ const Collapsible: React.FC<IProps> = ({title, children, open}) => {
     >
       <div className="d-flex bglight justify-content-between border border-dark"><h3 className=" h3details p-2">{title}</h3>
        <p> { isOpen ? 
+       //Icons
     <IoIosArrowDown   className="m-2"/>
         :
             <RiArrowUpSLine size={20} className= "m-2"/>
