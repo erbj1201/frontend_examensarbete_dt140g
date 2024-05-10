@@ -1,7 +1,7 @@
 /*Login component*/
 //import
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import Cookies from "universal-cookie";
 
 function Login() {
@@ -178,6 +178,9 @@ function Login() {
         <button type="submit" className="button mt-2">
           Logga in
         </button>
+        <p>
+          Har du inget konto? <NavLink to="/register">Registrera dig här</NavLink>
+        </p>
       </form>
     </div>
   );

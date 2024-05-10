@@ -3,14 +3,11 @@ import Header from "../components/Header";
 import TokenCookie from "../components/TokenCookie";
 import { Calendar, momentLocalizer } from 'react-big-calendar'
 import moment from 'moment'
-
 import 'react-big-calendar/lib/css/react-big-calendar.css'
-
 
 const CalenderPage: React.FC = () => {
   const localizer = momentLocalizer(moment)
   //Start week with monday instead of sunday
-
 
   moment.locale('ko',{
     week:{
