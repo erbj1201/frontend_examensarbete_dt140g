@@ -20,6 +20,10 @@ interface Animal {
   imagepath: string;
 }
 
+interface Image {
+  imagepath: string;
+}
+
 const DetailsPage: React.FC = () => {
   //States
   /* const [animals, setAnimals] = useState<Animal>(); */
@@ -43,8 +47,14 @@ const DetailsPage: React.FC = () => {
   //Calfdata
   const [calfData, setCalfData] = useState<any[]>([]);
 
-  /*   const [loading, setLoading] = useState<boolean>(true); */
-
+  //Edit Image
+  const [editImageData, setEditImageData] = useState(false);
+  const [showMessage, setShowMessage] = useState<string | null>(null);
+  const [imageUrl, setImageUrl] = useState<string | null>(null);
+  //State for edit image
+  const [image, setImage] = useState<Image>({
+    imagepath: "",
+  });
 
   useEffect(() => {
     if (id) {
@@ -208,6 +218,7 @@ const DetailsPage: React.FC = () => {
       navigate(`/details/${animalsByHerds[animalIndex - 1].id}`);
     }
   };
+  
 
   useEffect(() => {
     //check if id extist
@@ -272,6 +283,84 @@ const DetailsPage: React.FC = () => {
     })
   );
 
+  const editImage = () => {
+    setEditImageData(true);
+    setImage({
+      imagepath: imageUrl || ""
+    });
+  };
+
+
+  // Function to clear update and delete messages after a specified time
+  const clearMessages = () => {
+    //clear messages
+    setShowMessage(null);
+  };
+  const handleSubmitImage = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    //Get file input from input-field
+    const fileInput = e.currentTarget.querySelector('#imagepath') as HTMLInputElement;
+    //Pass the file to a new form data object
+    const formData = new FormData(e.currentTarget);
+    //Sunthetic change event to simulate file input changes
+    const event = {
+      target: {
+        files: fileInput.files,
+      },
+    } as React.ChangeEvent<HTMLInputElement>;
+    //Call handleimagechange 
+    handleImageChange(event);
+    console.log(formData)
+  };
+
+  const handleImageChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    //Get file if exists
+    const file = e.target?.files && e.target.files[0];
+    if (file) {
+      //Preview the image for the user
+      const reader = new FileReader();
+      //When file is loaded, set img url
+      reader.onload = (event) => {
+        const result = event.target?.result;
+        if (typeof result === "string") {
+          setImageUrl(result);
+        }
+      }; //If error reading file, show in console
+      reader.onerror = (error) => {
+        console.error("Error reading file:", error);
+      }; //Read image as data url
+      reader.readAsDataURL(file);
+      //Send image to server
+      const formData = new FormData();
+      formData.append("imagepath", file);
+      //Fetch (post)
+      try {
+        const response = await fetch(`http://localhost:8000/api/animals/images/${id}`, {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${token}`,
+            Accept: "application/json",
+          }, //Send data with body
+          body: formData,
+        });
+
+        //If response ok
+        if (response.ok) {
+          //Show message
+          setShowMessage("Bilden är ändrad");
+          // Clear message after  3 seconds
+          setTimeout(clearMessages, 3000);
+          //Set edit image to false
+          setEditImageData(false);
+          //Get user 
+          fetchAnimalsByHerd(herdId);
+        } //If error
+      } catch (error) {
+        console.error("Error uploading image:", error);
+      }
+    }
+  };
+
   return (
     <div>
       <p>Antal djur i besättningen: {animalsByHerds.length}</p>
@@ -311,6 +400,33 @@ const DetailsPage: React.FC = () => {
                       alt="Bild på siluett av djur"
                     />
                   )}
+                  <div>
+                    <button className="button m-3" onClick={editImage}>Byt bild</button>
+                  </div>
+                  {/*if editimagedata is true, show form*/}
+                  {editImageData ? (
+                    <div className="bglight p-2 m-3 mx-auto w-75 border border-dark d-flex flex-column shadow-sm">
+                      <p className="text-center"><strong>Ladda upp en ny bild, bilden byts ut automatiskt</strong></p>
+                      <form className="form-control mx-auto handleForm form-control-sm border-0 mx-auto w-50" onSubmit={handleSubmitImage}>
+                        <div className="form-group" >
+                          <label htmlFor="imagepath" className="form-label">
+                            Välj bild
+                          </label>
+                          <input
+                            type="file"
+                            id="imagepath"
+                            name="imagepath"
+                            className="form-control form-control-sm shadow-sm border-dark"
+                            onChange={handleImageChange}
+                          />
+                        </div>
+                        <button className="button mx-auto m-4" onClick={() => setEditImageData(false)}>Avbryt</button>
+                      </form>
+                    </div>
+                  ) : (
+                    null
+                  )
+                  }
                 </div>
                 <div className="p-3">
                   <p>
