@@ -297,17 +297,18 @@ const DetailsPage: React.FC = () => {
               <div>
                 <h3 className="h3details border border-bottom p-2">Grundinformation</h3>
                 <div className="p-3">
+                  {/*Check if image is uploaded to user or show generic image */}
                   {animalsByHerds[animalIndex].imagepath !== null ? (
                     <img
                       className="img-thumbnail cow-image"
                       src={animalsByHerds[animalIndex].imagepath}
-                      alt="A cow"
+                      alt="Bild på valt djur"
                     />
                   ) : (
                     <img
                       className="img-thumbnail cow-image"
                       src="\src\content\cow-image.png"
-                      alt="A cow"
+                      alt="Bild på siluett av djur"
                     />
                   )}
                 </div>

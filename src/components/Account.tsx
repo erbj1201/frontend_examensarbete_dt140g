@@ -280,8 +280,12 @@ export default function Account() {
           <h3 className="mx-auto p-4">Användaruppgifter</h3>
           <div className="container d-flex justify-content-center ">
             <div className="d-flex flex-column">
+              {/*Check if image is uploaded to user or show generic image */}
+              {user.imagepath !== null ? (
               <img className="userImage mx-auto img-thumbnail m-5" src={user.imagepath} alt="Bild på användare" />
-
+              ) : (
+                <img className="userImage mx-auto img-thumbnail m-5" src="\src\content\profile_img.png"alt="Bild på en siluett av en människa" />
+              )}
             </div>
             <div className="d-flex flex-column mt-5 p-5">
               <p><strong>Namn:</strong> {user.name}</p>
