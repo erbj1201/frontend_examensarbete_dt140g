@@ -275,6 +275,7 @@ const RegisterPage: React.FC = () => {
   <label className="form-check-label" htmlFor="gdpr">
     Jag godkänner behandlingen av personuppgifter enligt <NavLink to="/gdpr"> information om behandling av personuppgifter</NavLink>.
   </label> <br /> <br />
+  {/**If all fields are filled in and checkbox not checked, show message that checkbox must be checked */}
   { newUser.email && newUser.password && newUser.name && newUser.confirmPassword &&!isChecked && <p className="error-message text-danger fw-bold">Du måste godkänna behandlingen av personuppgifter för att skapa en användare</p> }
 </div>
         <button type="submit" className="button mt-2">
