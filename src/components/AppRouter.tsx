@@ -11,6 +11,8 @@ import RegisterPage from "../pages/RegisterPage";
 import LoginPage from "../pages/LoginPage";
 import HandlePage from "../pages/HandlePage";
 import HelpPage from "../pages/HelpPage";
+import AccessabilityPage from "../pages/AccessabilityPage";
+
 //Component with routes
 const AppRouter: React.FC = () => {
   return (
@@ -28,12 +30,15 @@ const AppRouter: React.FC = () => {
         <Route path="/details/:id" element={<DetailsPage />} />
         {/**Handle (hantera ärenden) */}
         <Route path="/handle" element={<HandlePage />} />
+        {/**Handle (hantera ärenden med id) */}
         <Route path="/handle/:id" element={<HandlePage />} />
         {/**Register (registrera användare) */}
         <Route path="/register" element={<RegisterPage />} />
-        {/**Login (logga in användare*/}
+        {/**Login (logga in användare)*/}
         <Route path="/login" element={<LoginPage />} />
-
+        {/**Accessability (tillgänglighet)*/}
+        <Route path="/accessability" element={<AccessabilityPage />} />
+        {/**Help (supportsida)*/}
         <Route path="/help" element={<HelpPage />} />
       </Routes>
     </Router>
