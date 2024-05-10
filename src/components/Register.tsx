@@ -1,6 +1,6 @@
 //import
 import React, { useEffect, useState, FormEvent } from "react";
-import { useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import Cookies from "universal-cookie";
 import DOMPurify from "dompurify";
 //Structure for UserItem
@@ -265,6 +265,9 @@ const RegisterPage: React.FC = () => {
         <button type="submit" className="button mt-2">
           Skapa användare
         </button>
+        <p>
+          Har du redan ett konto?<NavLink to="/login"> Logga in</NavLink>
+        </p>
       </form>
     </div>
   );

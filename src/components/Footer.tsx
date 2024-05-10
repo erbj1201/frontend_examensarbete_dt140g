@@ -1,5 +1,6 @@
 /*Footer component*/
 //import
+import { NavLink } from "react-router-dom";
 import Cookies from "universal-cookie";
 
 //Component
@@ -26,7 +27,8 @@ const Footer: React.FC = () => {
                 </a>
               </p>
             </div>
-            <p>Tillgänglighetsredogörelse</p>
+             <NavLink to="/accessibility">Tillgänglighetsredogörelse
+              </NavLink>
             <div className="mx-auto pt-5">
               <p className="text-uppercase">Kontakta oss </p>
               <br />

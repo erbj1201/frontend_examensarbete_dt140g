@@ -119,7 +119,6 @@ export default function Account() {
           name: sanitizedName,
           email: sanitizedEmail,
           password: sanitizedPassword,
-
         }),
       });
 
