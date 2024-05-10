@@ -25,8 +25,10 @@ const UserHeader: React.FC = () => {
   //Decides the title/text depending on the url
   if (path === "/register") {
     titleHeader = "Registrera konto i MinGård";
-  } else {
+  } else if(path === "/login"){
     titleHeader = "Logga in i MinGård";
+  } else {
+    titleHeader = "Behandling av personuppgifter";
   }
   return (
     <div>

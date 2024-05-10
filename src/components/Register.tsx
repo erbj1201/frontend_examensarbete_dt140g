@@ -19,6 +19,12 @@ const RegisterPage: React.FC = () => {
    const token = cookies.get("token");
 //state for messages to form
   const [showMessage, setShowMessage] = useState<string | null>(null);
+  //state to handle checkbox
+  const [isChecked, setIsChecked] = useState(false);
+//handle checkbox
+  const checkHandler = () => {
+    setIsChecked(!isChecked)
+  }
   //State store data
   const [newUser, setNewUser] = useState<UserItem>({
     name: "",
@@ -70,6 +76,7 @@ const RegisterPage: React.FC = () => {
       email: "",
       password: "",
       confirmPassword: "",
+      gdpr: "",
     };
     // check if name, email and password are empty
     if (!newUser.name && !newUser.email && !newUser.password) {
@@ -159,6 +166,7 @@ const RegisterPage: React.FC = () => {
           confirmPassword: "",
         });
         console.log(responseData);
+        setIsChecked(false);
         setShowMessage('En ny användare är registrerad')
         // Clear message after  3 seconds
         setTimeout(clearMessages, 3000);
@@ -262,6 +270,13 @@ const RegisterPage: React.FC = () => {
           />
           <p className="error-message text-danger fw-bold">{formError.confirmPassword}</p>
         </div>
+        <div className="form-check">
+  <input className="form-check-input border-dark" type="checkbox" checked={isChecked} id="gdpr" onChange={checkHandler}/>
+  <label className="form-check-label" htmlFor="gdpr">
+    Jag godkänner behandlingen av personuppgifter enligt <NavLink to="/gdpr"> information om behandling av personuppgifter</NavLink>.
+  </label> <br /> <br />
+  { newUser.email && newUser.password && newUser.name && newUser.confirmPassword &&!isChecked && <p className="error-message text-danger fw-bold">Du måste godkänna behandlingen av personuppgifter för att skapa en användare</p> }
+</div>
         <button type="submit" className="button mt-2">
           Skapa användare
         </button>

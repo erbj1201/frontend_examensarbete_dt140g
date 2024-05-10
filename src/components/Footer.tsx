@@ -20,15 +20,20 @@ const Footer: React.FC = () => {
               <p className="text-uppercase">Länkar </p>
               <p className="text-left">
                 <br />
+                <NavLink to="/accessibility">Tillgänglighetsredogörelse
+              </NavLink> <br />
+              <NavLink to="/GDPR">Behandling av personuppgifter
+              </NavLink> <br />
                 <a href="https://www.vxa.se/">Växa Sverige</a>
                 <br />
                 <a href="https://dreambroker.com/channel/npeiza94#/menu">
                   Instruktionsfilmer
                 </a>
+                
+               
               </p>
             </div>
-             <NavLink to="/accessibility">Tillgänglighetsredogörelse
-              </NavLink>
+             
             <div className="mx-auto pt-5">
               <p className="text-uppercase">Kontakta oss </p>
               <br />
