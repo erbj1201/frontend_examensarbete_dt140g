@@ -11,7 +11,8 @@ import RegisterPage from "../pages/RegisterPage";
 import LoginPage from "../pages/LoginPage";
 import HandlePage from "../pages/HandlePage";
 import HelpPage from "../pages/HelpPage";
-import AccessabilityPage from "../pages/AccessabilityPage";
+import AccessibilityPage from "../pages/AccessibilityPage";
+import GDPRPage from "../pages/GDPRPage";
 
 //Component with routes
 const AppRouter: React.FC = () => {
@@ -37,7 +38,9 @@ const AppRouter: React.FC = () => {
         {/**Login (logga in användare)*/}
         <Route path="/login" element={<LoginPage />} />
         {/**Accessability (tillgänglighet)*/}
-        <Route path="/accessability" element={<AccessabilityPage />} />
+        <Route path="/accessibility" element={<AccessibilityPage />} />
+        {/**GDPR (villkor som användare godkänner)*/}
+        <Route path="/GDPR" element={<GDPRPage />} />
         {/**Help (supportsida)*/}
         <Route path="/help" element={<HelpPage />} />
       </Routes>
