@@ -26,6 +26,7 @@ const Footer: React.FC = () => {
                 </a>
               </p>
             </div>
+            <p>Tillgänglighetsredogörelse</p>
             <div className="mx-auto pt-5">
               <p className="text-uppercase">Kontakta oss </p>
               <br />
