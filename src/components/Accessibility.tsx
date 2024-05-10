@@ -51,9 +51,13 @@ function Accessibility() {
                 <h2>Innehåll som inte är tillgängligt</h2>
                 <p>Det innehåll som beskrivs nedan är på ett eller annat sätt inte helt tillgängligt.</p>
                 <h2>Hur vi testat webbplatsen</h2>
-                <p></p>
-            </div>
-
+                <p>Vi har gjort en självskattning (intern testning) av webbplats.
+Extern aktör har gjort en oberoende granskning av webbplats.
+Vi har uppskattat tillgängligheten utan granskning.
+</p>
+<p>Senaste bedömningen gjordes den XXXX-XX-XX</p>
+<p>Redogörelsen uppdaterades senast den (dagens datum) (dag månad år).</p>
+</div>
                 )
 
 };
