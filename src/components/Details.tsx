@@ -6,7 +6,6 @@ import { RiArrowRightSLine } from "react-icons/ri";
 import { RiArrowLeftSLine } from "react-icons/ri";
 import { useNavigate } from "react-router-dom";
 
-
 //Define type of data
 interface Animal {
   id: number;
