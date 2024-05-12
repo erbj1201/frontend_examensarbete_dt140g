@@ -741,7 +741,6 @@ const fetchHerdsAnimals = async (userid: string | null) => {
       await fetchHerdsAnimals(userid);
     } else {
       setShowTable(true);
-      console.log(selectedOptionValue);
       // Fetch animals by selected herd
       getCalvesByHerd(selectedOptionValue);
     }

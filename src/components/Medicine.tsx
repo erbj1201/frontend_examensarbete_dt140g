@@ -559,7 +559,6 @@ function Medicine() {
       await fetchHerdsAnimals(userid);
     } else {
       setShowTable(true);
-      console.log(selectedOptionValue);
       // Fetch animals by selected herd
       getMedicinesByHerd(selectedOptionValue);
     }
