@@ -39,6 +39,7 @@ const RegisterPage: React.FC = () => {
     email: "",
     password: "",
     confirmPassword: "",
+    gdpr: "",
   });
 
 
@@ -51,6 +52,7 @@ const RegisterPage: React.FC = () => {
       email: "",
       password: "",
       confirmPassword: "",
+      gdpr: "",
     });
   };
 
@@ -78,6 +80,16 @@ const RegisterPage: React.FC = () => {
       confirmPassword: "",
       gdpr: "",
     };
+        // Check if checkbox is checked
+  if (!isChecked) {
+   /*  setFormError({
+      ...inputError,
+      gdpr: "Du måste godkänna behandlingen av personuppgifter för att skapa en användare",
+    });
+    // Clear message after  3 seconds
+    setTimeout(clearMessages, 3000); */
+    return;
+  }
     // check if name, email and password are empty
     if (!newUser.name && !newUser.email && !newUser.password) {
       setFormError({
@@ -85,6 +97,7 @@ const RegisterPage: React.FC = () => {
         name: "Fyll i ett namn",
         email: "Fyll i en korrekt mejladress",
         password: "Fyll i ett lösenord",
+      
       });
       // Clear message after  3 seconds
       setTimeout(clearMessages, 3000);
@@ -131,6 +144,9 @@ const RegisterPage: React.FC = () => {
       setTimeout(clearMessages, 3000);
       return;
     }
+
+  
+
     // Sanitize user input using DOMPurify
     const sanitizedName = DOMPurify.sanitize(newUser.name);
     const sanitizedEmail = DOMPurify.sanitize(newUser.email);
