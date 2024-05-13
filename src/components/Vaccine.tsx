@@ -814,8 +814,14 @@ const fetchHerdsAnimals = async (userid: string | null) => {
         </thead>
         <tbody>
           {/**Loop and Write vaccine */}
-          {vaccines.map((vaccine) => (
+          {vaccines.map((vaccine) => {
+              //Get  vaccine that matches animal_id in database
+            const animal = animals.find(
+              (animal) => animal.id === vaccine.animal_id
+            );
+            return (
             <tr key={vaccine.id}>
+               <td>{animal ? animal.animalId : "Okänt"}</td>
               <td>{vaccine.id}</td>
               <td>{vaccine.name}</td>
               <td>{vaccine.batchNo}</td>
@@ -845,7 +851,8 @@ const fetchHerdsAnimals = async (userid: string | null) => {
                 </button>
               </td>
             </tr>
-          ))}
+              );
+})}
         </tbody>
       </table>
       </div>

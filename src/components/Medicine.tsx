@@ -869,7 +869,7 @@ function Medicine() {
       <table className="table table-responsive table-hover w-75 mx-auto">
         <thead>
           <tr>
-            <th>Djur-Id</th>
+            <th>Djuridentitet</th>
             <th>Datum & tid</th>
             <th>Medicintyp</th>
             <th>Mängd</th>
@@ -879,9 +879,14 @@ function Medicine() {
         </thead>
         <tbody>
           {/**Write medicines */}
-          {medicines.map((medicine) => (
+          {medicines.map((medicine) => {
+              //Get medicine that matches animal_id in database
+             const animal = animals.find(
+              (animal) => animal.id === medicine.animal_id
+            );
+            return (
   <tr key={medicine.id}>
-    <td>{medicine.animal_id}</td>
+        <td>{animal ? animal.animalId : "Okänt"}</td>
     <td>{medicine.date}</td>
     <td>{medicine.type}</td>
     <td>{medicine.amount}</td>
@@ -913,7 +918,8 @@ function Medicine() {
       </button>
     </td>
   </tr>
-))}
+            );
+          })}
         </tbody>
       </table>
       </div>
