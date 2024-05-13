@@ -166,7 +166,7 @@ function Milk() {
       kgMilk: sanitizedKgMilk,
       milkDate: sanitizedMilkDate,
       animal_id: selectedAnimal,
-    }); 
+    });
     //Fetch post milk for specific animal
     try {
       const response = await fetch(
@@ -219,7 +219,7 @@ function Milk() {
     /* handleAnimalChange(e); */
   };
   // Gets all milk from the animal with fetch
-const getMilkByAnimals = async (chosenAnimalId: string) => {
+  const getMilkByAnimals = async (chosenAnimalId: string) => {
     //Fetch get chosen animal
     try {
       const response = await fetch(
@@ -243,20 +243,23 @@ const getMilkByAnimals = async (chosenAnimalId: string) => {
     } catch (error) {
       console.error("Fel vid hämtning av mjölk");
     }
-};
+  };
 
   // Get all animals by User
   const getAnimalsByUser = async (userid: string | null) => {
     //Fetch get animals by user
     try {
-      const response = await fetch(`http://localhost:8000/api/animals/users/${userid}`, {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-          Accept: "application/json",
-        },
-      }); //If response ok
+      const response = await fetch(
+        `http://localhost:8000/api/animals/users/${userid}`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+            Accept: "application/json",
+          },
+        }
+      ); //If response ok
       if (response.ok) {
         const jsonData = await response.json();
         //Map function to transform objects in the array.
@@ -264,7 +267,7 @@ const getMilkByAnimals = async (chosenAnimalId: string) => {
           id: animal.id,
           animalId: animal.animalId,
         }));
-         //Set animal
+        //Set animal
         setAnimals(animalIds);
       } else {
         throw new Error("Något gick fel");
@@ -310,7 +313,7 @@ const getMilkByAnimals = async (chosenAnimalId: string) => {
 
     const { id, kgMilk, milkDate } = inputData;
 
-    // Control if input fields are empty 
+    // Control if input fields are empty
     if (!newMilk.kgMilk && !newMilk.milkDate && !selectedAnimal) {
       setFormError({
         ...formError,
@@ -347,7 +350,7 @@ const getMilkByAnimals = async (chosenAnimalId: string) => {
       kgMilk: sanitizedKgMilk,
       milkDate: sanitizedMilkDate,
       animal_id: selectedAnimal,
-    }); 
+    });
     //fetch put for milks
     try {
       const response = await fetch(`http://localhost:8000/api/milks/${id}`, {
@@ -374,17 +377,17 @@ const getMilkByAnimals = async (chosenAnimalId: string) => {
           milkDate: "",
           animal_id: selectedAnimal,
         });
-        setShowMessage("Ändringarna är sparade");
+        setShowMessage("Mjölkningen är ändrad");
         //Clear message after 3 seconds
         setTimeout(clearMessages, 3000);
         setEditMilk(false);
-         //And if animal is chosen
-         if(selectedAnimal){
-        //Write the data of the changed animal in table directly
-        getMilkByAnimals(selectedAnimal);
-      } else { 
-        getMilksByHerd(selectedOption);
-      }
+        //And if animal is chosen
+        if (selectedAnimal) {
+          //Write the data of the changed animal in table directly
+          getMilkByAnimals(selectedAnimal);
+        } else {
+          getMilksByHerd(selectedOption);
+        }
       } else {
         setShowMessage("Mjölkningen kunde inte ändras");
         // Clear message after  3 seconds
@@ -395,10 +398,8 @@ const getMilkByAnimals = async (chosenAnimalId: string) => {
     }
   };
 
-
   // Fetch animals by selected herd (get)
   const getMilksByHerd = async (chosenHerdId: string) => {
-
     try {
       setIsLoading(true);
       const response = await fetch(
@@ -415,7 +416,6 @@ const getMilkByAnimals = async (chosenAnimalId: string) => {
       //response
       const pickedMilks = await response.json();
       if (response.ok) {
-
         setMilks(pickedMilks);
         //get errors
       }
@@ -427,7 +427,6 @@ const getMilkByAnimals = async (chosenAnimalId: string) => {
   };
 
   const fetchHerdsAnimals = async (userid: string | null) => {
-
     try {
       setIsLoading(true);
       // Fetch all user herds (get)
@@ -437,24 +436,22 @@ const getMilkByAnimals = async (chosenAnimalId: string) => {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
-            "Authorization": `Bearer ${token}`,
-            "Accept": "application/json",
+            Authorization: `Bearer ${token}`,
+            Accept: "application/json",
           },
         }
       );
       const herdsData = await herdsResponse.json();
       if (herdsResponse.ok) {
-
         setHerds(herdsData);
-//If user has one herd, the id of selected herd is set to chosenHerdId
+        //If user has one herd, the id of selected herd is set to chosenHerdId
         if (herdsData.length === 1) {
           setChosenHerdId(herdsData[0].id);
-        }
-        else {
+        } else {
           const event = {
             target: {
-              value: selectedOption
-            }
+              value: selectedOption,
+            },
           };
         }
       }
@@ -463,7 +460,7 @@ const getMilkByAnimals = async (chosenAnimalId: string) => {
     } finally {
       setIsLoading(false);
     }
-  }
+  };
 
   // Handle select change in select for herds
   const handleSelectChange = async (
@@ -498,13 +495,13 @@ const getMilkByAnimals = async (chosenAnimalId: string) => {
       }); //If response ok
       if (response.ok) {
         //And if animal is chosen
-        if(selectedAnimal){
-        //Get all milks from animal
-        getMilkByAnimals(selectedAnimal);
-        //If no animal chosen, get all milks by selected herd
-      } else { 
-        getMilksByHerd(selectedOption);
-      }
+        if (selectedAnimal) {
+          //Get all milks from animal
+          getMilkByAnimals(selectedAnimal);
+          //If no animal chosen, get all milks by selected herd
+        } else {
+          getMilksByHerd(selectedOption);
+        }
         //Change show to false and show message
         setShow(false);
         setShowMessage("Mjölkning är raderad");
@@ -518,7 +515,7 @@ const getMilkByAnimals = async (chosenAnimalId: string) => {
     } catch (error) {
       console.error("Något gick fel:", error);
     }
-  }
+  };
 
   return (
     <div>
@@ -542,14 +539,18 @@ const getMilkByAnimals = async (chosenAnimalId: string) => {
                 className="form-select form-select-sm shadow-sm border-dark"
                 value={chosenAnimalId}
               >
-                <option disabled value="">Välj ett djur</option>
+                <option disabled value="">
+                  Välj ett djur
+                </option>
                 {animals.map((animal) => (
                   <option key={animal.id} value={animal.id}>
                     {animal.animalId}
                   </option>
                 ))}
               </select>
-              <p className="error-message text-danger fw-bold">{formError.animal_id}</p>
+              <p className="error-message text-danger fw-bold">
+                {formError.animal_id}
+              </p>
             </div>
             <div className="form-group">
               <label htmlFor="kgMilk" className="form-label">
@@ -563,7 +564,9 @@ const getMilkByAnimals = async (chosenAnimalId: string) => {
                 value={newMilk.kgMilk}
                 onChange={handleInputChange}
               />
-              <p className="error-message text-danger fw-bold">{formError.kgMilk}</p>
+              <p className="error-message text-danger fw-bold">
+                {formError.kgMilk}
+              </p>
             </div>
             <div className="form-group">
               <label htmlFor="milkDate" className="form-label">
@@ -577,7 +580,9 @@ const getMilkByAnimals = async (chosenAnimalId: string) => {
                 value={newMilk.milkDate}
                 onChange={handleInputChange}
               />
-              <p className="error-message text-danger fw-bold">{formError.milkDate}</p>
+              <p className="error-message text-danger fw-bold">
+                {formError.milkDate}
+              </p>
             </div>
             <div className="form-btn-div d-flex justify-content-around">
               <button className="button shadow-sm mt-2" onClick={editData}>
@@ -599,6 +604,7 @@ const getMilkByAnimals = async (chosenAnimalId: string) => {
           <form
             className="form-control handleForm form-control-sm shadow-sm border-dark p-5 mx-auto w-50 "
             onSubmit={addMilk}
+            noValidate
           >
             <h2 className="py-3">Lägg till mjölkning</h2>
 
@@ -613,14 +619,18 @@ const getMilkByAnimals = async (chosenAnimalId: string) => {
                 onChange={(e) => setSelectedAnimal(e.target.value)}
                 value={selectedAnimal}
               >
-                <option disabled value="">Välj ett djur</option>
+                <option disabled value="">
+                  Välj ett djur
+                </option>
                 {animals.map((animal) => (
                   <option key={animal.id} value={animal.id}>
                     {animal.animalId}
                   </option>
                 ))}
               </select>
-              <p className="error-message text-danger fw-bold">{formError.animal_id}</p>
+              <p className="error-message text-danger fw-bold">
+                {formError.animal_id}
+              </p>
             </div>
             <div className="form-group">
               <label htmlFor="kgMilk" className="form-label">
@@ -634,7 +644,9 @@ const getMilkByAnimals = async (chosenAnimalId: string) => {
                 value={newMilk.kgMilk}
                 onChange={handleInputChange}
               />
-              <p className="error-message text-danger fw-bold">{formError.kgMilk}</p>
+              <p className="error-message text-danger fw-bold">
+                {formError.kgMilk}
+              </p>
             </div>
             <div className="form-group">
               <label htmlFor="milkDate" className="form-label">
@@ -648,7 +660,9 @@ const getMilkByAnimals = async (chosenAnimalId: string) => {
                 value={newMilk.milkDate}
                 onChange={handleInputChange}
               />
-              <p className="error-message text-danger fw-bold">{formError.milkDate}</p>
+              <p className="error-message text-danger fw-bold">
+                {formError.milkDate}
+              </p>
             </div>
             <button type="submit" className="button shadow-sm mt-2">
               Lägg till
@@ -657,7 +671,9 @@ const getMilkByAnimals = async (chosenAnimalId: string) => {
 
           {/*Show messages to form */}
           {showMessage && (
-            <p className="alert mx-auto alert-success text-dark w-25 text-center mt-2">{showMessage}</p>
+            <p className="alert mx-auto alert-success text-dark w-25 text-center mt-2">
+              {showMessage}
+            </p>
           )}
         </div>
       )}
@@ -666,7 +682,9 @@ const getMilkByAnimals = async (chosenAnimalId: string) => {
         <div>
           <form className="form-control form-control-sm border-0 mx-auto">
             <div className="form-group mx-auto">
-              <label className="form-label" htmlFor="herds">Besättningar:</label>
+              <label className="form-label" htmlFor="herds">
+                Besättningar:
+              </label>
               <br />
               <select
                 id="herds"
@@ -675,7 +693,9 @@ const getMilkByAnimals = async (chosenAnimalId: string) => {
                 onChange={handleSelectChange}
                 value={selectedOption}
               >
-                <option disabled value="AllAnimals">Välj en besättning</option>
+                <option disabled value="AllAnimals">
+                  Välj en besättning
+                </option>
                 {herds.map((herd) => (
                   <option key={herd.id} value={herd.id}>
                     Besättning: {herd.herdId}, {herd.address}
@@ -687,8 +707,7 @@ const getMilkByAnimals = async (chosenAnimalId: string) => {
         </div>
       )}
       {/* This shows if there is no milk registrated in any animal in herd */}
-      {showTable && milks.length < 1 || chosenAnimalId == "0" ? (
-
+      {(showTable && milks.length < 1) || chosenAnimalId == "0" ? (
         <p>Ingen information finns registrerad</p>
       ) : (
         /* Else show table with milks */
@@ -706,41 +725,43 @@ const getMilkByAnimals = async (chosenAnimalId: string) => {
             </thead>
             <tbody>
               {/**Write milks */}
-              {milks.map((milk) =>{
+              {milks.map((milk) => {
                 //Get milk that matches animal_id in database
-                 const animal = animals.find((animal) => animal.id === milk.animal_id);
-              return (
-                <tr key={milk.id}>
-                  {/* Ternary operator */}
-                  <td>{animal ? animal.animalId : "Okänt"}</td>
-                  <td>{milk.kgMilk} Kg</td>
-                  <td>{milk.milkDate}</td>
-                  <td>
-                    <button
-                      className="button"
-                      onClick={() => {
-                        setEditMilk(true); // Update editMilk-state to true to edit
-                        setNewMilk({
-                          id: milk.id,
-                          kgMilk: milk.kgMilk,
-                          milkDate: milk.milkDate,
-                          animal_id: milk.animal_id
-                        });
-                      }}
-                    >
-                      Ändra
-                    </button>
-                    {/**Change url when clicking at delete */}
-                    <button
-                      className="button"
-                      onClick={() => navigateToMilk(milk.id)}
-                    >
-                      Radera
-                    </button>
-                  </td>
-                </tr>
-              );
-            })}
+                const animal = animals.find(
+                  (animal) => animal.id === milk.animal_id
+                );
+                return (
+                  <tr key={milk.id}>
+                    {/* Ternary operator */}
+                    <td>{animal ? animal.animalId : "Okänt"}</td>
+                    <td>{milk.kgMilk} Kg</td>
+                    <td>{milk.milkDate}</td>
+                    <td>
+                      <button
+                        className="button"
+                        onClick={() => {
+                          setEditMilk(true); // Update editMilk-state to true to edit
+                          setNewMilk({
+                            id: milk.id,
+                            kgMilk: milk.kgMilk,
+                            milkDate: milk.milkDate,
+                            animal_id: milk.animal_id,
+                          });
+                        }}
+                      >
+                        Ändra
+                      </button>
+                      {/**Change url when clicking at delete */}
+                      <button
+                        className="button"
+                        onClick={() => navigateToMilk(milk.id)}
+                      >
+                        Radera
+                      </button>
+                    </td>
+                  </tr>
+                );
+              })}
             </tbody>
           </table>
         </div>

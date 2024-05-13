@@ -10,6 +10,7 @@ const AccessibilityPage: React.FC = () => {
         <div>
             <Header />
             <div>
+                <main className="mx-auto container">
             <h1>Tillgänglighet för MinGård</h1>
             <p> Växa står bakom den här webbplatsen.
                 Vi vill att så många som möjligt ska kunna använda den.
@@ -62,6 +63,7 @@ const AccessibilityPage: React.FC = () => {
             </p>
             <p>Senaste bedömningen gjordes den XXXX-XX-XX</p>
             <p>Redogörelsen uppdaterades senast den dagens datum dag månad år.</p>
+            </main>
         </div>
             <Footer />
         </div>

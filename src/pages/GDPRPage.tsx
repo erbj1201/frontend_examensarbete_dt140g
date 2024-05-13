@@ -5,7 +5,7 @@ function GDPRPage() {
   return (
     <div>
       <UserHeader />
-      <main className="pb-5">
+      <main className="mx-auto container pb-5">
         <article className="container w-75 mx-auto p-3">
           <h2 className="mx-auto text-center pt-5 pb-5">Information om personuppgiftsbehandling och integritetsskydd</h2>
           <p className="w-75 mx-auto">

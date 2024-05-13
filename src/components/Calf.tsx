@@ -16,6 +16,15 @@ interface Calf {
   category: string;
   animal_id: string;
 }
+
+//Structure of Herd
+interface Herd {
+  id: number;
+  herdId: string;
+  address: string;
+  userid: number;
+}
+
 function Calf() {
   //Cookies
   const cookies = new Cookies();
@@ -25,16 +34,25 @@ function Calf() {
   //Use navigate
   const navigate = useNavigate();
   //States
+  const [showMessage, setShowMessage] = useState<string | null>(null);
   const [chosenAnimalId, setChosenAnimalId] = useState<string>("");
+  const [chosenCalfId, setChosenCalfId] = useState<string>("");
+  const [chosenHerdId, setChosenHerdId] = useState<string>("");
+  const [herds, setHerds] = useState<Herd[]>([]);
+  const [selectedOption, setSelectedOption] = useState<string>("AllAnimals");
+  const [selectedAnimal, setSelectedAnimal] = useState<string>("");
+    //Show/Hide dropdown with Herds
+    const [isLoading, setIsLoading] = useState<boolean>(false);
+    //Show/Hide Table
+    const [showTable, setShowTable] = useState<boolean>(true);
+    const [editCalf, setEditCalf] = useState(false);
   const [animals, setAnimals] = useState<{ id: string; animalId: string }[]>(
     []
   );
-  const [calves, setCalves] = useState<Calf[]>([]);
-  const [showMessage, setShowMessage] = useState<string | null>(null);
-  const [chosenCalfId, setChosenCalfId] = useState<string>("");
   const [show, setShow] = useState(false);
-  const [editCalf, setEditCalf] = useState(false);
   const handleClose = () => setShow(false);
+  const [calves, setCalves] = useState<Calf[]>([]);
+ 
   //States store data
   const [newCalf, setNewCalf] = useState<Calf>({
     id: "",
@@ -95,11 +113,14 @@ function Calf() {
   //Fetch all calved and animals with useEffect
   useEffect(() => {
     getAnimalsByUser(userid);
-   
-    if (chosenAnimalId) {
-      getCalvesByAnimals(chosenAnimalId);
+    fetchHerdsAnimals(userid);
+    if (chosenHerdId) {
+      getCalvesByHerd(chosenHerdId);
     }
-  }, [chosenAnimalId, userid]);
+    if (selectedAnimal) {
+      getCalvesByAnimals(selectedAnimal);
+    }
+  }, [selectedAnimal, userid, chosenHerdId]);
 
   // Handle changes in input field
   const handleInputChange = (
@@ -131,7 +152,7 @@ function Calf() {
     };
        //Check if animal_id empty
        if (
-        !chosenAnimalId &&
+        !selectedAnimal &&
         !newCalf.sex &&
         !newCalf.category &&
         !newCalf.earNo &&
@@ -159,7 +180,7 @@ function Calf() {
         return;
       }
       //Check if animalId empty
-      if (!chosenAnimalId) {
+      if (!selectedAnimal) {
         setFormError({
           ...inputError,
           animal_id: "Välj djuridentitet på kalvens mamma",
@@ -269,12 +290,12 @@ function Calf() {
       birthDate: sanitizedBirthDate,
       sex: newCalf.sex,
       category: newCalf.category,
-      animal_id: chosenAnimalId,
+      animal_id: selectedAnimal,
     });
     //Fetch calves (post)
     try {
       const response = await fetch(
-        `http://localhost:8000/api/calves/animals/${chosenAnimalId}`,
+        `http://localhost:8000/api/calves/animals/${selectedAnimal}`,
         {
           method: "POST",
           headers: {
@@ -291,7 +312,7 @@ function Calf() {
             birthDate: sanitizedBirthDate,
             sex: newCalf.sex,
             category: newCalf.category,
-            animal_id: chosenAnimalId,
+            animal_id: selectedAnimal,
           }),
         }
       );
@@ -308,10 +329,10 @@ function Calf() {
           birthDate: "",
           sex: "",
           category: "",
-          animal_id: chosenAnimalId,
+          animal_id: selectedAnimal,
         });
         //Get all calves for chosen animal
-        getCalvesByAnimals(chosenAnimalId);
+        getCalvesByAnimals(selectedAnimal);
         //Show message
         setShowMessage("Kalven är tillagd");
         // Clear message after  3 seconds
@@ -329,7 +350,7 @@ function Calf() {
   const changeAnimal = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const { value } = e.target;
     //Change state after chosen animal
-    setChosenAnimalId(value);
+    setSelectedAnimal(value);
   };
 
   // Gets all calf from the animal with fetch
@@ -399,7 +420,7 @@ function Calf() {
       birthDate: newCalf.birthDate,
       sex: newCalf.sex,
       category: newCalf.category,
-      animal_id: chosenAnimalId,
+      animal_id: selectedAnimal,
     });
   };
 //Cancel button
@@ -448,7 +469,7 @@ let inputError = {
 
     //Check if animal_id empty
     if (
-      !chosenAnimalId &&
+      !selectedAnimal &&
       !newCalf.sex &&
       !newCalf.category &&
       !newCalf.earNo &&
@@ -476,7 +497,7 @@ let inputError = {
       return;
     }
     //Check if animalId empty
-    if (!chosenAnimalId) {
+    if (!selectedAnimal) {
       setFormError({
         ...inputError,
         animal_id: "Välj djuridentitet på kalvens mamma",
@@ -585,7 +606,7 @@ let inputError = {
       birthDate: sanitizedBirthDate,
       sex: sanitizedSex,
       category: sanitizedCategory,
-      animal_id: chosenAnimalId,
+      animal_id: selectedAnimal,
     });
     try {
       const response = await fetch(`http://localhost:8000/api/calves/${id}`, {
@@ -605,7 +626,7 @@ let inputError = {
           birthDate: sanitizedBirthDate,
           sex: sanitizedSex,
           category: sanitizedCategory,
-          animal_id: chosenAnimalId,
+          animal_id: selectedAnimal,
         }),
       });
 
@@ -624,11 +645,17 @@ let inputError = {
           animal_id: chosenAnimalId,
         });
 
-        getCalvesByAnimals(chosenAnimalId);
+        
         setShowMessage("Kalvningen är ändrad");
         //Clear message after 3 seconds
         setTimeout(clearMessages, 3000);
         setEditCalf(false);
+         //And if animal is chosen
+         if (selectedAnimal) {
+          getCalvesByAnimals(selectedAnimal);
+        } else {
+          getCalvesByHerd(selectedOption);
+        }
       } else {
         setShowMessage("Kalvningen kunde inte ändras");
         // Clear message after  3 seconds
@@ -638,6 +665,87 @@ let inputError = {
       console.error("Något gick fel:");
     }
   };
+// Fetch animals by selected herd (get)
+const getCalvesByHerd = async (chosenHerdId: string) => {
+  try {
+    setIsLoading(true);
+    const response = await fetch(
+      `http://localhost:8000/api/calves/herds/${chosenHerdId}`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+          Accept: "application/json",
+        },
+      }
+    );
+    //response
+    const pickedCalves = await response.json();
+    if (response.ok) {
+      setCalves(pickedCalves);
+      //get errors
+    }
+  } catch (error) {
+    console.log(error);
+  } finally {
+    setIsLoading(false);
+  }
+};
+const fetchHerdsAnimals = async (userid: string | null) => {
+  try {
+    setIsLoading(true);
+    // Fetch all user herds (get)
+    const herdsResponse = await fetch(
+      `http://localhost:8000/api/herds/users/${userid}`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+          Accept: "application/json",
+        },
+      }
+    );
+    const herdsData = await herdsResponse.json();
+    if (herdsResponse.ok) {
+      setHerds(herdsData);
+      //If user has one herd, the id of selected herd is set to chosenHerdId
+      if (herdsData.length === 1) {
+        setChosenHerdId(herdsData[0].id);
+      } else {
+        const event = {
+          target: {
+            value: selectedOption,
+          },
+        };
+      }
+    }
+  } catch (error) {
+    console.log(error);
+  } finally {
+    setIsLoading(false);
+  }
+};
+  // Handle select change in select for herds
+  const handleSelectChange = async (
+    event: React.ChangeEvent<HTMLSelectElement>
+  ) => {
+    const selectedOptionValue = event.target.value;
+    //update after choosen herd
+    setSelectedOption(selectedOptionValue);
+    // If select liston "AllAnimals", no table shows
+    if (selectedOptionValue === "AllAnimals") {
+      setShowTable(false);
+      // If "AllAnimals" is selected, set animals to all animals
+      await fetchHerdsAnimals(userid);
+    } else {
+      setShowTable(true);
+      // Fetch animals by selected herd
+      getCalvesByHerd(selectedOptionValue);
+    }
+  };
+
   //Delete Calf with id
   const deleteCalf = async (chosenCalfId: string) => {
     //Fetch (delete)
@@ -654,8 +762,15 @@ let inputError = {
         }
       ); //if response ok
       if (response.ok) {
+
+        //And if animal is chosen
+        if (selectedAnimal) {
         //get all medicine from animal
-        getCalvesByAnimals(chosenAnimalId);
+        getCalvesByAnimals(selectedAnimal);
+         //If no animal chosen, get all milks by selected herd
+        } else {
+          getCalvesByHerd(selectedOption);
+        }
         //change show to false and show message
         setShow(false);
         setShowMessage("Kalvningen är raderad");
@@ -703,7 +818,6 @@ let inputError = {
                 name="animal_id"
                 className="form-select form-select-sm shadow-sm border border-dark"
                 value={chosenAnimalId}
-                onChange={changeAnimal}
               >
                 <option value="">Välj ett djur</option>
                 {animals.map((animal) => (
@@ -868,6 +982,7 @@ let inputError = {
             <p className="alert mx-auto alert-success text-dark w-25 text-center mt-2">{showMessage}</p>
           )}
         </div>
+
       ) : (
         <div>
           {/*form for adding calf*/}
@@ -885,8 +1000,8 @@ let inputError = {
                 id="animal_id"
                 name="animal_id"
                 className="form-select form-select-sm shadow-sm border-dark"
-                value={chosenAnimalId}
-                onChange={changeAnimal}
+                value= {selectedAnimal}
+                onChange={(e) => setSelectedAnimal(e.target.value)}
               >
                 <option value="">Välj ett djur</option>
                 {animals.map((animal) => (
@@ -1048,7 +1163,42 @@ let inputError = {
           )}
         </div>
       )}
-      {/*Table to write calves*/}
+
+       {/* This shows if user has more than one herd */}
+ {!isLoading && herds.length > 1 && (
+        <div>
+          <form className="form-control form-control-sm border-0 mx-auto">
+            <div className="form-group mx-auto">
+              <label className="form-label" htmlFor="herds">
+                Besättningar:
+              </label>
+              <br />
+              <select
+                id="herds"
+                name="herds"
+                className="form-select w-25 shadow-sm border-dark"
+                onChange={handleSelectChange}
+                value={selectedOption}
+              >
+                <option disabled value="AllAnimals">
+                  Välj en besättning
+                </option>
+                {herds.map((herd) => (
+                  <option key={herd.id} value={herd.id}>
+                    Besättning: {herd.herdId}, {herd.address}
+                  </option>
+                ))}
+              </select>
+            </div>
+          </form>
+        </div>
+      )}
+      {/* This shows if there is no milk registrated in any animal in herd */}
+      {(showTable && calves.length < 1) || chosenAnimalId == "0" ? (
+        <p>Ingen information finns registrerad</p>
+      ) : (
+      /*Table to write calves*/
+<div>
       <h2 className="p-5 mx-auto"> Senaste kalvningarna för valt djur:</h2>
       <table className="table table-responsive table-hover w-75 mx-auto">
         <thead>
@@ -1109,6 +1259,8 @@ let inputError = {
           ))}
         </tbody>
       </table>
+      </div>
+      )}
       {/**Popup for deleating */}
       {show && (
         <div className="modal" role="dialog" style={{ display: "block" }}>
