@@ -594,9 +594,6 @@ function Milk() {
             </div>
           </form>
           {/**Messages to form */}
-          {/*   {showMessage && (
-            <p className="alert alert-success text-center mt-2">{showMessage}</p>
-          )} */}
         </div>
       ) : (
         /* form for adding milk */
@@ -607,7 +604,6 @@ function Milk() {
             noValidate
           >
             <h2 className="py-3">Lägg till mjölkning</h2>
-
             <div className="form-group">
               <label htmlFor="animal_id" className="form-label">
                 Djuridentitet
@@ -713,7 +709,6 @@ function Milk() {
         /* Else show table with milks */
         <div>
           <h2 className="p-5 mx-auto">Senaste mjölkningarna: </h2>
-
           <table className="table table-responsive table-hover w-75 mx-auto">
             <thead>
               <tr>
@@ -754,8 +749,7 @@ function Milk() {
                       {/**Change url when clicking at delete */}
                       <button
                         className="button"
-                        onClick={() => navigateToMilk(milk.id)}
-                      >
+                        onClick={() => navigateToMilk(milk.id)}>
                         Radera
                       </button>
                     </td>

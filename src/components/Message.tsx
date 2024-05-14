@@ -242,14 +242,18 @@ const Message: React.FC = () => {
         </form>
       </div>
       <section className="bglight m-4 mx-auto border border-dark p-4 w-50 shadow">
-        <h3 className="text-center">Alla skickade meddelanden</h3>
-        {fetchMessages.map((message) => {
+       {fetchMessages.length > 0 ? (
+        <>
+       <h3 className="text-center">Alla skickade meddelanden</h3>
+       {fetchMessages.map((message) => {
           // Convert created_at to a new Date-Object
           const createNewDate = new Date(message.created_at);
           // Convert Date and Time to the swedish standard.
           const formattedDateTime = `${createNewDate.toLocaleDateString(
             "sv-SE"
           )} ${createNewDate.toLocaleTimeString("sv-SE")}`;
+        
+      
 
           return (
             <article className="mx-auto p-2 border border-dark bg-white m-3 w-50 shadow-sm" key={message.id}>
@@ -261,6 +265,11 @@ const Message: React.FC = () => {
             </article>
           );
         })}
+          </>
+        ) : (
+          <p>Inga meddelanden finns registrerade</p>
+                  )
+                }
       </section>
     </div>
   );
