@@ -29,8 +29,8 @@ function Calf() {
   //Cookies
   const cookies = new Cookies();
   const token = cookies.get("token");
-   // Get userid from sessionstorage
-   const userid = sessionStorage.getItem("userid");
+  // Get userid from sessionstorage
+  const userid = sessionStorage.getItem("userid");
   //Use navigate
   const navigate = useNavigate();
   //States
@@ -41,18 +41,18 @@ function Calf() {
   const [herds, setHerds] = useState<Herd[]>([]);
   const [selectedOption, setSelectedOption] = useState<string>("AllAnimals");
   const [selectedAnimal, setSelectedAnimal] = useState<string>("");
-    //Show/Hide dropdown with Herds
-    const [isLoading, setIsLoading] = useState<boolean>(false);
-    //Show/Hide Table
-    const [showTable, setShowTable] = useState<boolean>(true);
-    const [editCalf, setEditCalf] = useState(false);
+  //Show/Hide dropdown with Herds
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  //Show/Hide Table
+  const [showTable, setShowTable] = useState<boolean>(true);
+  const [editCalf, setEditCalf] = useState(false);
   const [animals, setAnimals] = useState<{ id: string; animalId: string }[]>(
     []
   );
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const [calves, setCalves] = useState<Calf[]>([]);
- 
+
   //States store data
   const [newCalf, setNewCalf] = useState<Calf>({
     id: "",
@@ -150,124 +150,124 @@ function Calf() {
       category: "",
       animal_id: "",
     };
-       //Check if animal_id empty
-       if (
-        !selectedAnimal &&
-        !newCalf.sex &&
-        !newCalf.category &&
-        !newCalf.earNo &&
-        !newCalf.breed &&
-        !newCalf.name &&
-        !newCalf.animalId &&
-        !newCalf.expectedBirthDate &&
-        !newCalf.birthDate
-      ) {
-        //Messages if empty input fields
-        setFormError({
-          ...inputError,
-          animal_id: "Välj djuridentitet på kalvens mamma",
-          sex: "Välj ett kön",
-          animalId: "Fyll i kalvens djuridentitet",
-          category: "Välj om kalven är ett köttdjur eller mjölkdjur",
-          earNo: "Fyll i ett öronnummer",
-          breed: "Fyll i en ras",
-          name: "Fyll i ett namn",
-          expectedBirthDate: "Fyll i förväntat födelsedatum",
-          birthDate: "Fyll i födelsedatum",
-        });
-        // Clear message after  3 seconds
-        setTimeout(clearMessages, 3000);
-        return;
-      }
-      //Check if animalId empty
-      if (!selectedAnimal) {
-        setFormError({
-          ...inputError,
-          animal_id: "Välj djuridentitet på kalvens mamma",
-        });
-        // Clear message after  3 seconds
-        setTimeout(clearMessages, 3000);
-        return;
-      }
-  
-      //Check if empty
-      if (!newCalf.sex) {
-        setFormError({
-          ...inputError,
-          sex: "Välj ett kön",
-        });
-        // Clear message after  3 seconds
-        setTimeout(clearMessages, 3000);
-        return;
-      }
-      //Check if empty
-      if (!newCalf.category) {
-        setFormError({
-          ...inputError,
-          category: "Välj om kalven är ett köttdjur eller mjölkdjur",
-        });
-        // Clear message after  3 seconds
-        setTimeout(clearMessages, 3000);
-        return;
-      }
-  
-      //Check if earNo empty
-      if (!newCalf.earNo) {
-        setFormError({
-          ...inputError,
-          earNo: "Fyll i ett öronnummer",
-        });
-        // Clear message after  3 seconds
-        setTimeout(clearMessages, 3000);
-        return;
-      }
-      //Check if  empty
-      if (!newCalf.animalId) {
-        setFormError({
-          ...inputError,
-          animalId: "Fyll i kalvens djuridentitet",
-        });
-        // Clear message after  3 seconds
-        setTimeout(clearMessages, 3000);
-        return;
-      }
-      //Check if breed empty
-      if (!newCalf.breed) {
-        setFormError({
-          ...inputError,
-          breed: "Fyll i en ras",
-        });
-      }
-      //Check if name empty
-      if (!newCalf.name) {
-        setFormError({
-          ...inputError,
-          name: "Fyll i ett namn",
-        });
-        // Clear message after  3 seconds
-        setTimeout(clearMessages, 3000);
-        return;
-      }
-      //Check if expectedBirthDate empty
-      if (!newCalf.expectedBirthDate) {
-        setFormError({
-          ...inputError,
-          expectedBirthDate: "Fyll i förväntat födelsedatum",
-        });
-        // Clear message after  3 seconds
-        setTimeout(clearMessages, 3000);
-        return;
-      }
-      //Check if birthDate empty
-      if (!newCalf.birthDate) {
-        setFormError({
-          ...inputError,
-          birthDate: "Fyll i födelsedatum",
-        });
-        // Clear message after  3 seconds
-        setTimeout(clearMessages, 3000);
-        return;
-      }
+    //Check if animal_id empty
+    if (
+      !selectedAnimal &&
+      !newCalf.sex &&
+      !newCalf.category &&
+      !newCalf.earNo &&
+      !newCalf.breed &&
+      !newCalf.name &&
+      !newCalf.animalId &&
+      !newCalf.expectedBirthDate &&
+      !newCalf.birthDate
+    ) {
+      //Messages if empty input fields
+      setFormError({
+        ...inputError,
+        animal_id: "Välj djuridentitet på kalvens mamma",
+        sex: "Välj ett kön",
+        animalId: "Fyll i kalvens djuridentitet",
+        category: "Välj om kalven är ett köttdjur eller mjölkdjur",
+        earNo: "Fyll i ett öronnummer",
+        breed: "Fyll i en ras",
+        name: "Fyll i ett namn",
+        expectedBirthDate: "Fyll i förväntat födelsedatum",
+        birthDate: "Fyll i födelsedatum",
+      });
+      // Clear message after  3 seconds
+      setTimeout(clearMessages, 3000);
+      return;
+    }
+    //Check if animalId empty
+    if (!selectedAnimal) {
+      setFormError({
+        ...inputError,
+        animal_id: "Välj djuridentitet på kalvens mamma",
+      });
+      // Clear message after  3 seconds
+      setTimeout(clearMessages, 3000);
+      return;
+    }
+
+    //Check if empty
+    if (!newCalf.sex) {
+      setFormError({
+        ...inputError,
+        sex: "Välj ett kön",
+      });
+      // Clear message after  3 seconds
+      setTimeout(clearMessages, 3000);
+      return;
+    }
+    //Check if empty
+    if (!newCalf.category) {
+      setFormError({
+        ...inputError,
+        category: "Välj om kalven är ett köttdjur eller mjölkdjur",
+      });
+      // Clear message after  3 seconds
+      setTimeout(clearMessages, 3000);
+      return;
+    }
+
+    //Check if earNo empty
+    if (!newCalf.earNo) {
+      setFormError({
+        ...inputError,
+        earNo: "Fyll i ett öronnummer",
+      });
+      // Clear message after  3 seconds
+      setTimeout(clearMessages, 3000);
+      return;
+    }
+    //Check if  empty
+    if (!newCalf.animalId) {
+      setFormError({
+        ...inputError,
+        animalId: "Fyll i kalvens djuridentitet",
+      });
+      // Clear message after  3 seconds
+      setTimeout(clearMessages, 3000);
+      return;
+    }
+    //Check if breed empty
+    if (!newCalf.breed) {
+      setFormError({
+        ...inputError,
+        breed: "Fyll i en ras",
+      });
+    }
+    //Check if name empty
+    if (!newCalf.name) {
+      setFormError({
+        ...inputError,
+        name: "Fyll i ett namn",
+      });
+      // Clear message after  3 seconds
+      setTimeout(clearMessages, 3000);
+      return;
+    }
+    //Check if expectedBirthDate empty
+    if (!newCalf.expectedBirthDate) {
+      setFormError({
+        ...inputError,
+        expectedBirthDate: "Fyll i förväntat födelsedatum",
+      });
+      // Clear message after  3 seconds
+      setTimeout(clearMessages, 3000);
+      return;
+    }
+    //Check if birthDate empty
+    if (!newCalf.birthDate) {
+      setFormError({
+        ...inputError,
+        birthDate: "Fyll i födelsedatum",
+      });
+      // Clear message after  3 seconds
+      setTimeout(clearMessages, 3000);
+      return;
+    }
 
     //Sanitize input fields with DOMPurify
     const sanitizedAnimalId = DOMPurify.sanitize(newCalf.animalId);
@@ -423,7 +423,7 @@ function Calf() {
       animal_id: selectedAnimal,
     });
   };
-//Cancel button
+  //Cancel button
   const goBack = () => {
     setEditCalf(false);
     setNewCalf({
@@ -442,18 +442,18 @@ function Calf() {
 
   const updateCalf = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-//Object to track input errors
-let inputError = {
-  animalId: "",
-  earNo: "",
-  breed: "",
-  name: "",
-  expectedBirthDate: "",
-  birthDate: "",
-  sex: "",
-  category: "",
-  animal_id: "",
-};
+    //Object to track input errors
+    let inputError = {
+      animalId: "",
+      earNo: "",
+      breed: "",
+      name: "",
+      expectedBirthDate: "",
+      birthDate: "",
+      sex: "",
+      category: "",
+      animal_id: "",
+    };
 
     const {
       id,
@@ -467,7 +467,7 @@ let inputError = {
       category,
     } = inputData;
 
-    //Check if animal_id empty
+    //Check if all fields are empty
     if (
       !selectedAnimal &&
       !newCalf.sex &&
@@ -595,7 +595,8 @@ let inputError = {
     const sanitizedBirthDate = DOMPurify.sanitize(birthDate);
     const sanitizedSex = DOMPurify.sanitize(sex);
     const sanitizedCategory = DOMPurify.sanitize(category);
-//Set new values for calf
+
+    //Set new values for calf
     setNewCalf({
       id: chosenCalfId,
       animalId: sanitizedAnimalId,
@@ -608,6 +609,7 @@ let inputError = {
       category: sanitizedCategory,
       animal_id: selectedAnimal,
     });
+
     try {
       const response = await fetch(`http://localhost:8000/api/calves/${id}`, {
         method: "PUT",
@@ -645,13 +647,13 @@ let inputError = {
           animal_id: chosenAnimalId,
         });
 
-        
+
         setShowMessage("Kalvningen är ändrad");
         //Clear message after 3 seconds
         setTimeout(clearMessages, 3000);
         setEditCalf(false);
-         //And if animal is chosen
-         if (selectedAnimal) {
+        //And if animal is chosen
+        if (selectedAnimal) {
           getCalvesByAnimals(selectedAnimal);
         } else {
           getCalvesByHerd(selectedOption);
@@ -665,74 +667,75 @@ let inputError = {
       console.error("Något gick fel:");
     }
   };
-// Fetch animals by selected herd (get)
-const getCalvesByHerd = async (chosenHerdId: string) => {
-  try {
-    setIsLoading(true);
-    const response = await fetch(
-      `http://localhost:8000/api/calves/herds/${chosenHerdId}`,
-      {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-          Accept: "application/json",
-        },
-      }
-    );
-    //response
-    const pickedCalves = await response.json();
-    if (response.ok) {
-      setCalves(pickedCalves);
-      //get errors
-    }
-  } catch (error) {
-    console.log(error);
-  } finally {
-    setIsLoading(false);
-  }
-};
-const fetchHerdsAnimals = async (userid: string | null) => {
-  try {
-    setIsLoading(true);
-    // Fetch all user herds (get)
-    const herdsResponse = await fetch(
-      `http://localhost:8000/api/herds/users/${userid}`,
-      {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-          Accept: "application/json",
-        },
-      }
-    );
-    const herdsData = await herdsResponse.json();
-    if (herdsResponse.ok) {
-      setHerds(herdsData);
-      //If user has one herd, the id of selected herd is set to chosenHerdId
-      if (herdsData.length === 1) {
-        setChosenHerdId(herdsData[0].id);
-      } else {
-        const event = {
-          target: {
-            value: selectedOption,
+
+  // Fetch animals by selected herd (get)
+  const getCalvesByHerd = async (chosenHerdId: string) => {
+    try {
+      setIsLoading(true);
+      const response = await fetch(
+        `http://localhost:8000/api/calves/herds/${chosenHerdId}`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+            Accept: "application/json",
           },
-        };
+        }
+      );
+      //response
+      const pickedCalves = await response.json();
+      if (response.ok) {
+        setCalves(pickedCalves);
+        //get errors
       }
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setIsLoading(false);
     }
-  } catch (error) {
-    console.log(error);
-  } finally {
-    setIsLoading(false);
-  }
-};
+  };
+  const fetchHerdsAnimals = async (userid: string | null) => {
+    try {
+      setIsLoading(true);
+      // Fetch all users herds (with get)
+      const herdsResponse = await fetch(
+        `http://localhost:8000/api/herds/users/${userid}`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+            Accept: "application/json",
+          },
+        }
+      );
+      const herdsData = await herdsResponse.json();
+      if (herdsResponse.ok) {
+        setHerds(herdsData);
+        //If user only has one herd, the id of selected herd is set to chosenHerdId
+        if (herdsData.length === 1) {
+          setChosenHerdId(herdsData[0].id);
+        } else {
+          const event = {
+            target: {
+              value: selectedOption,
+            },
+          };
+        }
+      }
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
   // Handle select change in select for herds
   const handleSelectChange = async (
     event: React.ChangeEvent<HTMLSelectElement>
   ) => {
     const selectedOptionValue = event.target.value;
-    //update after choosen herd
+    //Update after choosen herd
     setSelectedOption(selectedOptionValue);
     // If select liston "AllAnimals", no table shows
     if (selectedOptionValue === "AllAnimals") {
@@ -760,18 +763,18 @@ const fetchHerdsAnimals = async (userid: string | null) => {
             Accept: "application/json",
           },
         }
-      ); //if response ok
+      ); //If response ok
       if (response.ok) {
 
         //And if animal is chosen
         if (selectedAnimal) {
-        //get all medicine from animal
-        getCalvesByAnimals(selectedAnimal);
-         //If no animal chosen, get all milks by selected herd
+          //get all medicine from animal
+          getCalvesByAnimals(selectedAnimal);
+          //If no animal chosen, get all calves by selected herd
         } else {
           getCalvesByHerd(selectedOption);
         }
-        //change show to false and show message
+        //Change show to false and show message
         setShow(false);
         setShowMessage("Kalvningen är raderad");
         // Clear message after  3 seconds
@@ -786,13 +789,13 @@ const fetchHerdsAnimals = async (userid: string | null) => {
     }
   };
 
-  //change url and add id
+  //Change url and add id
   const navigateToCalf = (id: string) => {
-    //navigate to handle with id from chosen medicine
+    //Navigate to handle with id from chosen medicine
     navigate(`/handle/${id}`);
-    //change states
+    //Change states
     setShow(true);
-    //save id
+    //Save Id
     setChosenCalfId(id);
   };
 
@@ -1000,7 +1003,7 @@ const fetchHerdsAnimals = async (userid: string | null) => {
                 id="animal_id"
                 name="animal_id"
                 className="form-select form-select-sm shadow-sm border-dark"
-                value= {selectedAnimal}
+                value={selectedAnimal}
                 onChange={(e) => setSelectedAnimal(e.target.value)}
               >
                 <option value="">Välj ett djur</option>
@@ -1164,8 +1167,8 @@ const fetchHerdsAnimals = async (userid: string | null) => {
         </div>
       )}
 
-       {/* This shows if user has more than one herd */}
- {!isLoading && herds.length > 1 && (
+      {/* This shows if user has more than one herd */}
+      {!isLoading && herds.length > 1 && (
         <div>
           <form className="form-control form-control-sm border-0 mx-auto">
             <div className="form-group mx-auto">
@@ -1193,73 +1196,73 @@ const fetchHerdsAnimals = async (userid: string | null) => {
           </form>
         </div>
       )}
-      {/* This shows if there is no milk registrated in any animal in herd */}
+      {/* This shows if there is calves registrated in any animal in herd */}
       {(showTable && calves.length < 1) || chosenAnimalId == "0" ? (
         <p>Ingen information finns registrerad</p>
       ) : (
-      /*Table to write calves*/
-<div>
-      <h2 className="p-5 mx-auto"> Senaste kalvningarna för valt djur:</h2>
-      <table className="table table-responsive table-hover w-75 mx-auto">
-        <thead>
-          <tr>
-            <th>Djuridentitet</th>
-            <th>Öronnummer</th>
-            <th>Ras</th>
-            <th>Namn</th>
-            <th>Förväntat födelsedatum</th>
-            <th>Födelsedatum</th>
-            <th>Kön</th>
-            <th>Kategori</th>
-            <th>Hantera</th>
-          </tr>
-        </thead>
-        <tbody>
-          {/**Loop and Write calves */}
-          {calves.map((calf) => (
-            <tr key={calf.id}>
-              <td>{calf.animalId}</td>
-              <td>{calf.earNo}</td>
-              <td>{calf.breed}</td>
-              <td>{calf.name}</td>
-              <td>{calf.expectedBirthDate}</td>
-              <td>{calf.birthDate}</td>
-              <td>{calf.sex}</td>
-              <td>{calf.category}</td>
-              <td>
-                <button
-                  className="button"
-                  onClick={() => {
-                    setEditCalf(true); // Update editMilk-state to true to edit
-                    setNewCalf({
-                      id: calf.id,
-                      animalId: calf.animalId,
-                      earNo: calf.earNo,
-                      breed: calf.breed,
-                      name: calf.name,
-                      expectedBirthDate: calf.expectedBirthDate,
-                      birthDate: calf.birthDate,
-                      sex: calf.sex,
-                      category: calf.id,
-                      animal_id: calf.animal_id,
-                    });
-                  }}
-                >
-                  Ändra
-                </button>
-                {/**Change url when clicking at delete */}
-                <button
-                  className="button"
-                  onClick={() => navigateToCalf(calf.id)}
-                >
-                  Radera
-                </button>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-      </div>
+        /*Table to write calves*/
+        <div>
+          <h2 className="p-5 mx-auto"> Senaste kalvningarna för valt djur:</h2>
+          <table className="table table-responsive table-hover w-75 mx-auto">
+            <thead>
+              <tr>
+                <th>Djuridentitet</th>
+                <th>Öronnummer</th>
+                <th>Ras</th>
+                <th>Namn</th>
+                <th>Förväntat födelsedatum</th>
+                <th>Födelsedatum</th>
+                <th>Kön</th>
+                <th>Kategori</th>
+                <th>Hantera</th>
+              </tr>
+            </thead>
+            <tbody>
+              {/**Loop and Write calves */}
+              {calves.map((calf) => (
+                <tr key={calf.id}>
+                  <td>{calf.animalId}</td>
+                  <td>{calf.earNo}</td>
+                  <td>{calf.breed}</td>
+                  <td>{calf.name}</td>
+                  <td>{calf.expectedBirthDate}</td>
+                  <td>{calf.birthDate}</td>
+                  <td>{calf.sex}</td>
+                  <td>{calf.category}</td>
+                  <td>
+                    <button
+                      className="button"
+                      onClick={() => {
+                        setEditCalf(true); // Update editCalf-state to true to edit
+                        setNewCalf({
+                          id: calf.id,
+                          animalId: calf.animalId,
+                          earNo: calf.earNo,
+                          breed: calf.breed,
+                          name: calf.name,
+                          expectedBirthDate: calf.expectedBirthDate,
+                          birthDate: calf.birthDate,
+                          sex: calf.sex,
+                          category: calf.id,
+                          animal_id: calf.animal_id,
+                        });
+                      }}
+                    >
+                      Ändra
+                    </button>
+                    {/**Change url when clicking at delete */}
+                    <button
+                      className="button"
+                      onClick={() => navigateToCalf(calf.id)}
+                    >
+                      Radera
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       )}
       {/**Popup for deleating */}
       {show && (

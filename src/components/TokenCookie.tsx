@@ -9,11 +9,11 @@ function TokenCookie() {
   const navigate = useNavigate();
   // Create new instance of cookie
   const cookies = new Cookies();
-  //get token from cookie
+  //Get token from cookie
   const token = cookies.get("token");
 
   useEffect(() => {
-    //if no token in cookie
+    //If no token in cookie
     if (!token) {
       // Redirect to login-page if not logged in (no token)
       navigate("/login");
@@ -23,5 +23,5 @@ function TokenCookie() {
   return <div>
   </div>;
 }
-//export
+//Export
 export default TokenCookie;

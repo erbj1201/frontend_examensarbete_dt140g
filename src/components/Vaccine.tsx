@@ -822,7 +822,7 @@ const fetchHerdsAnimals = async (userid: string | null) => {
             return (
             <tr key={vaccine.id}>
                <td>{animal ? animal.animalId : "Okänt"}</td>
-              <td>{vaccine.id}</td>
+          
               <td>{vaccine.name}</td>
               <td>{vaccine.batchNo}</td>
               <td>{vaccine.date}</td>

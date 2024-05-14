@@ -4,7 +4,7 @@ import React, { useEffect, useState, FormEvent } from "react";
 import { useNavigate } from "react-router-dom";
 import Cookies from "universal-cookie";
 
-//structure of medicine
+//Structure of medicine
 interface Medicine {
   id: string;
   date: string;
@@ -22,10 +22,10 @@ interface Herd {
 }
 
 function Medicine() {
-  //cookies
+  //Cookies
   const cookies = new Cookies();
   const token = cookies.get("token");
-  //use navigate
+  //Use navigate
   const navigate = useNavigate();
   // Get userid from sessionstorage
   const userid = sessionStorage.getItem("userid");
@@ -57,7 +57,7 @@ function Medicine() {
     recurrent: "",
     animal_id: "",
   });
-  // state data in edit form
+  // State data in edit form
   const [inputData, setInputData] = useState({
     id: "",
     date: "",
@@ -77,7 +77,7 @@ function Medicine() {
   });
   // Function to clear update and delete messages after a specified time
   const clearMessages = () => {
-    //clear messages
+    //Clear messages
     setShowMessage(null);
     setFormError({
       date: "",
@@ -124,7 +124,7 @@ function Medicine() {
       recurrent: "",
       animal_id: "",
     };
-    //check if all fields empty
+    //Check if all fields empty
     if (
       !newMedicine.date &&
       !newMedicine.type &&
@@ -132,7 +132,7 @@ function Medicine() {
       !newMedicine.recurrent &&
       !selectedAnimal
     ) {
-      //error messages when empty fields
+      //Error messages when empty fields
       setFormError({
         ...inputError,
         animal_id: "Välj djuridentitet",
@@ -212,7 +212,7 @@ function Medicine() {
       recurrent: newMedicine.recurrent,
       animal_id: selectedAnimal,
     });
-    //fetch post
+    //Fetch post
     try {
       const response = await fetch(
         `http://localhost:8000/api/medicines/animals/${selectedAnimal}`,
@@ -222,7 +222,7 @@ function Medicine() {
             "Content-Type": "application/json",
             Authorization: `Bearer ${token}`,
             Accept: "application/json",
-          }, //send sanitized data
+          }, //Send sanitized data
           body: JSON.stringify({
             date: sanitizedDate,
             type: sanitizedType,
@@ -232,7 +232,7 @@ function Medicine() {
           }),
         }
       );
-      //await response
+      //Await response
       const responseData = await response.json();
       //if response ok, clear form
       if (response.ok) {
@@ -244,16 +244,16 @@ function Medicine() {
           recurrent: "",
           animal_id: selectedAnimal,
         });
-        //get all medicine from chosen animal
+        //Get all medicine from chosen animal
         getMedicinesByAnimals(selectedAnimal);
-        //show message
+        //Show message
         setShowMessage("Medicineringen är tillagd");
         // Clear message after  3 seconds
         setTimeout(clearMessages, 3000);
       }
       console.log(responseData);
     } catch (error) {
-      //error message
+      //Error message
       setShowMessage("Fel vid lagring av medicinering");
       // Clear message after  3 seconds
       setTimeout(clearMessages, 3000);
@@ -264,12 +264,12 @@ function Medicine() {
   //Trigger that shows the last medicines from the chosen id (animal).
   const changeAnimal = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const { value } = e.target;
-    //set chosen animal
+    //Set chosen animal
     setSelectedAnimal(value);
   };
   // Gets all medicine from the animal with fetch
   const getMedicinesByAnimals = async (chosenAnimalId: string) => {
-    //fetch get
+    //Fetch (get medicine)
     try {
       const response = await fetch(
         `http://localhost:8000/api/medicines/animals/${chosenAnimalId}`,
@@ -281,10 +281,10 @@ function Medicine() {
             Accept: "application/json",
           },
         }
-      ); //if response ok
+      ); //If response ok
       if (response.ok) {
         const jsonData = await response.json();
-        //set medicines
+        //Set medicines
         setMedicines(jsonData);
       } else {
         throw new Error("Något gick fel");
@@ -295,7 +295,7 @@ function Medicine() {
   };
   // Get all animals by User
   const getAnimalsByUser = async (userid: string | null) => {
-    //fetch get
+    //Fetch (get animals)
     try {
       const response = await fetch(
         `http://localhost:8000/api/animals/users/${userid}`,
@@ -307,7 +307,7 @@ function Medicine() {
             Accept: "application/json",
           },
         }
-      ); //if response ok
+      ); //If response ok
 
       if (response.ok) {
         const jsonData = await response.json();
@@ -315,7 +315,7 @@ function Medicine() {
         const animalIds = jsonData.map((animal: any) => ({
           id: animal.id,
           animalId: animal.animalId,
-        })); //set animal
+        })); //Set animal
         setAnimals(animalIds);
       } else {
         throw new Error("Något gick fel");
@@ -324,7 +324,7 @@ function Medicine() {
       console.error("Fel vid hämtning");
     }
   };
-  //edit input fields in form
+  //Edit input fields in form
   const editData = () => {
     setEditMedicine(true);
     setInputData({
@@ -336,7 +336,7 @@ function Medicine() {
       animal_id: selectedAnimal,
     });
   };
-
+//Cancel 
   const goBack = () => {
     setEditMedicine(false);
     setNewMedicine({
@@ -349,13 +349,13 @@ function Medicine() {
     });
   };
 
-  //change url and add id
+  //Change url and add id
   const navigateToMedicine = (id: string) => {
-    //navigate to handle with id from chosen medicine
+    //Navigate to handle with id from chosen medicine
     navigate(`/handle/${id}`);
-    //change states
+    //Change states
     setShow(true);
-    //save id
+    //Save id
     setChosenMedicinelId(id);
   };
 
@@ -430,7 +430,7 @@ function Medicine() {
       amount: sanitizedAmount,
       recurrent: sanitizedRecurrent,
       animal_id: selectedAnimal,
-    }); // fetch (post)
+    }); // fetch (post medicines)
     try {
       const response = await fetch(
         `http://localhost:8000/api/medicines/${id}`,
@@ -448,7 +448,7 @@ function Medicine() {
             recurrent: sanitizedRecurrent,
           }),
         }
-      ); //if response ok
+      ); //If response ok
       if (response.ok) {
         //Clean input fields
         setNewMedicine({
@@ -495,11 +495,11 @@ function Medicine() {
             },
           }
         );
-        //response
+        //Response
         const pickedMedicines = await response.json();
         if (response.ok) {
           setMedicines(pickedMedicines);
-          //get errors
+          //Get errors
         }
       } catch (error) {
         console.log(error);
@@ -550,7 +550,7 @@ function Medicine() {
     event: React.ChangeEvent<HTMLSelectElement>
   ) => {
     const selectedOptionValue = event.target.value;
-    //update after choosen herd
+    //Update after choosen herd
     setSelectedOption(selectedOptionValue);
     // If select liston "AllAnimals", no table shows
     if (selectedOptionValue === "AllAnimals") {
@@ -564,9 +564,9 @@ function Medicine() {
     }
   };
 
-  //Delete Milk with id
+  //Delete Medicine with id
   const deleteMedicine = async (chosenMedicineId: string) => {
-    //fetch (delete)
+    //Fetch (delete medicine)
     try {
       const response = await fetch(
         `http://localhost:8000/api/medicines/${chosenMedicineId}`,
@@ -578,16 +578,16 @@ function Medicine() {
             Accept: "application/json",
           },
         }
-      ); //if response ok
+      ); //If response ok
       if (response.ok) {
         //And if animal is chosen
         if (selectedAnimal) {
-        //get all medicine from animal
+        //Get all medicine from animal
         getMedicinesByAnimals(selectedAnimal);
       } else {
         getMedicinesByHerd(selectedOption);
       }
-        //change show to false and show message
+        //Change show to false and show message
         setShow(false);
         setShowMessage("Medicineringen är raderad");
         // Clear message after  3 seconds
@@ -605,7 +605,7 @@ function Medicine() {
   return (
     <div>
       {/* Boolean, if Edit medicine = true, show Edit form. Else show form form add medicine*/}
-      {/* Form for chaging medicine */}
+      {/* Form for changing medicine */}
       {editMedicine ? (
         <div>
           <form
@@ -718,7 +718,7 @@ function Medicine() {
           )}
         </div>
       ) : (
-        /*form for adding medicine*/
+        /*Form for adding medicine*/
         <div>
           <form
             className="form-control handleForm form-control-sm border border-dark shadow mx-auto"
@@ -830,7 +830,7 @@ function Medicine() {
           )}
         </div>
       )}
- {/* This shows if user has more than one herd */}
+ {/* Shows if user has more than one herd */}
  {!isLoading && herds.length > 1 && (
         <div>
           <form className="form-control form-control-sm border-0 mx-auto">
@@ -859,7 +859,7 @@ function Medicine() {
           </form>
         </div>
       )}
-      {/* This shows if there is no milk registrated in any animal in herd */}
+      {/* Shows if there is no medicine registrated in any animal in herd */}
       {(showTable && medicines.length < 1) || chosenAnimalId == "0" ? (
         <p>Ingen information finns registrerad</p>
       ) : (
@@ -896,7 +896,7 @@ function Medicine() {
       <button
         className="button"
         onClick={() => {
-          setEditMedicine(true); // Update editMilk-state to true to edit
+          setEditMedicine(true); // Update editMedicine-state to true to edit
           setNewMedicine({
             id: medicine.id,
             date: medicine.date,
@@ -924,7 +924,7 @@ function Medicine() {
       </table>
       </div>
   )}
-      {/**Popup for deleating */}
+      {/**Popup for deleting */}
       {show && (
         <div className="modal" role="dialog" style={{ display: "block" }}>
           <div className="modal-dialog" role="document">

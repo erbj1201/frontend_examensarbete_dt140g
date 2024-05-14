@@ -15,13 +15,13 @@ const RegisterPage: React.FC = () => {
   const navigate = useNavigate();
    //Create new instance of cookie
    const cookies = new Cookies();
-   //get token
+   //Get token
    const token = cookies.get("token");
-//state for messages to form
+//State for messages to form
   const [showMessage, setShowMessage] = useState<string | null>(null);
-  //state to handle checkbox
+  //State to handle checkbox
   const [isChecked, setIsChecked] = useState(false);
-//handle checkbox
+//Handle checkbox
   const checkHandler = () => {
     setIsChecked(!isChecked)
   }
@@ -45,7 +45,7 @@ const RegisterPage: React.FC = () => {
 
    // Function to clear update and delete messages after a specified time
    const clearMessages = () => {
-    //clear messages
+    //Clear messages
     setShowMessage(null);
     setFormError({
       name: "",
@@ -56,13 +56,13 @@ const RegisterPage: React.FC = () => {
     });
   };
 
-  //check if token exist, send to startpage
+  //Check if token exist, send to startpage
   useEffect(() => {
     if (token) {
       navigate("/");
     }
   }, [token, navigate]);
-  //handle input
+  //Handle input
   const handleUserInput = (name: string, value: string) => {
     setNewUser({
       ...newUser,
@@ -80,17 +80,11 @@ const RegisterPage: React.FC = () => {
       confirmPassword: "",
       gdpr: "",
     };
-        // Check if checkbox is checked
+        // Control if checkbox is checked
   if (!isChecked) {
-   /*  setFormError({
-      ...inputError,
-      gdpr: "Du måste godkänna behandlingen av personuppgifter för att skapa en användare",
-    });
-    // Clear message after  3 seconds
-    setTimeout(clearMessages, 3000); */
     return;
   }
-    // check if name, email and password are empty
+    // Check if name, email and password are empty
     if (!newUser.name && !newUser.email && !newUser.password) {
       setFormError({
         ...inputError,
@@ -145,8 +139,6 @@ const RegisterPage: React.FC = () => {
       return;
     }
 
-  
-
     // Sanitize user input using DOMPurify
     const sanitizedName = DOMPurify.sanitize(newUser.name);
     const sanitizedEmail = DOMPurify.sanitize(newUser.email);
@@ -159,7 +151,8 @@ const RegisterPage: React.FC = () => {
       password: sanitizedPassword,
       confirmPassword: newUser.confirmPassword,
     });
-    //fetch (post) new user
+
+    //fetch (post) register new user
     try {
       const response = await fetch("http://localhost:8000/api/register", {
         method: "POST",

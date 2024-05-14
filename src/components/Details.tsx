@@ -19,14 +19,13 @@ interface Animal {
   herd_id: string;
   imagepath: string;
 }
-
+//Define image
 interface Image {
   imagepath: string;
 }
 
 const DetailsPage: React.FC = () => {
   //States
-  /* const [animals, setAnimals] = useState<Animal>(); */
   const [herdId, setHerdId] = useState<string | null>(null);
   const [animalsByHerds, setAnimalsByHerds] = useState<Animal[]>([]);
   const [animalIndex, setAnimalIndex] = useState(0);
@@ -66,7 +65,7 @@ const DetailsPage: React.FC = () => {
   }, [id]);
 
 
-  // Gets all calf from the animal with fetch
+  // Gets all calves from animal with fetch
   const getCalvesByAnimals = async (animal_id: string) => {
     //Fetch calves (get)
     try {
@@ -173,7 +172,7 @@ const DetailsPage: React.FC = () => {
   };
 
   const fetchAnimalsByHerd = async (herdId: string | null) => {
-    //Fetch animals from herd (get) 
+    //Fetch animals from herd (with get) 
     try {
       const response = await fetch(
         `http://localhost:8000/api/animals/herds/${herdId}`,
@@ -218,12 +217,11 @@ const DetailsPage: React.FC = () => {
       navigate(`/details/${animalsByHerds[animalIndex - 1].id}`);
     }
   };
-  
 
   useEffect(() => {
-    //check if id extist
+    //Check if id exist
     if (id != null) {
-      //fetch
+      //Fetch animal by id
       const getAnimalById = async (id: string) => {
         try {
           const response = await fetch(
@@ -236,12 +234,12 @@ const DetailsPage: React.FC = () => {
               },
             }
           );
-          //if response ok
+          //If response ok
           if (response.ok) {
             const jsonData = await response.json();
             const herdIdJson = jsonData.herd_id;
             setHerdId(herdIdJson);
-            //find index
+            //Find index
             const index = animalsByHerds.findIndex(
               (animal) => animal.id === parseInt(id)
             );
@@ -264,7 +262,7 @@ const DetailsPage: React.FC = () => {
       fetchAnimalsByHerd(herdId);
     }
   }, [herdId]);
-
+//Writes out information depending on index
   const animalDataWithIndex: any[] = animalsByHerds.map(
     (animalByHerd, index) => ({
       data: {
@@ -282,14 +280,13 @@ const DetailsPage: React.FC = () => {
       index: index,
     })
   );
-
+//Edit image
   const editImage = () => {
     setEditImageData(true);
     setImage({
       imagepath: imageUrl || ""
     });
   };
-
 
   // Function to clear update and delete messages after a specified time
   const clearMessages = () => {
@@ -364,7 +361,6 @@ const DetailsPage: React.FC = () => {
   return (
     <div>
       <p>Antal djur i besättningen: {animalsByHerds.length}</p>
-
       {animalDataWithIndex.length > 0 && (
         <div key={animalsByHerds[animalIndex].id}>
           <section className=" detailsArticle mx-auto m-3 w-100 border border-dark position-relative">
@@ -522,7 +518,6 @@ const DetailsPage: React.FC = () => {
                         <p>Födelsedatum:: {calf.birthDate} </p>
                         <p>Kön: {calf.sex} </p>
                         <p>Kategori: {calf.category} </p>
-
                       </div>
                     ))
                   ) : (<p> Ingen kalv för detta djur</p>)}
@@ -531,9 +526,6 @@ const DetailsPage: React.FC = () => {
             </article>
           </section>
         </div>
-        /*    ) : (
-                <p>Loading...</p>
-            )} */
       )}
     </div>
   );

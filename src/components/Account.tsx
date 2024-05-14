@@ -1,7 +1,7 @@
 import DOMPurify from "dompurify";
 import React, { useEffect, useState } from "react";
 import Cookies from "universal-cookie";
-
+//Structure of user
 interface User {
   name: string;
   email: string;
@@ -9,7 +9,7 @@ interface User {
   id: string;
   imagepath: string;
 }
-
+//Structure of image
 interface Image {
   imagepath: string;
 }
@@ -28,6 +28,7 @@ export default function Account() {
     id: "",
     imagepath: "",
   });
+  
   //State for edit user
   const [inputData, setInputData] = useState({
     name: "",

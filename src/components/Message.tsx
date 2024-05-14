@@ -1,5 +1,5 @@
 /*Message component*/
-//import
+//Import
 
 import DOMPurify from "dompurify";
 import React, { useEffect, useState } from "react";
@@ -11,6 +11,7 @@ interface MessageItem {
   description: string;
   userid: string;
 }
+
 interface Message {
   id: number;
   title: string;
@@ -18,12 +19,12 @@ interface Message {
   created_at: string;
 }
 
-//new instance of cookies
+//New instance of cookies
 const cookies = new Cookies();
-//get token from cookies
+//Get token from cookies
 const token = cookies.get("token");
 
-//get userid from sessionstorage
+//Get userid from sessionstorage
 const userid = sessionStorage.getItem("userid")!;
 
 const Message: React.FC = () => {
@@ -38,7 +39,7 @@ const Message: React.FC = () => {
     title: "",
     description: "",
   });
-  //state for fetched messages
+  //State for fetched messages
   const [fetchMessages, setFetchMessages] = useState<Message[]>([]);
 
   //State for showing form messages
@@ -54,7 +55,7 @@ const Message: React.FC = () => {
 
   // Function to clear update and delete messages after a specified time
   const clearMessages = () => {
-    //clear messages
+    //Clear messages
     setShowMessage(null);
     setFormError({
       title: "",
@@ -71,7 +72,7 @@ const Message: React.FC = () => {
     const cookies = new Cookies();
     const token = cookies.get("token");
 
-    //get userid from sessionstorage
+    //Get userid from sessionstorage
     const userid = sessionStorage.getItem("userid")!;
     try {
       // Fetch all user herds (get)
@@ -104,7 +105,7 @@ const Message: React.FC = () => {
       title: "",
       description: "",
     };
-    // check if title, description are empty
+    //Check if title, description are empty
     if (!messageData.title && !messageData.description) {
       setFormError({
         ...inputError,
