@@ -29,7 +29,6 @@ function Milk() {
   const navigate = useNavigate();
   //States
   const [showMessage, setShowMessage] = useState<string | null>(null);
-  const [chosenAnimalId, setChosenAnimalId] = useState<string>("");
   const [chosenMilkId, setChosenMilkId] = useState<string>("");
   const [chosenHerdId, setChosenHerdId] = useState<string>("");
   const [herds, setHerds] = useState<Herd[]>([]);
@@ -211,19 +210,12 @@ function Milk() {
     }
   };
 
-  //Trigger that shows the last milks from the chosen id (animal).
-  const changeAnimal = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const { value } = e.target;
-    //Set chosen animal
-    setSelectedAnimal(value);
-    /* handleAnimalChange(e); */
-  };
   // Gets all milk from the animal with fetch
-  const getMilkByAnimals = async (chosenAnimalId: string) => {
+  const getMilkByAnimals = async (selectedAnimal: string) => {
     //Fetch get chosen animal
     try {
       const response = await fetch(
-        `http://localhost:8000/api/milks/animals/${chosenAnimalId}`,
+        `http://localhost:8000/api/milks/animals/${selectedAnimal}`,
         {
           method: "GET",
           headers: {
@@ -537,7 +529,7 @@ function Milk() {
                 id="animal_id"
                 name="animal_id"
                 className="form-select form-select-sm shadow-sm border-dark"
-                value={chosenAnimalId}
+                value={selectedAnimal}
               >
                 <option disabled value="">
                   Välj ett djur
@@ -703,7 +695,7 @@ function Milk() {
         </div>
       )}
       {/* This shows if there is no milk registrated in any animal in herd */}
-      {(showTable && milks.length < 1) || chosenAnimalId == "0" ? (
+      {(showTable && milks.length < 1) || selectedAnimal == "0" ? (
         <p>Ingen information finns registrerad</p>
       ) : (
         /* Else show table with milks */
