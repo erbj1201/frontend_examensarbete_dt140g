@@ -141,6 +141,9 @@ const userid = sessionStorage.getItem("userid");
   };
   return (
     <div>
+       {herds.length > 0 ? (
+  
+    <div>
       {/*If there are more than one herd, show select with option*/}
       {!isLoading && !error && herds.length > 1 && (
         <div>
@@ -242,6 +245,10 @@ const userid = sessionStorage.getItem("userid");
         <p>Inga djur i besättningen</p>
       )}
     </div>
+       ) : (
+        <p>Inga besättningar registrerade</p>
+       )}
+       </div>
   );
 };
 //Export
