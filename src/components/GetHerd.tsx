@@ -26,11 +26,11 @@ interface Animal {
 
 const GetHerdComponent: React.FC = () => {
   // Create new instance of cookie
-const cookies = new Cookies();
-// Get token from cookies
-const token = cookies.get("token");
-// Get userid from sessionstorage
-const userid = sessionStorage.getItem("userid");
+  const cookies = new Cookies();
+  // Get token from cookies
+  const token = cookies.get("token");
+  // Get userid from sessionstorage
+  const userid = sessionStorage.getItem("userid");
   //States
   const [error, setError] = useState<any>(undefined);
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -141,114 +141,116 @@ const userid = sessionStorage.getItem("userid");
   };
   return (
     <div>
-       {herds.length > 0 ? (
-  
-    <div>
-      {/*If there are more than one herd, show select with option*/}
-      {!isLoading && !error && herds.length > 1 && (
+      {herds.length > 0 ? (
+
         <div>
-          <form className="form-control form-control-sm border-0 mx-auto">
-          <div className="form-group mx-auto">
-          <label className="form-label" htmlFor="herds">Välj en besättning:</label>
-          <br />
-          <select
-            id="herds"
-            name="herds"
-            className="form-select w-25 shadow-sm border-dark"
-            onChange={handleSelectChange}
-            value={selectedOption}
-          >
-            <option value="AllAnimals">Visa alla besättningar</option>
-            {herds.map((herd) => (
-              <option key={herd.id} value={herd.id}>
-                Besättning: {herd.herdId}, {herd.address}
-              </option>
-            ))}
-          </select>
+          {/*If there are more than one herd, show select with option*/}
+          {!isLoading && !error && herds.length > 1 && (
+            <div>
+              <form className="form-control form-control-sm border-0 mx-auto">
+                <div className="form-group mx-auto">
+                  <label className="form-label" htmlFor="herds">Välj en besättning:</label>
+                  <br />
+                  <select
+                    id="herds"
+                    name="herds"
+                    className="form-select w-25 shadow-sm border-dark"
+                    onChange={handleSelectChange}
+                    value={selectedOption}
+                  >
+                    <option value="AllAnimals">Visa alla besättningar</option>
+                    {herds.map((herd) => (
+                      <option key={herd.id} value={herd.id}>
+                        Besättning: {herd.herdId}, {herd.address}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+              </form>
+            </div>
+          )}
+          {/* Buttons to sort out by category */}
+          <div className="container mx-auto p-3">
+            <button
+              className="category-btn active m-3"
+              onClick={() => {
+                //Undefined to stop sort the categories
+                handleFilterCategory(undefined);
+              }}
+            >
+              Alla djur
+            </button>
+            {/**Köttdjur */}
+            <button
+              className="category-btn active m-3"
+              onClick={() => {
+                handleFilterCategory("kött");
+              }}
+            >
+              Köttdjur
+            </button>
+            {/**Mjölkdjur */}
+            <button
+              className="category-btn active m-3"
+              onClick={() => {
+                handleFilterCategory("mjölk");
+              }}
+            >
+              Mjölkdjur
+            </button>
           </div>
-          </form>
-        </div>
-      )}
-      {/* Buttons to sort out by category */}
-      <div className="container mx-auto p-3">
-        <button
-          className="category-btn active m-3"
-          onClick={() => {
-            //Undefined to stop sort the categories
-            handleFilterCategory(undefined);
-          }}
-        >
-          Alla djur
-        </button>
-        {/**Köttdjur */}
-        <button
-          className="category-btn active m-3"
-          onClick={() => {
-            handleFilterCategory("kött");
-          }}
-        >
-          Köttdjur
-        </button>
-        {/**Mjölkdjur */}
-        <button
-          className="category-btn active m-3"
-          onClick={() => {
-            handleFilterCategory("mjölk");
-          }}
-        >
-          Mjölkdjur
-        </button>
-      </div>
-      {/*if animal lenght is larger then 0*/}
-      {animals.length > 0 ? (
-        <table className="table table-responsive table-hover">
-          <thead>
-            <tr>
-              <th>Id</th>
-              <th>Djurid</th>
-              <th>ÖronNr:</th>
-              <th>Födelsedatum</th>
-              <th>Ras</th>
-              <th>Kön</th>
-              <th>Kategori</th>
-              <th>Namn</th>
-              <th>Besättningsid</th>
-            </tr>
-          </thead>
-          <tbody>
-            {/*Loop and write animals and filter by category*/}
-            {/*eventlistener to navigate to details page for choosen animal*/}
-            {animals
-              .filter((animal) =>
-                filterCategory ? animal.category === filterCategory : true
-              )
-              .map((animal) => (
-                <tr
-                  key={animal.id}
-                  onClick={() => navigateToDetails(animal.id)}
-                >
-                  <td>{animal.id}</td>
-                  <td>{animal.animalId}</td>
-                  <td>{animal.earNo}</td>
-                  <td>{animal.birthDate}</td>
-                  <td>{animal.breed}</td>
-                  <td>{animal.sex}</td>
-                  <td>{animal.category}</td>
-                  <td>{animal.name}</td>
-                  <td>{animal.herd_id}</td>
+          {/*if animal lenght is larger then 0*/}
+          {animals.length > 0 ? (
+            <table className="table w-75 shadow-sm mx-auto table-responsive-sm table-hover">
+              <thead className=" d-none d-sm-table-header-group">
+                <tr>
+                  <th>Djuridentitet</th>
+                  <th>Namn</th>
+                  <th>Födelsedatum</th>
+                  <th>Ras</th>
+                  <th>Kön</th>
                 </tr>
-              ))}
-          </tbody>
-        </table>
+              </thead>
+              <tbody>
+                {/*Loop and write animals and filter by category*/}
+                {/*eventlistener to navigate to details page for choosen animal*/}
+                {animals
+                  .filter((animal) =>
+                    filterCategory ? animal.category === filterCategory : true
+                  )
+                  .map((animal) => (
+                    <tr className="tableRow shadow-sm  "
+                      key={animal.id}
+                      onClick={() => navigateToDetails(animal.id)}
+                    >{/* Display block for mobile */}
+                      <td className="d-block d-sm-none animalId" data-label="Djuridentitet">{animal.animalId}</td>
+                      <td className="d-block d-sm-none" data-label="Namn">{animal.name}</td>
+                      <td className="d-block d-sm-none" data-label="Födelsedatum">{animal.birthDate}</td>
+                      <td className="d-block d-sm-none" data-label="Ras">{animal.breed}</td>
+                      <td className="d-block d-sm-none" data-label="Kön">{animal.sex}</td>
+                      {/* Table for desktop */}
+                      <td className="d-none d-sm-table-cell">{animal.animalId}</td>
+                       <td className="d-none d-sm-table-cell">{animal.name}</td>
+                      <td className="d-none d-sm-table-cell">{animal.birthDate}</td>
+                      <td className="d-none d-sm-table-cell">{animal.breed}</td>
+                      <td className="d-none d-sm-table-cell">{animal.sex}</td>
+                    
+                    
+                  
+
+                    </tr>
+                  ))}
+              </tbody>
+            </table>
+          ) : (
+            //if no animals in herd
+            <p>Inga djur i besättningen</p>
+          )}
+        </div>
       ) : (
-        //if no animals in herd
-        <p>Inga djur i besättningen</p>
+        <p>Inga besättningar registrerade</p>
       )}
     </div>
-       ) : (
-        <p>Inga besättningar registrerade</p>
-       )}
-       </div>
   );
 };
 //Export
