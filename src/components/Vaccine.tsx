@@ -235,11 +235,11 @@ function Vaccine() {
     }
   };
   //Gets all vaccines from the animal with fetch
-  const getVaccinesByAnimals = async (chosenAnimalId: string) => {
+  const getVaccinesByAnimals = async (selectedAnimal: string) => {
     //fetch get
     try {
       const response = await fetch(
-        `http://localhost:8000/api/vaccines/animals/${chosenAnimalId}`,
+        `http://localhost:8000/api/vaccines/animals/${selectedAnimal}`,
         {
           method: "GET",
           headers: {
