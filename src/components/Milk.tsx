@@ -40,9 +40,7 @@ function Milk() {
   const [showTable, setShowTable] = useState<boolean>(true);
   //Show/ Hide edit milk form
   const [editMilk, setEditMilk] = useState(false);
-  const [animals, setAnimals] = useState<{ id: string; animalId: string }[]>(
-    []
-  );
+  const [animals, setAnimals] = useState<any[]>([]);
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const [milks, setMilks] = useState<Milk[]>([]);
@@ -254,19 +252,19 @@ function Milk() {
       ); //If response ok
       if (response.ok) {
         const jsonData = await response.json();
-        //Map function to transform objects in the array.
-        const animalIds = jsonData.map((animal: any) => ({
-          id: animal.id,
-          animalId: animal.animalId,
-        }));
-        //Set animal
-        setAnimals(animalIds);
+        //set animal
+        setAnimals(jsonData);
       } else {
         throw new Error("Något gick fel");
       }
     } catch (error) {
       console.error("Fel vid hämtning");
     }
+  };
+//find animal
+  const findAnimalId = (animalId: string) => {
+    const animal = animals.find((animal) => animal.id === animalId);
+    return animal ? animal.animalId : "Okänt"; // returnera animalId eller "Okänt" om djuret inte hittades
   };
 
   //Edit input fields in form
@@ -519,7 +517,7 @@ function Milk() {
             noValidate
           >
             <h2 className="py-3">Ändra mjölkning</h2>
-            <div className="form-group">
+            <div key={newMilk.id} className="form-group">
               <label htmlFor="animal_id" className="form-label">
                 Djuridentitet:
               </label>
@@ -528,14 +526,15 @@ function Milk() {
                 name="animal_id"
                 className="form-select form-select-sm shadow-sm border-dark"
                 value={selectedAnimal}
+                disabled
               >
-                <option disabled value="">
+                <option value="">
                   Välj ett djur
                 </option>
                 {animals.map((animal) => (
-                  <option key={animal.id} value={animal.id}>
-                    {animal.animalId}
-                  </option>
+          <option key={animal.id} value={animal.id}>
+            {findAnimalId(animal.id)} {/* Använd findAnimalId för att hitta animalId baserat på animal_id */}
+          </option>
                 ))}
               </select>
               <p className="error-message text-danger fw-bold">
