@@ -35,7 +35,6 @@ function Calf() {
   const navigate = useNavigate();
   //States
   const [showMessage, setShowMessage] = useState<string | null>(null);
-  const [chosenAnimalId, setChosenAnimalId] = useState<string>("");
   const [chosenCalfId, setChosenCalfId] = useState<string>("");
   const [chosenHerdId, setChosenHerdId] = useState<string>("");
   const [herds, setHerds] = useState<Herd[]>([]);
@@ -346,13 +345,6 @@ function Calf() {
       setTimeout(clearMessages, 3000);
     }
   };
-  //Trigger that shows the last calves from the chosen id (animal).
-  const changeAnimal = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const { value } = e.target;
-    //Change state after chosen animal
-    setSelectedAnimal(value);
-  };
-
   // Gets all calf from the animal with fetch
   const getCalvesByAnimals = async (chosenAnimalId: string) => {
     //Fetch (get)
@@ -644,7 +636,7 @@ function Calf() {
           birthDate: "",
           sex: "",
           category: "",
-          animal_id: chosenAnimalId,
+          animal_id: selectedAnimal,
         });
 
 
@@ -820,7 +812,7 @@ function Calf() {
                 id="animal_id"
                 name="animal_id"
                 className="form-select form-select-sm shadow-sm border border-dark"
-                value={chosenAnimalId}
+                value={selectedAnimal}
               >
                 <option value="">Välj ett djur</option>
                 {animals.map((animal) => (
@@ -1197,7 +1189,7 @@ function Calf() {
         </div>
       )}
       {/* This shows if there is calves registrated in any animal in herd */}
-      {(showTable && calves.length < 1) || chosenAnimalId == "0" ? (
+      {(showTable && calves.length < 1) || selectedAnimal == "0" ? (
         <p>Ingen information finns registrerad</p>
       ) : (
         /*Table to write calves*/
