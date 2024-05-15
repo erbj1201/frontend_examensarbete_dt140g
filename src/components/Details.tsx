@@ -20,9 +20,9 @@ interface Animal {
   imagepath: string;
 }
 //Define image
-interface Image {
+ interface Image {
   imagepath: string;
-}
+} 
 
 const DetailsPage: React.FC = () => {
   //States
@@ -49,11 +49,11 @@ const DetailsPage: React.FC = () => {
   //Edit Image
   const [editImageData, setEditImageData] = useState(false);
   const [showMessage, setShowMessage] = useState<string | null>(null);
-  const [imageUrl, setImageUrl] = useState<string | null>(null);
+ const [imageUrl, setImageUrl] = useState<string | null>(null); 
   //State for edit image
-  const [image, setImage] = useState<Image>({
+/* const [image, setImage] = useState<Image>({
     imagepath: "",
-  });
+  }); */
 
   useEffect(() => {
     if (id) {
@@ -283,9 +283,7 @@ const DetailsPage: React.FC = () => {
 //Edit image
   const editImage = () => {
     setEditImageData(true);
-    setImage({
       imagepath: imageUrl || ""
-    });
   };
 
   // Function to clear update and delete messages after a specified time
@@ -319,9 +317,9 @@ const DetailsPage: React.FC = () => {
       //When file is loaded, set img url
       reader.onload = (event) => {
         const result = event.target?.result;
-        if (typeof result === "string") {
+         if (typeof result === "string") {
           setImageUrl(result);
-        }
+        } 
       }; //If error reading file, show in console
       reader.onerror = (error) => {
         console.error("Error reading file:", error);

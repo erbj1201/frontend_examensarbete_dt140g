@@ -39,7 +39,7 @@ function Vaccine() {
    //Show/Hide Table
   const [showTable, setShowTable] = useState<boolean>(true);
   const [editVaccine, setEditVaccine] = useState(false);
-  const [animals, setAnimals] = useState<{ id: string; animalId: string }[]>([]);
+  const [animals, setAnimals] = useState<any[]>([]);
   const [show, setShow] = useState(false);
  
   const handleClose = () => setShow(false);
@@ -273,12 +273,8 @@ function Vaccine() {
       }); //if response ok
       if (response.ok) {
         const jsonData = await response.json();
-        //Map function to transform objects in the array.
-        const animalIds = jsonData.map((animal: any) => ({
-          id: animal.id,
-          animalId: animal.animalId,
-        })); //set animal
-        setAnimals(animalIds);
+        //set animal
+        setAnimals(jsonData);
       } else {
         throw new Error("Något gick fel");
       }
@@ -287,14 +283,19 @@ function Vaccine() {
     }
   };
 
+  const findAnimalId = (animalId: string) => {
+    const animal = animals.find((animal) => animal.id === animalId);
+    return animal ? animal.animalId : "Okänt"; // returnera animalId eller "Okänt" om djuret inte hittades
+  };
+
   const editData = () => {
-    setEditVaccine(true);
+       setEditVaccine(true);
     setInputData({
       id: newVaccine.id,
       batchNo: newVaccine.batchNo,
       name: newVaccine.name,
       date: newVaccine.date,
-      animal_id: selectedAnimal,
+      animal_id: selectedAnimal
     });
   };
   const goBack = () => {
@@ -582,28 +583,30 @@ const fetchHerdsAnimals = async (userid: string | null) => {
             onSubmit={(e) => updateVaccine(e)}
             noValidate //The formdata is not automaticallly validated by the browser
           >
+            
             <h2 className="py-3">Ändra vaccinering</h2>
-            <div className="form-group">
-              <label htmlFor="animal_id" className="form-label">
+            <div key={newVaccine.id} className="form-group">
+             <label htmlFor="animal_id" className="form-label">
                 Djuridentitet:
-              </label>
+              </label> 
               <select
                 id="animal_id"
                 name="animal_id"
                 className="form-select form-select-sm shadow-sm border-dark"
                 value={selectedAnimal}
+                disabled
               >
-                <option value="">Välj ett djur</option>
-                {animals.map((animal) => (
-                  <option key={animal.id} value={animal.id}>
-                    {animal.animalId}
-                  </option>
+                 <option value="">Välj ett djur</option>
+        {animals.map((animal) => (
+          <option key={animal.id} value={animal.id}>
+            {findAnimalId(animal.id)} {/* Använd findAnimalId för att hitta animalId baserat på animal_id */}
+          </option>
                 ))}
               </select>
               <p className="error-message text-danger fw-bold">
-                {formError.animal_id}
-              </p>
+                {formError.animal_id} </p>
             </div>
+          
             <div className="form-group">
               <label htmlFor="batchNo" className="form-label">
                 Batchnummer:
@@ -689,7 +692,7 @@ const fetchHerdsAnimals = async (userid: string | null) => {
                 onChange={(e) => setSelectedAnimal(e.target.value)}
               >
                 <option value="">Välj ett djur</option>
-                {animals.map((animal) => (
+                {animals?.map((animal) => (
                   <option key={animal.id} value={animal.id}>
                     {animal.animalId}
                   </option>
@@ -806,7 +809,7 @@ const fetchHerdsAnimals = async (userid: string | null) => {
           {/**Loop and Write vaccine */}
           {vaccines.map((vaccine) => {
               //Get  vaccine that matches animal_id in database
-            const animal = animals.find(
+            const animal = animals?.find(
               (animal) => animal.id === vaccine.animal_id
             );
             return (
@@ -826,7 +829,7 @@ const fetchHerdsAnimals = async (userid: string | null) => {
                       batchNo: vaccine.batchNo,
                       name: vaccine.name,
                       date: vaccine.date,
-                      animal_id: vaccine.animal_id,
+                      animal_id: selectedAnimal,
                     });
                   }}
                 >
