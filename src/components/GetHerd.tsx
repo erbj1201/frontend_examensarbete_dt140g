@@ -142,7 +142,6 @@ const GetHerdComponent: React.FC = () => {
   return (
     <div>
       {herds.length > 0 ? (
-
         <div>
           {/*If there are more than one herd, show select with option*/}
           {!isLoading && !error && herds.length > 1 && (
