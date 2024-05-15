@@ -260,11 +260,11 @@ function Medicine() {
     }
   };
   // Gets all medicine from the animal with fetch
-  const getMedicinesByAnimals = async (chosenAnimalId: string) => {
+  const getMedicinesByAnimals = async (selectedAnimal: string) => {
     //Fetch (get medicine)
     try {
       const response = await fetch(
-        `http://localhost:8000/api/medicines/animals/${chosenAnimalId}`,
+        `http://localhost:8000/api/medicines/animals/${selectedAnimal}`,
         {
           method: "GET",
           headers: {

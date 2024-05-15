@@ -346,11 +346,11 @@ function Calf() {
     }
   };
   // Gets all calf from the animal with fetch
-  const getCalvesByAnimals = async (chosenAnimalId: string) => {
+  const getCalvesByAnimals = async (selectedAnimal: string) => {
     //Fetch (get)
     try {
       const response = await fetch(
-        `http://localhost:8000/api/calves/animals/${chosenAnimalId}`,
+        `http://localhost:8000/api/calves/animals/${selectedAnimal}`,
         {
           method: "GET",
           headers: {
