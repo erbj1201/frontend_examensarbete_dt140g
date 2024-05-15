@@ -41,9 +41,8 @@ function Medicine() {
   //Show/Hide Table
   const [showTable, setShowTable] = useState<boolean>(true);
   const [editMedicine, setEditMedicine] = useState(false);
-  const [animals, setAnimals] = useState<{ id: string; animalId: string }[]>(
-    []
-  );
+  const [animals, setAnimals] = useState<any[]>([]);
+  
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const [medicines, setMedicines] = useState<Medicine[]>([]);
@@ -591,7 +590,10 @@ function Medicine() {
       console.error("Något gick fel:", error);
     }
   };
-
+  const findAnimalId = (animalId: string) => {
+    const animal = animals.find((animal) => animal.id === animalId);
+    return animal ? animal.animalId : "Okänt"; // returnera animalId eller "Okänt" om djuret inte hittades
+  };
   return (
     <div>
       {/* Boolean, if Edit medicine = true, show Edit form. Else show form form add medicine*/}
@@ -614,13 +616,14 @@ function Medicine() {
                 className="form-select form-select-sm shadow-sm border-dark"
                 value={selectedAnimal}
               >
-                <option value="">Välj ett djur</option>
-                {animals.map((animal) => (
-                  <option key={animal.id} value={animal.id}>
-                    {animal.animalId}
-                  </option>
+                 <option value="">Välj ett djur</option>
+        {animals.map((animal) => (
+          <option key={animal.id} value={animal.id}>
+            {findAnimalId(animal.id)} {/* Använd findAnimalId för att hitta animalId baserat på animal_id */}
+          </option>
                 ))}
-              </select>
+              </select> 
+              
               <p className="error-message text-danger fw-bold">
                 {formError.animal_id}
               </p>
@@ -895,9 +898,10 @@ function Medicine() {
             recurrent: medicine.recurrent,
             animal_id: medicine.animal_id,
           });
+
         }}
       >
-        Ändra
+        Ändra 
       </button>
       {/**Change url when clicking at delete */}
       <button
