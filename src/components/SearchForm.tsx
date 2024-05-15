@@ -1,20 +1,98 @@
+import { useState, useEffect } from 'react';
+import Cookies from 'universal-cookie';
 /*search in header component*/
+// Structure of animal
+interface Animal {
+  id: number;
+  animalId: string;
+  earNo: string;
+  birthDate: string;
+  breed: string;
+  sex: string;
+  category: string;
+  name: string;
+  herd_id: string;
+}
+
 const SearchForm = () => {
+  const [animals, setAnimals] = useState<Animal[]>([]);
+  const [searchText, setSearchText] = useState('');
+  const [filter, setFilter] = useState('all');
+  const cookies = new Cookies();
+  const token = cookies.get("token");
+      // Get userid from sessionstorage
+  const userid = sessionStorage.getItem("userid");
+
+  useEffect(() => {
+    if(userid){
+      getAnimalsByUser();
+    }
+  }, [userid]); // Fetch animals when userid changes
+
+  const getAnimalsByUser = async () => {
+  try{
+   // Fetch all animals by user (get)
+   const animalsResponse = await fetch(
+    `http://localhost:8000/api/animals/users/${userid}`,
+    {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+        Accept: "application/json",
+      },
+    }
+  );
+  const animalsData = await animalsResponse.json();
+  setAnimals(animalsData);
+
+  //Get errors
+} catch (error) {
+ console.log("Kunde inte hämta djur")
+} 
+};
+const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  e.preventDefault(); // Prevent reload
+  filterAnimals(); // Filter animals
+};
+
+   // Filtered animals based on filter option, i nsearch field
+   const filterAnimals = () => {
+    const filteredAnimals = animals.filter(animal => {
+      // If "all", all animals shows
+      if (filter === 'all' || !searchText.trim()) {
+        return true;
+      }
+      // Filter animals based on option
+      return (
+        (filter === 'earNo' && animal.earNo.includes(searchText.trim())) ||
+        (filter === 'name' && animal.name.toLowerCase().includes(searchText.trim().toLowerCase()))
+      );
+    });
+    console.log(filteredAnimals);
+
+    return filteredAnimals;
+  };
+  
   return (
     <div className="mx-auto">
-      <form className="form-control form-control-sm align-items-center mx-auto bglight border-0 w-50">
+      <form onSubmit={handleSubmit} className="form-control form-control-sm align-items-center mx-auto bglight border-0 w-50">
         {/**search-input and button in header */}
         <div className="row mx-auto">
           <div className="col">
             <label>Sökord:</label>
-            <input type="text" className="form-control form-control-sm shadow border-dark" />
+            <input type="text" className="form-control form-control-sm shadow border-dark"
+              value={searchText}
+              onChange={(e) => setSearchText(e.target.value)}/>
           </div>
           <div className="col">
             <label htmlFor="filter">Filtrera</label>
-            <select className="form-select form-select-sm shadow border-dark">
-              <option value={1}>1</option>
-              <option value={2}>2</option>
-              <option value={3}>3</option>
+            <select className="form-select form-select-sm shadow border-dark"
+             value={filter}
+             onChange={(e) => setFilter(e.target.value)}>
+               <option value="all">Alla</option>
+              <option value="earNo">Öronnummer</option>
+              <option value="name">Namn</option>
             </select>
             </div>
             <div className="col mt-3">

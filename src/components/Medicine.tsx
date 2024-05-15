@@ -352,8 +352,6 @@ function Medicine() {
 
   const updateMedicine = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
-
     // Control if input fields are empty
     if (
       !newMedicine.date &&
@@ -814,7 +812,6 @@ function Medicine() {
               Lägg till
             </button>
           </form>
-
           {/**Messages to form */}
           {showMessage && (
             <p className="alert mx-auto alert-success text-dark w-25 text-center mt-2">
