@@ -31,7 +31,6 @@ function Medicine() {
   const userid = sessionStorage.getItem("userid");
   //States
   const [showMessage, setShowMessage] = useState<string | null>(null);
-  const [chosenAnimalId, setChosenAnimalId] = useState<string>("");
   const [chosenMedicineId, setChosenMedicinelId] = useState<string>("");
   const [chosenHerdId, setChosenHerdId] = useState<string>("");
   const [herds, setHerds] = useState<Herd[]>([]);
@@ -259,13 +258,6 @@ function Medicine() {
       setTimeout(clearMessages, 3000);
       console.log(error);
     }
-  };
-
-  //Trigger that shows the last medicines from the chosen id (animal).
-  const changeAnimal = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const { value } = e.target;
-    //Set chosen animal
-    setSelectedAnimal(value);
   };
   // Gets all medicine from the animal with fetch
   const getMedicinesByAnimals = async (chosenAnimalId: string) => {
@@ -622,7 +614,7 @@ function Medicine() {
                 id="animal_id"
                 name="animal_id"
                 className="form-select form-select-sm shadow-sm border-dark"
-                value={chosenAnimalId}
+                value={selectedAnimal}
               >
                 <option value="">Välj ett djur</option>
                 {animals.map((animal) => (
@@ -860,7 +852,7 @@ function Medicine() {
         </div>
       )}
       {/* Shows if there is no medicine registrated in any animal in herd */}
-      {(showTable && medicines.length < 1) || chosenAnimalId == "0" ? (
+      {(showTable && medicines.length < 1) || selectedAnimal == "0" ? (
         <p>Ingen information finns registrerad</p>
       ) : (
          /* Else show table with medicines */

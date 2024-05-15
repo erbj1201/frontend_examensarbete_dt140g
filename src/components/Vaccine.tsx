@@ -29,7 +29,6 @@ function Vaccine() {
   const navigate = useNavigate();
   //States
   const [showMessage, setShowMessage] = useState<string | null>(null);
-  const [chosenAnimalId, setChosenAnimalId] = useState<string>("");
   const [chosenVaccineId, setChosenVaccineId] = useState<string>("");
   const [chosenHerdId, setChosenHerdId] = useState<string>("");
   const [herds, setHerds] = useState<Herd[]>([]); 
@@ -235,13 +234,6 @@ function Vaccine() {
       console.log(error);
     }
   };
-  //Trigger that Shows the last vaccines from the chosen id (animal)
-  const changeAnimal = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const { value } = e.target;
-    //change state after chosen animal
-    setSelectedAnimal(value);
-  };
-
   //Gets all vaccines from the animal with fetch
   const getVaccinesByAnimals = async (chosenAnimalId: string) => {
     //fetch get
@@ -601,7 +593,7 @@ const fetchHerdsAnimals = async (userid: string | null) => {
                 id="animal_id"
                 name="animal_id"
                 className="form-select form-select-sm shadow-sm border-dark"
-                value={chosenAnimalId}
+                value={selectedAnimal}
               >
                 <option value="">Välj ett djur</option>
                 {animals.map((animal) => (
@@ -794,7 +786,7 @@ const fetchHerdsAnimals = async (userid: string | null) => {
           </form>
         </div>
       )}
-      {(showTable && vaccines.length < 1 ) || chosenAnimalId == "0"  ? (
+      {(showTable && vaccines.length < 1 ) || selectedAnimal == "0"  ? (
 
         <p>Ingen information finns registrerad</p>
        
