@@ -17,7 +17,7 @@ interface Animal {
 const SearchForm = () => {
   const [animals, setAnimals] = useState<Animal[]>([]);
   const [searchText, setSearchText] = useState('');
-  const [filter, setFilter] = useState('all');
+  const [filter, setFilter] = useState('earNo');
   const cookies = new Cookies();
   const token = cookies.get("token");
       // Get userid from sessionstorage
@@ -59,13 +59,17 @@ const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
    // Filtered animals based on filter option, i nsearch field
    const filterAnimals = () => {
     const filteredAnimals = animals.filter(animal => {
-      // If "all", all animals shows
-      if (filter === 'all' || !searchText.trim()) {
+      // If "earNo", all animals shows
+      if (filter === 'earNo' && animal.earNo.includes(searchText.trim())) {
         return true;
       }
       // Filter animals based on option
       return (
-        (filter === 'earNo' && animal.earNo.includes(searchText.trim())) ||
+        (filter === 'birthDate' && animal.birthDate.includes(searchText.trim())) ||
+        (filter === 'breed' && animal.breed.includes(searchText.trim())) ||
+        (filter === 'sex' && animal.sex.includes(searchText.trim())) ||
+        (filter === 'category' && animal.category.includes(searchText.trim())) ||
+        (filter === 'animalId' && animal.animalId.includes(searchText.trim())) ||
         (filter === 'name' && animal.name.toLowerCase().includes(searchText.trim().toLowerCase()))
       );
     });
@@ -90,9 +94,13 @@ const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
             <select className="form-select form-select-sm shadow border-dark"
              value={filter}
              onChange={(e) => setFilter(e.target.value)}>
-               <option value="all">Alla</option>
+            
               <option value="earNo">Öronnummer</option>
               <option value="name">Namn</option>
+              <option value="animalId">Djuridentitet</option>
+              <option value="sex">Kön</option>
+              <option value="category">Kategori</option>
+              <option value="birthDate">Födelsedatum</option>
             </select>
             </div>
             <div className="col mt-3">
