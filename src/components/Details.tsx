@@ -20,9 +20,9 @@ interface Animal {
   imagepath: string;
 }
 //Define image
- interface Image {
+/*  interface Image {
   imagepath: string;
-} 
+}  */
 
 const DetailsPage: React.FC = () => {
   //States
@@ -395,6 +395,9 @@ const DetailsPage: React.FC = () => {
                     />
                   )}
                   <div>
+                    { showMessage && (
+                      <p className="alert mx-auto alert-success text-dark w-25 text-center mt-2">{showMessage}</p>
+                    )}
                     <button className="button m-3" onClick={editImage}>Byt bild</button>
                   </div>
                   {/*if editimagedata is true, show form*/}
