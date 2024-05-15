@@ -504,10 +504,8 @@ const fetchHerdsAnimals = async (userid: string | null) => {
 
     }
      else {
-      const event = {
         target: {
           value: selectedOption
-        }
       }; 
      }
   }

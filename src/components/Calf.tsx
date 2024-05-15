@@ -709,10 +709,8 @@ function Calf() {
         if (herdsData.length === 1) {
           setChosenHerdId(herdsData[0].id);
         } else {
-          const event = {
             target: {
-              value: selectedOption,
-            },
+              value: selectedOption
           };
         }
       }
