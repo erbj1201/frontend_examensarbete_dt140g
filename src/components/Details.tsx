@@ -466,8 +466,8 @@ const DetailsPage: React.FC = () => {
                   {milkingData.length > 0 ? (
                     milkingData.map((milk, index) => (
                       <div key={index}>
-                        <p>Datum: {milk.milkDate}</p>
-                        <p>Mängd mjölk: {milk.kgMilk} kg</p>
+                        <p><b>Datum:</b> {milk.milkDate}</p>
+                        <p><b>Mängd mjölk:</b>{milk.kgMilk} kg</p>
                       </div>
                     ))
                   ) : (<p> Ingen mjölkning för detta djur</p>)}
@@ -480,10 +480,10 @@ const DetailsPage: React.FC = () => {
                   {medicineData.length > 0 ? (
                     medicineData.map((medicine, index) => (
                       <div key={index}>
-                        <p>Datum: {medicine.date}</p>
-                        <p>Typ: {medicine.type} </p>
-                        <p>Mängd: {medicine.amount} </p>
-                        <p>Återkommande: {medicine.recurrent} </p>
+                        <p><b>Datum:</b> {medicine.date}</p>
+                        <p><b>Typ: </b>{medicine.type} </p>
+                        <p><b>Mängd: </b>{medicine.amount} </p>
+                        <p><b>Återkommande: </b>{medicine.recurrent} </p>
                       </div>
                     ))
                   ) : (<p> Ingen medicin för detta djur</p>)}
@@ -496,9 +496,9 @@ const DetailsPage: React.FC = () => {
                   {vaccineData.length > 0 ? (
                     vaccineData.map((vaccine, index) => (
                       <div key={index}>
-                        <p>Batchnummer: {vaccine.batchNo}</p>
-                        <p>Namn: {vaccine.name} </p>
-                        <p>Datum och tid: {vaccine.date} </p>
+                        <p><b>Batchnummer: </b>{vaccine.batchNo}</p>
+                        <p><b>Namn:</b> {vaccine.name} </p>
+                        <p><b></b>Datum och tid: {vaccine.date} </p>
 
                       </div>
                     ))
@@ -512,13 +512,13 @@ const DetailsPage: React.FC = () => {
                   {calfData.length > 0 ? (
                     calfData.map((calf, index) => (
                       <div key={index}>
-                        <p>Öronnummer: {calf.earNo}</p>
-                        <p>Ras: {calf.breed}</p>
-                        <p>Namn: {calf.name}</p>
-                        <p>Förväntat födelsedatum: {calf.expectedBirthDate}</p>
-                        <p>Födelsedatum:: {calf.birthDate} </p>
-                        <p>Kön: {calf.sex} </p>
-                        <p>Kategori: {calf.category} </p>
+                        <p><b>Öronnummer:</b> {calf.earNo}</p>
+                        <p><b>Ras:</b> {calf.breed}</p>
+                        <p><b>Namn: </b>{calf.name}</p>
+                        <p><b>Förväntat födelsedatum: </b>{calf.expectedBirthDate}</p>
+                        <p><b>Födelsedatum:</b> {calf.birthDate} </p>
+                        <p><b>Kön: </b>{calf.sex} </p>
+                        <p><b>Kategori: </b>{calf.category} </p>
                       </div>
                     ))
                   ) : (<p> Ingen kalv för detta djur</p>)}
