@@ -615,7 +615,7 @@ const fetchHerdsAnimals = async (userid: string | null) => {
                 type="text"
                 id="batchNo"
                 name="batchNo"
-                className="form-control form-control-sm shadow-sm border-dark"
+                className="form-control form-control-sm border-dark"
                 value={newVaccine.batchNo}
                 onChange={handleInputChange}
               />
@@ -631,7 +631,7 @@ const fetchHerdsAnimals = async (userid: string | null) => {
                 type="text"
                 id="name"
                 name="name"
-                className="form-control form-control-sm shadow-sm border-dark"
+                className="form-control form-control-sm border-dark"
                 value={newVaccine.name}
                 onChange={handleInputChange}
               />
@@ -648,7 +648,7 @@ const fetchHerdsAnimals = async (userid: string | null) => {
                 id="date"
                 name="date"
                 placeholder="yyyy-mm-dd hh-MM"
-                className="form-control form-control-sm shadow-sm border-dark"
+                className="form-control form-control-sm border-dark"
                 value={newVaccine.date}
                 onChange={handleInputChange}
               />
@@ -687,7 +687,7 @@ const fetchHerdsAnimals = async (userid: string | null) => {
               <select
                 id="animal_id"
                 name="animal_id"
-                className="form-select form-select-sm shadow-sm border-dark"
+                className="form-select form-select-sm border-dark"
                 value={selectedAnimal}
                 onChange={(e) => setSelectedAnimal(e.target.value)}
               >
@@ -710,7 +710,7 @@ const fetchHerdsAnimals = async (userid: string | null) => {
                 type="text"
                 id="batchNo"
                 name="batchNo"
-                className="form-control form-control-sm shadow-sm border-dark"
+                className="form-control form-control-sm  border-dark"
                 value={newVaccine.batchNo}
                 onChange={handleInputChange}
               />
@@ -726,7 +726,7 @@ const fetchHerdsAnimals = async (userid: string | null) => {
                 type="text"
                 id="name"
                 name="name"
-                className="form-control form-control-sm shadow-sm border-dark"
+                className="form-control form-control-sm border-dark"
                 value={newVaccine.name}
                 onChange={handleInputChange}
               />
@@ -743,7 +743,7 @@ const fetchHerdsAnimals = async (userid: string | null) => {
                 id="date"
                 name="date"
                 placeholder="yyyy-mm-dd hh-MM"
-                className="form-control form-control-sm shadow-sm border-dark"
+                className="form-control form-control-sm border-dark"
                 value={newVaccine.date}
                 onChange={handleInputChange}
               />
@@ -772,7 +772,7 @@ const fetchHerdsAnimals = async (userid: string | null) => {
               <select
                 id="herds"
                 name="herds"
-                className="form-select w-25 shadow-sm border-dark"
+                className="form-select w-25 border-dark"
                 onChange={handleSelectChange}
                 value={selectedOption}
               >

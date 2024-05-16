@@ -549,7 +549,7 @@ function Milk() {
                 type="text"
                 id="kgMilk"
                 name="kgMilk"
-                className="form-control form-control-sm shadow-sm border-dark"
+                className="form-control form-control-sm border-dark"
                 value={newMilk.kgMilk}
                 onChange={handleInputChange}
               />
@@ -565,7 +565,7 @@ function Milk() {
                 type="datetime-local"
                 id="milkDate"
                 name="milkDate"
-                className="form-control form-control-sm shadow-sm border-dark"
+                className="form-control form-control-sm border-dark"
                 value={newMilk.milkDate}
                 onChange={handleInputChange}
               />
@@ -600,7 +600,7 @@ function Milk() {
               <select
                 id="animal_id"
                 name="animal_id"
-                className="form-control form-select-sm shadow-sm border-dark"
+                className="form-control form-select-sm border-dark"
                 onChange={(e) => setSelectedAnimal(e.target.value)}
                 value={selectedAnimal}
               >
@@ -625,7 +625,7 @@ function Milk() {
                 type="text"
                 id="kgMilk"
                 name="kgMilk"
-                className="form-control form-control-sm shadow-sm border-dark"
+                className="form-control form-control-sm border-dark"
                 value={newMilk.kgMilk}
                 onChange={handleInputChange}
               />
@@ -641,7 +641,7 @@ function Milk() {
                 type="datetime-local"
                 id="milkDate"
                 name="milkDate"
-                className="form-control form-control-sm shadow-sm border-dark"
+                className="form-control form-control-sm  border-dark"
                 value={newMilk.milkDate}
                 onChange={handleInputChange}
               />
@@ -649,7 +649,7 @@ function Milk() {
                 {formError.milkDate}
               </p>
             </div>
-            <button type="submit" className="button shadow-sm mt-2">
+            <button type="submit" className="button mt-2">
               Lägg till
             </button>
           </form>
@@ -674,7 +674,7 @@ function Milk() {
               <select
                 id="herds"
                 name="herds"
-                className="form-select w-25 shadow-sm border-dark"
+                className="form-select w-25               border-dark"
                 onChange={handleSelectChange}
                 value={selectedOption}
               >
