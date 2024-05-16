@@ -809,7 +809,7 @@ function Calf() {
               <select
                 id="animal_id"
                 name="animal_id"
-                className="form-select form-select-sm shadow-sm border border-dark"
+                className="form-select form-select-sm border border-dark"
                 value={selectedAnimal}
                 disabled
               >
@@ -831,7 +831,7 @@ function Calf() {
               <select
                 id="sex"
                 name="sex"
-                className="form-select form-select-sm shadow-sm border-dark"
+                className="form-select form-select-sm border-dark"
                 value={newCalf.sex}
                 onChange={handleInputChange}
               >
@@ -852,7 +852,7 @@ function Calf() {
               <select
                 id="category"
                 name="category"
-                className="form-select form-select-sm shadow-sm border-dark"
+                className="form-select form-select-sm border-dark"
                 value={newCalf.category}
                 onChange={handleInputChange}
               >
@@ -874,7 +874,7 @@ function Calf() {
                 type="text"
                 id="animalId"
                 name="animalId"
-                className="form-control form-control-sm shadow-sm border border-dark"
+                className="form-control form-control-sm border border-dark"
                 value={newCalf.animalId}
                 onChange={handleInputChange}
               />
@@ -890,7 +890,7 @@ function Calf() {
                 type="text"
                 id="earNo"
                 name="earNo"
-                className="form-control form-control-sm shadow-sm border border-dark"
+                className="form-control form-control-sm border border-dark"
                 value={newCalf.earNo}
                 onChange={handleInputChange}
               />
@@ -906,7 +906,7 @@ function Calf() {
                 type="text"
                 id="breed"
                 name="breed"
-                className="form-control form-control-sm shadow-sm border border-dark"
+                className="form-control form-control-sm border border-dark"
                 value={newCalf.breed}
                 onChange={handleInputChange}
               />
@@ -922,7 +922,7 @@ function Calf() {
                 type="text"
                 id="name"
                 name="name"
-                className="form-control form-control-sm shadow-sm border border-dark"
+                className="form-control form-control-sm border border-dark"
                 value={newCalf.name}
                 onChange={handleInputChange}
               />
@@ -938,7 +938,7 @@ function Calf() {
                 type="date"
                 id="expectedBirthDate"
                 name="expectedBirthDate"
-                className="form-control form-control-sm shadow-sm border border-dark"
+                className="form-control form-control-sm border border-dark"
                 value={newCalf.expectedBirthDate}
                 onChange={handleInputChange}
               />
@@ -954,7 +954,7 @@ function Calf() {
                 type="date"
                 id="birthDate"
                 name="birthDate"
-                className="form-control form-control-sm shadow-sm border border-dark"
+                className="form-control form-control-sm border border-dark"
                 value={newCalf.birthDate}
                 onChange={handleInputChange}
               />
@@ -993,7 +993,7 @@ function Calf() {
               <select
                 id="animal_id"
                 name="animal_id"
-                className="form-select form-select-sm shadow-sm border-dark"
+                className="form-select form-select-sm border-dark"
                 value={selectedAnimal}
                 onChange={(e) => setSelectedAnimal(e.target.value)}
               >
@@ -1015,7 +1015,7 @@ function Calf() {
               <select
                 id="sex"
                 name="sex"
-                className="form-select form-select-sm shadow-sm border-dark"
+                className="form-select form-select-sm border-dark"
                 value={newCalf.sex}
                 onChange={handleInputChange}
               >
@@ -1037,7 +1037,7 @@ function Calf() {
               <select
                 id="category"
                 name="category"
-                className="form-select form-select-sm shadow-sm border-dark"
+                className="form-select form-select-sm border-dark"
                 value={newCalf.category}
                 onChange={handleInputChange}
               >
@@ -1059,7 +1059,7 @@ function Calf() {
                 type="text"
                 id="animalId"
                 name="animalId"
-                className="form-control form-control-sm shadow-sm border-dark"
+                className="form-control form-control-sm border-dark"
                 value={newCalf.animalId}
                 onChange={handleInputChange}
               />
@@ -1075,7 +1075,7 @@ function Calf() {
                 type="text"
                 id="earNo"
                 name="earNo"
-                className="form-control form-control-sm shadow-sm border-dark"
+                className="form-control form-control-sm border-dark"
                 value={newCalf.earNo}
                 onChange={handleInputChange}
               />
@@ -1091,7 +1091,7 @@ function Calf() {
                 type="text"
                 id="breed"
                 name="breed"
-                className="form-control form-control-sm shadow-sm border-dark"
+                className="form-control form-control-sm border-dark"
                 value={newCalf.breed}
                 onChange={handleInputChange}
               />
@@ -1107,7 +1107,7 @@ function Calf() {
                 type="text"
                 id="name"
                 name="name"
-                className="form-control form-control-sm shadow-sm border-dark"
+                className="form-control form-control-sm border-dark"
                 value={newCalf.name}
                 onChange={handleInputChange}
               />
@@ -1123,7 +1123,7 @@ function Calf() {
                 type="date"
                 id="expectedBirthDate"
                 name="expectedBirthDate"
-                className="form-control form-control-sm shadow-sm border-dark"
+                className="form-control form-control-sm border-dark"
                 value={newCalf.expectedBirthDate}
                 onChange={handleInputChange}
               />
@@ -1139,7 +1139,7 @@ function Calf() {
                 type="date"
                 id="birthDate"
                 name="birthDate"
-                className="form-control form-control-sm shadow-sm border-dark"
+                className="form-control form-control-sm border-dark"
                 value={newCalf.birthDate}
                 onChange={handleInputChange}
               />
@@ -1170,7 +1170,7 @@ function Calf() {
               <select
                 id="herds"
                 name="herds"
-                className="form-select w-25 shadow-sm border-dark"
+                className="form-select w-25 border-dark"
                 onChange={handleSelectChange}
                 value={selectedOption}
               >

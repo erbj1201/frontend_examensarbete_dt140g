@@ -153,7 +153,7 @@ const GetHerdComponent: React.FC = () => {
                   <select
                     id="herds"
                     name="herds"
-                    className="form-select w-25 shadow-sm border-dark"
+                    className="form-select w-25 border-dark"
                     onChange={handleSelectChange}
                     value={selectedOption}
                   >
@@ -208,6 +208,7 @@ const GetHerdComponent: React.FC = () => {
                   <th>Födelsedatum</th>
                   <th>Ras</th>
                   <th>Kön</th>
+                  <th>Djurdetaljer</th>
                 </tr>
               </thead>
               <tbody>
@@ -220,19 +221,20 @@ const GetHerdComponent: React.FC = () => {
                   .map((animal) => (
                     <tr className="tableRow shadow-sm  "
                       key={animal.id}
-                      onClick={() => navigateToDetails(animal.id)}
                     >{/* Display block for mobile */}
                       <td className="d-block d-sm-none animalId" data-label="Djuridentitet">{animal.animalId}</td>
                       <td className="d-block d-sm-none" data-label="Namn">{animal.name}</td>
                       <td className="d-block d-sm-none" data-label="Födelsedatum">{animal.birthDate}</td>
                       <td className="d-block d-sm-none" data-label="Ras">{animal.breed}</td>
                       <td className="d-block d-sm-none" data-label="Kön">{animal.sex}</td>
+                      <td className="d-block d-sm-none" data-label="Detaljer"><button className="button" onClick={() => navigateToDetails(animal.id)}>Detaljer</button></td>
                       {/* Table for desktop */}
                       <td className="d-none d-sm-table-cell">{animal.animalId}</td>
                        <td className="d-none d-sm-table-cell">{animal.name}</td>
                       <td className="d-none d-sm-table-cell">{animal.birthDate}</td>
                       <td className="d-none d-sm-table-cell">{animal.breed}</td>
                       <td className="d-none d-sm-table-cell">{animal.sex}</td>
+                      <td className="d-none d-sm-table-cell"><button className="button" onClick={() => navigateToDetails(animal.id)}>Detaljer</button></td>
                     </tr>
                   ))}
               </tbody>

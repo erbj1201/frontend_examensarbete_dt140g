@@ -218,7 +218,7 @@ const RegisterPage: React.FC = () => {
             type="name"
             id="name"
             name="name"
-            className="form-control form-control-sm shadow-sm border border-dark"
+            className="form-control form-control-sm border border-dark"
             required
             value={newUser.name}
             onChange={({ target }) =>
@@ -235,7 +235,7 @@ const RegisterPage: React.FC = () => {
             type="email"
             id="email"
             name="email"
-            className="form-control form-control-sm shadow-sm border border-dark"
+            className="form-control form-control-sm border border-dark"
             required
             value={newUser.email}
             onChange={({ target }) =>
@@ -253,7 +253,7 @@ const RegisterPage: React.FC = () => {
             type="password"
             id="password"
             name="password"
-            className="form-control form-control-sm shadow-sm border border-dark"
+            className="form-control form-control-sm border border-dark"
             required
             value={newUser.password}
             onChange={({ target }) =>
@@ -270,7 +270,7 @@ const RegisterPage: React.FC = () => {
             type="password"
             id="confirmPassword"
             name="confirmPassword"
-            className="form-control form-control-sm shadow-sm border border-dark"
+            className="form-control form-control-sm border border-dark"
             required
             value={newUser.confirmPassword}
             onChange={({ target }) =>

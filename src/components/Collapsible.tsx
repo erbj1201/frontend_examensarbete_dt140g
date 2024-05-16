@@ -21,13 +21,13 @@ const Collapsible: React.FC<IProps> = ({ title, children, open }) => {
         <div className="align-items-center" onClick={handleOpening}>
             <div className="d-flex bglight justify-content-between border border-dark">
                 <h3 className=" h3details p-2">{title}</h3>
-                <p> {isOpen ?
+                <button className="btn btn-outline-dark border-0"> {isOpen ?
                     //Icons
                     <IoIosArrowDown className="m-2" />
                     :
-                    <RiArrowUpSLine size={20} className="m-2" />
+                    <RiArrowUpSLine size={16} className="m-2" />
                 }
-                </p>
+                </button>
             </div>
             <div>
                 <div>{!isOpen && <div className="p-2 collapsibleDiv">{children}</div>}</div>

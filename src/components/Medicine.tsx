@@ -611,7 +611,7 @@ function Medicine() {
               <select
                 id="animal_id"
                 name="animal_id"
-                className="form-select form-select-sm shadow-sm border-dark"
+                className="form-select form-select-sm border-dark"
                 value={selectedAnimal}
               >
                  <option value="">Välj ett djur</option>
@@ -634,7 +634,7 @@ function Medicine() {
                 type="datetime-local"
                 id="date"
                 name="date"
-                className="form-control form-select-sm shadow-sm border-dark"
+                className="form-control form-select-sm border-dark"
                 value={newMedicine.date}
                 onChange={handleInputChange}
               />
@@ -650,7 +650,7 @@ function Medicine() {
                 type="text"
                 id="type"
                 name="type"
-                className="form-control form-control-sm shadow-sm border-dark"
+                className="form-control form-control-sm border-dark"
                 value={newMedicine.type}
                 onChange={handleInputChange}
               />
@@ -666,7 +666,7 @@ function Medicine() {
                 type="text"
                 id="amount"
                 name="amount"
-                className="form-control form-control-sm  shadow-sm border-dark"
+                className="form-control form-control-sm border-dark"
                 value={newMedicine.amount}
                 onChange={handleInputChange}
               />
@@ -681,7 +681,7 @@ function Medicine() {
               <select
                 id="recurrent"
                 name="recurrent"
-                className="form-select form-select-sm shadow-sm border-dark"
+                className="form-select form-select-sm border-dark"
                 value={newMedicine.recurrent}
                 onChange={handleInputChange}
               >
@@ -724,7 +724,7 @@ function Medicine() {
               <select
                 id="animal_id"
                 name="animal_id"
-                className="form-select form-select-sm shadow-sm border-dark"
+                className="form-select form-select-sm border-dark"
                 value= {selectedAnimal}
                 onChange={(e) => setSelectedAnimal(e.target.value)}
               >
@@ -747,7 +747,7 @@ function Medicine() {
                 type="datetime-local"
                 id="date"
                 name="date"
-                className="form-control form-control-sm shadow-sm border-dark"
+                className="form-control form-control-sm border-dark"
                 value={newMedicine.date}
                 onChange={handleInputChange}
               />
@@ -763,7 +763,7 @@ function Medicine() {
                 type="text"
                 id="type"
                 name="type"
-                className="form-control form-control-sm shadow-sm border-dark"
+                className="form-control form-control-sm border-dark"
                 value={newMedicine.type}
                 onChange={handleInputChange}
               />
@@ -779,7 +779,7 @@ function Medicine() {
                 type="text"
                 id="amount"
                 name="amount"
-                className="form-control form-control-sm shadow-sm border-dark"
+                className="form-control form-control-sm border-dark"
                 value={newMedicine.amount}
                 onChange={handleInputChange}
               />
@@ -794,7 +794,7 @@ function Medicine() {
               <select
                 id="recurrent"
                 name="recurrent"
-                className="form-select form-select-sm shadow-sm border-dark"
+                className="form-select form-select-sm border-dark"
                 value={newMedicine.recurrent}
                 onChange={handleInputChange}
               >
@@ -832,7 +832,7 @@ function Medicine() {
               <select
                 id="herds"
                 name="herds"
-                className="form-select w-25 shadow-sm border-dark"
+                className="form-select w-25 border-dark"
                 onChange={handleSelectChange}
                 value={selectedOption}
               >

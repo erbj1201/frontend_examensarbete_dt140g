@@ -45,10 +45,10 @@ const HandlePage: React.FC = () => {
       <Header />
       <main className="container mx-auto">
         <h1>Hantera händelse för djur</h1>
-        <form className="mx-auto w-50">
+        <form className="fit-content-width form form-control-sm mx-auto">
         <label htmlFor="handle" className="mb-3">Vilken typ av händelse vill du hantera?</label>
         <br/>
-        <select className="form-select form-select-lg w-50 mb-5 border border-dark"
+        <select className="form-select form-select w-50 mb-5 border border-dark"
           id="handle"
           name="handle" value={optionValue} onChange={handleOptions}>
           <option disabled value="">Välj händelse att rapportera</option>

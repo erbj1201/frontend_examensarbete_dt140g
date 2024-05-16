@@ -153,7 +153,7 @@ function Login() {
             type="email"
             id="email"
             name="email"
-            className="form-control form-control-sm shadow-sm border-dark"
+            className="form-control form-control-sm border-dark"
             required
             value={userData.email}
             onChange={handleInputChange}
@@ -168,7 +168,7 @@ function Login() {
             type="password"
             id="password"
             name="password"
-            className="form-control form-control-sm shadow-sm border-dark"
+            className="form-control form-control-sm border-dark"
             required
             value={userData.password}
             onChange={handleInputChange}

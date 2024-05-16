@@ -234,7 +234,7 @@ export default function Account() {
                 id="name"
                 name="name"
                 value={inputData.name}
-                className="form-control form-control-sm shadow-sm border-dark"
+                className="form-control form-control-sm border-dark"
                 onChange={handleChange}
                 required
               />
@@ -248,7 +248,7 @@ export default function Account() {
                 id="email"
                 name="email"
                 value={inputData.email}
-                className="form-control form-control-sm shadow-sm border-dark"
+                className="form-control form-control-sm border-dark"
                 onChange={handleChange}
                 required
               />
@@ -260,7 +260,7 @@ export default function Account() {
                 id="password"
                 name="password"
                 value={inputData.password}
-                className="form-control form-control-sm shadow-sm border-dark"
+                className="form-control form-control-sm border-dark"
                 onChange={handleChange}
                 required
               />
@@ -314,7 +314,7 @@ export default function Account() {
                 type="file"
                 id="imagepath"
                 name="imagepath"
-                className="form-control form-control-sm shadow-sm border-dark"
+                className="form-control form-control-sm border-dark"
                 onChange={handleImageChange}
               />
             </div>

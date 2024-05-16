@@ -213,7 +213,7 @@ const Message: React.FC = () => {
               type="text"
               id="title"
               name="title"
-              className="form-control form-control-sm border-dark shadow-sm"
+              className="form-control form-control-sm border-dark"
               required
               value={messageData.title}
               onChange={({ target }) =>
@@ -226,7 +226,7 @@ const Message: React.FC = () => {
             <label htmlFor="description" className="form-label">
               Beskrivning
             </label>
-            <textarea className="form-control border-dark shadow-sm"
+            <textarea className="form-control border-dark"
               id="description"
               name="description"
               required
@@ -256,7 +256,7 @@ const Message: React.FC = () => {
       
 
           return (
-            <article className="mx-auto p-2 border border-dark bg-white m-3 w-50 shadow-sm" key={message.id}>
+            <article className="mx-auto p-2 border border-dark bg-white m-3 w-50" key={message.id}>
               <h4>{message.title}</h4>
               <p>
                 <em>Skickat: {formattedDateTime}</em>
