@@ -217,7 +217,7 @@ export default function Account() {
       {/** If edituser is true, show form */}
       {editUser ? (
         <div className="bglight p-2 m-3 mx-auto w-75 border border-dark d-flex flex-column shadow-sm">
-          <h3 className="mx-auto">Uppdatera dina uppgifter</h3>
+          <h2 className="mx-auto">Uppdatera dina uppgifter</h2>
           <form
             className="form-control handleForm form-control-sm border-0 p-2 mx-auto w-50"
             onSubmit={updateProfile}
@@ -277,7 +277,7 @@ export default function Account() {
           {showMessage && (
             <p className="alert mx-auto alert-success text-dark w-25 mx-auto text-center mt-2">{showMessage}</p>
           )}
-          <h3 className="mx-auto p-4">Användaruppgifter</h3>
+          <h2 className="mx-auto p-4">Användaruppgifter</h2>
           <div className="container d-flex justify-content-center ">
             <div className="d-flex flex-column">
               {/*Check if image is uploaded to user or show generic image */}

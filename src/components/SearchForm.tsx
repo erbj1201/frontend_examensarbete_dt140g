@@ -84,14 +84,14 @@ const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         {/**search-input and button in header */}
         <div className="row mx-auto">
           <div className="col">
-            <label>Sökord:</label>
-            <input type="text" className="form-control form-control-sm shadow border-dark"
+          <label htmlFor="search" >Sökord:</label>
+            <input type="text" id="search" name='search' className="form-control form-control-sm shadow border-dark"
               value={searchText}
               onChange={(e) => setSearchText(e.target.value)}/>
           </div>
           <div className="col">
             <label htmlFor="filter">Filtrera</label>
-            <select className="form-select form-select-sm shadow border-dark"
+            <select id="filter" name='filter' className="form-select form-select-sm shadow border-dark"
              value={filter}
              onChange={(e) => setFilter(e.target.value)}>
             
