@@ -197,15 +197,20 @@ tr .active {
 .bglight {
     background-color: #f2f2f2;
 }
+table .table-thead{
+    background-color: #ffc6a0;
+}
 
  /*tablet screen */
-@media screen and (max-width: 1024px) {
-   
-} 
+ @media screen and (min-width: 576px) and (max-width: 1024px) {
+    thead {
+        display: table-header-group;
+    }
+}
 
 
 /*mobile screen*/
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 576px) {
     thead{
         display: none;
     }

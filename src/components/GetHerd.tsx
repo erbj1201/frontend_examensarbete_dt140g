@@ -201,7 +201,7 @@ const GetHerdComponent: React.FC = () => {
           {/*if animal lenght is larger then 0*/}
           {animals.length > 0 ? (
             <table className="table w-75 shadow-sm mx-auto table-responsive-sm table-hover">
-              <thead className=" d-none d-sm-table-header-group">
+              <thead className=" table-thead d-sm-table-header-group">
                 <tr>
                   <th>Djuridentitet</th>
                   <th>Namn</th>
@@ -233,10 +233,6 @@ const GetHerdComponent: React.FC = () => {
                       <td className="d-none d-sm-table-cell">{animal.birthDate}</td>
                       <td className="d-none d-sm-table-cell">{animal.breed}</td>
                       <td className="d-none d-sm-table-cell">{animal.sex}</td>
-                    
-                    
-                  
-
                     </tr>
                   ))}
               </tbody>
