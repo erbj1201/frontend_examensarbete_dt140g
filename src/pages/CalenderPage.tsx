@@ -4,6 +4,7 @@ import TokenCookie from "../components/TokenCookie";
 import { Calendar, momentLocalizer } from 'react-big-calendar'
 import moment from 'moment'
 import 'react-big-calendar/lib/css/react-big-calendar.css'
+import { Helmet } from "react-helmet-async";
 
 const CalenderPage: React.FC = () => {
   const localizer = momentLocalizer(moment)
@@ -17,6 +18,9 @@ const CalenderPage: React.FC = () => {
   return (
     <div>
       {/*Including components*/}
+      <Helmet>
+        <title>MinGård - Kalender</title>
+      </Helmet>
       <Header />
       <TokenCookie />
       <main className="container mx-auto">

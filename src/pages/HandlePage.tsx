@@ -7,6 +7,7 @@ import Vaccine from "../components/Vaccine";
 import Medicine from "../components/Medicine";
 import Calf from "../components/Calf";
 import TokenCookie from "../components/TokenCookie";
+import { Helmet } from "react-helmet-async";
 
 const HandlePage: React.FC = () => {
 
@@ -37,6 +38,9 @@ const HandlePage: React.FC = () => {
   return (
     <div>
       {/*Including components*/}
+      <Helmet>
+        <title>MinGård - Hantera händelser</title>
+      </Helmet>
       <TokenCookie />
       <Header />
       <main className="container mx-auto">

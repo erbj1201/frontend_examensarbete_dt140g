@@ -1,14 +1,17 @@
 //import
+import { Helmet } from "react-helmet-async";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
-import Cookies from "universal-cookie";
-const cookies = new Cookies();
-const token = cookies.get("token");
+import TokenCookie from "../components/TokenCookie";
 
 const AccessibilityPage: React.FC = () => {
     return (
         <div>
+              <Helmet>
+        <title>MinGård - Tillgänglighetsredogörelse</title>
+      </Helmet>
             <Header />
+            <TokenCookie />
             <div>
                 <main className="mx-auto container">
             <h1>Tillgänglighet för MinGård</h1>

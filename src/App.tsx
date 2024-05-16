@@ -2,10 +2,12 @@
 import "bootstrap/dist/css/bootstrap.css";
 import AppRouter from "./components/AppRouter";
 import "./main.css";
+import { HelmetProvider } from 'react-helmet-async';
 
 const App: React.FC = () => {
   return (
     <>
+    <HelmetProvider>
       <div>
         {/*including fonts from google fonts*/}
         <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -21,8 +23,10 @@ const App: React.FC = () => {
         />
       </div>
       <div>
-        <AppRouter />
       </div>
+        <AppRouter />
+     </HelmetProvider>
+      
     </>
   );
 };

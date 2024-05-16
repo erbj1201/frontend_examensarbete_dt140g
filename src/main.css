@@ -202,6 +202,9 @@ thead{
 .collapsibleDiv{
     background-color: #ffffff;
 }
+.rbc-date-cell{
+    color: black;
+}
 
  /*tablet screen */
  @media screen and (min-width: 576px) and (max-width: 1024px) {

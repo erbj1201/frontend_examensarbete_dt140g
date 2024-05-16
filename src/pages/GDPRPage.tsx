@@ -1,9 +1,13 @@
+import { Helmet } from "react-helmet-async";
 import Footer from "../components/Footer";
 import UserHeader from "../components/UserHeader";
 
 function GDPRPage() {
   return (
     <div>
+        <Helmet>
+        <title>MinGård - Personuppgiftsbehandling</title>
+      </Helmet>
       <UserHeader />
       <main className="mx-auto container pb-5">
         <article className="container w-75 mx-auto p-3">
