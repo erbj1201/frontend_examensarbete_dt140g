@@ -811,6 +811,7 @@ function Calf() {
                 name="animal_id"
                 className="form-select form-select-sm shadow-sm border border-dark"
                 value={selectedAnimal}
+                disabled
               >
                 <option value="">Välj ett djur</option>
                 {animals.map((animal) => (
