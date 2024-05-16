@@ -363,16 +363,16 @@ const DetailsPage: React.FC = () => {
         <div key={animalsByHerds[animalIndex].id}>
           <section className=" detailsArticle mx-auto m-3 w-100 border border-dark position-relative">
             <header className="detailsHeader w-100 p-2 d-flex justify-content-between  align-items-center ">
-              <button onClick={() => clickPrev()}>
+              <button className="btn btn-light border-dark" onClick={() => clickPrev()}>
                 {" "}
-                <RiArrowLeftSLine size={32} />{" "}
-              </button>
+                <RiArrowLeftSLine size={32} />{""}
+               <strong>Föregående</strong></button>
               <h2>
                 {animalsByHerds[animalIndex].name}{" "}
                 {animalsByHerds[animalIndex].id}
               </h2>
-              <button onClick={() => clickNext()}>
-                {" "}
+              <button className="btn btn-light border-dark" onClick={() => clickNext()}>
+                {" "}<strong>Nästa</strong>
                 <RiArrowRightSLine size={32} />{" "}
               </button>
             </header>
@@ -385,7 +385,7 @@ const DetailsPage: React.FC = () => {
                     <img
                       className="img-thumbnail cow-image"
                       src={animalsByHerds[animalIndex].imagepath}
-                      alt="Bild på valt djur"
+                      alt="Bild på djur"
                     />
                   ) : (
                     <img
@@ -498,7 +498,7 @@ const DetailsPage: React.FC = () => {
                       <div key={index}>
                         <p><b>Batchnummer: </b>{vaccine.batchNo}</p>
                         <p><b>Namn:</b> {vaccine.name} </p>
-                        <p><b></b>Datum och tid: {vaccine.date} </p>
+                        <p><b>Datum och tid:</b> {vaccine.date} </p>
 
                       </div>
                     ))

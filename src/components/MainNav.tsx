@@ -38,7 +38,7 @@ const Navbar = () => {
           {/**Icon for ? (support, contact) */}
           <li className="nav-item">
             <NavLink className="menyicon" to="/help">
-              <img className="pt-2" src="\src\content\image.png" alt="Till supportsidan" />
+              <img className="pt-2" src="\src\content\image.png" alt="Navigera till supportsidan" />
             </NavLink>
           </li>
         </ul>
