@@ -197,22 +197,41 @@ tr .active {
 .bglight {
     background-color: #f2f2f2;
 }
-table .table-thead{
+thead{
     background-color: #ffc6a0;
+}
+.collapsibleDiv{
+    background-color: #ffffff;
 }
 
  /*tablet screen */
  @media screen and (min-width: 576px) and (max-width: 1024px) {
-    thead {
-        display: table-header-group;
-    }
+  
 }
 
 
 /*mobile screen*/
 @media screen and (max-width: 576px) {
+    .nav {
+        position: fixed; /* Fixerad position */
+        bottom: 0; /* Placera längst ner */
+        left: 0;
+        width: 100%; /* Ta upp hela bredden */
+        background-color: white; /* Bakgrundsfärg för menyn */
+        z-index: 999; /* Lägg menyn över andra element */
+        display: flex;
+        
+      }
+      .nav-item{
+        flex-grow: 1;
+      }
+      .nav-link {
+        display: block;
+      }
+      
     thead{
         display: none;
+      
     }
     .table-responsive-sm td::before {
         content: attr(data-label);
