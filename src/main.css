@@ -211,6 +211,15 @@ tr .active {
 
 .collapsibleDiv {
     background-color: #ffffff;
+    
+}
+.collapsible li{
+    list-style-type: none;
+    
+}
+.collapsible .collapsibleInfo{
+    margin-top: 3%;
+    border-bottom: #000000 1px solid;
 }
 
 .rbc-date-cell {

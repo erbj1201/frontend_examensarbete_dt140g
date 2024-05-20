@@ -472,9 +472,11 @@ const DetailsPage: React.FC = () => {
                   <Collapsible open title="Mjölkning">
                     {milkingData.length > 0 ? (
                       milkingData.map((milk, index) => (
-                        <div key={index}>
-                          <p><b>Datum:</b> {milk.milkDate}</p>
-                          <p><b>Mängd mjölk:</b>{milk.kgMilk} kg</p>
+                        <div className="collapsibleInfo" key={index}>
+                          <ul>
+                          <li><b>Datum:</b> {milk.milkDate}</li>
+                          <li><b>Mängd mjölk:</b>{milk.kgMilk} kg</li>
+                          </ul>
                         </div>
                       ))
                     ) : (<p> Ingen mjölkning för detta djur</p>)}
@@ -486,11 +488,13 @@ const DetailsPage: React.FC = () => {
                   <Collapsible open title="Medicinering">
                     {medicineData.length > 0 ? (
                       medicineData.map((medicine, index) => (
-                        <div key={index}>
-                          <p><b>Datum:</b> {medicine.date}</p>
-                          <p><b>Typ: </b>{medicine.type} </p>
-                          <p><b>Mängd: </b>{medicine.amount} </p>
-                          <p><b>Återkommande: </b>{medicine.recurrent} </p>
+                        <div className="collapsibleInfo" key={index}>
+                          <ul>
+                          <li><b>Datum:</b> {medicine.date}</li>
+                          <li><b>Typ: </b>{medicine.type} </li>
+                          <li><b>Mängd: </b>{medicine.amount} </li>
+                          <li><b>Återkommande: </b>{medicine.recurrent} </li>
+                          </ul>
                         </div>
                       ))
                     ) : (<p> Ingen medicin för detta djur</p>)}
