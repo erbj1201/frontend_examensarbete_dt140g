@@ -334,7 +334,7 @@ tr .active {
         align-items: center;
         justify-content: center;
         color: black;
-        padding: 1em;
+        padding: 0.8em;
         font-size:0.8em;
         text-align: center;
         width: 100%;
@@ -356,20 +356,15 @@ tr .active {
         display: flex;
         flex-direction: column;
     }
-
-    
     thead {
         display: none;
-
     }
-
     .table-responsive-sm td::before {
         content: attr(data-label);
         font-weight: bold;
         display: block;
 
     }
-
     .table-responsive-sm td {
         display: block;
         text-align: right;
