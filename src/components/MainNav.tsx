@@ -9,29 +9,29 @@ const Navbar = () => {
       {/* Navigation */}
       <nav className="navbar navbar-expand-lg justify-content-end">
         {/*Navbar with links*/}
-        <ul className="nav justify-content-end">
+        <ul className="nav">
           <li className="nav-item">
-            <NavLink className="nav-link px-4 m-1" to="/">
+            <NavLink className="nav-link" to="/">
               Start
             </NavLink>
           </li>
           <li className="nav-item">
-            <NavLink className="nav-link px-4 m-1" to="/herd">
+            <NavLink className="nav-link" to="/herd">
               Besättning
             </NavLink>
           </li>
           <li className="nav-item">
-            <NavLink className="nav-link px-4 m-1" to="/calender">
+            <NavLink className="nav-link nav-calender" to="/calender">
               Kalender
             </NavLink>
           </li>
           <li className="nav-item">
-            <NavLink className="nav-link px-4 m-1" to="/handle">
+            <NavLink className="nav-link" to="/handle">
               Hantera händelser
             </NavLink>
           </li>
           <li className="nav-item">
-            <NavLink className="nav-link px-4 m-1" to="/account">
+            <NavLink className="nav-link" to="/account">
               Mitt konto
             </NavLink>
           </li>

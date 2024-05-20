@@ -153,7 +153,7 @@ const GetHerdComponent: React.FC = () => {
                   <select
                     id="herds"
                     name="herds"
-                    className="form-select w-25 border-dark"
+                    className="form-select selectWidth border-dark"
                     onChange={handleSelectChange}
                     value={selectedOption}
                   >

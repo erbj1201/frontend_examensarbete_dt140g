@@ -588,7 +588,7 @@ function Milk() {
         /* form for adding milk */
         <div>
           <form
-            className="form-control handleForm form-control-sm shadow-sm border-dark p-5 mx-auto w-50 "
+            className="form-control handleForm form-control-sm shadow-sm border-dark p-5 mx-auto "
             onSubmit={addMilk}
             noValidate
           >
@@ -674,7 +674,7 @@ function Milk() {
               <select
                 id="herds"
                 name="herds"
-                className="form-select w-25               border-dark"
+                className="form-select selectWidth border-dark"
                 onChange={handleSelectChange}
                 value={selectedOption}
               >
