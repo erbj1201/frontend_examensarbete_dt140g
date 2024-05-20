@@ -188,8 +188,6 @@ a:hover {
 .handleForm {
     background-color: #F5F4F4;
     max-width: 30em;
-
-
 }
 
 tr .active {
@@ -275,6 +273,10 @@ tr .active {
     .icon-mobile{
         display: none;
     }
+
+    
+
+
 
 /*article around animal info*/
 .detailsArticle {
@@ -402,9 +404,7 @@ tr .active {
     }
 
     .selectWidth {
-
         width: 84%;
-
     }
     .icon-mobile{
         display: flex;
@@ -415,12 +415,10 @@ tr .active {
         width: 50%;
         margin: auto;
     }
-
     /* To show Växa Sverige in footer */
     footer {
         padding-bottom: 10%;
     }
-
     .container-btns {
         margin: auto;
         display: flex;
