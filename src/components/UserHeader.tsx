@@ -12,7 +12,7 @@ const HeaderText: React.FC<DefineHeader> = ({ pageTitle }) => {
   return (
     <div>
       {/**dynamic Pagetitle */}
-      <h1 className="header mx-auto ">{pageTitle}</h1>
+      <h1 className="header mx-auto w-100">{pageTitle}</h1>
     </div>
   );
 };
@@ -24,30 +24,30 @@ const UserHeader: React.FC = () => {
   let titleHeader = "";
   //Decides the title/text depending on the url
   if (path === "/register") {
-    titleHeader = "Registrera konto i MinGård";
+    titleHeader = "Registrera konto";
   } else if(path === "/login"){
-    titleHeader = "Logga in i MinGård";
+    titleHeader = "Logga in";
   } else {
     titleHeader = "Behandling av personuppgifter";
   }
   return (
     <div>
-      <header className="container-fluid shadow-sm w-100 mx-auto border-bottom">
-        <div>
+      <header className="container-fluid shadow-sm w-100 mx-auto border-bottom d-flex">
+        <div className="d-flex w-100">
           {/**logo */}
           <nav className="navbar">
-            <a className="navbar-brand" href="/">
+            <a className="navbar-brand align-self-start" href="/">
               <img
                 src="src\content\vaxa_thumbnail.png"
-                height="30"
-                alt="Växa Sverige"
+                alt="Växa Sverige" width={100}
               />
               <p className="mx-auto text-center">MinGård</p>
             </a>
-            <div className="headerdiv mx-auto text-center">
+            </nav>
+            <div className="headerdiv align-self-center mx-auto text-center">
               <HeaderText pageTitle={titleHeader} />
             </div>
-          </nav>
+          
         </div>
       </header>
     </div>
