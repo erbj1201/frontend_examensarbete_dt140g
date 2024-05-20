@@ -12,7 +12,7 @@ body {
 header,
 footer {
     background-color: #F2F2F2;
-    width: 100%;  
+    width: 100%;
 
 }
 
@@ -168,7 +168,7 @@ a:hover {
     background-color: #F5F4F4;
     max-width: 30em;
     padding: 3em;
-   
+
 }
 
 tr .active {
@@ -197,37 +197,44 @@ tr .active {
     width: 100%;
     height: 100%;
 }
+
 .bglight {
     background-color: #f2f2f2;
 }
 
-.collapsibleDiv{
+.collapsibleDiv {
     background-color: #ffffff;
 }
-.rbc-date-cell{
+
+.rbc-date-cell {
     color: black;
 }
-.fit-content-width{
+
+.fit-content-width {
     width: 100%;
     max-width: 40em;
 }
-.selectWidth{
-width: 44%;
+
+.selectWidth {
+    width: 44%;
 }
 
-.handleWidth{
+.handleWidth {
     width: 50%;
 }
- /*tablet screen */
- @media screen and (min-width: 576px) and (max-width: 992px) {
- .nav.link{
-    margin: 1%;
- } 
- .selectWidth, .handleWidth{
-    width: 84%;
+
+/*tablet screen */
+@media screen and (min-width: 576px) and (max-width: 992px) {
+    .nav.link {
+        margin: 1%;
     }
 
-    .handleForm { 
+    .selectWidth,
+    .handleWidth {
+        width: 84%;
+    }
+
+    .handleForm {
         width: 90%;
     }
     .icon-mobile{
@@ -236,38 +243,39 @@ width: 44%;
     }
 }
 
-
 /*mobile screen*/
 @media screen and (max-width: 576px) {
     .nav {
-        position: fixed; 
-        bottom: 0; 
-    left: 0;
-        width: 100%; 
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100%;
         background-color: white;
-        z-index: 999; 
+        z-index: 999;
         display: inline-flex;
         justify-content: space-between;
         padding: 0 1em;
         border-top: rgb(0, 0, 0) solid 1px;
-      }
+    }
 
-      .nav-link {
+    .nav-link {
         display: block;
-        padding: 0.8em ;
+        padding: 0.8em;
         padding-top: 1.5em;
         padding-bottom: 1.5em;
         color: black;
-      }
-      
-      .menyicon, .nav-calender{
-        display: none;
-      }
-      
-    thead{
-        display: none;
-      
     }
+
+    .menyicon,
+    .nav-calender {
+        display: none;
+    }
+
+    thead {
+        display: none;
+
+    }
+
     .table-responsive-sm td::before {
         content: attr(data-label);
         font-weight: bold;
@@ -280,7 +288,7 @@ width: 44%;
         text-align: right;
         padding-left: 50%;
         position: relative;
-       
+
     }
 
     .table-responsive-sm td::before {
@@ -290,38 +298,50 @@ width: 44%;
         text-align: left;
         padding-left: 10px;
     }
+
     .tableRow {
-       margin: 1em;
-    
+        margin: 1em;
+
     }
-/* Shows when a new animal starts in the table */
-  tbody .animalId{
+
+    /* Shows when a new animal starts in the table */
+    tbody .animalId {
         background-color: #ffc6a0;
     }
 
-    tbody .td-handle{
+    tbody .td-handle {
         background-color: #FDF4EE;
     }
 
-    .handleForm { 
+    .handleForm {
         width: 80%;
     }
-    .selectWidth{
-     
+
+    .selectWidth {
+
         width: 84%;
-       
-        }
-        .handleWidth{
-            width: 50%;
-            margin: auto;
-        }
-/* To show Växa Sverige in footer */
-    footer{
-        padding-bottom: 10%;
-        
+
     }
     .icon-mobile{
         display: flex;
         margin: auto;
     }
+
+    .handleWidth {
+        width: 50%;
+        margin: auto;
+    }
+
+    /* To show Växa Sverige in footer */
+    footer {
+        padding-bottom: 10%;
+    }
+
+    .container-btns {
+        margin: auto;
+        display: flex;
+        flex-direction: column;
+        width: 80%;
+    }
+
 }
