@@ -350,7 +350,7 @@ function Vaccine() {
     }
 
     //Check if animal_id empty
-    if (!selectedAnimal) {
+  /*   if (!selectedAnimal) {
       setFormError({
         ...inputError,
         animal_id: "Välj djuridentitet",
@@ -358,7 +358,7 @@ function Vaccine() {
       // Clear message after  3 seconds
       setTimeout(clearMessages, 3000);
       return;
-    }
+    } */
 
     //Check if batchno empty
     if (!newVaccine.batchNo) {
@@ -815,18 +815,11 @@ const fetchHerdsAnimals = async (userid: string | null) => {
             return (
             <tr key={vaccine.id}>
                  {/* Display block for mobile */}   
-               <td className="d-block d-sm-none animalId" data-label="Djuridentitet">{animal ? animal.animalId : "Okänt"}</td>
+               <td className="d-block d-sm-none td-handle" data-label="Djuridentitet">{animal ? animal.animalId : "Okänt"}</td>
                <td className="d-block d-sm-none" data-label="Namn">{vaccine.name}</td>
                <td className="d-block d-sm-none" data-label="Batchnummer">{vaccine.batchNo}</td>
                <td className="d-block d-sm-none" data-label="Datum & tid">{vaccine.date}</td>
-               
-                   {/* Table for desktop */}
-                   <td className="d-none d-sm-table-cell animalId"data-label="Djuridentitet">{animal ? animal.animalId : "Okänt"}</td>
-                   <td className="d-none d-sm-table-cell" data-label="Namn">{vaccine.name}</td>
-               <td className="d-none d-sm-table-cell"data-label="Batchnummer">{vaccine.batchNo}</td>
-               <td className="d-none d-sm-table-cell" data-label="Datum & tid">{vaccine.date}</td>
-                 
-              <td>
+               <td className="d-block d-sm-none" data-label="Hantera">
                 <button
                   className="button"
                   onClick={() => {
@@ -836,7 +829,38 @@ const fetchHerdsAnimals = async (userid: string | null) => {
                       batchNo: vaccine.batchNo,
                       name: vaccine.name,
                       date: vaccine.date,
-                      animal_id: selectedAnimal,
+                      animal_id: vaccine.animal_id,
+                    });
+                  }}
+                >
+                  Ändra
+                </button>
+                {/**Change url when clicking at delete */}
+                <button
+                  className="button"
+                  onClick={() => navigateToVaccine(vaccine.id)}
+                >
+                  Radera
+                </button>
+              </td>
+              
+                   {/* Table for desktop */}
+                   <td className="d-none d-sm-table-cell animalId"data-label="Djuridentitet">{animal ? animal.animalId : "Okänt"}</td>
+                   <td className="d-none d-sm-table-cell" data-label="Namn">{vaccine.name}</td>
+               <td className="d-none d-sm-table-cell"data-label="Batchnummer">{vaccine.batchNo}</td>
+               <td className="d-none d-sm-table-cell" data-label="Datum & tid">{vaccine.date}</td>
+                 
+              <td className= "d-none d-sm-table-cell" data-label="Hantera">
+                <button
+                  className="button"
+                  onClick={() => {
+                    setEditVaccine(true); // Update editMilk-state to true to edit
+                    setNewVaccine({
+                      id: vaccine.id,
+                      batchNo: vaccine.batchNo,
+                      name: vaccine.name,
+                      date: vaccine.date,
+                      animal_id: vaccine.animal_id,
                     });
                   }}
                 >
