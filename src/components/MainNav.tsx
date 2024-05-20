@@ -12,27 +12,28 @@ const Navbar = () => {
         <ul className="nav">
           <li className="nav-item">
             <NavLink className="nav-link" to="/">
-              Start
+            <i className="fa-solid fa-house"></i> Start
             </NavLink>
           </li>
           <li className="nav-item">
             <NavLink className="nav-link" to="/herd">
-              Besättning
+            <i className="fa-solid fa-cow"></i> Besättning
             </NavLink>
           </li>
           <li className="nav-item">
             <NavLink className="nav-link nav-calender" to="/calender">
-              Kalender
+            <i className="fa-solid fa-calendar"></i> Kalender
             </NavLink>
           </li>
           <li className="nav-item">
             <NavLink className="nav-link" to="/handle">
+            <i className="fa-solid fa-pen"></i>
               Hantera händelser
             </NavLink>
           </li>
           <li className="nav-item">
             <NavLink className="nav-link" to="/account">
-              Mitt konto
+            <i className="fa-solid fa-user"></i> Mitt konto
             </NavLink>
           </li>
           {/**Icon for ? (support, contact) */}
