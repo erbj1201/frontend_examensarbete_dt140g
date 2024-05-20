@@ -48,11 +48,26 @@ a:hover {
 .icon-mobile{
     display: none;
 }
+.desktop-icon{
+    margin-top: 1%;
+}
+.menyicon-div{
+    display: none;
+    flex-direction: row;
+    margin-top: 1%;
+}
+.fi{
+    font-size: 1.2em;
+}
 /*symbol for support/contact beside menu*/
-.menyicon img {
+.menyicon {
     color: black;
-    width: 1.5em;
     height: auto;
+    margin: 0.5em;
+    text-decoration: none;
+}
+.menyicon:hover{
+   color: #75160E;
 }
 
 /*"mingård" text under logo */
@@ -129,12 +144,11 @@ a:hover {
 
 .nav-link {
     color: black;
-
 }
 
 .nav-link:hover {
     text-decoration: underline;
-    color: #8a3903;
+    color: #75160E;
 }
 
 .tableRow {
@@ -228,7 +242,12 @@ tr .active {
     .nav.link {
         margin: 1%;
     }
-
+    .nav-item{
+        display:flex;
+        justify-content: center;
+        margin: auto;
+        font-size:0.8em;
+    }
     .selectWidth,
     .handleWidth {
         width: 84%;
@@ -238,39 +257,62 @@ tr .active {
         width: 90%;
     }
     .icon-mobile{
-        display: flex;
-        margin: auto;
+        display: none;
     }
 }
 
 /*mobile screen*/
 @media screen and (max-width: 576px) {
-    .nav {
+    .nav-div{
         position: fixed;
-        bottom: 0;
         left: 0;
+        bottom: 0;
         width: 100%;
+        margin: auto;
         background-color: white;
         z-index: 999;
-        display: inline-flex;
-        justify-content: space-between;
-        padding: 0 1em;
+        display: flex;
+        justify-content: center;
+        padding: 0 0.5em;
         border-top: rgb(0, 0, 0) solid 1px;
     }
-
-    .nav-link {
-        display: block;
-        padding: 0.8em;
-        padding-top: 1.5em;
-        padding-bottom: 1.5em;
-        color: black;
+    .nav {
+        width: 100%;
+        padding: 0;
+        margin: 0;
+        display: flex;
+        justify-content: space-between;
     }
-
-    .menyicon,
-    .nav-calender {
+    .nav-link {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        color: black;
+        padding: 1em;
+        font-size:0.8em;
+        text-align: center;
+        width: 100%;
+        text-decoration: none;
+    }
+    .nav-item{
+        list-style: none;
+    }
+    .menyicon{
+        align-self: center;
+        margin: 1em;
+        text-decoration: none;
+    }
+    .desktop-icon{
         display: none;
     }
+    .menyicon-div{
+        justify-content: center;
+        display: flex;
+        flex-direction: column;
+    }
 
+    
     thead {
         display: none;
 

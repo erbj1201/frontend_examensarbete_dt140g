@@ -6,8 +6,9 @@ import { NavLink } from "react-router-dom";
 const Navbar = () => {
   return (
     <div>
+    <div className="nav-div">
       {/* Navigation */}
-      <nav className="navbar navbar-expand-lg justify-content-end">
+      <nav className="navbar navbar-expand-lg">
         {/*Navbar with links*/}
         <ul className="nav">
           <li className="nav-item">
@@ -22,7 +23,7 @@ const Navbar = () => {
           </li>
           <li className="nav-item">
             <NavLink className="nav-link nav-calender" to="/calender">
-            <i className="fi fi-ts-calendar-lines icon-mobile"></i> Kalender
+              <i className="fi fi-ts-calendar-lines icon-mobile"></i> Kalender
             </NavLink>
           </li>
           <li className="nav-item">
@@ -32,22 +33,32 @@ const Navbar = () => {
             </NavLink>
           </li>
           <li className="nav-item">
-            <NavLink className="nav-link" to="/account">
-              <i className="fi fi-tr-circle-user icon-mobile"></i> Mitt konto
+            <NavLink className="nav-link desktop-icon" to="/account">
+            <i className="fi fi-sr-portrait"></i>
+            </NavLink>
+          </li>
+          <li className="nav-item">
+            <NavLink className="nav-link desktop-icon" to="/help">
+              <i className="fi fi-sr-question-square"></i>
+            </NavLink>
+          </li>
+          </ul>
+      </nav>
+      </div>
+          <div className="menyicon-div justify-content-center">
+          <li className="nav-item">
+            <NavLink className="menyicon" to="/account">
+              <i className="fi fi-sr-portrait"></i>
             </NavLink>
           </li>
           {/**Icon for ? (support, contact) */}
           <li className="nav-item">
             <NavLink className="menyicon" to="/help">
-              <img
-                className="pt-2"
-                src="\src\content\image.png"
-                alt="Navigera till supportsidan"
-              />
+              <i className="fi fi-sr-question-square"></i>
             </NavLink>
           </li>
-        </ul>
-      </nav>
+          </div>
+        
     </div>
   );
 };
