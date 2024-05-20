@@ -225,7 +225,6 @@ tr .active {
 
 .collapsibleDiv {
     background-color: #ffffff;
-    
 }
 .collapsible li{
     list-style-type: none;
@@ -273,19 +272,14 @@ tr .active {
         width: 84%;
     }
 
- 
     .icon-mobile{
         display: none;
     }
 
-    
-
-
-
 /*article around animal info*/
 .detailsArticle {
     background-color: #FDF4EE;
-    width: 90%;
+  
 }
 
 /*arrow right to change animal*/
@@ -302,14 +296,15 @@ tr .active {
 .detailsDiv {
     background-color: #FDFDFD;
     margin-top: 2em;
-    width: 80%;
+ 
 }
 .detailsDivText{
     font-size: 0.8em;
 }
-.handleForm {
-    width: 100%;
-  }
+
+  .animalInformation{
+    width: 80%;
+}
 }
 
 /*mobile screen*/
