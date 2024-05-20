@@ -45,7 +45,9 @@ a:hover {
     font-family: 'Sigmar One', cursive;
     max-width: 25em;
 }
-
+.icon-mobile{
+    display: none;
+}
 /*symbol for support/contact beside menu*/
 .menyicon img {
     color: black;
@@ -228,6 +230,10 @@ width: 44%;
     .handleForm { 
         width: 90%;
     }
+    .icon-mobile{
+        display: flex;
+        margin: auto;
+    }
 }
 
 
@@ -313,5 +319,9 @@ width: 44%;
     footer{
         padding-bottom: 10%;
         
+    }
+    .icon-mobile{
+        display: flex;
+        margin: auto;
     }
 }
