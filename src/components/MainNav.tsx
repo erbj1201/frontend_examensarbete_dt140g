@@ -28,7 +28,7 @@ const Navbar = () => {
           <li className="nav-item">
             <NavLink className="nav-link" to="/handle">
               <i className="fi fi-ts-pen-circle icon-mobile"></i>
-              Hantera händelser
+              Händelser
             </NavLink>
           </li>
           <li className="nav-item">
