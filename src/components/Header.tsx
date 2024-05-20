@@ -10,15 +10,15 @@ const Header: React.FC = () => {
   return (
     <div>
       <header className="container-fluid w-100 mx-auto border-bottom shadow-sm">
-        <div>
+        <div className="d-flex flex-row-reverse">
           {/**import components */}
           <Navbar />
         </div>
-        <nav className="navbar">
+        <nav className="navbar fixed-top">
           <a className="navbar-brand" href="/">
             <img
               src="\src\content\vaxa_thumbnail.png"
-              height="30"
+              width={100}
               alt="Växa Sverige"
             />
             <p className="mx-auto text-center">MinGård</p>
