@@ -217,7 +217,7 @@ width: 25%;
     width: 50%;
 }
  /*tablet screen */
- @media screen and (min-width: 576px) and (max-width: 1024px) {
+ @media screen and (min-width: 576px) and (max-width: 992px) {
  .nav.link{
     margin: 1%;
  } 
@@ -226,7 +226,7 @@ width: 25%;
     }
 
     .handleForm { 
-        width: 60%;
+        width: 90%;
     }
 }
 
