@@ -111,8 +111,11 @@ a:hover {
 /*article around animal info*/
 .detailsArticle {
     background-color: #FDF4EE;
+    width: 50%;
 }
-
+.animalInformation{
+    width: 80%;
+}
 /*arrow right to change animal*/
 .arrowRightDetails {
     width: 1em;
@@ -127,6 +130,10 @@ a:hover {
 .detailsDiv {
     background-color: #FDFDFD;
     margin-top: 2em;
+    width: 100%;
+}
+.detailsDivText{
+    font-size: 0.8em;
 }
 
 /* Details header h2 */
@@ -181,7 +188,7 @@ a:hover {
 .handleForm {
     background-color: #F5F4F4;
     max-width: 30em;
-    padding: 3em;
+
 
 }
 
@@ -237,6 +244,10 @@ tr .active {
     width: 50%;
 }
 
+.btn-next-animal{
+    font-size: 0.8em;
+}
+
 /*tablet screen */
 @media screen and (min-width: 576px) and (max-width: 992px) {
     .nav.link {
@@ -253,12 +264,43 @@ tr .active {
         width: 84%;
     }
 
-    .handleForm {
-        width: 90%;
-    }
+ 
     .icon-mobile{
         display: none;
     }
+
+    
+
+
+
+/*article around animal info*/
+.detailsArticle {
+    background-color: #FDF4EE;
+    width: 90%;
+}
+
+/*arrow right to change animal*/
+.arrowRightDetails {
+    width: 1em;
+}
+
+/*arrow left to change animal*/
+.arrowLeftDetails {
+    width: 1em;
+}
+
+/*first div around "grundinformation" */
+.detailsDiv {
+    background-color: #FDFDFD;
+    margin-top: 2em;
+    width: 80%;
+}
+.detailsDivText{
+    font-size: 0.8em;
+}
+.handleForm {
+    width: 100%;
+  }
 }
 
 /*mobile screen*/
@@ -356,7 +398,8 @@ tr .active {
     }
 
     .handleForm {
-        width: 80%;
+      width: 100%;
+        padding: 1em;
     }
 
     .selectWidth {
@@ -385,5 +428,33 @@ tr .active {
         flex-direction: column;
         width: 80%;
     }
+    /*article around animal info*/
+.detailsArticle {
+    background-color: #FDF4EE;
+    width: 100%;
+}
+.collapsible{
+    width: 90%;
+}
+
+/*arrow right to change animal*/
+.arrowRightDetails {
+    width: 1em;
+}
+
+/*arrow left to change animal*/
+.arrowLeftDetails {
+    width: 1em;
+}
+
+/*first div around "grundinformation" */
+.detailsDiv {
+    background-color: #FDFDFD;
+    margin-top: 2em;
+    width: 90%;
+}
+.detailsDivText{
+    font-size: 0.8em;
+}
 
 }

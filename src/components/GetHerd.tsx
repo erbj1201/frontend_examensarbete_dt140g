@@ -147,13 +147,13 @@ const GetHerdComponent: React.FC = () => {
           {!isLoading && !error && herds.length > 1 && (
             <div>
               <form className="form-control form-control-sm border-0 mx-auto">
-                <div className="form-group mx-auto">
+                <div className="form-group selectWidth">
                   <label className="form-label" htmlFor="herds">Välj en besättning:</label>
                   <br />
                   <select
                     id="herds"
                     name="herds"
-                    className="form-select selectWidth border-dark"
+                    className="form-select border-dark"
                     onChange={handleSelectChange}
                     value={selectedOption}
                   >
@@ -169,7 +169,7 @@ const GetHerdComponent: React.FC = () => {
             </div>
           )}
           {/* Buttons to sort out by category */}
-          <div className="container mx-auto p-3">
+          <div className="container container-btns mx-auto p-3">
             <button
               className="category-btn active m-3"
               onClick={() => {
