@@ -210,7 +210,7 @@ tr .active {
     max-width: 40em;
 }
 .selectWidth{
-width: 25%;
+width: 44%;
 }
 
 .handleWidth{
@@ -222,7 +222,7 @@ width: 25%;
     margin: 1%;
  } 
  .selectWidth, .handleWidth{
-    width: 50%;
+    width: 84%;
     }
 
     .handleForm { 
@@ -301,7 +301,8 @@ width: 25%;
         width: 80%;
     }
     .selectWidth{
-        width: 90%;
+     
+        width: 84%;
        
         }
         .handleWidth{

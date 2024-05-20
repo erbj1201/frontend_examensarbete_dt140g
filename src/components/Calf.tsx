@@ -1161,7 +1161,7 @@ function Calf() {
       {/* This shows if user has more than one herd */}
       {!isLoading && herds.length > 1 && (
         <div>
-          <form className="form-control form-control-sm border-0 mx-auto">
+          <form className="form-control selectWidth form-control-sm border-0 mx-auto">
             <div className="form-group mx-auto">
               <label className="form-label" htmlFor="herds">
                 Besättningar:
@@ -1170,7 +1170,7 @@ function Calf() {
               <select
                 id="herds"
                 name="herds"
-                className="form-select selectWidth border-dark"
+                className="form-select border-dark"
                 onChange={handleSelectChange}
                 value={selectedOption}
               >

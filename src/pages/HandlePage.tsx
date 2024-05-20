@@ -46,6 +46,7 @@ const HandlePage: React.FC = () => {
       <main className="container mx-auto">
         <h1>Hantera händelse för djur</h1>
         <form className="fit-content-width form form-control-sm mx-auto">
+          <div className="form-group selectWidth">
         <label htmlFor="handle" className="mb-3">Vilken typ av händelse vill du hantera?</label>
         <br/>
         <select className="form-select form-select mb-5 border border-dark"
@@ -57,6 +58,7 @@ const HandlePage: React.FC = () => {
           <option value="optionMedicine">Medicinering</option>
           <option value="optionCalves">Kalvning</option>
         </select>
+        </div>
         </form>
         {/* Return the correct component dynamically */}
         {components()}

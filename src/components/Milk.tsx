@@ -666,7 +666,7 @@ function Milk() {
       {!isLoading && herds.length > 1 && (
         <div>
           <form className="form-control form-control-sm border-0 mx-auto">
-            <div className="form-group mx-auto">
+            <div className="form-group selectWidth mx-auto">
               <label className="form-label" htmlFor="herds">
                 Besättningar:
               </label>
@@ -674,7 +674,7 @@ function Milk() {
               <select
                 id="herds"
                 name="herds"
-                className="form-select selectWidth border-dark"
+                className="form-select border-dark"
                 onChange={handleSelectChange}
                 value={selectedOption}
               >
