@@ -166,6 +166,7 @@ a:hover {
     background-color: #F5F4F4;
     max-width: 30em;
     padding: 3em;
+   
 }
 
 tr .active {
@@ -223,6 +224,10 @@ width: 25%;
  .selectWidth, .handleWidth{
     width: 50%;
     }
+
+    .handleForm { 
+        width: 60%;
+    }
 }
 
 
@@ -247,8 +252,6 @@ width: 25%;
         padding-top: 1.5em;
         padding-bottom: 1.5em;
         color: black;
-       
-       
       }
       
       .menyicon, .nav-calender{
@@ -290,6 +293,13 @@ width: 25%;
         background-color: #ffc6a0;
     }
 
+    tbody .td-handle{
+        background-color: #FDF4EE;
+    }
+
+    .handleForm { 
+        width: 80%;
+    }
     .selectWidth{
         width: 90%;
        

@@ -512,7 +512,7 @@ function Milk() {
       {editMilk ? (
         <div>
           <form
-            className="form-control handleForm form-control-sm shadow-sm border-dark p-5 mx-auto w-50 "
+            className="form-control handleForm form-control-sm shadow-sm border-dark p-5 mx-auto"
             onSubmit={(e) => updateMilk(e)}
             noValidate
           >
@@ -698,8 +698,8 @@ function Milk() {
         /* Else show table with milks */
         <div>
           <h2 className="p-5 mx-auto">Senaste mjölkningarna: </h2>
-          <table className="table table-responsive table-hover w-75 mx-auto">
-            <thead>
+          <table className="table table-responsive-sm table-hover w-75 mx-auto">
+            <thead className= "d-sm-table-header-group">
               <tr>
                 <th>Djuridentitet</th>
                 <th>Mjölkning</th>
@@ -717,10 +717,36 @@ function Milk() {
                 return (
                   <tr key={milk.id}>
                     {/* Ternary operator */}
-                    <td>{animal ? animal.animalId : "Okänt"}</td>
-                    <td>{milk.kgMilk} Kg</td>
-                    <td>{milk.milkDate}</td>
-                    <td>
+                    {/* Display block for mobile */}                   
+                     <td className="d-block d-sm-none td-handle" data-label="Djuridentitet">{animal ? animal.animalId : "Okänt"}</td>
+                    <td className="d-block d-sm-none" data-label="Kg">{milk.kgMilk}</td>
+                    <td className="d-block d-sm-none" data-label="Datum & tid">{milk.milkDate}</td>
+                    <td className="d-block d-sm-none" data-label="Hantera"> <button
+                        className="button"
+                        onClick={() => {
+                          setEditMilk(true); // Update editMilk-state to true to edit
+                          setNewMilk({
+                            id: milk.id,
+                            kgMilk: milk.kgMilk,
+                            milkDate: milk.milkDate,
+                            animal_id: milk.animal_id,
+                          });
+                        }}
+                      >
+                        Ändra
+                      </button>
+                      {/**Change url when clicking at delete */}
+                      <button
+                        className="button"
+                        onClick={() => navigateToMilk(milk.id)}>
+                        Radera
+                      </button></td>
+                    
+                   {/* Table for desktop */}
+                   <td className="d-none d-sm-table-cell" data-label="Djuridentitet">{animal ? animal.animalId : "Okänt"}</td>
+                    <td className="d-none d-sm-table-cell" data-label="Kg">{milk.kgMilk}</td>
+                    <td className="d-none d-sm-table-cell" data-label="Datum & tid">{milk.milkDate}</td>
+                    <td className="d-none d-sm-table-cell" data-label="Hantera">
                       <button
                         className="button"
                         onClick={() => {

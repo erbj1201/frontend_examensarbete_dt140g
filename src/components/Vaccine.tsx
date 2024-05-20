@@ -795,8 +795,8 @@ const fetchHerdsAnimals = async (userid: string | null) => {
 <div>
       {/*Table to write calves*/}
       <h2 className="p-5 mx-auto"> Senaste vaccinationerna för valt djur:</h2>
-      <table className="table table-responsive table-hover w-75 mx-auto">
-        <thead>
+      <table className="table table-responsive-sm table-hover w-75 mx-auto">
+        <thead className= "table-thead d-sm-table-header-group">
           <tr>
             <th>Djuridentitet</th>
             <th>Namn</th>
@@ -814,11 +814,18 @@ const fetchHerdsAnimals = async (userid: string | null) => {
             );
             return (
             <tr key={vaccine.id}>
-               <td>{animal ? animal.animalId : "Okänt"}</td>
-          
-              <td>{vaccine.name}</td>
-              <td>{vaccine.batchNo}</td>
-              <td>{vaccine.date}</td>
+                 {/* Display block for mobile */}   
+               <td className="d-block d-sm-none animalId" data-label="Djuridentitet">{animal ? animal.animalId : "Okänt"}</td>
+               <td className="d-block d-sm-none" data-label="Namn">{vaccine.name}</td>
+               <td className="d-block d-sm-none" data-label="Batchnummer">{vaccine.batchNo}</td>
+               <td className="d-block d-sm-none" data-label="Datum & tid">{vaccine.date}</td>
+               
+                   {/* Table for desktop */}
+                   <td className="d-none d-sm-table-cell animalId"data-label="Djuridentitet">{animal ? animal.animalId : "Okänt"}</td>
+                   <td className="d-none d-sm-table-cell" data-label="Namn">{vaccine.name}</td>
+               <td className="d-none d-sm-table-cell"data-label="Batchnummer">{vaccine.batchNo}</td>
+               <td className="d-none d-sm-table-cell" data-label="Datum & tid">{vaccine.date}</td>
+                 
               <td>
                 <button
                   className="button"

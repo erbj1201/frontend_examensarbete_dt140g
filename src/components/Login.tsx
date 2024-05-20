@@ -139,7 +139,7 @@ function Login() {
       )}
 
       <form
-        className="form-control handleForm shadow-sm form-control-sm border border-dark p-5 mx-auto mb-5 mt-5 w-50 h-50 bglight"
+        className="form-control handleForm shadow-sm form-control-sm border border-dark p-5 mx-auto mb-5 mt-5 h-50 bglight"
         onSubmit={loginUser}
         noValidate
       >

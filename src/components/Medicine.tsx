@@ -42,7 +42,7 @@ function Medicine() {
   const [showTable, setShowTable] = useState<boolean>(true);
   const [editMedicine, setEditMedicine] = useState(false);
   const [animals, setAnimals] = useState<any[]>([]);
-  
+
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const [medicines, setMedicines] = useState<Medicine[]>([]);
@@ -327,7 +327,7 @@ function Medicine() {
       animal_id: selectedAnimal,
     });
   };
-//Cancel 
+  //Cancel 
   const goBack = () => {
     setEditMedicine(false);
     setNewMedicine({
@@ -452,8 +452,8 @@ function Medicine() {
         //Clear message after 3 seconds
         setTimeout(clearMessages, 3000);
         setEditMedicine(false);
-         //And if animal is chosen
-         if (selectedAnimal) {
+        //And if animal is chosen
+        if (selectedAnimal) {
           //Write the data of the changed animal in table directly
           getMedicinesByAnimals(selectedAnimal);
         } else {
@@ -469,69 +469,69 @@ function Medicine() {
     }
   };
 
-    // Fetch animals by selected herd (get)
-    const getMedicinesByHerd = async (chosenHerdId: string) => {
-      try {
-        setIsLoading(true);
-        const response = await fetch(
-          `http://localhost:8000/api/medicines/herds/${chosenHerdId}`,
-          {
-            method: "GET",
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${token}`,
-              Accept: "application/json",
-            },
-          }
-        );
-        //Response
-        const pickedMedicines = await response.json();
-        if (response.ok) {
-          setMedicines(pickedMedicines);
-          //Get errors
+  // Fetch animals by selected herd (get)
+  const getMedicinesByHerd = async (chosenHerdId: string) => {
+    try {
+      setIsLoading(true);
+      const response = await fetch(
+        `http://localhost:8000/api/medicines/herds/${chosenHerdId}`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+            Accept: "application/json",
+          },
         }
-      } catch (error) {
-        console.log(error);
-      } finally {
-        setIsLoading(false);
+      );
+      //Response
+      const pickedMedicines = await response.json();
+      if (response.ok) {
+        setMedicines(pickedMedicines);
+        //Get errors
       }
-    };
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
-    const fetchHerdsAnimals = async (userid: string | null) => {
-      try {
-        setIsLoading(true);
-        // Fetch all user herds (get)
-        const herdsResponse = await fetch(
-          `http://localhost:8000/api/herds/users/${userid}`,
-          {
-            method: "GET",
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${token}`,
-              Accept: "application/json",
-            },
-          }
-        );
-        const herdsData = await herdsResponse.json();
-        if (herdsResponse.ok) {
-          setHerds(herdsData);
-          //If user has one herd, the id of selected herd is set to chosenHerdId
-          if (herdsData.length === 1) {
-            setChosenHerdId(herdsData[0].id);
-          } else {
-              target: {
-                value: selectedOption
-              };
-          }
+  const fetchHerdsAnimals = async (userid: string | null) => {
+    try {
+      setIsLoading(true);
+      // Fetch all user herds (get)
+      const herdsResponse = await fetch(
+        `http://localhost:8000/api/herds/users/${userid}`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+            Accept: "application/json",
+          },
         }
-      } catch (error) {
-        console.log(error);
-      } finally {
-        setIsLoading(false);
+      );
+      const herdsData = await herdsResponse.json();
+      if (herdsResponse.ok) {
+        setHerds(herdsData);
+        //If user has one herd, the id of selected herd is set to chosenHerdId
+        if (herdsData.length === 1) {
+          setChosenHerdId(herdsData[0].id);
+        } else {
+          target: {
+            value: selectedOption
+          };
+        }
       }
-    };
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
-    
+
   // Handle select change in select for herds
   const handleSelectChange = async (
     event: React.ChangeEvent<HTMLSelectElement>
@@ -569,11 +569,11 @@ function Medicine() {
       if (response.ok) {
         //And if animal is chosen
         if (selectedAnimal) {
-        //Get all medicine from animal
-        getMedicinesByAnimals(selectedAnimal);
-      } else {
-        getMedicinesByHerd(selectedOption);
-      }
+          //Get all medicine from animal
+          getMedicinesByAnimals(selectedAnimal);
+        } else {
+          getMedicinesByHerd(selectedOption);
+        }
         //Change show to false and show message
         setShow(false);
         setShowMessage("Medicineringen är raderad");
@@ -614,14 +614,14 @@ function Medicine() {
                 className="form-select form-select-sm border-dark"
                 value={selectedAnimal}
               >
-                 <option value="">Välj ett djur</option>
-        {animals.map((animal) => (
-          <option key={animal.id} value={animal.id}>
-            {findAnimalId(animal.id)} {/* Använd findAnimalId för att hitta animalId baserat på animal_id */}
-          </option>
+                <option value="">Välj ett djur</option>
+                {animals.map((animal) => (
+                  <option key={animal.id} value={animal.id}>
+                    {findAnimalId(animal.id)} {/* Använd findAnimalId för att hitta animalId baserat på animal_id */}
+                  </option>
                 ))}
-              </select> 
-              
+              </select>
+
               <p className="error-message text-danger fw-bold">
                 {formError.animal_id}
               </p>
@@ -725,7 +725,7 @@ function Medicine() {
                 id="animal_id"
                 name="animal_id"
                 className="form-select form-select-sm border-dark"
-                value= {selectedAnimal}
+                value={selectedAnimal}
                 onChange={(e) => setSelectedAnimal(e.target.value)}
               >
                 <option value="">Välj ett djur</option>
@@ -820,8 +820,8 @@ function Medicine() {
           )}
         </div>
       )}
- {/* Shows if user has more than one herd */}
- {!isLoading && herds.length > 1 && (
+      {/* Shows if user has more than one herd */}
+      {!isLoading && herds.length > 1 && (
         <div>
           <form className="form-control form-control-sm border-0 mx-auto">
             <div className="form-group mx-auto">
@@ -853,68 +853,76 @@ function Medicine() {
       {(showTable && medicines.length < 1) || selectedAnimal == "0" ? (
         <p>Ingen information finns registrerad</p>
       ) : (
-         /* Else show table with medicines */
+        /* Else show table with medicines */
         <div>
-      <h2 className="p-5 mx-auto">Senaste medicineringarna för valt djur:</h2>
-      <table className="table table-responsive table-hover w-75 mx-auto">
-        <thead>
-          <tr>
-            <th>Djuridentitet</th>
-            <th>Datum & tid</th>
-            <th>Medicintyp</th>
-            <th>Mängd</th>
-            <th>Återkommande</th>
-            <th>Hantera</th>
-          </tr>
-        </thead>
-        <tbody>
-          {/**Write medicines */}
-          {medicines.map((medicine) => {
-              //Get medicine that matches animal_id in database
-             const animal = animals.find(
-              (animal) => animal.id === medicine.animal_id
-            );
-            return (
-  <tr key={medicine.id}>
-        <td>{animal ? animal.animalId : "Okänt"}</td>
-    <td>{medicine.date}</td>
-    <td>{medicine.type}</td>
-    <td>{medicine.amount}</td>
-    {/**Check if medicine.recurrent is true or false */}
-    <td>{medicine.recurrent ? "Ja" : "Nej"}</td>
-    <td>
-      <button
-        className="button"
-        onClick={() => {
-          setEditMedicine(true); // Update editMedicine-state to true to edit
-          setNewMedicine({
-            id: medicine.id,
-            date: medicine.date,
-            type: medicine.type,
-            amount: medicine.amount,
-            recurrent: medicine.recurrent,
-            animal_id: medicine.animal_id,
-          });
+          <h2 className="p-5 mx-auto">Senaste medicineringarna för valt djur:</h2>
+          <table className="table table-responsive-sm table-hover w-75 mx-auto">
+          <thead className= "table-thead d-sm-table-header-group">
+              <tr>
+                <th>Djuridentitet</th>
+                <th>Datum & tid</th>
+                <th>Medicintyp</th>
+                <th>Mängd</th>
+                <th>Återkommande</th>
+                <th>Hantera</th>
+              </tr>
+            </thead>
+            <tbody>
+              {/**Write medicines */}
+              {medicines.map((medicine) => {
+                //Get medicine that matches animal_id in database
+                const animal = animals.find(
+                  (animal) => animal.id === medicine.animal_id
+                );
+                return (
+                  <tr key={medicine.id}>
+                          {/* Display block for mobile */}
+                    <td className="d-block d-sm-none animalId" data-label="Djuridentitet">{animal ? animal.animalId : "Okänt"}</td>
+                    <td className="d-block d-sm-none" data-label="Datum & tid">{medicine.date}</td>
+                    <td className="d-block d-sm-none" data-label="Medicintyp">{medicine.type}</td>
+                    <td className="d-block d-sm-none" data-label="Mängd"> {medicine.amount}</td>
+                    {/**Check if medicine.recurrent is true or false */}
+                    <td className="d-block d-sm-none" data-label="Återkommande">{medicine.recurrent ? "Ja" : "Nej"}</td>
+                     {/* Table for desktop */}
+                     <td className="d-none d-sm-table-cell animalId"data-label="Djuridentitet">{animal ? animal.animalId : "Okänt"}</td>
+                     <td className="d-none d-sm-table-cell" data-label="Datum & tid">{medicine.date}</td>
+                    <td className="d-none d-sm-table-cell" data-label="Medicintyp">{medicine.type}</td>
+                    <td className="d-none d-sm-table-cell" data-label="Mängd"> {medicine.amount}</td>
+                    {/**Check if medicine.recurrent is true or false */}
+                    <td className="d-none d-sm-table-cell" data-label="Återkommande">{medicine.recurrent ? "Ja" : "Nej"}</td>
+                    <td>
+                      <button
+                        className="button"
+                        onClick={() => {
+                          setEditMedicine(true); // Update editMedicine-state to true to edit
+                          setNewMedicine({
+                            id: medicine.id,
+                            date: medicine.date,
+                            type: medicine.type,
+                            amount: medicine.amount,
+                            recurrent: medicine.recurrent,
+                            animal_id: medicine.animal_id,
+                          });
 
-        }}
-      >
-        Ändra 
-      </button>
-      {/**Change url when clicking at delete */}
-      <button
-        className="button shadow-sm"
-        onClick={() => navigateToMedicine(medicine.id)}
-      >
-        Radera
-      </button>
-    </td>
-  </tr>
-            );
-          })}
-        </tbody>
-      </table>
-      </div>
-  )}
+                        }}
+                      >
+                        Ändra
+                      </button>
+                      {/**Change url when clicking at delete */}
+                      <button
+                        className="button shadow-sm"
+                        onClick={() => navigateToMedicine(medicine.id)}
+                      >
+                        Radera
+                      </button>
+                    </td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        </div>
+      )}
       {/**Popup for deleting */}
       {show && (
         <div className="modal" role="dialog" style={{ display: "block" }}>
