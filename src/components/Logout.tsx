@@ -45,7 +45,7 @@ const Logout: React.FC = () => {
   };
   return (
     <div className="d-flex justify-content-end">
-      <button className="btn btn-outline-dark shadow-sm m-2 align-self-end" onClick={logoutUser}>
+      <button className="btn btn-sm btn-outline-dark shadow-sm m-2 align-self-end desktop" onClick={logoutUser}>
         Logga ut
       </button>
     </div>
