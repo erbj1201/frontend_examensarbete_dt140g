@@ -1210,9 +1210,13 @@ function Calf() {
             </thead>
             <tbody>
               {/**Loop and Write calves */}
-              {calves.map((calf) => (
+              {calves.map((calf) => {
+               const animal = animals.find(
+                (animal) => animal.id === calf.animal_id
+              );
+                return(
                 <tr key={calf.id}>
-                  <td>{calf.animalId}</td>
+                  <td>{animal ? animal.animalId : "Okänt"}</td>
                   <td>{calf.earNo}</td>
                   <td>{calf.breed}</td>
                   <td>{calf.name}</td>
@@ -1250,7 +1254,8 @@ function Calf() {
                     </button>
                   </td>
                 </tr>
-              ))}
+                );
+              })}
             </tbody>
           </table>
         </div>

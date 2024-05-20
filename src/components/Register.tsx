@@ -198,7 +198,6 @@ const RegisterPage: React.FC = () => {
 
   return (
     <div>
-      <h1>Registrera konto</h1>
       {/*form to register user*/}
       {showMessage && (
         <p className="alert mx-auto alert-success text-dark w-25 mx-auto text-center mt-2">{showMessage}</p>
