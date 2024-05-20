@@ -506,11 +506,12 @@ const DetailsPage: React.FC = () => {
                   <Collapsible open title="Vaccinering">
                     {vaccineData.length > 0 ? (
                       vaccineData.map((vaccine, index) => (
-                        <div key={index}>
-                          <p><b>Batchnummer: </b>{vaccine.batchNo}</p>
-                          <p><b>Namn:</b> {vaccine.name} </p>
-                          <p><b>Datum och tid:</b> {vaccine.date} </p>
-
+                        <div className="collapsibleInfo" key={index}>
+                          <ul>
+                          <li><b>Batchnummer: </b>{vaccine.batchNo}</li>
+                          <li><b>Namn:</b> {vaccine.name} </li>
+                          <li><b>Datum och tid:</b> {vaccine.date} </li>
+                          </ul>
                         </div>
                       ))
                     ) : (<p> Inget vaccin för detta djur</p>)}
@@ -522,14 +523,16 @@ const DetailsPage: React.FC = () => {
                   <Collapsible open title="Kalvning">
                     {calfData.length > 0 ? (
                       calfData.map((calf, index) => (
-                        <div key={index}>
-                          <p><b>Öronnummer:</b> {calf.earNo}</p>
-                          <p><b>Ras:</b> {calf.breed}</p>
-                          <p><b>Namn: </b>{calf.name}</p>
-                          <p><b>Förväntat födelsedatum: </b>{calf.expectedBirthDate}</p>
-                          <p><b>Födelsedatum:</b> {calf.birthDate} </p>
-                          <p><b>Kön: </b>{calf.sex} </p>
-                          <p><b>Kategori: </b>{calf.category} </p>
+                        <div className="collapsibleInfo" key={index}>
+                          <ul>
+                          <li><b>Öronnummer:</b> {calf.earNo}</li>
+                          <li><b>Ras:</b> {calf.breed}</li>
+                          <li><b>Namn: </b>{calf.name}</li>
+                          <li><b>Förväntat födelsedatum: </b>{calf.expectedBirthDate}</li>
+                          <li><b>Födelsedatum:</b> {calf.birthDate} </li>
+                          <li><b>Kön: </b>{calf.sex} </li>
+                          <li><b>Kategori: </b>{calf.category} </li>
+                          </ul>
                         </div>
                       ))
                     ) : (<p> Ingen kalv för detta djur</p>)}
