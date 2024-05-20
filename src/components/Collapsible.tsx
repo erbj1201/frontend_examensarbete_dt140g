@@ -30,7 +30,7 @@ const Collapsible: React.FC<IProps> = ({ title, children, open }) => {
                 </button>
             </div>
             <div>
-                <div>{!isOpen && <div className="p-2 collapsibleDiv">{children}</div>}</div>
+                <div>{!isOpen && <div className="p-2 collapsibleDiv border border-dark">{children}</div>}</div>
             </div>
         </div>
     );
