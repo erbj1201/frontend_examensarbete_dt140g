@@ -131,8 +131,8 @@ const SearchForm = () => {
         </div>
       </form>
       {searchText && filteredOptions.length > 0 && (
-        <div>
-            <ul>
+        <div className="scroll-list-container">
+            <ul className="scroll-list">
             {filteredOptions.map(animal => (
               <li key={animal.id}>
                 <Link to={`/details/${animal.id}`}>

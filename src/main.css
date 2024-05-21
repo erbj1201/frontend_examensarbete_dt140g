@@ -244,7 +244,22 @@ tr .active {
 .btn-next-animal {
   font-size: 0.8em;
 }
+.scroll-list-container {
+    max-height: 200px; 
+    overflow-y: auto; 
+    border: 1px solid #ccc;
+    padding: 5px; 
+    background-color: #ffffff;
+  }
 
+  .scroll-list {
+    list-style-type: none; /* Ta bort punktlistan från listan */
+    padding: 0; /* Ta bort inre utfyllnad från listan */
+  }
+  .scroll-list li {
+    padding: 8px 0; /* Utfyllnad för varje listelement, justera efter behov */
+  }
+  
 /*tablet screen */
 @media screen and (min-width: 576px) and (max-width: 992px) {
   .nav.link {
