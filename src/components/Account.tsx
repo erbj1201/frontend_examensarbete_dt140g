@@ -217,9 +217,9 @@ export default function Account() {
       {/** If edituser is true, show form */}
       {editUser ? (
         <div className="bglight p-2 m-3 mx-auto w-75 border border-dark d-flex flex-column shadow-sm">
-          <h2 className="mx-auto">Uppdatera dina uppgifter</h2>
+          <h2 className="mx-auto p-4">Uppdatera dina uppgifter</h2>
           <form
-            className="form-control handleForm form-control-sm border-0 p-2 mx-auto w-50"
+            className="form-control handleForm form-control-sm border-0 p-2 mx-auto w-100"
             onSubmit={updateProfile}
           > {/*Message for form */}
             {showMessage && (
@@ -264,10 +264,12 @@ export default function Account() {
                 onChange={handleChange}
                 required
               />
+              <div className="mx-auto d-flex justify-content-between account-btns">
               <button type="submit" className="button m-3">
                 Spara ändringar
               </button>
-              <button className="button mb-2" onClick={() => setEditUser(false)}>Tillbaka</button>
+              <button className="button m-3" onClick={() => setEditUser(false)}>Tillbaka</button>
+              </div>
             </div>
           </form>
         </div>
@@ -278,7 +280,7 @@ export default function Account() {
             <p className="alert mx-auto alert-success text-dark w-25 mx-auto text-center mt-2">{showMessage}</p>
           )}
           <h2 className="mx-auto p-4">Användaruppgifter</h2>
-          <div className="container d-flex justify-content-center ">
+          <div className="container d-flex justify-content-center">
             <div className="d-flex flex-column">
               {/*Check if image is uploaded to user or show generic image */}
               {user.imagepath !== null ? (
@@ -292,7 +294,7 @@ export default function Account() {
               <p><strong>Mejladress:</strong> {user.email}</p>
             </div>
           </div>
-          <div className="mx-auto d-flex justify-content-between">
+          <div className="mx-auto d-flex justify-content-between account-btns">
             <button className="button m-3" onClick={editImage}>Byt bild</button>
             <button className="button m-3" onClick={editData}>Ändra användaruppgifter</button>
           </div>
@@ -305,7 +307,7 @@ export default function Account() {
       {editImageData ? (
         <div className="bglight p-2 m-3 mx-auto w-75 border border-dark d-flex flex-column shadow-sm">
           <p className="text-center"><strong>Ladda upp en ny bild, bilden byts ut automatiskt</strong></p>
-          <form className="form-control mx-auto handleForm form-control-sm border-0 mx-auto w-50" onSubmit={handleSubmitImage}>
+          <form className="form-control mx-auto handleForm form-control-sm border-0 mx-auto" onSubmit={handleSubmitImage}>
             <div className="form-group" >
               <label htmlFor="imagepath" className="form-label">
                 Välj bild
