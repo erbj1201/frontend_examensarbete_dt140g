@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import Cookies from 'universal-cookie';
 /*search in header component*/
 // Structure of animal
@@ -131,13 +132,15 @@ const SearchForm = () => {
       </form>
       {searchText && filteredOptions.length > 0 && (
         <div>
-          <ul>
+            <ul>
             {filteredOptions.map(animal => (
               <li key={animal.id}>
-                {animal.name} - {animal.animalId} - {animal.earNo}
+                <Link to={`/details/${animal.id}`}>
+                  {animal.name} - {animal.animalId} - {animal.earNo}
+                </Link>
               </li>
             ))}
-          </ul>
+          </ul> 
         </div>
       )}
     </div>
