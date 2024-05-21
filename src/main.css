@@ -6,7 +6,7 @@ body {
     color: black;
     font-family: "Roboto", sans-serif;
     max-width: 2000px;
-    margin: auto;
+    margin: 0;
 }
 
 header {
@@ -17,7 +17,7 @@ header {
 footer {
     background-color: #f2f2f2;
     width: 100%;
- margin-top: 1em;
+    margin: 0;
 }
 
 p {
@@ -42,6 +42,7 @@ a:hover {
 /*Växa in footer*/
 .vxa {
     color: #75160e;
+    margin: 0;
 }
 
 /*Text in userheader for register, login*/
