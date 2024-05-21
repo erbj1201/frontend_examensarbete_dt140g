@@ -129,7 +129,7 @@ const SearchForm = () => {
             </button>
           </div>
         </div>
-      </form>
+      
       {searchText && filteredOptions.length > 0 && (
         <div className="scroll-list-container">
             <ul className="scroll-list">
@@ -143,6 +143,7 @@ const SearchForm = () => {
           </ul> 
         </div>
       )}
+      </form>
     </div>
   );
 };

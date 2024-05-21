@@ -2,530 +2,590 @@
 
 /*body, text, header, footer*/
 body {
-  background-color: #ffffff;
-  color: black;
-  font-family: "Roboto", sans-serif;
-  max-width: 2000px;
-  margin: auto;
+    background-color: #ffffff;
+    color: black;
+    font-family: "Roboto", sans-serif;
+    max-width: 2000px;
+    margin: auto;
 }
 
 header,
 footer {
-  background-color: #f2f2f2;
-  width: 100%;
+    background-color: #f2f2f2;
+    width: 100%;
 }
 
 p {
-  font-family: "Roboto", sans-serif;
-  font-size: 1em;
-  color: black;
+    font-family: "Roboto", sans-serif;
+    font-size: 1em;
+    color: black;
 }
 
 h1 {
-  padding: 0.5em 0.2em;
+    padding: 0.5em 0.2em;
 }
 
 /*Links*/
 a {
-  color: #75160e;
+    color: #75160e;
 }
 
 a:hover {
-  color: #370c0c;
+    color: #370c0c;
 }
 
 /*Växa in footer*/
 .vxa {
-  color: #75160e;
+    color: #75160e;
 }
 
 /*Text in userheader for register, login*/
 .headerdiv {
-  font-family: "Sigmar One", cursive;
-  max-width: 25em;
+    font-family: "Sigmar One", cursive;
+    max-width: 25em;
 }
+
 .icon-mobile {
-  display: none;
+    display: none;
 }
+
 .desktop-icon {
-  margin-top: 1%;
+    margin-top: 1%;
 }
+
 .menyicon-div {
-  display: none;
-  flex-direction: row;
-  margin-top: 1%;
+    display: none;
+    flex-direction: row;
+    margin-top: 1%;
 }
+
 .fi {
-  font-size: 1.2em;
+    font-size: 1.2em;
 }
+
 /*symbol for support/contact beside menu*/
 .menyicon {
-  color: black;
-  height: auto;
-  margin: 0.5em;
-  text-decoration: none;
+    color: black;
+    height: auto;
+    margin: 0.5em;
+    text-decoration: none;
 }
+
 .menyicon:hover {
-  color: #75160e;
+    color: #75160e;
 }
 
 /*"mingård" text under logo */
 .navbar-brand p {
-  color: #3a3939;
+    color: #3a3939;
 }
 
 .button {
-font-size: 0.8em;
-  border: none;
-  border-radius: 5%;
-  background-color: #f29354;
-  height: 2.5em;
-  margin: 0.5em;
+    font-size: 0.8em;
+    border: none;
+    border-radius: 5%;
+    background-color: #f29354;
+    height: 2.5em;
+    margin: 0.5em;
 }
 
 .button:hover {
-  background-color: black;
-  color: white;
+    background-color: black;
+    color: white;
 }
 
 /*button search in header*/
 .search-btn {
-  width: 1.5em;
+    width: 1.5em;
 }
 
 .search-btn-btn {
-  background-color: #f29354;
-  border: none;
-  border-radius: 5%;
+    background-color: #f29354;
+    border: none;
+    border-radius: 5%;
 }
+
 .search-btn-btn:hover {
-  background-color: #ffc6a0;
+    background-color: #ffc6a0;
 }
+
 /*DetailsPage*/
 .detailsHeader {
-  background-color: #ffd6bb;
+    background-color: #ffd6bb;
 }
+
 /*article around animal info*/
 .detailsArticle {
-  background-color: #fdf4ee;
-  width: 50%;
+    background-color: #fdf4ee;
+    width: 50%;
 }
+
 .animalInformation {
-  width: 80%;
+    width: 80%;
 }
+
 /*arrow right to change animal*/
 .arrowRightDetails {
-  width: 1em;
+    width: 1em;
 }
+
 /*arrow left to change animal*/
 .arrowLeftDetails {
-  width: 1em;
+    width: 1em;
 }
+
 /*first div around "grundinformation" */
 .detailsDiv {
-  background-color: #fdfdfd;
-  margin-top: 2em;
-  width: 100%;
+    background-color: #fdfdfd;
+    margin-top: 2em;
+    width: 100%;
 }
+
 .detailsDivText {
-  font-size: 0.8em;
+    font-size: 0.8em;
 }
 
 /* Details header h2 */
 .detailsHeader h2 {
-  font-size: 1.4em;
-  font-weight: 400;
+    font-size: 1.4em;
+    font-weight: 400;
 }
 
 /*h3 at detailpage*/
 .h3details {
-  background-color: #f2f2f2;
-  font-size: 1.2em;
-  font-weight: 300;
+    background-color: #f2f2f2;
+    font-size: 1.2em;
+    font-weight: 300;
 }
 
 .nav-link {
-  color: black;
+    color: black;
 }
 
 .nav-link:hover {
-  text-decoration: underline;
-  color: #75160e;
+    text-decoration: underline;
+    color: #75160e;
 }
 
 .tableRow {
-  cursor: pointer;
+    cursor: pointer;
 }
 
 .cow-image {
-  height: 100%;
-  width: 100%;
-  max-width: 200px;
+    height: 100%;
+    width: 100%;
+    max-width: 200px;
 }
 
 /* category buttons*/
 .category-btn {
-  background-color: #504f4f;
-  color: white;
-  padding: 0.5em;
-  border-radius: 7%;
-  border: #504f4f solid 1px;
+    background-color: #504f4f;
+    color: white;
+    padding: 0.5em;
+    border-radius: 7%;
+    border: #504f4f solid 1px;
 }
+
 .category-btn:hover {
-  background-color: #f2f2f2;
-  color: #000000;
-  border: solid 1px #000000;
-  box-shadow: none;
+    background-color: #f2f2f2;
+    color: #000000;
+    border: solid 1px #000000;
+    box-shadow: none;
 }
+
 .handleForm {
-  background-color: #f5f4f4;
-  max-width: 30em;
+    background-color: #f5f4f4;
+    max-width: 30em;
 }
 
 tr .active {
-  background-color: #f29354;
+    background-color: #f29354;
 }
 
 .btn-alert {
-  background-color: #f29354;
-  border-radius: 10%;
-  padding: 0.5em;
-  border: none;
+    background-color: #f29354;
+    border-radius: 10%;
+    padding: 0.5em;
+    border: none;
 }
 
 .btn-alert:hover {
-  background-color: black;
-  color: white;
+    background-color: black;
+    color: white;
 }
 
 .modal {
-  background-color: rgba(0, 0, 0, 0.3);
+    background-color: rgba(0, 0, 0, 0.3);
 }
 
 .userImage {
-  max-width: 200px;
-  width: 100%;
-  height: 100%;
+    max-width: 200px;
+    width: 100%;
+    height: 100%;
 }
 
 .bglight {
-  background-color: #f2f2f2;
+    background-color: #f2f2f2;
 }
 
 
 .collapsibleDiv {
-  background-color: #ffffff;
+    background-color: #ffffff;
 }
+
 .collapsible li {
-  list-style-type: none;
+    list-style-type: none;
 }
+
 .collapsible .collapsibleInfo {
-  margin-top: 3%;
-  border-bottom: #000000 1px solid;
+    margin-top: 3%;
+    border-bottom: #000000 1px solid;
 }
 
 .rbc-date-cell {
-  color: black;
+    color: black;
 }
 
 .fit-content-width {
-  width: 100%;
-  max-width: 40em;
+    width: 100%;
+    max-width: 40em;
 }
 
 .selectWidth {
-  width: 44%;
+    width: 44%;
 }
 
 .handleWidth {
-  width: 50%;
+    width: 50%;
 }
 
 .btn-next-animal {
-  font-size: 0.8em;
+    font-size: 0.8em;
 }
+
 /* Width on search and filtrate */
-.searchOptions{
-   
+.searchOptions {
+
     width: 50%;
 }
 
 .scroll-list-container {
-    margin: auto;
+    margin: left;
     font-size: 0.8em;
-    max-height: 200px; 
-    overflow-y: auto; 
-    width: 40%;
+    max-height: 200px;
+    overflow-y: auto;
+    width: 30%;
     border: 1px solid #ccc;
-        background-color: #ffffff;
-  }
+    background-color: #ffffff;
+}
 
-  .scroll-list {
-    list-style-type: none; /* Ta bort punktlistan från listan */
-    padding: 0; /* Ta bort inre utfyllnad från listan */
-  }
-  .scroll-list li {
-    padding: 8px 7px; /* Utfyllnad för varje listelement, justera efter behov */
-  }
-  .scroll-list li a {
-    text-decoration: none; /* Ta bort understrykning från länkarna */
-    color: #333; /* Färg på länkarna, justera efter behov */
-  }
-  
-  /* CSS för länkar i listelementen när de är överstyrda */
-  .scroll-list li:hover {
-        background-color: #dddddd; /* Understryk länkarna när de är överstyrda */
-  }
-  .account-div{
-   max-width: 600px;
-  }
-  .account-large{
+.scroll-list {
+    list-style-type: none;
+    padding: 0;
+}
+
+.scroll-list li {
+    padding: 8px 7px;
+}
+
+.scroll-list li a {
+    text-decoration: none;
+    color: #333;
+}
+
+
+.scroll-list li:hover {
+    background-color: #dddddd;
+   
+}
+
+.account-div {
+    max-width: 600px;
+}
+
+.account-large {
     width: 100%;
     max-width: 800px;
-  }
-  
+}
+
 /*tablet screen */
 @media screen and (min-width: 576px) and (max-width: 992px) {
-  .nav.link {
-    margin: 1%;
-  }
-  .nav-item {
-    display: flex;
-    justify-content: center;
-    margin: auto;
-    font-size: 0.8em;
-  }
-  .selectWidth,
-  .handleWidth {
-    width: 84%;
-  }
-  .icon-mobile {
-    display: none;
-  }
-  /*article around animal info*/
-  .detailsArticle {
-    background-color: #fdf4ee;
-      width: 80%;
+    .nav.link {
+        margin: 1%;
+    }
+
+    .nav-item {
+        display: flex;
+        justify-content: center;
+        margin: auto;
+        font-size: 0.8em;
+    }
+
+    .selectWidth,
+    .handleWidth {
+        width: 84%;
+    }
+
+    .icon-mobile {
+        display: none;
+    }
+
+    /*article around animal info*/
+    .detailsArticle {
+        background-color: #fdf4ee;
+        width: 80%;
+    }
+
+    /*arrow right to change animal*/
+    .arrowRightDetails {
+        width: 1em;
+    }
+
+    /*arrow left to change animal*/
+    .arrowLeftDetails {
+        width: 1em;
+    }
+
+    /*first div around "grundinformation" */
+    .detailsDiv {
+        background-color: #fdfdfd;
+        margin-top: 2em;
+    }
+
+    .detailsDivText {
+        font-size: 0.8em;
+    }
+
+    .animalInformation {
+        width: 80%;
+    }
+
+    .account-div {
+        margin: auto;
+        width: 100%;
+        height: 100%;
+    }
+
+    .userImage {
+        width: 100%;
+        height: 100%;
+        margin: auto;
+    }
+
+    /* Width on search and filtrate */
+    .searchOptions {
+        width: 50%;
+    }
+
+    .scroll-list-container {
+        font-size: 0.8em;
+        max-height: 120px;
+        overflow-y: auto;
+        width: 100%;
+        margin: auto;
+    }
 }
 
-  /*arrow right to change animal*/
-  .arrowRightDetails {
-    width: 1em;
-  }
-
-  /*arrow left to change animal*/
-  .arrowLeftDetails {
-    width: 1em;
-  }
-
-  /*first div around "grundinformation" */
-  .detailsDiv {
-    background-color: #fdfdfd;
-    margin-top: 2em;
-  }
-  .detailsDivText {
-    font-size: 0.8em;
-  }
-
-  .animalInformation {
-    width: 80%;
-  }
-  .account-div{
-    margin: auto;
-    width: 100%;
-    height: 100%;
-  }
-  .userImage{
-    width: 100%;
-    height: 100%;
-    margin: auto;
-  }
-  /* Width on search and filtrate */
-.searchOptions{
-    width: 50%;
-}
-  .scroll-list-container {
-    font-size: 0.8em;
-    max-height: 120px; 
-    overflow-y: auto; 
-    width: 50%;
-  margin: auto;
-  }
-}
 /*mobile screen*/
 @media screen and (max-width: 576px) {
-  .nav-div {
-    position: fixed;
-    left: 0;
-    bottom: 0;
-    width: 100%;
-    margin: auto;
-    background-color: white;
-    z-index: 999;
-    display: flex;
-    justify-content: center;
-    padding: 0 0.5em;
-    border-top: rgb(0, 0, 0) solid 1px;
-  }
-  .nav {
-    width: 100%;
-    padding: 0;
-    margin: 0;
-    display: flex;
-    justify-content: space-between;
-  }
-  .nav-link {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    color: black;
-    padding: 0.8em;
-    font-size: 0.8em;
-    text-align: center;
-    width: 100%;
-    text-decoration: none;
-  }
-  .nav-item {
-    list-style: none;
-  }
-  .menyicon {
-    align-self: center;
-    margin: 1em;
-    text-decoration: none;
-  }
-  .desktop-icon {
-    display: none;
-  }
-  .menyicon-div {
-    justify-content: center;
-    display: flex;
-    flex-direction: column;
-  }
-  thead {
-    display: none;
-  }
-  .table-responsive-sm td::before {
-    content: attr(data-label);
-    font-weight: bold;
-    display: block;
-  }
-  .table-responsive-sm td {
-    display: block;
-    text-align: right;
-    padding-left: 50%;
-    position: relative;
-  }
-  .table-responsive-sm td::before {
-    position: absolute;
-    left: 0;
-    width: 50%;
-    text-align: left;
-    padding-left: 10px;
-  }
-  .tableRow {
-    margin: 1em;
-  }
-  /* Shows when a new animal starts in the table */
-  tbody .animalId {
-    background-color: #ffc6a0;
-  }
+    .nav-div {
+        position: fixed;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        margin: auto;
+        background-color: white;
+        z-index: 999;
+        display: flex;
+        justify-content: center;
+        padding: 0 0.5em;
+        border-top: rgb(0, 0, 0) solid 1px;
+    }
 
-  tbody .td-handle {
-    background-color: #fdf4ee;
-  }
+    .nav {
+        width: 100%;
+        padding: 0;
+        margin: 0;
+        display: flex;
+        justify-content: space-between;
+    }
 
-  .handleForm {
-    width: 100%;
-    padding: 1em;
-  }
+    .nav-link {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        color: black;
+        padding: 0.8em;
+        font-size: 0.8em;
+        text-align: center;
+        width: 100%;
+        text-decoration: none;
+    }
 
-  .selectWidth {
-    width: 100%;
-  }
-  .icon-mobile {
-    display: flex;
-    margin: auto;
-  }
+    .nav-item {
+        list-style: none;
+    }
 
-  .handleWidth {
-    width: 50%;
-    margin: auto;
-  }
-  /* To show Växa Sverige in footer */
-  footer {
-    padding-bottom: 10%;
-  }
-  .container-btns {
-    margin: auto;
-    display: flex;
-    flex-direction: column;
-    width: 80%;
-  }
-  /*article around animal info*/
-  .detailsArticle {
-    background-color: #fdf4ee;
-    width: 100%;
-  }
-  .collapsible {
-    width: 90%;
-  }
+    .menyicon {
+        align-self: center;
+        margin: 1em;
+        text-decoration: none;
+    }
 
-  /*arrow right to change animal*/
-  .arrowRightDetails {
-    width: 1em;
-  }
+    .desktop-icon {
+        display: none;
+    }
 
-  /*arrow left to change animal*/
-  .arrowLeftDetails {
-    width: 1em;
-  }
+    .menyicon-div {
+        justify-content: center;
+        display: flex;
+        flex-direction: column;
+    }
 
-  /*first div around "grundinformation" */
-  .detailsDiv {
-    background-color: #fdfdfd;
-    margin-top: 2em;
-    width: 90%;
-  }
-  .detailsDivText {
-    font-size: 0.8em;
-  }
-  .account-btns{
-    display: flex;
-    flex-direction: column;
-    margin: auto;
-    width: 100%;
-    max-width: 300px;
-  }
-  .account-div{
-    flex-direction: column;
-    margin: auto;
-    width: 100%;
-    height: 100%;
-  }
-  .userImage{
-    width: 100%;
-    height: 100%;
-    margin: auto;
-  }
-  .account-heading{
-    font-size: 1.2em;
-  }
-  .account-text{
-    font-size: 0.8em;
-  }
-  .account-large{
-    width: 100%;
-  }
+    thead {
+        display: none;
+    }
+
+    .table-responsive-sm td::before {
+        content: attr(data-label);
+        font-weight: bold;
+        display: block;
+    }
+
+    .table-responsive-sm td {
+        display: block;
+        text-align: right;
+        padding-left: 50%;
+        position: relative;
+    }
+
+    .table-responsive-sm td::before {
+        position: absolute;
+        left: 0;
+        width: 50%;
+        text-align: left;
+        padding-left: 10px;
+    }
+
+    .tableRow {
+        margin: 1em;
+    }
+
+    /* Shows when a new animal starts in the table */
+    tbody .animalId {
+        background-color: #ffc6a0;
+    }
+
+    tbody .td-handle {
+        background-color: #fdf4ee;
+    }
+
+    .handleForm {
+        width: 100%;
+        padding: 1em;
+    }
+
+    .selectWidth {
+        width: 100%;
+    }
+
+    .icon-mobile {
+        display: flex;
+        margin: auto;
+    }
+
+    .handleWidth {
+        width: 50%;
+        margin: auto;
+    }
+
+    /* To show Växa Sverige in footer */
+    footer {
+        padding-bottom: 10%;
+    }
+
+    .container-btns {
+        margin: auto;
+        display: flex;
+        flex-direction: column;
+        width: 80%;
+    }
+
+    /*article around animal info*/
+    .detailsArticle {
+        background-color: #fdf4ee;
+        width: 100%;
+    }
+
+    .collapsible {
+        width: 90%;
+    }
+
+    /*arrow right to change animal*/
+    .arrowRightDetails {
+        width: 1em;
+    }
+
+    /*arrow left to change animal*/
+    .arrowLeftDetails {
+        width: 1em;
+    }
+
+    /*first div around "grundinformation" */
+    .detailsDiv {
+        background-color: #fdfdfd;
+        margin-top: 2em;
+        width: 90%;
+    }
+
+    .detailsDivText {
+        font-size: 0.8em;
+    }
+
+    .account-btns {
+        display: flex;
+        flex-direction: column;
+        margin: auto;
+        width: 100%;
+        max-width: 300px;
+    }
+
+    .account-div {
+        flex-direction: column;
+        margin: auto;
+        width: 100%;
+        height: 100%;
+    }
+
+    .userImage {
+        width: 100%;
+        height: 100%;
+        margin: auto;
+    }
+
+    .account-heading {
+        font-size: 1.2em;
+    }
+
+    .account-text {
+        font-size: 0.8em;
+    }
+
+    .account-large {
+        width: 100%;
+    }
+
     /* Width on search and filtrate */
-.searchOptions{
-    width: 100%;
-}
-  .scroll-list-container {
-    font-size: 0.8em;
-    max-height: 120px; 
-    overflow-y: auto; 
-    width: 90%;
-  margin: auto;
-  }
+    .searchOptions {
+        width: 100%;
+    }
+
+    .scroll-list-container {
+        font-size: 0.8em;
+        max-height: 120px;
+        overflow-y: auto;
+        width: 100%;
+        margin-bottom: 1em;
+    }
 }
