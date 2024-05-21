@@ -92,10 +92,10 @@ const SearchForm = () => {
 
   return (
     <div className="mx-auto">
-      <form onSubmit={handleSubmit} className="form-control form-control-sm align-items-center mx-auto bglight border-0 w-50">
+      <form onSubmit={handleSubmit} className="form-control form-control-sm align-items-center mx-auto bglight border-0 searchOptions">
         {/**search-input and button in header */}
-        <div className="row mx-auto">
-          <div className="col-12 col-lg">
+        <div className="row">
+          <div className="col-sm-12 col-lg">
             <label htmlFor="search" >Sökord:</label>
             <input type="text" id="search" name='search' className="form-control form-control-sm border-dark active"
               value={searchText}

@@ -212,6 +212,7 @@ tr .active {
   background-color: #f2f2f2;
 }
 
+
 .collapsibleDiv {
   background-color: #ffffff;
 }
@@ -243,12 +244,20 @@ tr .active {
 .btn-next-animal {
   font-size: 0.8em;
 }
+/* Width on search and filtrate */
+.searchOptions{
+   
+    width: 50%;
+}
+
 .scroll-list-container {
+    margin: auto;
+    font-size: 0.8em;
     max-height: 200px; 
     overflow-y: auto; 
+    width: 40%;
     border: 1px solid #ccc;
-    padding: 5px; 
-    background-color: #ffffff;
+        background-color: #ffffff;
   }
 
   .scroll-list {
@@ -256,7 +265,16 @@ tr .active {
     padding: 0; /* Ta bort inre utfyllnad från listan */
   }
   .scroll-list li {
-    padding: 8px 0; /* Utfyllnad för varje listelement, justera efter behov */
+    padding: 8px 7px; /* Utfyllnad för varje listelement, justera efter behov */
+  }
+  .scroll-list li a {
+    text-decoration: none; /* Ta bort understrykning från länkarna */
+    color: #333; /* Färg på länkarna, justera efter behov */
+  }
+  
+  /* CSS för länkar i listelementen när de är överstyrda */
+  .scroll-list li:hover {
+        background-color: #dddddd; /* Understryk länkarna när de är överstyrda */
   }
   .account-div{
    max-width: 600px;
@@ -317,6 +335,17 @@ tr .active {
     width: 100%;
     height: 100%;
     margin: auto;
+  }
+  /* Width on search and filtrate */
+.searchOptions{
+    width: 50%;
+}
+  .scroll-list-container {
+    font-size: 0.8em;
+    max-height: 120px; 
+    overflow-y: auto; 
+    width: 50%;
+  margin: auto;
   }
 }
 /*mobile screen*/
@@ -476,5 +505,18 @@ tr .active {
   }
   .account-heading{
     font-size: 1.2em;
+  }
+
+    /* Width on search and filtrate */
+.searchOptions{
+    width: 100%;
+}
+
+  .scroll-list-container {
+    font-size: 0.8em;
+    max-height: 120px; 
+    overflow-y: auto; 
+    width: 90%;
+  margin: auto;
   }
 }
