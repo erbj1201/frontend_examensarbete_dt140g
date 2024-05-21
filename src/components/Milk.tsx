@@ -666,7 +666,7 @@ function Milk() {
       {!isLoading && herds.length > 1 && (
         <div>
           <form className="fit-content-width form-control-sm mx-auto">
-            <div className="form-group w-75 mx-auto m-5">
+            <div className="form-group w-75 mx-auto m-3">
               <label className="form-label" htmlFor="herds">
                 Besättningar:
               </label>
@@ -697,7 +697,7 @@ function Milk() {
       ) : (
         /* Else show table with milks */
         <div>
-          <h2 className="p-5 mx-auto">Senaste mjölkningarna: </h2>
+          <h2 className="p-3 mx-auto">Senaste mjölkningarna: </h2>
           <table className="table table-responsive-sm table-hover w-75 mx-auto">
             <thead className= "d-sm-table-header-group">
               <tr>
