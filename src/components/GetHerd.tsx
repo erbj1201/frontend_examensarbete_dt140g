@@ -146,7 +146,7 @@ const GetHerdComponent: React.FC = () => {
           {/*If there are more than one herd, show select with option*/}
           {!isLoading && !error && herds.length > 1 && (
             <div>
-               <h1 className="text-center">Besättning</h1>
+               <h1 className="text-center m-3">Besättning</h1>
               <form className="form-control handleWidth form-control-sm border-0 mx-auto">
                 <div className="form-group mx-auto">
                   <label className="form-label" htmlFor="herds">Välj en besättning:</label>
@@ -171,8 +171,9 @@ const GetHerdComponent: React.FC = () => {
           )}
             <div className=" animalView mx-auto">
           {/* Buttons to sort out by category */}
-          <div className="container container-btns mx-auto ">
-            <h2 className="text-center">Sortera djur</h2>
+          <div className="container-btns mx-auto">
+            <h2 className="text-center p-3 m-3">Sortera djur</h2>
+            <div className=" d-flex justify-content-center mx-auto">
             <button
               className="category-btn active m-3"
               onClick={() => {
@@ -200,9 +201,10 @@ const GetHerdComponent: React.FC = () => {
             >
               Mjölkdjur
             </button>
+            </div>
           </div>
          
-          <h3 className="">Djuröversikt</h3>
+          <h3 className="p-3 m-3">Djuröversikt</h3>
           {/*if animal lenght is larger then 0*/}
           {animals.length > 0 ? (
             <table className="table shadow-sm table-responsive-sm table-hover">
