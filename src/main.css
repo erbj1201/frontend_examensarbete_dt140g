@@ -404,12 +404,7 @@ tr .active {
     }
 
     .selectWidth {
-<<<<<<< HEAD
         width: 100%;
-
-=======
-        width: 84%;
->>>>>>> 248a694a8dfa89ccf2a8b37612acf8ea99ca4d4c
     }
     .icon-mobile{
         display: flex;
