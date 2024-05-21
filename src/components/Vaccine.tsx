@@ -578,7 +578,7 @@ const fetchHerdsAnimals = async (userid: string | null) => {
       {editVaccine ? (
         <div>
           <form
-            className="form-control handleForm form-control-sm border border-dark shadow mx-auto"
+            className="form-control handleForm form-control-sm border border-dark p-5 shadow mx-auto"
             onSubmit={(e) => updateVaccine(e)}
             noValidate //The formdata is not automaticallly validated by the browser
           >
@@ -674,7 +674,7 @@ const fetchHerdsAnimals = async (userid: string | null) => {
         <div>
           {/*form for adding vaccine*/}
           <form
-            className="form-control handleForm form-control-sm border border-dark shadow mx-auto"
+            className="form-control handleForm form-control-sm border p-5 border-dark shadow mx-auto"
             onSubmit={addVaccine}
             noValidate //The formdata is not automaticallly validated by the browser
           >

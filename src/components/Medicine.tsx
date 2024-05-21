@@ -599,7 +599,7 @@ function Medicine() {
       {editMedicine ? (
         <div>
           <form
-            className="form-control form-control-sm handleForm border border-dark shadow mx-auto"
+            className="form-control form-control-sm handleForm p-5 border border-dark shadow mx-auto"
             onSubmit={(e) => updateMedicine(e)}
             noValidate
           >
@@ -712,7 +712,7 @@ function Medicine() {
         /*Form for adding medicine*/
         <div>
           <form
-            className="form-control handleForm form-control-sm border border-dark shadow mx-auto"
+            className="form-control handleForm form-control-sm p-5 border border-dark shadow mx-auto"
             onSubmit={addMedicine}
             noValidate
           >
