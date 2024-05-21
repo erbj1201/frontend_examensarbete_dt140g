@@ -644,6 +644,8 @@ tr .active {
     .category-btn {
         width: 100%;
         margin: auto;
-  
+}
+.arrow{
+    display: none;
 }
 }

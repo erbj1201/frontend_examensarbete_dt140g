@@ -369,11 +369,11 @@ const DetailsPage: React.FC = () => {
       <p>Antal djur i besättningen: {animalsByHerds.length}</p>
       {animalDataWithIndex.length > 0 && (
         <div key={animalsByHerds[animalIndex].id}>
-          <section className=" detailsArticle mx-auto m-3border border-dark position-relative">
+          <section className=" detailsArticle mx-auto m-3 pb-5 border border-grey shadow position-relative">
             <header className="detailsHeader w-100 p-2 d-flex justify-content-between align-items-center ">
               <button className="btn btn-light border-dark btn-next-animal" onClick={() => clickPrev()}>
                 {" "}
-                <RiArrowLeftSLine size={32} />{""}
+                <RiArrowLeftSLine className="arrow" size={32} />{""}
                 <strong>Föregående</strong></button>
               <h2 className="fs-6">
                 {animalsByHerds[animalIndex].name}{" "}
@@ -381,7 +381,7 @@ const DetailsPage: React.FC = () => {
               </h2>
               <button className="btn btn-light border-dark btn-next-animal" onClick={() => clickNext()}>
                 {" "}<strong>Nästa</strong>
-                <RiArrowRightSLine size={32} />{" "}
+                <RiArrowRightSLine className="arrow" size={32} />{" "}
               </button>
             </header>
             <div className="mx-auto animalInformation">
