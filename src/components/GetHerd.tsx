@@ -147,8 +147,8 @@ const GetHerdComponent: React.FC = () => {
           {!isLoading && !error && herds.length > 1 && (
             <div>
                <h1 className="text-center">Besättning</h1>
-              <form className="form-control form-control-sm border-0 mx-auto">
-                <div className="form-group w-75 mx-auto">
+              <form className="form-control handleWidth form-control-sm border-0 mx-auto">
+                <div className="form-group mx-auto">
                   <label className="form-label" htmlFor="herds">Välj en besättning:</label>
                   <br />
                   <select
@@ -169,8 +169,9 @@ const GetHerdComponent: React.FC = () => {
               </form>
             </div>
           )}
+            <div className=" animalView mx-auto">
           {/* Buttons to sort out by category */}
-          <div className="container container-btns mx-auto p-3">
+          <div className="container container-btns mx-auto ">
             <h2 className="text-center">Sortera djur</h2>
             <button
               className="category-btn active m-3"
@@ -200,10 +201,12 @@ const GetHerdComponent: React.FC = () => {
               Mjölkdjur
             </button>
           </div>
+         
+          <h3 className="">Djuröversikt</h3>
           {/*if animal lenght is larger then 0*/}
           {animals.length > 0 ? (
-            <table className="table w-75 shadow-sm mx-auto table-responsive-sm table-hover">
-              <thead className=" table-thead d-sm-table-header-group">
+            <table className="table shadow-sm table-responsive-sm table-hover">
+              <thead className=" table-theadd-sm-table-header-group shadow-sm border-top">
                 <tr>
                   <th>Djuridentitet</th>
                   <th>Namn</th>
@@ -246,10 +249,12 @@ const GetHerdComponent: React.FC = () => {
             <p>Inga djur i besättningen</p>
           )}
         </div>
+        </div>
       ) : (
         <p>Inga besättningar registrerade</p>
       )}
     </div>
+  
   );
 };
 //Export

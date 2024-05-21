@@ -168,9 +168,7 @@ a:hover {
     color: #75160e;
 }
 
-.tableRow {
-    cursor: pointer;
-}
+
 
 .cow-image {
     height: 100%;
@@ -257,7 +255,7 @@ tr .active {
 }
 
 .handleWidth {
-    width: 50%;
+    width: 30%;
 }
 
 .btn-next-animal {
@@ -321,11 +319,15 @@ tr .active {
     background-color: #fdf4ee;
 }
 
-.handleForm input, .handleForm textarea{
-    background-color: #fdf4ee;
-}
+
 .dateText{
     font-size: 0.7em;
+}
+/* GetHerdTable and buttons div */
+.animalView{
+
+    width: 80%;
+   
 }
 
 /*tablet screen */
@@ -409,7 +411,12 @@ tr .active {
         width: 75%;
         max-width: 26em;
     }
-  
+  /* GetHerdTable and buttons div */
+.animalView{
+
+    width: 100%;
+   
+}
 }
 
 /*mobile screen*/
@@ -522,7 +529,7 @@ tr .active {
     }
 
     .handleWidth {
-        width: 50%;
+        width: 60%;
         margin: auto;
     }
 
