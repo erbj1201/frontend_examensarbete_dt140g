@@ -15,7 +15,6 @@ const HerdPage: React.FC = () => {
       <Header />
       <TokenCookie />
       <main className="container mx-auto">
-        <h1>Besättning</h1>
         <GetHerdComponent />
       </main>
       <Footer />

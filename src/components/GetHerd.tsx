@@ -146,14 +146,15 @@ const GetHerdComponent: React.FC = () => {
           {/*If there are more than one herd, show select with option*/}
           {!isLoading && !error && herds.length > 1 && (
             <div>
+               <h1 className="text-center">Besättning</h1>
               <form className="form-control form-control-sm border-0 mx-auto">
-                <div className="form-group selectWidth">
+                <div className="form-group w-75 mx-auto">
                   <label className="form-label" htmlFor="herds">Välj en besättning:</label>
                   <br />
                   <select
                     id="herds"
                     name="herds"
-                    className="form-select border-dark"
+                    className="form-select form-select-sm border-dark"
                     onChange={handleSelectChange}
                     value={selectedOption}
                   >
@@ -170,6 +171,7 @@ const GetHerdComponent: React.FC = () => {
           )}
           {/* Buttons to sort out by category */}
           <div className="container container-btns mx-auto p-3">
+            <h2 className="text-center">Sortera djur</h2>
             <button
               className="category-btn active m-3"
               onClick={() => {
@@ -234,7 +236,7 @@ const GetHerdComponent: React.FC = () => {
                       <td className="d-none d-sm-table-cell">{animal.birthDate}</td>
                       <td className="d-none d-sm-table-cell">{animal.breed}</td>
                       <td className="d-none d-sm-table-cell">{animal.sex}</td>
-                      <td className="d-none d-sm-table-cell"><button className="button" onClick={() => navigateToDetails(animal.id)}>Detaljer</button></td>
+                      <td className="d-none d-sm-table-cell"><button className="button btn-sm" onClick={() => navigateToDetails(animal.id)}>Detaljer</button></td>
                     </tr>
                   ))}
               </tbody>
