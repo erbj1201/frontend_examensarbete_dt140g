@@ -273,7 +273,7 @@ tr .active {
     font-size: 0.8em;
     max-height: 200px;
     overflow-y: auto;
-    width: 30%;
+    width: 31%;
     border: 1px solid #ccc;
     background-color: #ffffff;
 }
@@ -311,15 +311,14 @@ tr .active {
 
 }
 .messageDiv{
-    width: 45%;
-    max-width: 26em;
+    width: 100%;
+    max-width: 30em;
+    background-color: #fffcfc;
 }
 
 .collapsible-messages .collapsibleDiv{
     background-color: #fdf4ee;
 }
-
-
 .dateText{
     font-size: 0.7em;
 }
@@ -328,6 +327,9 @@ tr .active {
 
     width: 80%;
    
+}
+.contact-article{
+    background-color: #fffcfc;
 }
 
 /*tablet screen */

@@ -14,7 +14,7 @@ const Footer: React.FC = () => {
     <div>
       {/*Check if there is token and show contactinfo and links to videos */}
       {token ? (
-        <footer className="container-fluid w-100 mx-auto shadow-sm border-top">
+        <footer className="container-fluid w-100 mx-auto mt-5 shadow-sm border-top">
           <div className="d-flex flex-column flex-sm-row justify-content-between  ">
             <div className="mx-auto pt-5 ">
               <p className="text-uppercase">Länkar </p>

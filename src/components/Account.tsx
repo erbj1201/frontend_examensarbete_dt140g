@@ -216,7 +216,7 @@ export default function Account() {
     <div className="container">
       {/** If edituser is true, show form */}
       {editUser ? (
-        <div className="bglight p-2 m-3 mx-auto account-large border border-dark d-flex flex-column shadow-sm">
+        <div className="bglight p-2 m-3 mx-auto account-large border border-dark d-flex flex-column shadow">
           <h2 className="account-heading mx-auto p-4">Uppdatera dina uppgifter</h2>
           <form
             className="form-control handleForm form-control-sm border-0 p-2 mx-auto w-100"
@@ -274,7 +274,7 @@ export default function Account() {
           </form>
           </div>
       ) : user ? (
-        <div className="bglight account-large p-2 m-3 mx-auto shadow-sm border border-dark d-flex flex-column ">
+        <div className="bglight account-large p-2 m-3 mx-auto shadow border border-dark d-flex flex-column ">
           {/**Messages to form */}
           {showMessage && (
             <p className="alert mx-auto alert-success text-dark w-100 mx-auto text-center mt-2">{showMessage}</p>
@@ -304,7 +304,7 @@ export default function Account() {
 
       )} {/*if editimagedata is true, show form*/}
       {editImageData ? (
-        <div className="bglight p-2 m-3 mx-auto account-large border border-dark d-flex flex-column shadow-sm">
+        <div className="bglight p-2 m-3 mx-auto account-large border border-dark d-flex flex-column shadow">
           <p className="text-center"><strong>Ladda upp en ny bild, bilden byts ut automatiskt</strong></p>
           <form className="form-control mx-auto handleForm form-control-sm border-0 mx-auto" onSubmit={handleSubmitImage}>
             <div className="form-group" >
