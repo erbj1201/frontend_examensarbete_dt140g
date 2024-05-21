@@ -797,7 +797,7 @@ function Calf() {
         <div>
           {/*form for adding calf*/}
           <form
-            className="form-control form-control-sm handleForm border border-dark shadow mx-auto"
+            className="form-control form-control-sm p-5 handleForm border border-dark shadow mx-auto"
             onSubmit={(e) => updateCalf(e)}
             noValidate //The formdata is not automatically validated by the browser
           >
@@ -981,7 +981,7 @@ function Calf() {
         <div>
           {/*form for adding calf*/}
           <form
-            className="form-control handleForm form-control-sm border border-dark shadow mx-auto"
+            className="form-control handleForm form-control-sm p-5 border border-dark shadow mx-auto"
             onSubmit={addCalf}
             noValidate //The formdata is not automatically validated by the browser
           >
