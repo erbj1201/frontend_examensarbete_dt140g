@@ -289,7 +289,7 @@ export default function Account() {
                 <img className="userImage mx-auto img-thumbnail" src="\src\content\profile_img.png"alt="Bild på en siluett av en människa" />
               )}
             </div>
-            <div className="d-flex flex-column mx-auto p-4">
+            <div className="d-flex flex-column mx-auto m-3 p-4">
               <p><strong>Namn:</strong> {user.name}</p>
               <p><strong>Mejladress:</strong> {user.email}</p>
             </div>
