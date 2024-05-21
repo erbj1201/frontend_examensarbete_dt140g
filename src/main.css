@@ -335,6 +335,9 @@ tr .active {
 .contact-article{
     background-color: #fffcfc;
 }
+.animal-category{
+    justify-content: center;
+}
 
 /*tablet screen */
 @media screen and (min-width: 576px) and (max-width: 992px) {
@@ -548,7 +551,6 @@ tr .active {
         margin: auto;
         display: flex;
         flex-direction: column;
-        width: 80%;
     }
 
     /*article around animal info*/
@@ -633,5 +635,14 @@ tr .active {
         width: 95%;
         max-width: 26em;
     }
+    .animal-category{
+        flex-direction: column;
+        margin: auto;
+        width: 70%;
+    }
+    .category-btn {
+        width: 100%;
+        margin: auto;
   
+}
 }
