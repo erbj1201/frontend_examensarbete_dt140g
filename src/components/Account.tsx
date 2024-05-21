@@ -290,8 +290,8 @@ export default function Account() {
               )}
             </div>
             <div className="d-flex flex-column mx-auto m-3 p-4">
-              <p><strong>Namn:</strong> {user.name}</p>
-              <p><strong>Mejladress:</strong> {user.email}</p>
+              <p className="account-text"><strong>Namn:</strong> {user.name}</p>
+              <p className="account-text"><strong>Mejladress:</strong> {user.email}</p>
             </div>
           </div>
           <div className="mx-auto d-flex justify-content-between account-btns">

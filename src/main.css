@@ -506,6 +506,9 @@ tr .active {
   .account-heading{
     font-size: 1.2em;
   }
+  .account-text{
+    font-size: 0.8em;
+  }
 
     /* Width on search and filtrate */
 .searchOptions{
