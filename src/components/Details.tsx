@@ -55,6 +55,123 @@ const DetailsPage: React.FC = () => {
       imagepath: "",
     }); */
 
+    useEffect(() => {
+      if (id) {
+        getMilkByAnimals(id);
+        getMedicinesByAnimals(id);
+        getVaccinesByAnimals(id);
+        getCalvesByAnimals(id);
+      }
+    }, [id]);
+  
+  
+    // Gets all calves from animal with fetch
+    const getCalvesByAnimals = async (animal_id: string) => {
+      //Fetch calves (get)
+      try {
+        const response = await fetch(
+          `http://localhost:8000/api/calves/animals/${animal_id}`,
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+              Accept: "application/json",
+            },
+          }
+        ); //If response ok, set calves
+        if (response.ok) {
+          const jsonData = await response.json();
+          setCalfData(jsonData);
+        } else {
+          throw new Error("Något gick fel");
+        }
+      } catch (error) {
+        console.error("Fel vid hämtning av mjölk");
+      }
+    };
+  
+    //Gets all vaccines from the animal with fetch
+    const getVaccinesByAnimals = async (animal_id: string) => {
+      //Fetch vaccines (get)
+      try {
+        const response = await fetch(
+          `http://localhost:8000/api/vaccines/animals/${animal_id}`,
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+              Accept: "application/json",
+            },
+          }
+        ); //If response ok, set vaccine
+        if (response.ok) {
+          const jsonData = await response.json();
+          setVaccineData(jsonData);
+        } else {
+          throw new Error("Något gick fel");
+        }
+      } catch (error) {
+        console.error("Fel vid hämtning av vaccin");
+      }
+    };
+    // Gets all medicine from the animal with fetch
+    const getMedicinesByAnimals = async (animal_id: string) => {
+      //Fetch medicines (get)
+      try {
+        const response = await fetch(
+          `http://localhost:8000/api/medicines/animals/${animal_id}`,
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+              Accept: "application/json",
+            },
+          }
+        ); //If response ok
+        if (response.ok) {
+          const jsonData = await response.json();
+          //Set medicines
+          setMedicineData(jsonData);
+        } else {
+          throw new Error("Något gick fel");
+        }
+      } catch (error) {
+        console.error("Fel vid hämtning av medicinering");
+      }
+    };
+  
+    // Gets all milk from the animal with fetch
+    const getMilkByAnimals = async (animal_id: string) => {
+      //Fetch get
+      try {
+        const response = await fetch(
+          `http://localhost:8000/api/milks/animals/${animal_id}`,
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+              Accept: "application/json",
+            },
+          }
+        ); //If response ok
+        if (response.ok) {
+          const jsonData = await response.json();
+          //Set milks
+          setMilkingData(jsonData);
+  
+        } else {
+          throw new Error("Något gick fel");
+        }
+      } catch (error) {
+        console.error("Fel vid hämtning av mjölk");
+      }
+    };
+  
+
   const fetchAnimalsByHerd = async (herdId: string | null) => {
     //Fetch animals from herd (with get) 
     try {
@@ -73,8 +190,12 @@ const DetailsPage: React.FC = () => {
         const jsonData = await response.json();
         //set animals by herds
         setAnimalsByHerds(jsonData);
-        //set index to 0
-        setAnimalIndex(0);
+        if (id) {
+          const index = jsonData.findIndex((animal: Animal) => animal.id === parseInt(id));
+          if (index !== -1) {
+            setAnimalIndex(index);
+          }
+        }
       } else {
         throw new Error("Något gick fel");
       }
@@ -241,121 +362,6 @@ const DetailsPage: React.FC = () => {
     }
   };
 
-  useEffect(() => {
-    if (id) {
-      getMilkByAnimals(id);
-      getMedicinesByAnimals(id);
-      getVaccinesByAnimals(id);
-      getCalvesByAnimals(id);
-    }
-  }, [id]);
-
-
-  // Gets all calves from animal with fetch
-  const getCalvesByAnimals = async (animal_id: string) => {
-    //Fetch calves (get)
-    try {
-      const response = await fetch(
-        `http://localhost:8000/api/calves/animals/${animal_id}`,
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-            Accept: "application/json",
-          },
-        }
-      ); //If response ok, set calves
-      if (response.ok) {
-        const jsonData = await response.json();
-        setCalfData(jsonData);
-      } else {
-        throw new Error("Något gick fel");
-      }
-    } catch (error) {
-      console.error("Fel vid hämtning av mjölk");
-    }
-  };
-
-  //Gets all vaccines from the animal with fetch
-  const getVaccinesByAnimals = async (animal_id: string) => {
-    //Fetch vaccines (get)
-    try {
-      const response = await fetch(
-        `http://localhost:8000/api/vaccines/animals/${animal_id}`,
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-            Accept: "application/json",
-          },
-        }
-      ); //If response ok, set vaccine
-      if (response.ok) {
-        const jsonData = await response.json();
-        setVaccineData(jsonData);
-      } else {
-        throw new Error("Något gick fel");
-      }
-    } catch (error) {
-      console.error("Fel vid hämtning av vaccin");
-    }
-  };
-  // Gets all medicine from the animal with fetch
-  const getMedicinesByAnimals = async (animal_id: string) => {
-    //Fetch medicines (get)
-    try {
-      const response = await fetch(
-        `http://localhost:8000/api/medicines/animals/${animal_id}`,
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-            Accept: "application/json",
-          },
-        }
-      ); //If response ok
-      if (response.ok) {
-        const jsonData = await response.json();
-        //Set medicines
-        setMedicineData(jsonData);
-      } else {
-        throw new Error("Något gick fel");
-      }
-    } catch (error) {
-      console.error("Fel vid hämtning av medicinering");
-    }
-  };
-
-  // Gets all milk from the animal with fetch
-  const getMilkByAnimals = async (animal_id: string) => {
-    //Fetch get
-    try {
-      const response = await fetch(
-        `http://localhost:8000/api/milks/animals/${animal_id}`,
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-            Accept: "application/json",
-          },
-        }
-      ); //If response ok
-      if (response.ok) {
-        const jsonData = await response.json();
-        //Set milks
-        setMilkingData(jsonData);
-
-      } else {
-        throw new Error("Något gick fel");
-      }
-    } catch (error) {
-      console.error("Fel vid hämtning av mjölk");
-    }
-  };
 
 
   return (

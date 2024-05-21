@@ -266,7 +266,8 @@ tr .active {
   /*article around animal info*/
   .detailsArticle {
     background-color: #fdf4ee;
-  }
+      width: 80%;
+}
 
   /*arrow right to change animal*/
   .arrowRightDetails {
@@ -380,7 +381,7 @@ tr .active {
   }
 
   .selectWidth {
-    width: 84%;
+    width: 100%;
   }
   .icon-mobile {
     display: flex;
