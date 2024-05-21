@@ -648,4 +648,7 @@ tr .active {
 .arrow{
     display: none;
 }
+.collapsibleDiv{
+    font-size: 0.8em;
+}
 }
