@@ -4,6 +4,7 @@
 import DOMPurify from "dompurify";
 import React, { useEffect, useState } from "react";
 import Cookies from "universal-cookie";
+import Collapsible from "./Collapsible";
 
 //Structure for MessageItem (post messages)
 interface MessageItem {
@@ -191,86 +192,92 @@ const Message: React.FC = () => {
 
   return (
     <div>
-      <h2 className="text-center m-5">Vill du ha hjälp med eller komma i kontakt med support?</h2>
+      <h2 className="text-center m-3">Vill du ha hjälp med eller komma i kontakt med support?</h2>
       <div>
         {showMessage !== null && (
           <p className="alert alert-light text-center mx-auto">
             {showMessage || ""}
           </p>
         )}
-        <form
-          className="form-control handleForm bglight shadow-sm border-dark form-control-sm p-3 mx-auto w-50"
-          onSubmit={sendMessage}
-          noValidate //The formdata is not automaticallly validated by the browser
-        > 
-        <h3 className="p-4 mb-3">Skicka ett meddelande till oss</h3>
-          <input type="hidden" value={messageData.userid} />
-          <div className="form-group">
-            <label htmlFor="title" className="form-label">
-              Ämne
-            </label>
-            <input
-              type="text"
-              id="title"
-              name="title"
-              className="form-control form-control-sm border-dark"
-              required
-              value={messageData.title}
-              onChange={({ target }) =>
-                handleInputChange(target.name, target.value)
-              }
-            />
-            <p className="error-message">{formError.title}</p>
-          </div>
-          <div className="form-group">
-            <label htmlFor="description" className="form-label">
-              Beskrivning
-            </label>
-            <textarea className="form-control border-dark"
-              id="description"
-              name="description"
-              required
-              value={messageData.description}
-              onChange={({ target }) =>
-                handleInputChange(target.name, target.value)
-              }></textarea>
-            <p className="error-message">{formError.description}</p>
-          </div>
-          <button type="submit" className="button mt-2">
-            Skicka meddelande
-          </button>
-        </form>
-      </div>
-      <section className="bglight m-4 mx-auto border border-dark p-4 w-50 shadow">
-       {fetchMessages.length > 0 ? (
-        <>
-       <h3 className="text-center">Alla skickade meddelanden</h3>
-       {fetchMessages.map((message) => {
-          // Convert created_at to a new Date-Object
-          const createNewDate = new Date(message.created_at);
-          // Convert Date and Time to the swedish standard.
-          const formattedDateTime = `${createNewDate.toLocaleDateString(
-            "sv-SE"
-          )} ${createNewDate.toLocaleTimeString("sv-SE")}`;
-        
-      
+        <div className="mx-auto messageDiv">
+          <form
+            className="form-control handleForm bglight shadow-sm border-dark form-control-sm p-3 mx-auto"
+            onSubmit={sendMessage}
+            noValidate //The formdata is not automaticallly validated by the browser
+          >
 
-          return (
-            <article className="mx-auto p-2 border border-dark bg-white m-3 w-50" key={message.id}>
-              <h4>{message.title}</h4>
-              <p>
-                <em>Skickat: {formattedDateTime}</em>
-              </p>
-              <p>{message.description}</p>
-            </article>
-          );
-        })}
-          </>
-        ) : (
-          <p>Inga meddelanden finns registrerade</p>
-                  )
+            <h3 className="p-4 mb-3">Skicka ett meddelande till oss</h3>
+            <input type="hidden" value={messageData.userid} />
+            <div className="form-group">
+              <label htmlFor="title" className="form-label">
+                Ämne
+              </label>
+              <input
+                type="text"
+                id="title"
+                name="title"
+                className="form-control form-control-sm border-dark"
+                required
+                value={messageData.title}
+                onChange={({ target }) =>
+                  handleInputChange(target.name, target.value)
                 }
-      </section>
+              />
+              <p className="error-message">{formError.title}</p>
+            </div>
+            <div className="form-group">
+              <label htmlFor="description" className="form-label">
+                Beskrivning
+              </label>
+              <textarea className="form-control border-dark"
+                id="description"
+                name="description"
+                required
+                value={messageData.description}
+                onChange={({ target }) =>
+                  handleInputChange(target.name, target.value)
+                }></textarea>
+              <p className="error-message">{formError.description}</p>
+            </div>
+            <button type="submit" className="button mt-2">
+              Skicka meddelande
+            </button>
+          </form>
+       
+        <div className="mx-auto collapsible-messages">
+          <Collapsible open title="Alla skickade meddelanden">
+            <section className=" m-4 mx-auto  p-4">
+              {fetchMessages.length > 0 ? (
+                <>
+                  {/*   <h3 className="text-center">Alla skickade meddelanden</h3> */}
+                  {fetchMessages.map((message) => {
+                    // Convert created_at to a new Date-Object
+                    const createNewDate = new Date(message.created_at);
+                    // Convert Date and Time to the swedish standard.
+                    const formattedDateTime = `${createNewDate.toLocaleDateString(
+                      "sv-SE"
+                    )} ${createNewDate.toLocaleTimeString("sv-SE")}`;
+
+                    return (
+                      <article className=" bg-white mx-auto p-2 border border-dark p-3 m-3" key={message.id}>
+                        <h4>{message.title}</h4>
+                        <p className="dateText">
+                          <em>Skickat: {formattedDateTime}</em>
+                        </p>
+                        <p>{message.description}</p>
+                      </article>
+                    );
+                  })}
+                </>
+              ) : (
+                <p>Inga meddelanden finns registrerade</p>
+              )
+              }
+            </section>
+          </Collapsible>
+        </div>
+      </div>
+      </div>
     </div>
   );
 };

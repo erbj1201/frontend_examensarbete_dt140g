@@ -13,6 +13,7 @@ header,
 footer {
     background-color: #f2f2f2;
     width: 100%;
+    margin-top: 1em;
 }
 
 p {
@@ -307,6 +308,25 @@ tr .active {
     width: 100%;
     max-width: 800px;
 }
+.collapsible-messages{
+    margin-top: 2em;
+
+}
+.messageDiv{
+    width: 45%;
+    max-width: 26em;
+}
+
+.collapsible-messages .collapsibleDiv{
+    background-color: #fdf4ee;
+}
+
+.handleForm input, .handleForm textarea{
+    background-color: #fdf4ee;
+}
+.dateText{
+    font-size: 0.7em;
+}
 
 /*tablet screen */
 @media screen and (min-width: 576px) and (max-width: 992px) {
@@ -384,6 +404,12 @@ tr .active {
         width: 100%;
         margin: auto;
     }
+/* For messages */
+    .messageDiv{
+        width: 75%;
+        max-width: 26em;
+    }
+  
 }
 
 /*mobile screen*/
@@ -588,4 +614,11 @@ tr .active {
         width: 100%;
         margin-bottom: 1em;
     }
+
+    /* For messages */
+    .messageDiv{
+        width: 95%;
+        max-width: 26em;
+    }
+  
 }
