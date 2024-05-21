@@ -217,13 +217,13 @@ export default function Account() {
       {/** If edituser is true, show form */}
       {editUser ? (
         <div className="bglight p-2 m-3 mx-auto w-75 border border-dark d-flex flex-column shadow-sm">
-          <h2 className="mx-auto p-4">Uppdatera dina uppgifter</h2>
+          <h2 className="account-heading mx-auto p-4">Uppdatera dina uppgifter</h2>
           <form
             className="form-control handleForm form-control-sm border-0 p-2 mx-auto w-100"
             onSubmit={updateProfile}
           > {/*Message for form */}
             {showMessage && (
-              <p className="alert mx-auto alert-success text-dark w-25 mx-auto text-center mt-2">{showMessage}</p>
+              <p className="alert mx-auto alert-success text-dark w-100 mx-auto text-center mt-2">{showMessage}</p>
             )}
             <div className="form-group">
               <label htmlFor="name" className="form-label">
@@ -264,7 +264,7 @@ export default function Account() {
                 onChange={handleChange}
                 required
               />
-              <div className="mx-auto d-flex justify-content-between account-btns">
+              <div className="mx-auto d-flex justify-content-between w-75 account-btns">
               <button type="submit" className="button m-3">
                 Spara ändringar
               </button>
@@ -272,24 +272,24 @@ export default function Account() {
               </div>
             </div>
           </form>
-        </div>
+          </div>
       ) : user ? (
         <div className="bglight p-2 m-3 mx-auto w-75 shadow-sm border border-dark d-flex flex-column ">
           {/**Messages to form */}
           {showMessage && (
-            <p className="alert mx-auto alert-success text-dark w-25 mx-auto text-center mt-2">{showMessage}</p>
+            <p className="alert mx-auto alert-success text-dark w-100 mx-auto text-center mt-2">{showMessage}</p>
           )}
-          <h2 className="mx-auto p-4">Användaruppgifter</h2>
-          <div className="container d-flex justify-content-center">
+          <h2 className="mx-auto account-heading p-3 text-center">Användaruppgifter</h2>
+          <div className="container account-div d-flex justify-content-center">
             <div className="d-flex flex-column">
               {/*Check if image is uploaded to user or show generic image */}
               {user.imagepath !== null ? (
-              <img className="userImage mx-auto img-thumbnail m-5" src={user.imagepath} alt="Bild på användare" />
+              <img className="userImage mx-auto img-thumbnail" src={user.imagepath} alt="Bild på användare" />
               ) : (
-                <img className="userImage mx-auto img-thumbnail m-5" src="\src\content\profile_img.png"alt="Bild på en siluett av en människa" />
+                <img className="userImage mx-auto img-thumbnail" src="\src\content\profile_img.png"alt="Bild på en siluett av en människa" />
               )}
             </div>
-            <div className="d-flex flex-column mt-5 p-5">
+            <div className="d-flex flex-column mx-auto p-4">
               <p><strong>Namn:</strong> {user.name}</p>
               <p><strong>Mejladress:</strong> {user.email}</p>
             </div>
@@ -298,7 +298,6 @@ export default function Account() {
             <button className="button m-3" onClick={editImage}>Byt bild</button>
             <button className="button m-3" onClick={editData}>Ändra användaruppgifter</button>
           </div>
-
         </div>
       ) : (
         <p>Ingen användare hittades.</p>
@@ -320,7 +319,7 @@ export default function Account() {
                 onChange={handleImageChange}
               />
             </div>
-            <button className="button mx-auto m-4" onClick={() => setEditImageData(false)}>Avbryt</button>
+            <button className="button mx-auto m-3" onClick={() => setEditImageData(false)}>Avbryt</button>
           </form>
         </div>
       ) : (
