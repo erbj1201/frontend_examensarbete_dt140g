@@ -44,9 +44,10 @@ const HandlePage: React.FC = () => {
       <TokenCookie />
       <Header />
       <main className="container mx-auto">
-        <h1>Hantera händelse för djur</h1>
-        <form className="fit-content-width form form-control-sm mx-auto">
-          <div className="form-group selectWidth">
+        <div className="d-flex flex-column">
+        <h1 className="p-3 mt-5">Hantera händelser för djur</h1>
+        <form className="fit-content-width form-control-sm mx-auto">
+          <div className="form-group w-75 mx-auto m-5">
         <label htmlFor="handle" className="mb-3">Vilken typ av händelse vill du hantera?</label>
         <br/>
         <select className="form-select form-select mb-5 border border-dark"
@@ -60,6 +61,7 @@ const HandlePage: React.FC = () => {
         </select>
         </div>
         </form>
+        </div>
         {/* Return the correct component dynamically */}
         {components()}
       </main>

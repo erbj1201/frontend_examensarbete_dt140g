@@ -823,8 +823,8 @@ function Medicine() {
       {/* Shows if user has more than one herd */}
       {!isLoading && herds.length > 1 && (
         <div>
-          <form className="form-control form-control-sm border-0 mx-auto">
-            <div className="form-group selectWidth mx-auto">
+          <form className="fit-content-width form-control-sm mx-auto">
+            <div className="form-group w-75 mx-auto m-5">
               <label className="form-label" htmlFor="herds">
                 Besättningar:
               </label>
