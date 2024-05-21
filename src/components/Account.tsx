@@ -274,7 +274,7 @@ export default function Account() {
           </form>
           </div>
       ) : user ? (
-        <div className="bglight p-2 m-3 mx-auto w-75 shadow-sm border border-dark d-flex flex-column ">
+        <div className="bglight account-large p-2 m-3 mx-auto shadow-sm border border-dark d-flex flex-column ">
           {/**Messages to form */}
           {showMessage && (
             <p className="alert mx-auto alert-success text-dark w-100 mx-auto text-center mt-2">{showMessage}</p>

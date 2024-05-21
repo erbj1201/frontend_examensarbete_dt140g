@@ -279,6 +279,10 @@ tr .active {
   .account-div{
    max-width: 600px;
   }
+  .account-large{
+    width: 100%;
+    max-width: 800px;
+  }
   
 /*tablet screen */
 @media screen and (min-width: 576px) and (max-width: 992px) {
@@ -491,6 +495,7 @@ tr .active {
     flex-direction: column;
     margin: auto;
     width: 100%;
+    max-width: 300px;
   }
   .account-div{
     flex-direction: column;
@@ -509,12 +514,13 @@ tr .active {
   .account-text{
     font-size: 0.8em;
   }
-
+  .account-large{
+    width: 100%;
+  }
     /* Width on search and filtrate */
 .searchOptions{
     width: 100%;
 }
-
   .scroll-list-container {
     font-size: 0.8em;
     max-height: 120px; 
