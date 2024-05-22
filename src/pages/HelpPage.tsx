@@ -17,11 +17,11 @@ function HelpPage() {
     <TokenCookie />
     <main className="container mx-auto">
     <h1 className="mx-auto text-center">Support</h1>
-      <div className="help-div d-flex p-5 mx-auto justify-content-between">
+      <div className="help-div d-flex mx-auto">
       <div className="support-div d-flex flex-column mx-auto">
-        <article className="contact-article col-md-10 col-lg-8 p-5 mx-auto border border-grey shadow">
-          <h3 className="text-center m-3 pb-3">Support via telefon</h3>
-          <div className="p-3 mx-auto">
+        <article className="contact-article mx-auto border border-grey shadow">
+        <div className="mx-auto text-center p-1">
+          <h3 className="p-1">Support via telefon</h3>
           <p>Användarstöd  
           <br />
           <a href="010- 471 09 07">010-471 09 07</a></p>
@@ -32,18 +32,15 @@ function HelpPage() {
           <br /> 
           <a href="010 - 471 06 60">010 - 471 06 60</a></p>
           </div>
-        </article>
-        <article className="contact-article col-md-10 col-lg-8 m-3 p-5 mx-auto border border-grey shadow">
-          <h3 className="mx-auto text-center m-3 pb-3">Instruktionsfilmer MinGård</h3>
-          <div className="p-3 m-2 mx-auto">
-          <p>Det finns flera olika instruktionsfilmer som visar hur MinGård fungerar.</p>
-          <a href="https://dreambroker.com/channel/npeiza94#/menu">Till instruktionsfilmerna</a>
+          <div className="text-center mx-auto pt-5 p-1">
+          <h3 className="p-1">Instruktionsfilmer MinGård</h3>
+          <p className="mx-auto"> Det finns flera olika instruktionsfilmer som visar hur MinGård fungerar.
+          <br /><a href="https://dreambroker.com/channel/npeiza94#/menu">Till instruktionsfilmerna</a>
+          </p>
           </div>
         </article>
       </div>
-      <div className="col-md-12 col-lg-6">
       <Message />
-      </div>
       </div>
     </main>
     <Footer />

@@ -191,9 +191,7 @@ const Message: React.FC = () => {
   };
 
   return (
-    <div>
-      
-      <div>
+      <div className="mx-auto container">
         {showMessage !== null && (
           <p className="alert alert-light text-center mx-auto">
             {showMessage || ""}
@@ -202,11 +200,11 @@ const Message: React.FC = () => {
         <div className="mx-auto p-5 messageDiv border border-grey shadow">
         <h3 className="text-center m-1 pb-5 pt-0">Support via mejl</h3>
           <form
-            className="form-control handleForm bglight shadow border-dark form-control-sm p-3 mx-auto"
+            className="form-control bglight shadow border-dark form-control-sm p-3 mx-auto"
             onSubmit={sendMessage}
             noValidate //The formdata is not automaticallly validated by the browser
           >
-            <h4 className="p-2 mb-3">Beskriv vad du vill ha hjälp med </h4>
+            <h4 className="p-2 mb-3">Vad vill du ha hjälp med? </h4>
             <input type="hidden" value={messageData.userid} />
             <div className="form-group">
               <label htmlFor="title" className="form-label">
@@ -278,7 +276,6 @@ const Message: React.FC = () => {
         </div>
       </div>
       </div>
-    </div>
   );
 };
 //export

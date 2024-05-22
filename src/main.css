@@ -88,7 +88,7 @@ a:hover {
 }
 
 .button {
-    font-size: 0.8em;
+    font-size: 1em;
     border: none;
     border-radius: 5%;
     background-color: #f29354;
@@ -317,13 +317,34 @@ tr .active {
     margin-top: 2em;
 
 }
-
 .messageDiv {
-    width: 100%;
-    max-width: 30em;
     background-color: #fffcfc;
+    max-width: 598px;
+    width: 100%;
+    height: max-content;
 }
-
+.messageDiv h4{
+    font-size: 1.2em;
+    text-align: center;
+}
+.help-div{
+    display: flex;
+    justify-content: space-between;
+    max-width: 1200px;
+    height: max-content;
+}
+.support-div{
+    max-width: 598px;
+    width: 100%;
+    background-color: #fffcfc;
+    height: 100%;
+}
+.contact-article{
+    padding: 5em 1.5em;
+}
+.contact-article p{
+    max-width: 25em;
+}
 .collapsible-messages .collapsibleDiv {
     background-color: #fdf4ee;
 }
@@ -409,7 +430,6 @@ tr .active {
         width: 100%;
         height: 100%;
     }
-
     .userImage {
         width: 100%;
         height: 100%;
@@ -428,40 +448,36 @@ tr .active {
         width: 100%;
         margin: auto;
     }
-
-    /* For messages */
     .messageDiv {
-        width: 75%;
-        max-width: 26em;
+        max-width: 460px;
+        margin-top: 3em;
+        width: 100%;
+        height: max-content;
     }
-
+    .help-div{
+        flex-direction: column;
+        max-width: 700px;
+        height: max-content;
+    }
+    .support-div{
+        max-width: 590px;
+        width: 100%;
+        height: max-content
+    }
     /* GetHerdTable and buttons div */
     .animalView {
-
         width: 100%;
-
     }
 
-    /* Supportpage, one-column */
-    .help-div {
-        display: block;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        height: 100%;
-
+    .button {
+        font-size: 0.8em;
     }
-
-    .support-div {
-        max-width: 31em;
-    }
-}
 
 /* Success message width */
 .alert-success {
     width: 60%;
 }
-
+}
 
 /*mobile screen*/
 @media screen and (max-width: 576px) {
@@ -672,7 +688,7 @@ tr .active {
 
     /* For messages */
     .messageDiv {
-        width: 95%;
+        width: 100%;
         max-width: 26em;
     }
 
@@ -695,17 +711,24 @@ tr .active {
         font-size: 0.8em;
     }
 
-     /* Supportpage, one-column */
-     .help-div {
-        display: block;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        height: 100%;
-       
+    .button {
+        font-size: 0.8em;
+    }
+    .messageDiv {
+        margin-top: 2em;
+        width: 100%;
+        height: max-content;
     }
 
-    .support-div {
-        max-width: 21em;
+    .help-div{
+        flex-direction: column;
+        height: max-content;
+    }
+    .support-div{
+        width: 100%;
+        height: max-content;
+    }
+    .contact-article p{
+        max-width: 22em;
     }
 }
