@@ -261,7 +261,7 @@ function Milk() {
       console.error("Fel vid hämtning");
     }
   };
-//find animal
+  //find animal
   const findAnimalId = (animalId: string) => {
     const animal = animals.find((animal) => animal.id === animalId);
     return animal ? animal.animalId : "Okänt"; // returnera animalId eller "Okänt" om djuret inte hittades
@@ -438,8 +438,8 @@ function Milk() {
         if (herdsData.length === 1) {
           setChosenHerdId(herdsData[0].id);
         } else {
-            target: {
-              value: selectedOption
+          target: {
+            value: selectedOption
           };
         }
       }
@@ -532,9 +532,9 @@ function Milk() {
                   Välj ett djur
                 </option>
                 {animals.map((animal) => (
-          <option key={animal.id} value={animal.id}>
-            {findAnimalId(animal.id)} {/* Använd findAnimalId för att hitta animalId baserat på animal_id */}
-          </option>
+                  <option key={animal.id} value={animal.id}>
+                    {findAnimalId(animal.id)} {/* Använd findAnimalId för att hitta animalId baserat på animal_id */}
+                  </option>
                 ))}
               </select>
               <p className="error-message text-danger fw-bold">
@@ -653,13 +653,14 @@ function Milk() {
               Lägg till
             </button>
           </form>
-
-          {/*Show messages to form */}
-          {showMessage && (
-            <p className="alert mx-auto alert-success text-dark text-center mt-2">
-              {showMessage}
-            </p>
-          )}
+         
+            {/*Show messages to form */}
+            {showMessage && (
+              <p className="alert mx-auto alert-success text-dark text-center mt-2">
+                {showMessage}
+              </p>
+            )}
+       
         </div>
       )}
       {/* This shows if user has more than one herd */}
@@ -699,11 +700,11 @@ function Milk() {
         <div>
           <h2 className="p-3 mx-auto">Senaste mjölkningarna: </h2>
           <table className="table table-responsive-sm table-hover w-75 mx-auto">
-            <thead className= "d-sm-table-header-group">
+            <thead className="d-sm-table-header-group">
               <tr>
                 <th>Djuridentitet</th>
-                <th>Mjölkning</th>
-                <th>Datum</th>
+                <th>Mjölk i Kg</th>
+                <th>Datum & tid</th>
                 <th>Hantera</th>
               </tr>
             </thead>
@@ -717,34 +718,34 @@ function Milk() {
                 return (
                   <tr key={milk.id}>
                     {/* Ternary operator */}
-                    {/* Display block for mobile */}                   
-                     <td className="d-block d-sm-none td-handle" data-label="Djuridentitet">{animal ? animal.animalId : "Okänt"}</td>
-                    <td className="d-block d-sm-none" data-label="Kg">{milk.kgMilk}</td>
+                    {/* Display block for mobile */}
+                    <td className="d-block d-sm-none td-handle" data-label="Djuridentitet">{animal ? animal.animalId : "Okänt"}</td>
+                    <td className="d-block d-sm-none" data-label="Kg">{milk.kgMilk} Kg</td>
                     <td className="d-block d-sm-none" data-label="Datum & tid">{milk.milkDate}</td>
                     <td className="d-block d-sm-none" data-label="Hantera"> <button
-                        className="button"
-                        onClick={() => {
-                          setEditMilk(true); // Update editMilk-state to true to edit
-                          setNewMilk({
-                            id: milk.id,
-                            kgMilk: milk.kgMilk,
-                            milkDate: milk.milkDate,
-                            animal_id: milk.animal_id,
-                          });
-                        }}
-                      >
-                        Ändra
-                      </button>
+                      className="button"
+                      onClick={() => {
+                        setEditMilk(true); // Update editMilk-state to true to edit
+                        setNewMilk({
+                          id: milk.id,
+                          kgMilk: milk.kgMilk,
+                          milkDate: milk.milkDate,
+                          animal_id: milk.animal_id,
+                        });
+                      }}
+                    >
+                      Ändra
+                    </button>
                       {/**Change url when clicking at delete */}
                       <button
                         className="button"
                         onClick={() => navigateToMilk(milk.id)}>
                         Radera
                       </button></td>
-                    
-                   {/* Table for desktop */}
-                   <td className="d-none d-sm-table-cell" data-label="Djuridentitet">{animal ? animal.animalId : "Okänt"}</td>
-                    <td className="d-none d-sm-table-cell" data-label="Kg">{milk.kgMilk}</td>
+
+                    {/* Table for desktop */}
+                    <td className="d-none d-sm-table-cell" data-label="Djuridentitet">{animal ? animal.animalId : "Okänt"}</td>
+                    <td className="d-none d-sm-table-cell" data-label="Kg">{milk.kgMilk} Kg</td>
                     <td className="d-none d-sm-table-cell" data-label="Datum & tid">{milk.milkDate}</td>
                     <td className="d-none d-sm-table-cell" data-label="Hantera">
                       <button

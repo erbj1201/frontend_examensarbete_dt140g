@@ -136,7 +136,7 @@ const SearchForm = () => {
             {filteredOptions.map(animal => (
               <li key={animal.id}>
                 <Link to={`/details/${animal.id}`}>
-                  {animal.name} - {animal.animalId} - {animal.earNo}
+                  {animal.name} - {animal.animalId}
                 </Link>
               </li>
             ))}

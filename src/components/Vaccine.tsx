@@ -562,6 +562,8 @@ const fetchHerdsAnimals = async (userid: string | null) => {
         //change show to false and show message
         setShow(false);
         setShowMessage("Vaccineringen är raderad");
+        // Clear message after  3 seconds
+        setTimeout(clearMessages, 3000);
       } else {
         throw new Error("Vaccineringen kunde inte raderas");
       }
@@ -754,12 +756,14 @@ const fetchHerdsAnimals = async (userid: string | null) => {
               Lägg till
             </button>
           </form>
+          <div className="alertMessage mx-auto">
           {/*Show messages to form */}
           {showMessage && (
             <p className="alert mx-auto alert-success text-dark mx-auto text-center mt-2">
               {showMessage}
             </p>
           )}
+        </div>
         </div>
       )}
       {!isLoading && herds.length > 1 && (
