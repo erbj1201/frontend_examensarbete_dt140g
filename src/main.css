@@ -14,6 +14,7 @@ header {
     width: 100%;
 }
 
+
 footer {
     background-color: #f2f2f2;
     width: 100%;
@@ -300,7 +301,7 @@ tr .active {
 
 .scroll-list li:hover {
     background-color: #dddddd;
-   
+
 }
 
 .account-div {
@@ -311,33 +312,44 @@ tr .active {
     width: 100%;
     max-width: 800px;
 }
-.collapsible-messages{
+
+.collapsible-messages {
     margin-top: 2em;
 
 }
-.messageDiv{
+
+.messageDiv {
     width: 100%;
     max-width: 30em;
     background-color: #fffcfc;
 }
 
-.collapsible-messages .collapsibleDiv{
+.collapsible-messages .collapsibleDiv {
     background-color: #fdf4ee;
 }
-.dateText{
+
+.dateText {
     font-size: 0.7em;
 }
+
 /* GetHerdTable and buttons div */
-.animalView{
+.animalView {
 
     width: 80%;
-   
+
 }
-.contact-article{
+
+.contact-article {
     background-color: #fffcfc;
 }
-.animal-category{
+
+.animal-category {
     justify-content: center;
+}
+
+/* Success message width */
+.alert-success {
+    width: 40%;
 }
 
 /*tablet screen */
@@ -416,18 +428,40 @@ tr .active {
         width: 100%;
         margin: auto;
     }
-/* For messages */
-    .messageDiv{
+
+    /* For messages */
+    .messageDiv {
         width: 75%;
         max-width: 26em;
     }
-  /* GetHerdTable and buttons div */
-.animalView{
 
-    width: 100%;
-   
+    /* GetHerdTable and buttons div */
+    .animalView {
+
+        width: 100%;
+
+    }
+
+    /* Supportpage, one-column */
+    .help-div {
+        display: block;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100%;
+
+    }
+
+    .support-div {
+        max-width: 31em;
+    }
 }
+
+/* Success message width */
+.alert-success {
+    width: 60%;
 }
+
 
 /*mobile screen*/
 @media screen and (max-width: 576px) {
@@ -564,6 +598,11 @@ tr .active {
         width: 90%;
     }
 
+    /* Success message width */
+    .alert-success {
+        width: 90%;
+    }
+
     /*arrow right to change animal*/
     .arrowRightDetails {
         width: 1em;
@@ -632,23 +671,41 @@ tr .active {
     }
 
     /* For messages */
-    .messageDiv{
+    .messageDiv {
         width: 95%;
         max-width: 26em;
     }
-    .animal-category{
+
+    .animal-category {
         flex-direction: column;
         margin: auto;
         width: 70%;
     }
+
     .category-btn {
         width: 100%;
         margin: auto;
-}
-.arrow{
-    display: none;
-}
-.collapsibleDiv{
-    font-size: 0.8em;
-}
+    }
+
+    .arrow {
+        display: none;
+    }
+
+    .collapsibleDiv {
+        font-size: 0.8em;
+    }
+
+     /* Supportpage, one-column */
+     .help-div {
+        display: block;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100%;
+       
+    }
+
+    .support-div {
+        max-width: 21em;
+    }
 }

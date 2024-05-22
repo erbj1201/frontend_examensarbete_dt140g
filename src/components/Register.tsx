@@ -200,7 +200,7 @@ const RegisterPage: React.FC = () => {
     <div>
       {/*form to register user*/}
       {showMessage && (
-        <p className="alert mx-auto alert-success text-dark w-25 mx-auto text-center mt-2">{showMessage}</p>
+        <p className="alert mx-auto alert-success text-dark mx-auto text-center mt-2">{showMessage}</p>
       )}
       <form
         className="form-control form-control-sm mb-5 mt-5 mx-auto handleForm shadow border border-dark bglight"

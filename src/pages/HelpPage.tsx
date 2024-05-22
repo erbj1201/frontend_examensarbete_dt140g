@@ -19,7 +19,7 @@ function HelpPage() {
     <h1 className="mx-auto text-center">Support</h1>
       <div className="help-div d-flex p-5 mx-auto justify-content-between">
       <div className="support-div d-flex flex-column mx-auto">
-        <article className="contact-article w-50 p-5 mx-auto border border-grey shadow">
+        <article className="contact-article col-md-10 col-lg-8 p-5 mx-auto border border-grey shadow">
           <h3 className="text-center m-3 pb-3">Support via telefon</h3>
           <div className="p-3 mx-auto">
           <p>Användarstöd  
@@ -33,15 +33,17 @@ function HelpPage() {
           <a href="010 - 471 06 60">010 - 471 06 60</a></p>
           </div>
         </article>
-        <article className="contact-article w-50 m-3 p-5 mx-auto border border-grey shadow">
-          <h3 className="text-center m-3 pb-3">Instruktionsfilmer MinGård</h3>
+        <article className="contact-article col-md-10 col-lg-8 m-3 p-5 mx-auto border border-grey shadow">
+          <h3 className="mx-auto text-center m-3 pb-3">Instruktionsfilmer MinGård</h3>
           <div className="p-3 m-2 mx-auto">
           <p>Det finns flera olika instruktionsfilmer som visar hur MinGård fungerar.</p>
           <a href="https://dreambroker.com/channel/npeiza94#/menu">Till instruktionsfilmerna</a>
           </div>
         </article>
       </div>
+      <div className="col-md-12 col-lg-6">
       <Message />
+      </div>
       </div>
     </main>
     <Footer />

@@ -656,7 +656,7 @@ function Milk() {
 
           {/*Show messages to form */}
           {showMessage && (
-            <p className="alert mx-auto alert-success text-dark w-25 text-center mt-2">
+            <p className="alert mx-auto alert-success text-dark text-center mt-2">
               {showMessage}
             </p>
           )}

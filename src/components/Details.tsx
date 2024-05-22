@@ -407,7 +407,7 @@ const DetailsPage: React.FC = () => {
                         )}
                         <div>
                           {showMessage && (
-                            <p className="alert mx-auto alert-success text-dark w-25 text-center mt-2">{showMessage}</p>
+                            <p className="alert w-100 mx-auto alert-success text-dark text-center mt-2">{showMessage}</p>
                           )}
                           <button className="button m-3" onClick={editImage}>Byt bild</button>
                         </div>
