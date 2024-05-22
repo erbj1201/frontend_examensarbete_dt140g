@@ -709,8 +709,8 @@ function Calf() {
         if (herdsData.length === 1) {
           setChosenHerdId(herdsData[0].id);
         } else {
-            target: {
-              value: selectedOption
+          target: {
+            value: selectedOption
           };
         }
       }
@@ -1153,7 +1153,7 @@ function Calf() {
           </form>
           {/**Messages to form */}
           {showMessage && (
-            <p className="alert mx-auto alert-success text-dark w-25 text-center mt-2">{showMessage}</p>
+            <p className="alert mx-auto alert-success text-dark text-center mt-2">{showMessage}</p>
           )}
         </div>
       )}
@@ -1211,49 +1211,49 @@ function Calf() {
             <tbody>
               {/**Loop and Write calves */}
               {calves.map((calf) => {
-               const animal = animals.find(
-                (animal) => animal.id === calf.animal_id
-              );
-                return(
-                <tr key={calf.id}>
-                  <td>{animal ? animal.animalId : "Okänt"}</td>
-                  <td>{calf.earNo}</td>
-                  <td>{calf.breed}</td>
-                  <td>{calf.name}</td>
-                  <td>{calf.expectedBirthDate}</td>
-                  <td>{calf.birthDate}</td>
-                  <td>{calf.sex}</td>
-                  <td>{calf.category}</td>
-                  <td>
-                    <button
-                      className="button"
-                      onClick={() => {
-                        setEditCalf(true); // Update editCalf-state to true to edit
-                        setNewCalf({
-                          id: calf.id,
-                          animalId: calf.animalId,
-                          earNo: calf.earNo,
-                          breed: calf.breed,
-                          name: calf.name,
-                          expectedBirthDate: calf.expectedBirthDate,
-                          birthDate: calf.birthDate,
-                          sex: calf.sex,
-                          category: calf.id,
-                          animal_id: calf.animal_id,
-                        });
-                      }}
-                    >
-                      Ändra
-                    </button>
-                    {/**Change url when clicking at delete */}
-                    <button
-                      className="button"
-                      onClick={() => navigateToCalf(calf.id)}
-                    >
-                      Radera
-                    </button>
-                  </td>
-                </tr>
+                const animal = animals.find(
+                  (animal) => animal.id === calf.animal_id
+                );
+                return (
+                  <tr key={calf.id}>
+                    <td>{animal ? animal.animalId : "Okänt"}</td>
+                    <td>{calf.earNo}</td>
+                    <td>{calf.breed}</td>
+                    <td>{calf.name}</td>
+                    <td>{calf.expectedBirthDate}</td>
+                    <td>{calf.birthDate}</td>
+                    <td>{calf.sex}</td>
+                    <td>{calf.category}</td>
+                    <td>
+                      <button
+                        className="button"
+                        onClick={() => {
+                          setEditCalf(true); // Update editCalf-state to true to edit
+                          setNewCalf({
+                            id: calf.id,
+                            animalId: calf.animalId,
+                            earNo: calf.earNo,
+                            breed: calf.breed,
+                            name: calf.name,
+                            expectedBirthDate: calf.expectedBirthDate,
+                            birthDate: calf.birthDate,
+                            sex: calf.sex,
+                            category: calf.id,
+                            animal_id: calf.animal_id,
+                          });
+                        }}
+                      >
+                        Ändra
+                      </button>
+                      {/**Change url when clicking at delete */}
+                      <button
+                        className="button"
+                        onClick={() => navigateToCalf(calf.id)}
+                      >
+                        Radera
+                      </button>
+                    </td>
+                  </tr>
                 );
               })}
             </tbody>

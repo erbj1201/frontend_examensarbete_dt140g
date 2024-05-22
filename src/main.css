@@ -347,10 +347,8 @@ tr .active {
     justify-content: center;
 }
 
-/* Success message width */
-.alert-success {
-    width: 40%;
-}
+
+
 
 /*tablet screen */
 @media screen and (min-width: 576px) and (max-width: 992px) {
@@ -457,10 +455,6 @@ tr .active {
     }
 }
 
-/* Success message width */
-.alert-success {
-    width: 60%;
-}
 
 
 /*mobile screen*/
@@ -598,10 +592,6 @@ tr .active {
         width: 90%;
     }
 
-    /* Success message width */
-    .alert-success {
-        width: 90%;
-    }
 
     /*arrow right to change animal*/
     .arrowRightDetails {
