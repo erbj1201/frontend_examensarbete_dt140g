@@ -809,5 +809,4 @@ function Milk() {
     </div>
   );
 }
-
 export default Milk;
