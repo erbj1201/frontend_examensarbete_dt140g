@@ -16,7 +16,7 @@ const Calender: React.FC = () => {
         startAccessor="start"
         endAccessor="end"
        culture="sv-SE"
-        style={{ height: 500 }}
+        style={{ height: 300 }}
       />
     )
 }
