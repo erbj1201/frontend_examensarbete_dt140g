@@ -206,7 +206,7 @@ const Message: React.FC = () => {
             onSubmit={sendMessage}
             noValidate //The formdata is not automaticallly validated by the browser
           >
-            <h4 className="p-4 mb-3">Beskriv vad du vill ha hjälp med </h4>
+            <h4 className="p-2 mb-3">Beskriv vad du vill ha hjälp med </h4>
             <input type="hidden" value={messageData.userid} />
             <div className="form-group">
               <label htmlFor="title" className="form-label">
@@ -246,7 +246,7 @@ const Message: React.FC = () => {
        
         <div className="mx-auto collapsible-messages">
           <Collapsible open title="Alla skickade meddelanden">
-            <section className=" m-4 mx-auto  p-4">
+            <section className=" m-4 mx-auto p-4">
               {fetchMessages.length > 0 ? (
                 <>
                   {/*   <h3 className="text-center">Alla skickade meddelanden</h3> */}
@@ -259,7 +259,7 @@ const Message: React.FC = () => {
                     )} ${createNewDate.toLocaleTimeString("sv-SE")}`;
 
                     return (
-                      <article className=" bg-white mx-auto p-2 border border-dark p-3 m-3" key={message.id}>
+                      <article className=" bg-white mx-auto border border-dark p-3 m-3" key={message.id}>
                         <h4>{message.title}</h4>
                         <p className="dateText">
                           <em>Skickat: {formattedDateTime}</em>
