@@ -20,12 +20,12 @@ const StartPage: React.FC = () => {
           <div className="mx-auto calender border border-grey shadow p-3  ">
             <Calender />
           </div>
-          <div className="mx-auto  row d-lg-flex">
-            <div className="mx-auto col-sm-12 col-md-4 col-lg-5 mt-3 p-5 supportDiv border border-grey shadow">
+          <div className="mx-auto row d-lg-flex">
+            <div className="mx-auto col-sm-12 col-md-8 col-lg-5 mt-3 p-5 supportDiv border border-grey shadow">
               <h2>Driftstörning</h2>
               <p>Den 29e Maj 2024 kommer uppdatering ske mellan 08:00 - 10:00</p>
             </div>
-            <div className="mx-auto col-sm-12 col-md-8 col-lg-7 mt-3">
+            <div className="message-div-start mx-auto col-sm-12 col-md-9 col-lg-7 mt-3">
               <Message />
             </div>
           </div>

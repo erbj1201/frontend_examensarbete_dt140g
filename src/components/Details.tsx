@@ -480,8 +480,8 @@ const DetailsPage: React.FC = () => {
                       milkingData.map((milk, index) => (
                         <div className="collapsibleInfo" key={index}>
                           <ul>
-                          <li><b>Datum:</b> {milk.milkDate}</li>
-                          <li><b>Mängd mjölk:</b>{milk.kgMilk} kg</li>
+                          <li><strong>Datum:</strong> {milk.milkDate}</li>
+                          <li><strong>Mängd mjölk: </strong>{milk.kgMilk} kg</li>
                           </ul>
                         </div>
                       ))

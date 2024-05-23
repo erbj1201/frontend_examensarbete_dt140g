@@ -372,6 +372,18 @@ tr .active {
 .alert-success {
     width: 40%;
 }
+.startDiv{
+    width: 80%;
+}
+.supportDiv{
+    background-color: #fdf4ee;
+    max-width: 25em;
+    height: 100%;
+}
+.message-div-start{
+    margin-left: 2%;
+}
+
 
 /*tablet screen */
 @media screen and (min-width: 576px) and (max-width: 992px) {
@@ -454,6 +466,7 @@ tr .active {
         width: 100%;
         height: max-content;
     }
+
     .help-div{
         flex-direction: column;
         max-width: 700px;
@@ -476,6 +489,10 @@ tr .active {
 .alert-success {
     width: 60%;
 }
+.startDiv{
+    width: 80%;
+}
+
 }
 
 /*mobile screen*/
