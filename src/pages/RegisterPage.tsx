@@ -3,7 +3,7 @@ import Footer from "../components/Footer";
 import UserHeader from "../components/UserHeader";
 import Register from "../components/Register";
 import { Helmet } from 'react-helmet-async';
-
+ 
 const RegisterPage: React.FC = () => {
   return (
     <div>

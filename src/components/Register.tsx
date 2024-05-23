@@ -195,7 +195,7 @@ const RegisterPage: React.FC = () => {
         setTimeout(clearMessages, 3000);
     }
   };
-
+ 
   return (
     <div>
       {/*form to register user*/}
