@@ -474,7 +474,7 @@ const DetailsPage: React.FC = () => {
                         <div className="collapsibleInfo" key={index}>
                           <ul>
                           <li><strong>Datum:</strong> {milk.milkDate}</li>
-                          <li><strong>Mängd mjölk: </strong>{milk.kgMilk} kg</li>
+                          <li><strong>Mängd mjölk: </strong>{milk.kgMilk} Kg</li>
                           </ul>
                         </div>
                       ))
