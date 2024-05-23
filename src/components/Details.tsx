@@ -438,35 +438,28 @@ const DetailsPage: React.FC = () => {
                       </div>
                       <div className="col-12 col-md-4 col-lg-4 p-3 detailsDivText">
                         <p>
-                          <b>Id: </b>
-                          {animalsByHerds[animalIndex].id}
-                        </p>
-                        <p>
-                          <b>Djuridentitet: </b>
+                          <strong>Djuridentitet: </strong>
                           {animalsByHerds[animalIndex].animalId}
                         </p>
                         <p>
-                          <b>Öronnummer: </b>
+                          <strong>Öronnummer: </strong>
                           {animalsByHerds[animalIndex].earNo}
                         </p>
                         <p>
-                          <b>Födelsedatum: </b>
+                          <strong>Födelsedatum: </strong>
                           {animalsByHerds[animalIndex].birthDate}
                         </p>
                         <p>
-                          <b>Ras: </b>
+                          <strong>Ras: </strong>
                           {animalsByHerds[animalIndex].breed}
                         </p>
                         <p>
-                          <b>Kön: </b>
+                          <strong>Kön: </strong>
                           {animalsByHerds[animalIndex].sex}
                         </p>
                         <p>
-                          <b>Användning: </b>
+                          <strong>Användning: </strong>
                           {animalsByHerds[animalIndex].category}
-                        </p>
-                        <p>
-                          <b>Besättning:</b> {animalsByHerds[animalIndex].herd_id}
                         </p>
                       </div>
                     </div>
@@ -496,10 +489,10 @@ const DetailsPage: React.FC = () => {
                       medicineData.map((medicine, index) => (
                         <div className="collapsibleInfo" key={index}>
                           <ul>
-                          <li><b>Datum:</b> {medicine.date}</li>
-                          <li><b>Typ: </b>{medicine.type} </li>
-                          <li><b>Mängd: </b>{medicine.amount} </li>
-                          <li><b>Återkommande: </b>{medicine.recurrent} </li>
+                          <li><strong>Datum:</strong> {medicine.date}</li>
+                          <li><strong>Typ: </strong>{medicine.type} </li>
+                          <li><strong>Mängd: </strong>{medicine.amount} </li>
+                          <li><strong>Återkommande: </strong>{medicine.recurrent ? "Ja" : "Nej"} </li>
                           </ul>
                         </div>
                       ))
@@ -514,9 +507,9 @@ const DetailsPage: React.FC = () => {
                       vaccineData.map((vaccine, index) => (
                         <div className="collapsibleInfo" key={index}>
                           <ul>
-                          <li><b>Batchnummer: </b>{vaccine.batchNo}</li>
-                          <li><b>Namn:</b> {vaccine.name} </li>
-                          <li><b>Datum och tid:</b> {vaccine.date} </li>
+                          <li><strong>Batchnummer: </strong>{vaccine.batchNo}</li>
+                          <li><strong>Namn:</strong> {vaccine.name} </li>
+                          <li><strong>Datum och tid:</strong> {vaccine.date} </li>
                           </ul>
                         </div>
                       ))
@@ -531,13 +524,13 @@ const DetailsPage: React.FC = () => {
                       calfData.map((calf, index) => (
                         <div className="collapsibleInfo" key={index}>
                           <ul>
-                          <li><b>Öronnummer:</b> {calf.earNo}</li>
-                          <li><b>Ras:</b> {calf.breed}</li>
-                          <li><b>Namn: </b>{calf.name}</li>
-                          <li><b>Förväntat födelsedatum: </b>{calf.expectedBirthDate}</li>
-                          <li><b>Födelsedatum:</b> {calf.birthDate} </li>
-                          <li><b>Kön: </b>{calf.sex} </li>
-                          <li><b>Kategori: </b>{calf.category} </li>
+                          <li><strong>Öronnummer:</strong> {calf.earNo}</li>
+                          <li><strong>Ras:</strong> {calf.breed}</li>
+                          <li><strong>Namn: </strong>{calf.name}</li>
+                          <li><strong>Förväntat födelsedatum: </strong>{calf.expectedBirthDate}</li>
+                          <li><strong>Födelsedatum:</strong> {calf.birthDate} </li>
+                          <li><strong>Kön: </strong>{calf.sex} </li>
+                          <li><strong>Kategori: </strong>{calf.category} </li>
                           </ul>
                         </div>
                       ))
