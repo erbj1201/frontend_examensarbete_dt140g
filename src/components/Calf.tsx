@@ -1197,14 +1197,13 @@ function Calf() {
           <table className="table table-responsive table-hover w-75 mx-auto">
             <thead>
               <tr>
+
                 <th>Djuridentitet</th>
-                <th>Öronnummer</th>
-                <th>Ras</th>
+            <th>Födelsedatum</th>
                 <th>Namn</th>
-                <th>Förväntat födelsedatum</th>
-                <th>Födelsedatum</th>
-                <th>Kön</th>
                 <th>Kategori</th>
+                <th>Ras</th>
+                <th>Mamma</th>
                 <th>Hantera</th>
               </tr>
             </thead>
@@ -1216,14 +1215,12 @@ function Calf() {
                 );
                 return (
                   <tr key={calf.id}>
-                    <td>{animal ? animal.animalId : "Okänt"}</td>
-                    <td>{calf.earNo}</td>
-                    <td>{calf.breed}</td>
-                    <td>{calf.name}</td>
-                    <td>{calf.expectedBirthDate}</td>
+                    <td>{calf.animalId}</td>
                     <td>{calf.birthDate}</td>
-                    <td>{calf.sex}</td>
+                   <td>{calf.name}</td> 
                     <td>{calf.category}</td>
+                    <td>{calf.breed}</td>
+                    <td>{animal ? animal.animalId : "Okänt"}</td>
                     <td>
                       <button
                         className="button"
