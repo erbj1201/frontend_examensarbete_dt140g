@@ -2,7 +2,7 @@
 //Import
 
 import DOMPurify from "dompurify";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Cookies from "universal-cookie";
 import Collapsible from "./Collapsible";
 
@@ -64,10 +64,10 @@ const Message: React.FC = () => {
     });
   };
 
-  // Fetch all herds and animals by user on component mount
+ /*  // Fetch all herds and animals by user on component mount
   useEffect(() => {
     getAllMessages();
-  }, []);
+  }, []); */
   //Get users herds and users anmials
   const getAllMessages = async () => {
     const cookies = new Cookies();
@@ -243,7 +243,8 @@ const Message: React.FC = () => {
           </form>
        
         <div className="mx-auto collapsible-messages">
-          <Collapsible open title="Alla skickade meddelanden">
+          <Collapsible open title="Alla skickade meddelanden" 
+            onClick={() => getAllMessages()}>
             <section className=" m-4 mx-auto p-4">
               {fetchMessages.length > 0 ? (
                 <>

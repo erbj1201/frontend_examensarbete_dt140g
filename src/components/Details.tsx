@@ -55,18 +55,18 @@ const DetailsPage: React.FC = () => {
       imagepath: "",
     }); */
 
-    useEffect(() => {
+  /*   useEffect(() => {
       if (id) {
-        getMilkByAnimals(id);
+       
         getMedicinesByAnimals(id);
         getVaccinesByAnimals(id);
         getCalvesByAnimals(id);
       }
-    }, [id]);
+    }, [id]); */
   
   
     // Gets all calves from animal with fetch
-    const getCalvesByAnimals = async (animal_id: string) => {
+    const getCalvesByAnimals = async (animal_id: string|undefined) => {
       //Fetch calves (get)
       try {
         const response = await fetch(
@@ -92,7 +92,7 @@ const DetailsPage: React.FC = () => {
     };
   
     //Gets all vaccines from the animal with fetch
-    const getVaccinesByAnimals = async (animal_id: string) => {
+    const getVaccinesByAnimals = async (animal_id: string| undefined) => {
       //Fetch vaccines (get)
       try {
         const response = await fetch(
@@ -117,7 +117,7 @@ const DetailsPage: React.FC = () => {
       }
     };
     // Gets all medicine from the animal with fetch
-    const getMedicinesByAnimals = async (animal_id: string) => {
+    const getMedicinesByAnimals = async (animal_id: string| undefined) => {
       //Fetch medicines (get)
       try {
         const response = await fetch(
@@ -144,7 +144,7 @@ const DetailsPage: React.FC = () => {
     };
   
     // Gets all milk from the animal with fetch
-    const getMilkByAnimals = async (animal_id: string) => {
+    const getMilkByAnimals = async (animal_id: string| undefined) => {
       //Fetch get
       try {
         const response = await fetch(
@@ -205,6 +205,7 @@ const DetailsPage: React.FC = () => {
   };
   //Handle click to next animal in herd
   const clickNext = () => {
+    
     if (animalIndex < animalsByHerds.length - 1) {
       //Set index to this index plus 1
       setAnimalIndex(animalIndex + 1);
@@ -468,7 +469,8 @@ const DetailsPage: React.FC = () => {
               </article>
               <article className="collapsible mx-auto m-2">
                 <div>
-                  <Collapsible open title="Mjölkning">
+                  <Collapsible open title="Mjölkning"
+                 onClick={() => getMilkByAnimals(id)}>
                     {milkingData.length > 0 ? (
                       milkingData.map((milk, index) => (
                         <div className="collapsibleInfo" key={index}>
@@ -484,7 +486,8 @@ const DetailsPage: React.FC = () => {
               </article>
               <article className="collapsible mx-auto m-2">
                 <div>
-                  <Collapsible open title="Medicinering">
+                  <Collapsible open title="Medicinering"
+                    onClick={() => getMedicinesByAnimals(id)}>
                     {medicineData.length > 0 ? (
                       medicineData.map((medicine, index) => (
                         <div className="collapsibleInfo" key={index}>
@@ -502,7 +505,8 @@ const DetailsPage: React.FC = () => {
               </article>
               <article className="collapsible mx-auto m-2">
                 <div>
-                  <Collapsible open title="Vaccinering">
+                  <Collapsible open title="Vaccinering"
+                    onClick={() => getVaccinesByAnimals(id)}>
                     {vaccineData.length > 0 ? (
                       vaccineData.map((vaccine, index) => (
                         <div className="collapsibleInfo" key={index}>
@@ -519,7 +523,8 @@ const DetailsPage: React.FC = () => {
               </article>
               <article className="collapsible mx-auto m-2">
                 <div>
-                  <Collapsible open title="Kalvning">
+                  <Collapsible open title="Kalvning"
+                    onClick={() => getCalvesByAnimals(id)}>
                     {calfData.length > 0 ? (
                       calfData.map((calf, index) => (
                         <div className="collapsibleInfo" key={index}>

@@ -6,14 +6,20 @@ interface IProps {
     title: string;
     open: boolean;
     children: any;
+    onClick: () => Promise<void>;
 }
 
-const Collapsible: React.FC<IProps> = ({ title, children, open }) => {
+const Collapsible: React.FC<IProps> = ({ title, children, open, onClick }) => {
+    
     //State if element is open or close
     const [isOpen, setIsOpen] = useState(open);
 
     const handleOpening = () => {
         setIsOpen(prev => !prev);
+        handleClick();
+    }
+        const handleClick: () => Promise<void> = async () => {
+            await onClick();
 
     };
 
