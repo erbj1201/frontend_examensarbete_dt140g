@@ -10,20 +10,20 @@ function GDPRPage() {
       </Helmet>
       <UserHeader />
       <main className="mx-auto container pb-5">
-        <article className="container w-75 mx-auto p-3">
+        <article className="container mx-auto p-3">
           <h2 className="mx-auto text-center pt-5 pb-5">Information om personuppgiftsbehandling och integritetsskydd</h2>
-          <p className="w-75 mx-auto lh-base">
+          <p className="mx-auto lh-base">
             För att du ska kunna använda vårt system MinGård och dess funktioner
             fullt ut krävs det att du i samband med skapande av ett
             användarkonto lämnar vissa personuppgifter till Växa Sverige.
           </p>
-          <p className="w-50 mx-auto lh-base">
+          <p className="mx-auto lh-base">
             Personuppgifter som vi samlar in från dig och sparar när du
             registrerar ett konto i MinGård och börjar använda tjänsten är namn,
             mejladress, lösenord och eventuell användarbild som laddas upp.
             Utöver det kommer vi samla in information om besättningar, djur och
             händelser kopplade till djur och besättningar. </p>
-            <p className="w-50 mx-auto lh-base">
+            <p className="mx-auto lh-base">
               Det finns ingen
             skyldighet eller lagstadgat krav att du måste lämna personuppgifter
             till oss, men det är nödvändigt för att kunna använda MinGård.
@@ -33,7 +33,7 @@ function GDPRPage() {
             IP-nummer. Dessa uppgifter sparas i anonymiserad form utan att
             kopplas direkt till dig som person. 
             </p>
-            <p className="w-50 mx-auto lh-base">Webbplatsen där MinGård finns
+            <p className="mx-auto lh-base">Webbplatsen där MinGård finns
             använder s.k. cookies. En cookie är en liten textfil som sparas på
             besökarens dator och som används för att vissa funktioner på
             webbplatsen ska fungera, för analys och statistik från besök på
@@ -42,12 +42,12 @@ function GDPRPage() {
             förbättra webbplatsens innehåll. Det är Växa som har
             ansvaret för MinGård, webbplatsen där MinGård finns och ansvariga
             för den personuppgiftsbehandling som sker.
-          </p> <p className="w-75 mx-auto lh-base">
+          </p> <p className="mx-auto lh-base">
           Våra kontaktuppgifter kan komma att förändras över tid, vilket i så
           fall framgår av  <a href="https://www.vxa.se/om-oss/kontaktkortsok/">Växas webbplats</a>.</p>
           <br />
-          <h3 className="w-75 mx-auto lh-base">Växas adresser</h3>
-          <p className="w-75 mx-auto lh-base">Växa Sverige Ekonomisk förening
+          <h3 className="mx-auto lh-base">Växas adresser</h3>
+          <p className="mx-auto lh-base">Växa Sverige Ekonomisk förening
             <br/><br/>
 <strong>Besöksadress</strong>
 <br/>
@@ -55,23 +55,23 @@ ULLS VÄG 29 A
 <br/>
 75651 Uppsala
 </p>
-<p className="w-75 mx-auto lh-base">
+<p className="mx-auto lh-base">
 <strong> Utdelningsadress</strong>
 <br/>
 BOX 288
 <br/>
 75105 Uppsala
           </p>
-          <h4 className="w-75 mx-auto">Personuppgifterna kommer att användas
+          <h4 className="mx-auto">Personuppgifterna kommer att användas
           av Växa för följande ändamål: </h4>
         <br />
-        <p className="w-75 mx-auto lh-base">I syfte att
+        <p className="mx-auto lh-base">I syfte att
           tillhandahålla en applikation där användare kan registrera ett konto
           för att kunna logga in i MinGård och administrera sin nötkreatur och
           händelser kopplade till nötkreatur och besättningar till CDB.
           </p>
-          <h4 className="w-75 mx-auto"> Personuppgifterna kommer att hanteras på följande sätt: </h4>
-          <p className="w-75 mx-auto lh-base">
+          <h4 className="mx-auto"> Personuppgifterna kommer att hanteras på följande sätt: </h4>
+          <p className="mx-auto lh-base">
           Personuppgifterna kommer att skickas från webbplatsen och lagras i en
           databas med ett tillhörande API som kan nås av oss. Uppgifterna kommer
           att användas för ovanstående ändamål och i enlighet med detta
@@ -79,7 +79,7 @@ BOX 288
           personuppgifter är att du har gett ditt frivilliga samtycke.
           Personuppgifterna kommer endast behandlas av behörig personal på Växa Sverige. Vi delar inte dina personuppgifter med tredje part. 
           </p>
-          <p className="w-75 mx-auto lh-base">
+          <p className="mx-auto lh-base">
            Magnus Nygren är personuppgiftsansvarig. Samtycket är
           giltigt tills vidare och så länge du har ett användarkonto i MinGård.
           Du har rätt att när som helst ta tillbaka ditt samtycke. Detta gör du
@@ -88,7 +88,7 @@ BOX 288
           samtycke. Uppgifter som ingår i resultat som redan har åstadkommits
           kommer dock inte att påverkas av att ditt samtycke återkallas. Vissa
           uppgifter kan även komma att arkiveras i enlighet med svensk lag. </p>
-          <p className="w-75 mx-auto lh-base"> Du
+          <p className="mx-auto lh-base"> Du
           har rätt att få information om de personuppgifter vi behandlar om dig.
           Du har också rätt att få felaktiga personuppgifter om dig själv
           rättade. Om du har klagomål på vår behandling av dina personuppgifter
