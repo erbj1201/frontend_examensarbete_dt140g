@@ -17,13 +17,13 @@ function GDPRPage() {
             fullt ut krävs det att du i samband med skapande av ett
             användarkonto lämnar vissa personuppgifter till Växa Sverige.
           </p>
-          <p className="w-75 mx-auto lh-base">
+          <p className="w-50 mx-auto lh-base">
             Personuppgifter som vi samlar in från dig och sparar när du
             registrerar ett konto i MinGård och börjar använda tjänsten är namn,
             mejladress, lösenord och eventuell användarbild som laddas upp.
             Utöver det kommer vi samla in information om besättningar, djur och
             händelser kopplade till djur och besättningar. </p>
-            <p className="w-75 mx-auto lh-base">
+            <p className="w-50 mx-auto lh-base">
               Det finns ingen
             skyldighet eller lagstadgat krav att du måste lämna personuppgifter
             till oss, men det är nödvändigt för att kunna använda MinGård.
@@ -33,7 +33,7 @@ function GDPRPage() {
             IP-nummer. Dessa uppgifter sparas i anonymiserad form utan att
             kopplas direkt till dig som person. 
             </p>
-            <p className="w-75 mx-auto lh-base">Webbplatsen där MinGård finns
+            <p className="w-50 mx-auto lh-base">Webbplatsen där MinGård finns
             använder s.k. cookies. En cookie är en liten textfil som sparas på
             besökarens dator och som används för att vissa funktioner på
             webbplatsen ska fungera, för analys och statistik från besök på
@@ -45,7 +45,7 @@ function GDPRPage() {
           </p> <p className="w-75 mx-auto lh-base">
           Våra kontaktuppgifter kan komma att förändras över tid, vilket i så
           fall framgår av  <a href="https://www.vxa.se/om-oss/kontaktkortsok/">Växas webbplats</a>.</p>
-          <br /> <br />
+          <br />
           <h3 className="w-75 mx-auto lh-base">Växas adresser</h3>
           <p className="w-75 mx-auto lh-base">Växa Sverige Ekonomisk förening
             <br/><br/>
