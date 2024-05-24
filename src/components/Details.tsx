@@ -205,6 +205,7 @@ const DetailsPage: React.FC = () => {
   };
   //Handle click to next animal in herd
   const clickNext = () => {
+    
     if (animalIndex < animalsByHerds.length - 1) {
       //Set index to this index plus 1
       setAnimalIndex(animalIndex + 1);
