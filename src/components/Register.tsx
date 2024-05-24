@@ -203,7 +203,7 @@ const RegisterPage: React.FC = () => {
         <p className="alert mx-auto alert-success text-dark mx-auto text-center mt-2">{showMessage}</p>
       )}
       <form
-        className="form-control form-control-sm mb-5 mt-5 mx-auto handleForm shadow border border-dark bglight"
+        className="form-control form-control-sm mb-5 p-5 mt-5 mx-auto handleForm shadow border border-dark bglight"
         onSubmit={registerUser}
         noValidate //The formdata is not automaticallly validated by the browser
       >
