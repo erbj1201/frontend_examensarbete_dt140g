@@ -78,6 +78,15 @@ a:hover {
     text-decoration: none;
 }
 
+/* Table */
+.table{
+    width: 80%;
+}
+ /* table on Handlepage */
+ .tableHandle{
+    width: 70%;
+}
+
 .menyicon:hover {
     color: #75160e;
 }
@@ -493,6 +502,15 @@ tr .active {
     width: 80%;
 }
 
+.tableHandle{
+    width: 100%;
+}
+
+.tableCalf{
+    width: 80%;
+    font-size: 0.9em;
+}
+
 }
 
 /*mobile screen*/
@@ -576,7 +594,15 @@ tr .active {
         text-align: left;
         padding-left: 10px;
     }
+/* width on handle */
+    .table{
+        width: 100%;
+    }
 
+    /* table on Handlepage */
+    .tableHandle{
+        width: 80%;
+    }
     .tableRow {
         margin: 1em;
     }

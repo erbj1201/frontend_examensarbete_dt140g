@@ -1194,15 +1194,15 @@ function Calf() {
         /*Table to write calves*/
         <div>
           <h2 className="p-5 mx-auto"> Senaste kalvningarna för valt djur:</h2>
-          <table className="table table-responsive table-hover w-75 mx-auto">
-            <thead>
-              <tr>
+          <table className="table table-responsive-sm table-hover mx-auto shadow-sm table-hover tableCalf">
+          <thead className= "table-thead d-sm-table-header-group shadow-sm border-top">
+          <tr>
 
                 <th>Djuridentitet</th>
             <th>Födelsedatum</th>
                 <th>Namn</th>
                 <th>Kategori</th>
-                <th>Ras</th>
+               {/*  <th>Ras</th> */}
                 <th>Mamma</th>
                 <th>Hantera</th>
               </tr>
@@ -1215,13 +1215,49 @@ function Calf() {
                 );
                 return (
                   <tr key={calf.id}>
-                    <td>{calf.animalId}</td>
-                    <td>{calf.birthDate}</td>
-                   <td>{calf.name}</td> 
-                    <td>{calf.category}</td>
-                    <td>{calf.breed}</td>
-                    <td>{animal ? animal.animalId : "Okänt"}</td>
-                    <td>
+                      <td className="d-block d-sm-none td-handle" data-label="Djuridentitet">{calf.animalId}</td>
+                      <td className="d-block d-sm-none" data-label="Födelsedatum">{calf.birthDate}</td>
+                    <td className="d-block d-sm-none" data-label="Namn">{calf.name}</td> 
+                    <td className="d-block d-sm-none" data-label="Kategori">{calf.category}</td>
+                    <td className="d-block d-sm-none" data-label="Ras">{calf.breed}</td>
+                    <td className="d-block d-sm-none td-handle" data-label="Mamma">{animal ? animal.animalId : "Okänt"}</td>
+                    <td className="d-block d-sm-none" data-label="Hantera">
+                      <button
+                        className="button"
+                        onClick={() => {
+                          setEditCalf(true); // Update editCalf-state to true to edit
+                          setNewCalf({
+                            id: calf.id,
+                            animalId: calf.animalId,
+                            earNo: calf.earNo,
+                            breed: calf.breed,
+                            name: calf.name,
+                            expectedBirthDate: calf.expectedBirthDate,
+                            birthDate: calf.birthDate,
+                            sex: calf.sex,
+                            category: calf.id,
+                            animal_id: calf.animal_id,
+                          });
+                        }}
+                      >
+                        Ändra
+                      </button>
+                      {/**Change url when clicking at delete */}
+                      <button
+                        className="button"
+                        onClick={() => navigateToCalf(calf.id)}
+                      >
+                        Radera
+                      </button>
+                    </td>
+                    {/* Table for desktop */}
+                    <td className="d-none d-sm-table-cell animalId"data-label="Djuridentitet">{calf.animalId}</td>
+                    <td className="d-none d-sm-table-cell" data-label="Födelsedatum">{calf.birthDate}</td>
+                    <td className="d-none d-sm-table-cell" data-label="Namn">{calf.name}</td> 
+                    <td className="d-none d-sm-table-cell" data-label="Kategori">{calf.category}</td>
+{/*                     <td className="d-none d-sm-table-cell" data-label="Ras">{calf.breed}</td> */}
+                    <td className="d-none d-sm-table-cell" data-label="Mamma">{animal ? animal.animalId : "Okänt"}</td>
+                    <td className="d-none d-sm-table-cell" data-label="Hantera">
                       <button
                         className="button"
                         onClick={() => {

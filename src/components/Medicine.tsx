@@ -856,8 +856,8 @@ function Medicine() {
         /* Else show table with medicines */
         <div>
           <h2 className="p-5 mx-auto">Senaste medicineringarna för valt djur:</h2>
-          <table className="table table-responsive-sm table-hover w-75 mx-auto">
-          <thead className= "table-thead d-sm-table-header-group">
+          <table className="table table-responsive-sm table-hover mx-auto shadow-sm table-hover tableHandle">
+          <thead className= "table-thead d-sm-table-header-group shadow-sm border-top">
               <tr>
                 <th>Djuridentitet</th>
                 <th>Datum & tid</th>
