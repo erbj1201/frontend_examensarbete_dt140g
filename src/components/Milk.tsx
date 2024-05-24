@@ -703,7 +703,7 @@ function Milk() {
             <thead className="d-sm-table-header-group">
               <tr>
                 <th>Djuridentitet</th>
-                <th>Mjölk i Kg</th>
+                <th>Mjölk i kg</th>
                 <th>Datum & tid</th>
                 <th>Hantera</th>
               </tr>
@@ -720,7 +720,7 @@ function Milk() {
                     {/* Ternary operator */}
                     {/* Display block for mobile */}
                     <td className="d-block d-sm-none td-handle" data-label="Djuridentitet">{animal ? animal.animalId : "Okänt"}</td>
-                    <td className="d-block d-sm-none" data-label="Kg">{milk.kgMilk} Kg</td>
+                    <td className="d-block d-sm-none" data-label="Kg">{milk.kgMilk} kg</td>
                     <td className="d-block d-sm-none" data-label="Datum & tid">{milk.milkDate}</td>
                     <td className="d-block d-sm-none" data-label="Hantera"> <button
                       className="button"
@@ -745,7 +745,7 @@ function Milk() {
 
                     {/* Table for desktop */}
                     <td className="d-none d-sm-table-cell" data-label="Djuridentitet">{animal ? animal.animalId : "Okänt"}</td>
-                    <td className="d-none d-sm-table-cell" data-label="Kg">{milk.kgMilk} Kg</td>
+                    <td className="d-none d-sm-table-cell" data-label="Kg">{milk.kgMilk} kg</td>
                     <td className="d-none d-sm-table-cell" data-label="Datum & tid">{milk.milkDate}</td>
                     <td className="d-none d-sm-table-cell" data-label="Hantera">
                       <button
