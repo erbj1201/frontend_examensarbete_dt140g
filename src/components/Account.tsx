@@ -221,6 +221,7 @@ export default function Account() {
           <form
             className="form-control handleForm form-control-sm border-0 p-2 mx-auto w-100"
             onSubmit={updateProfile}
+            noValidate
           > {/*Message for form */}
             {showMessage && (
               <p className="alert mx-auto alert-success text-dark w-100 mx-auto text-center mt-2">{showMessage}</p>
