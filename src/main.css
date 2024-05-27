@@ -21,6 +21,7 @@ footer {
     margin: 0;
 }
 
+/* All p elements in font-family Roboto */
 p {
     font-family: "Roboto", sans-serif;
     font-size: 1em;
@@ -31,13 +32,22 @@ h1 {
     padding: 0.5em 0.2em;
 }
 
-/*Links*/
+/*Links and hover*/
 a {
     color: #75160e;
 }
 
 a:hover {
     color: #370c0c;
+}
+
+.nav-link {
+    color: black;
+}
+
+.nav-link:hover {
+    text-decoration: underline;
+    color: #75160e;
 }
 
 /*Växa in footer*/
@@ -70,7 +80,7 @@ a:hover {
     font-size: 1.2em;
 }
 
-/*symbol for support/contact beside menu*/
+/*symbol for support/contact beside menu + hover*/
 .menyicon {
     color: black;
     height: auto;
@@ -78,7 +88,11 @@ a:hover {
     text-decoration: none;
 }
 
-/* Table */
+.menyicon:hover {
+    color: #75160e;
+}
+
+/* Table width*/
 .table{
     width: 80%;
 }
@@ -87,15 +101,14 @@ a:hover {
     width: 70%;
 }
 
-.menyicon:hover {
-    color: #75160e;
-}
+
 
 /*"mingård" text under logo */
 .navbar-brand p {
     color: #3a3939;
 }
 
+/* Design for button class and hover */
 .button {
     font-size: 1em;
     border: none;
@@ -110,7 +123,7 @@ a:hover {
     color: white;
 }
 
-/*button search in header*/
+/*button search in header and hover*/
 .search-btn {
     width: 1.5em;
 }
@@ -140,17 +153,17 @@ a:hover {
     width: 80%;
 }
 
-/*arrow right to change animal*/
+/*Arrow right to change to another animal*/
 .arrowRightDetails {
     width: 1em;
 }
 
-/*arrow left to change animal*/
+/*Arrow left to change to another animal*/
 .arrowLeftDetails {
     width: 1em;
 }
 
-/*first div around "grundinformation" */
+/*The first div around "grundinformation" */
 .detailsDiv {
     background-color: #fdfdfd;
     margin-top: 2em;
@@ -174,24 +187,14 @@ a:hover {
     font-weight: 300;
 }
 
-.nav-link {
-    color: black;
-}
-
-.nav-link:hover {
-    text-decoration: underline;
-    color: #75160e;
-}
-
-
-
+/* The automatically image */
 .cow-image {
     height: 100%;
     width: 100%;
     max-width: 200px;
 }
 
-/* category buttons*/
+/* category button and hover*/
 .category-btn {
     background-color: #504f4f;
     color: white;
@@ -206,7 +209,7 @@ a:hover {
     border: solid 1px #000000;
     box-shadow: none;
 }
-
+/* Form on handle Page */
 .handleForm {
     background-color: #f5f4f4;
     max-width: 30em;
@@ -215,7 +218,7 @@ a:hover {
 tr .active {
     background-color: #f29354;
 }
-
+/* button for edit and delete + hover */
 .btn-alert {
     background-color: #f29354;
     border-radius: 10%;
@@ -232,11 +235,6 @@ tr .active {
     background-color: rgba(0, 0, 0, 0.3);
 }
 
-.userImage {
-    max-width: 200px;
-    width: 100%;
-    height: 100%;
-}
 
 .bglight {
     background-color: #f2f2f2;
@@ -264,7 +262,7 @@ tr .active {
     width: 100%;
     max-width: 40em;
 }
-
+/* Selectlist for Herd and handle alternatives */
 .selectWidth {
     width: 44%;
 }
@@ -277,12 +275,13 @@ tr .active {
     font-size: 0.8em;
 }
 
+/* For komponente search form */
 /* Width on search and filtrate */
 .searchOptions {
 
     width: 50%;
 }
-
+/* Shows a scroll list of the results */
 .scroll-list-container {
     margin: left;
     font-size: 0.8em;
@@ -313,6 +312,7 @@ tr .active {
 
 }
 
+/* Account Page */
 .account-div {
     max-width: 600px;
 }
@@ -321,6 +321,15 @@ tr .active {
     width: 100%;
     max-width: 800px;
 }
+
+/* the automatically image for user */
+.userImage {
+    max-width: 200px;
+    width: 100%;
+    height: 100%;
+}
+
+/* Component for messages */
 
 .collapsible-messages {
     margin-top: 2em;
@@ -364,9 +373,7 @@ tr .active {
 
 /* GetHerdTable and buttons div */
 .animalView {
-
     width: 80%;
-
 }
 
 .contact-article {
@@ -506,6 +513,7 @@ tr .active {
     width: 100%;
 }
 
+/* Width for calf on handle Page */
 .tableCalf{
     width: 80%;
     font-size: 0.9em;
@@ -515,6 +523,7 @@ tr .active {
 
 /*mobile screen*/
 @media screen and (max-width: 576px) {
+    /* Head menu placed in bottom instead */
     .nav-div {
         position: fixed;
         left: 0;
@@ -594,7 +603,7 @@ tr .active {
         text-align: left;
         padding-left: 10px;
     }
-/* width on handle */
+/* width on table in handle page */
     .table{
         width: 100%;
     }
