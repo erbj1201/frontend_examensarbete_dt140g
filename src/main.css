@@ -399,6 +399,9 @@ tr .active {
 .message-div-start{
     margin-left: 2%;
 }
+.userNav{
+    width: 1.5em;
+}
 
 
 /*tablet screen */
