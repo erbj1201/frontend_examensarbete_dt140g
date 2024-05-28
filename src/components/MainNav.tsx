@@ -34,7 +34,7 @@ const Navbar = () => {
           </li>
           <li className="nav-item">
             <NavLink className="nav-link desktop-icon" aria-label="Mitt konto" to="/account">
-            <img src=".\src\content\user.png" role="img" className="userNav" alt="Mitt konto"/>
+            <i className="fi fi-sr-portrait"></i>
            </NavLink> 
            </li>
         
@@ -48,13 +48,13 @@ const Navbar = () => {
       </div>
           <div className="menyicon-div justify-content-center">
           <li className="nav-item">
-            <NavLink className="menyicon" to="/account">
+            <NavLink className="menyicon" aria-label="Mitt konto" to="/account">
               <i className="fi fi-sr-portrait"></i>
             </NavLink>
           </li>
           {/**Icon for ? (support, contact) */}
           <li className="nav-item">
-            <NavLink className="menyicon" to="/help">
+            <NavLink className="menyicon" to="/help" aria-label="Support" >
               <i className="fi fi-sr-question-square"></i>
             </NavLink>
           </li>
