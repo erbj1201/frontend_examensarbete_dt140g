@@ -193,7 +193,7 @@ const Message: React.FC = () => {
   return (
       <div className="mx-auto container">
         {showMessage !== null && (
-          <p className="alert alert-light text-center mx-auto">
+          <p className="alert mx-auto alert-success text-dark text-center mt-2">
             {showMessage || ""}
           </p>
         )}
@@ -221,7 +221,7 @@ const Message: React.FC = () => {
                   handleInputChange(target.name, target.value)
                 }
               />
-              <p className="error-message">{formError.title}</p>
+              <p className="error-message text-danger fw-bold">{formError.title}</p>
             </div>
             <div className="form-group">
               <label htmlFor="description" className="form-label">
@@ -235,7 +235,7 @@ const Message: React.FC = () => {
                 onChange={({ target }) =>
                   handleInputChange(target.name, target.value)
                 }></textarea>
-              <p className="error-message">{formError.description}</p>
+              <p className="error-message text-danger fw-bold">{formError.description}</p>
             </div>
             <button type="submit" className="button mt-2">
               Skicka meddelande

@@ -224,42 +224,43 @@ const DetailsPage: React.FC = () => {
     }
   };
 
+   //Fetch animal by id
+   const getAnimalById = async (id: string) => {
+    try {
+      const response = await fetch(
+        `http://localhost:8000/api/animals/${id}`,
+        {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${token} `,
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      //If response ok
+      if (response.ok) {
+        const jsonData = await response.json();
+        const herdIdJson = jsonData.herd_id;
+
+        setHerdId(herdIdJson);
+        //Find index
+        const index = animalsByHerds.findIndex(
+          (animal) => animal.id === parseInt(id)
+        );
+        if (index !== -1) {
+          setAnimalIndex(index);
+        }
+      } else {
+        throw new Error("Något gick fel");
+      }
+    } catch (error) {
+      console.error("Fel vid hämtning");
+    }
+  };
+
   useEffect(() => {
     //Check if id exist
     if (id != null) {
-      //Fetch animal by id
-      const getAnimalById = async (id: string) => {
-        try {
-          const response = await fetch(
-            `http://localhost:8000/api/animals/${id}`,
-            {
-              method: "GET",
-              headers: {
-                Authorization: `Bearer ${token} `,
-                "Content-Type": "application/json",
-              },
-            }
-          );
-          //If response ok
-          if (response.ok) {
-            const jsonData = await response.json();
-            const herdIdJson = jsonData.herd_id;
-
-            setHerdId(herdIdJson);
-            //Find index
-            const index = animalsByHerds.findIndex(
-              (animal) => animal.id === parseInt(id)
-            );
-            if (index !== -1) {
-              setAnimalIndex(index);
-            }
-          } else {
-            throw new Error("Något gick fel");
-          }
-        } catch (error) {
-          console.error("Fel vid hämtning");
-        }
-      };
       getAnimalById(id);
     }
   }, []);

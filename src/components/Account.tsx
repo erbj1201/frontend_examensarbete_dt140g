@@ -10,9 +10,9 @@ interface User {
   imagepath: string;
 }
 //Structure of image
-interface Image {
+/* interface Image {
   imagepath: string;
-}
+} */
 
 export default function Account() {
   //States
@@ -36,9 +36,9 @@ export default function Account() {
     password: "",
   });
 //State for edit image
-  const [image, setImage] = useState<Image>({
+ /*  const [image, setImage] = useState<Image>({
     imagepath: "",
-  });
+  }); */
 
   const [showMessage, setShowMessage] = useState<string | null>(null);
   const [imageUrl, setImageUrl] = useState<string | null>(null);
@@ -83,9 +83,7 @@ export default function Account() {
 
   const editImage = () => {
     setEditImageData(true);
-    setImage({
       imagepath: imageUrl || ""
-    });
   };
 
   // Function to clear update and delete messages after a specified time
