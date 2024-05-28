@@ -34,7 +34,7 @@ const Navbar = () => {
           </li>
           <li className="nav-item">
             <NavLink className="nav-link desktop-icon" aria-label="Mitt konto" to="/account">
-            <i className="fi fi-sr-portrait"></i>
+            <img src=".\src\content\user.png" alt="Mitt konto"/>
            </NavLink> 
            </li>
         
