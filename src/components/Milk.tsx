@@ -699,8 +699,8 @@ function Milk() {
         /* Else show table with milks */
         <div>
           <h2 className="p-3 mx-auto">Senaste mjölkningarna: </h2>
-          <table className="table table-responsive-sm table-hover w-75 mx-auto">
-            <thead className="d-sm-table-header-group">
+          <table className="table table-responsive-sm shadow-sm table-hover mx-auto tableHandle">
+            <thead className="d-sm-table-header-group shadow-sm  border-top">
               <tr>
                 <th>Djuridentitet</th>
                 <th>Mjölk i kg</th>

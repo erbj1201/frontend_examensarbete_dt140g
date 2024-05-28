@@ -798,8 +798,8 @@ const fetchHerdsAnimals = async (userid: string | null) => {
 <div>
       {/*Table to write calves*/}
       <h2 className="p-5 mx-auto"> Senaste vaccinationerna för valt djur:</h2>
-      <table className="table table-responsive-sm table-hover w-75 mx-auto">
-        <thead className= "table-thead d-sm-table-header-group">
+      <table className="table table-responsive-sm table-hover mx-auto shadow-sm table-hover tableHandle">
+        <thead className= "table-thead d-sm-table-header-group shadow-sm border-top">
           <tr>
             <th>Djuridentitet</th>
             <th>Namn</th>

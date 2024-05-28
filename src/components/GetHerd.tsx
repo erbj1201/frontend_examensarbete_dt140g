@@ -207,7 +207,7 @@ const GetHerdComponent: React.FC = () => {
           <h3 className="p-3 m-3">Djuröversikt</h3>
           {/*if animal lenght is larger then 0*/}
           {animals.length > 0 ? (
-            <table className="table shadow-sm table-responsive-sm table-hover">
+            <table className="table mx-auto shadow-sm table-responsive-sm table-hover">
               <thead className=" table-theadd-sm-table-header-group shadow-sm border-top">
                 <tr>
                   <th>Djuridentitet</th>
