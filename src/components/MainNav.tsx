@@ -33,12 +33,13 @@ const Navbar = () => {
             </NavLink>
           </li>
           <li className="nav-item">
-            <NavLink className="nav-link desktop-icon" to="/account">
+            <NavLink className="nav-link desktop-icon" aria-label="Mitt konto" to="/account">
             <i className="fi fi-sr-portrait"></i>
-            </NavLink>
-          </li>
-          <li className="nav-item">
-            <NavLink className="nav-link desktop-icon" to="/help">
+           </NavLink> 
+           </li>
+        
+          <li className="nav-item" >
+            <NavLink className="nav-link desktop-icon" aria-label="Support" to="/help">
               <i className="fi fi-sr-question-square"></i>
             </NavLink>
           </li>

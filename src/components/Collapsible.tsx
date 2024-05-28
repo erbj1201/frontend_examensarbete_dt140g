@@ -29,9 +29,9 @@ const Collapsible: React.FC<IProps> = ({ title, children, open, onClick }) => {
                 <h3 className=" h3details p-2">{title}</h3>
                 <button className="btn btn-outline-dark border-0"> {isOpen ?
                     //Icons
-                    <IoIosArrowDown className="m-2" />
+                    <IoIosArrowDown className="m-2" aria-label="Visa mer information"  />
                     :
-                    <RiArrowUpSLine size={16} className="m-2" />
+                    <RiArrowUpSLine size={16} className="m-2" aria-label="Visa mindre information" />
                 }
                 </button>
             </div>
