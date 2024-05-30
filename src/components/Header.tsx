@@ -17,7 +17,7 @@ const Header: React.FC = () => {
           <nav className="navbar m-0 p-0">
             <a className="navbar-brand" href="/start">
               <img
-                src="src/content/vaxa_thumbnail.png"
+                src="/src/content/vaxa_thumbnail.png"
                 width={100}
                 alt="Växa Sverige"
               />
