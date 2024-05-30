@@ -36,6 +36,13 @@ export default function Account() {
     password: "",
   });
 
+    //State for error store data
+    const [formError, setFormError] = useState({
+      name: "",
+      email: "",
+      password: "",
+    });
+
   const [showMessage, setShowMessage] = useState<string | null>(null);
   const [imageUrl, setImageUrl] = useState<string | null>(null);
 
@@ -91,6 +98,55 @@ export default function Account() {
   //Update user info (not image)
   const updateProfile = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+       //Object to track input errors
+       let inputError = {
+        name: "",
+        email: "",
+        password: "",
+      };
+
+if(!inputData.name && ! inputData.email && !inputData.password){
+  setFormError({
+    ...inputError,
+    name: "Fyll i ett namn",
+    email: "Fyll i en mejladress",
+    password: "Fyll i ditt lösenord"
+  });
+  // Clear message after  3 seconds
+  setTimeout(clearMessages, 3000);
+  return;
+}
+if(!inputData.name) { 
+  setFormError({
+    ...inputError,
+    name: "Fyll i ett namn",
+  })
+    // Clear message after  3 seconds
+    setTimeout(clearMessages, 3000);
+    return;
+
+}
+  if(!inputData.email){
+    setFormError({
+      ...inputError,
+      email: "Fyll i en mejladress",
+  })
+    // Clear message after  3 seconds
+    setTimeout(clearMessages, 3000);
+    return;
+ } 
+ if(!inputData.password){
+  setFormError({
+    ...inputError,
+    password: "Fyll i ditt lösenord"
+  });
+  // Clear message after  3 seconds
+  setTimeout(clearMessages, 3000);
+  return;
+}
+
+
     //Sanitize values
     const { name, email, password } = inputData;
     const sanitizedEmail = DOMPurify.sanitize(email);
@@ -130,7 +186,7 @@ export default function Account() {
         //If response 400, password is not correct
       } else if (response.status == 400) {
         //show message
-        setShowMessage("Fel lösenord, kunde inte spara");
+        setShowMessage("Kunde inte spara, ange ett korrekt lösenord");
         // Clear message after  3 seconds
         setTimeout(clearMessages, 3000);
       }
@@ -234,6 +290,9 @@ export default function Account() {
                 onChange={handleChange}
                 required
               />
+                <p className="error-message text-danger fw-bold">
+                {formError.name}
+              </p>
             </div>
             <div className="form-group">
               <label htmlFor="email" className="form-label">
@@ -248,6 +307,11 @@ export default function Account() {
                 onChange={handleChange}
                 required
               />
+              <p className="error-message text-danger fw-bold">
+                {formError.email}
+              </p>
+              </div>
+              <div className="form-group">
               <label htmlFor="password" className="form-label">
                 Skriv ditt aktuella lösenord för att spara ändringar:
               </label>
@@ -260,13 +324,16 @@ export default function Account() {
                 onChange={handleChange}
                 required
               />
+                 <p className="error-message text-danger fw-bold">
+                {formError.password}
+              </p>
+              </div>
               <div className="mx-auto d-flex justify-content-between w-75 account-btns">
               <button type="submit" className="button m-3">
                 Spara ändringar
               </button>
               <button className="button m-3" onClick={() => setEditUser(false)}>Tillbaka</button>
               </div>
-            </div>
           </form>
           </div>
       ) : user ? (
