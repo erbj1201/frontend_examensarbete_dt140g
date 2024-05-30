@@ -20,16 +20,14 @@ interface Message {
   created_at: string;
 }
 
-
-
 const Message: React.FC = () => {
   //New instance of cookies
-const cookies = new Cookies();
-//Get token from cookies
-const token = cookies.get("token");
+  const cookies = new Cookies();
+  //Get token from cookies
+  const token = cookies.get("token");
 
-//Get userid from sessionstorage
-const userid = sessionStorage.getItem("userid")!;
+  //Get userid from sessionstorage
+  const userid = sessionStorage.getItem("userid")!;
   //State for storing data
   const [messageData, setMessageData] = useState<MessageItem>({
     title: "",
@@ -186,60 +184,69 @@ const userid = sessionStorage.getItem("userid")!;
   };
 
   return (
-      <div className="mx-auto container">
-        {showMessage !== null && (
-          <p className="alert mx-auto alert-success text-dark text-center mt-2">
-            {showMessage || ""}
-          </p>
-        )}
-        <div className="mx-auto p-5 messageDiv border border-grey shadow">
+    <div className="mx-auto container">
+      {showMessage !== null && (
+        <p className="alert mx-auto alert-success text-dark text-center mt-2">
+          {showMessage || ""}
+        </p>
+      )}
+      <div className="mx-auto p-5 messageDiv border border-grey shadow">
         <h3 className="text-center m-1 pb-5 pt-0">Support via mejl</h3>
-          <form
-            className="form-control bglight shadow border-dark form-control-sm p-3 mx-auto"
-            onSubmit={sendMessage}
-            noValidate //The formdata is not automaticallly validated by the browser
-          >
-            <h3 className="p-2 mb-3">Vad vill du ha hjälp med? </h3>
-            <input type="hidden" value={messageData.userid} />
-            <div className="form-group">
-              <label htmlFor="title" className="form-label">
-                Ämne
-              </label>
-              <input
-                type="text"
-                id="title"
-                name="title"
-                className="form-control form-control-sm border-dark"
-                required
-                value={messageData.title}
-                onChange={({ target }) =>
-                  handleInputChange(target.name, target.value)
-                }
-              />
-              <p className="error-message text-danger fw-bold">{formError.title}</p>
-            </div>
-            <div className="form-group">
-              <label htmlFor="description" className="form-label">
-                Beskrivning
-              </label>
-              <textarea className="form-control border-dark"
-                id="description"
-                name="description"
-                required
-                value={messageData.description}
-                onChange={({ target }) =>
-                  handleInputChange(target.name, target.value)
-                }></textarea>
-              <p className="error-message text-danger fw-bold">{formError.description}</p>
-            </div>
-            <button type="submit" className="button mt-2">
-              Skicka meddelande
-            </button>
-          </form>
-       
+        <form
+          className="form-control bglight shadow border-dark form-control-sm p-3 mx-auto"
+          onSubmit={sendMessage}
+          noValidate //The formdata is not automaticallly validated by the browser
+        >
+          <h3 className="p-2 mb-3">Vad vill du ha hjälp med? </h3>
+          <input type="hidden" value={messageData.userid} />
+          <div className="form-group">
+            <label htmlFor="title" className="form-label">
+              Ämne
+            </label>
+            <input
+              type="text"
+              id="title"
+              name="title"
+              className="form-control form-control-sm border-dark"
+              required
+              value={messageData.title}
+              onChange={({ target }) =>
+                handleInputChange(target.name, target.value)
+              }
+            />
+            <p className="error-message text-danger fw-bold">
+              {formError.title}
+            </p>
+          </div>
+          <div className="form-group">
+            <label htmlFor="description" className="form-label">
+              Beskrivning
+            </label>
+            <textarea
+              className="form-control border-dark"
+              id="description"
+              name="description"
+              required
+              value={messageData.description}
+              onChange={({ target }) =>
+                handleInputChange(target.name, target.value)
+              }
+            ></textarea>
+            <p className="error-message text-danger fw-bold">
+              {formError.description}
+            </p>
+          </div>
+          <button type="submit" className="button mt-2">
+            Skicka meddelande
+          </button>
+        </form>
+
         <div className="mx-auto collapsible-messages">
-          <Collapsible open title="Alla skickade meddelanden" 
-            onClick={() => getAllMessages()}>
+          <Collapsible
+            open
+            title="Alla skickade meddelanden"
+            onClick={() => getAllMessages()}
+          >
             <section className=" m-4 mx-auto p-4">
               {fetchMessages.length > 0 ? (
                 <>
@@ -253,7 +260,10 @@ const userid = sessionStorage.getItem("userid")!;
                     )} ${createNewDate.toLocaleTimeString("sv-SE")}`;
 
                     return (
-                      <article className=" bg-white mx-auto border border-dark p-3 m-3" key={message.id}>
+                      <article
+                        className=" bg-white mx-auto border border-dark p-3 m-3"
+                        key={message.id}
+                      >
                         <h4>{message.title}</h4>
                         <p className="dateText">
                           <em>Skickat: {formattedDateTime}</em>
@@ -265,13 +275,12 @@ const userid = sessionStorage.getItem("userid")!;
                 </>
               ) : (
                 <p>Inga meddelanden finns registrerade</p>
-              )
-              }
+              )}
             </section>
           </Collapsible>
         </div>
       </div>
-      </div>
+    </div>
   );
 };
 //export
