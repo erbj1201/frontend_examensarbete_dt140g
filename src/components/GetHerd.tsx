@@ -1,3 +1,6 @@
+/* Webbutvecklingsprogrammet
+Självständigt arbete DT140G
+Erika Vestin & Sofia Dahlberg */
 /*Herd component*/
 //Import
 import React, { useEffect, useState } from "react";

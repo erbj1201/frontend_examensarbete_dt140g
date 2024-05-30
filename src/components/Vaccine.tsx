@@ -1,3 +1,6 @@
+/* Webbutvecklingsprogrammet
+Självständigt arbete DT140G
+Erika Vestin & Sofia Dahlberg */
 /*Vaccine component*/
 //import
 import DOMPurify from "dompurify";

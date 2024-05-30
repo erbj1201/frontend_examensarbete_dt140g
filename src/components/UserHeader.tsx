@@ -1,3 +1,6 @@
+/* Webbutvecklingsprogrammet
+Självständigt arbete DT140G
+Erika Vestin & Sofia Dahlberg */
 /*Not logged in Header component*/
 //import
 import React from "react";

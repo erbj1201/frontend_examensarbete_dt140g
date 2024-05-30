@@ -1,3 +1,6 @@
+/* Webbutvecklingsprogrammet
+Självständigt arbete DT140G
+Erika Vestin & Sofia Dahlberg */
 /*Calf component*/
 //Import
 import DOMPurify from "dompurify";

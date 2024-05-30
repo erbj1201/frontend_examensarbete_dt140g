@@ -1,3 +1,6 @@
+/* Webbutvecklingsprogrammet
+Självständigt arbete DT140G
+Erika Vestin & Sofia Dahlberg */
 /*Calender component*/
 import { Calendar, momentLocalizer } from 'react-big-calendar'
 import moment from 'moment';

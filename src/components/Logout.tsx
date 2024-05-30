@@ -1,4 +1,7 @@
 
+/* Webbutvecklingsprogrammet
+Självständigt arbete DT140G
+Erika Vestin & Sofia Dahlberg */
 /*Logout component*/
 import { useNavigate } from "react-router-dom";
 import Cookies from "universal-cookie";

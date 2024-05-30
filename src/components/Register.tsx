@@ -1,3 +1,6 @@
+/* Webbutvecklingsprogrammet
+Självständigt arbete DT140G
+Erika Vestin & Sofia Dahlberg */
 /*Register component*/
 //import
 import React, { useEffect, useState, FormEvent } from "react";

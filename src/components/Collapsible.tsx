@@ -1,3 +1,6 @@
+/* Webbutvecklingsprogrammet
+Självständigt arbete DT140G
+Erika Vestin & Sofia Dahlberg */
 /*Collapsible component*/
 import React, { useState } from "react";
 import { IoIosArrowDown } from "react-icons/io";

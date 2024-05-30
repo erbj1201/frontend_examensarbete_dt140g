@@ -1,3 +1,6 @@
+/* Webbutvecklingsprogrammet
+Självständigt arbete DT140G
+Erika Vestin & Sofia Dahlberg */
 /*Save Token to Cookie component*/
 //import
 import Cookies from "universal-cookie";
