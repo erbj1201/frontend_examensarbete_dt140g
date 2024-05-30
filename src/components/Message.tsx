@@ -1,3 +1,7 @@
+/* Webbutvecklingsprogrammet
+Självständigt arbete DT140G
+Erika Vestin & Sofia Dahlberg */
+/*Milk component*/
 /*Message component*/
 //Import
 

@@ -1,3 +1,7 @@
+/* Webbutvecklingsprogrammet
+Självständigt arbete DT140G
+Erika Vestin & Sofia Dahlberg */
+/*Milk component*/
 /*SearchForm in header component*/
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';

@@ -1,4 +1,7 @@
-
+/* Webbutvecklingsprogrammet
+Självständigt arbete DT140G
+Erika Vestin & Sofia Dahlberg */
+/*Milk component*/
 /*Header component*/
 //import
 import React from "react";
