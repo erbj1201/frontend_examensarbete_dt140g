@@ -11,7 +11,7 @@ function GDPRPage() {
       <UserHeader />
       <main className="mx-auto container pb-5">
         <article className="container mx-auto p-3 accessibilityDiv">
-          <h2 className="mx-auto text-center pt-5 pb-5">Information om personuppgiftsbehandling och integritetsskydd</h2>
+          <h2 className="mx-auto text-center pt-5 pb-5 lh-base">Information om personuppgiftsbehandling och integritetsskydd</h2>
           <p className="mx-auto lh-base">
             För att du ska kunna använda vårt system MinGård och dess funktioner
             fullt ut krävs det att du i samband med skapande av ett
@@ -62,7 +62,7 @@ BOX 288
 <br/>
 75105 Uppsala
           </p>
-          <h4 className="mx-auto">Personuppgifterna kommer att användas
+          <h4 className="mx-auto lh-base">Personuppgifterna kommer att användas
           av Växa för följande ändamål: </h4>
         <br />
         <p className="mx-auto lh-base">I syfte att
@@ -70,7 +70,7 @@ BOX 288
           för att kunna logga in i MinGård och administrera sin nötkreatur och
           händelser kopplade till nötkreatur och besättningar till CDB.
           </p>
-          <h4 className="mx-auto"> Personuppgifterna kommer att hanteras på följande sätt: </h4>
+          <h4 className="mx-auto lh-base"> Personuppgifterna kommer att hanteras på följande sätt: </h4>
           <p className="mx-auto lh-base">
           Personuppgifterna kommer att skickas från webbplatsen och lagras i en
           databas med ett tillhörande API som kan nås av oss. Uppgifterna kommer

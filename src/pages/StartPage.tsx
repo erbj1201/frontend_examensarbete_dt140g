@@ -18,7 +18,7 @@ const StartPage: React.FC = () => {
         <h1>Välkommen till MinGård</h1>
             <Calender />
             <div className="help-div d-flex mx-auto">
-            <div className="support-div d-flex flex-column mx-auto p-5 mt-5 border border-grey shadow">
+            <div className="support-div d-flex flex-column mx-auto p-5 mt-3 border border-grey shadow">
               <h2>Driftstörning</h2>
               <p>29 maj 2024 kommer uppdatering ske mellan 08:00 - 10:00</p>
             </div>
