@@ -37,6 +37,10 @@ a {
     color: #75160e;
 }
 
+.menuIcon{
+    width: 1.6em;
+}
+
 a:hover {
     color: #370c0c;
 }
@@ -425,7 +429,11 @@ tr .active {
     .icon-mobile {
         display: none;
     }
+    /* width on icons in menu */
 
+    .menuIcon{
+        width: 1em;
+    }
     /*article around animal info*/
     .detailsArticle {
         background-color: #fdf4ee;
@@ -640,6 +648,10 @@ tr .active {
     .icon-mobile {
         display: flex;
         margin: auto;
+    }
+
+    .menuIcon{
+       margin-bottom: 0.5em;
     }
 
     .handleWidth {

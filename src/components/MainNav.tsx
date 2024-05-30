@@ -13,34 +13,35 @@ const Navbar = () => {
         <ul className="nav">
           <li className="nav-item">
             <NavLink className="nav-link" to="/start">
-              <i className="fi fi-ts-house-chimney icon-mobile"></i> Startsida
+            <img className="menuIcon icon-mobile" src="\src\content\startsida.png"alt="Ikon på hus"/>
+            Startsida
             </NavLink>
           </li>
           <li className="nav-item">
             <NavLink className="nav-link" to="/herd">
-              <i className="fi fi-tr-cow-alt icon-mobile"></i> Besättning
+            <img className="menuIcon icon-mobile" src="\src\content\cow.png"alt="Ikon på ko"/>Besättning
             </NavLink>
           </li>
           <li className="nav-item">
             <NavLink className="nav-link nav-calender" to="/calender">
-              <i className="fi fi-ts-calendar-lines icon-mobile"></i> Kalender
+            <img className="menuIcon icon-mobile" src="\src\content\calender.png"alt="Ikon på almenacka"/> Kalender
             </NavLink>
           </li>
           <li className="nav-item">
             <NavLink className="nav-link" to="/handle">
-              <i className="fi fi-ts-pen-circle icon-mobile"></i>
+            <img className="menuIcon icon-mobile" src="\src\content\events.png"alt="Ikon på penna"/>
               Händelser
             </NavLink>
           </li>
           <li className="nav-item">
             <NavLink className="nav-link desktop-icon" aria-label="Mitt konto" to="/account">
-            <i className="fi fi-sr-portrait"></i>
+            <img className="menuIcon" src="\src\content\account.png"alt="Ikon på porträtt"/>
            </NavLink> 
            </li>
         
           <li className="nav-item" >
             <NavLink className="nav-link desktop-icon" aria-label="Support" to="/help">
-              <i className="fi fi-sr-question-square"></i>
+            <img className="menuIcon" src="\src\content\question.png"alt="Ikon på frågetecken"/>
             </NavLink>
           </li>
           </ul>
@@ -50,13 +51,13 @@ const Navbar = () => {
             <ul>
           <li className="nav-item">
             <NavLink className="menyicon m-3" aria-label="Mitt konto" to="/account">
-              <i className="fi fi-sr-portrait"></i>
+            <img className="menuIcon" src="\src\content\account.png"alt="Ikon på porträtt"/>
             </NavLink>
           </li>
           {/**Icon for ? (support, contact) */}
           <li className="nav-item">
             <NavLink className="menyicon m-3" to="/help" aria-label="Support" >
-              <i className="fi fi-sr-question-square"></i>
+            <img className="menuIcon" src="\src\content\question.png"alt="Ikon på frågetecken"/>
             </NavLink>
           </li>
           </ul>
