@@ -226,7 +226,6 @@ function Vaccine() {
         // Clear message after  3 seconds
         setTimeout(clearMessages, 3000);
       }
-      console.log(responseData);
     } catch (error) {
       setShowMessage("Fel vid lagring av vaccinering");
       // Clear message after  3 seconds
@@ -516,10 +515,8 @@ const fetchHerdsAnimals = async (userid: string | null) => {
       setShowTable(false);
       // If "AllAnimals" is selected, set animals to all animals
       await fetchHerdsAnimals(userid);
-      console.log("No herd");
     } else {
       setShowTable(true);
-      console.log(selectedOptionValue);
       // Fetch animals by selected herd
       getVaccinesByHerd(selectedOptionValue);
     }

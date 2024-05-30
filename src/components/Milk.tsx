@@ -198,7 +198,6 @@ function Milk() {
         // Clear message after  3 seconds
         setTimeout(clearMessages, 3000);
       }
-      console.log(responseData);
     } catch (error) {
       //Error message
       setShowMessage("Fel vid lagring av mjölkning");
@@ -355,8 +354,7 @@ function Milk() {
           milkDate: sanitizedMilkDate,
         }),
       });
-      const responseData = await response.json();
-      console.log(responseData);
+      
 
       //If response ok
       if (response.ok) {

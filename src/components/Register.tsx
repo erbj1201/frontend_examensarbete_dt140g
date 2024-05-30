@@ -165,7 +165,6 @@ const RegisterPage: React.FC = () => {
           password: sanitizedPassword,
         }),
       });
-      const responseData = await response.json();
       //If response ok
       if (response.ok) {
         setNewUser({
@@ -174,7 +173,6 @@ const RegisterPage: React.FC = () => {
           password: "",
           confirmPassword: "",
         });
-        console.log(responseData);
         setIsChecked(false);
         setShowMessage('En ny användare är registrerad')
         // Clear message after  3 seconds

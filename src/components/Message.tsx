@@ -159,7 +159,6 @@ const Message: React.FC = () => {
           body: JSON.stringify(messageData),
         }
       );
-      const data = await response.json();
       //Response ok, get token and store
       if (response.ok) {
         setMessageData({
@@ -174,7 +173,6 @@ const Message: React.FC = () => {
       } else {
         //Error
         setShowMessage("Kunde inte skicka meddelande, försök igen");
-        console.log(data);
         // Clear message after  3 seconds
         setTimeout(clearMessages, 3000);
       } //Error

@@ -249,7 +249,6 @@ function Medicine() {
         // Clear message after  3 seconds
         setTimeout(clearMessages, 3000);
       }
-      console.log(responseData);
     } catch (error) {
       //Error message
       setShowMessage("Fel vid lagring av medicinering");

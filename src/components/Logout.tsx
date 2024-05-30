@@ -28,10 +28,8 @@ const Logout: React.FC = () => {
         },
         body: JSON.stringify({}),
       });
-      const responseData = await response.json();
       //Response ok, get token and store
       if (response.ok) {
-        console.log(responseData.message);
         // Remove the token cookie
         cookies.remove("token");
         //Remove userid from session storage
