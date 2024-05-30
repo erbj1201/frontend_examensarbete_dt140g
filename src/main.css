@@ -42,7 +42,7 @@ a {
     color: #75160e;
 }
 
-.menuIcon{
+.menuIcon {
     width: 1.6em;
 }
 
@@ -102,11 +102,12 @@ a:hover {
 }
 
 /* Table width*/
-.table{
+.table {
     width: 80%;
 }
- /* table on Handlepage */
- .tableHandle{
+
+/* table on Handlepage */
+.tableHandle {
     width: 70%;
 }
 
@@ -218,6 +219,7 @@ a:hover {
     border: solid 1px #000000;
     box-shadow: none;
 }
+
 /* Form on handle Page */
 .handleForm {
     background-color: #f2f2f2;
@@ -227,6 +229,7 @@ a:hover {
 tr .active {
     background-color: #f29354;
 }
+
 /* button for edit and delete + hover */
 .btn-alert {
     background-color: #f29354;
@@ -270,6 +273,7 @@ tr .active {
     width: 100%;
     max-width: 40em;
 }
+
 /* Selectlist for Herd and handle alternatives */
 .selectWidth {
     width: 44%;
@@ -289,6 +293,7 @@ tr .active {
 
     width: 50%;
 }
+
 /* Shows a scroll list of the results */
 .scroll-list-container {
     margin: left;
@@ -343,34 +348,41 @@ tr .active {
     margin-top: 2em;
 
 }
+
 .messageDiv {
     background-color: #fffcfc;
     max-width: 598px;
     width: 100%;
     height: max-content;
 }
-.messageDiv h4{
+
+.messageDiv h4 {
     font-size: 1.2em;
     text-align: center;
 }
-.help-div{
+
+.help-div {
     display: flex;
     justify-content: space-between;
     max-width: 1200px;
     height: max-content;
 }
-.support-div{
+
+.support-div {
     max-width: 598px;
     width: 100%;
     background-color: #fffcfc;
     height: 100%;
 }
-.contact-article{
+
+.contact-article {
     padding: 5em 1.5em;
 }
-.contact-article p{
+
+.contact-article p {
     max-width: 25em;
 }
+
 .collapsible-messages .collapsibleDiv {
     background-color: #fdf4ee;
 }
@@ -397,17 +409,20 @@ tr .active {
     width: 40%;
 }
 
-.supportDiv{
+.supportDiv {
     background-color: #fdf4ee;
     height: 100%;
 }
-.message-div-start{
+
+.message-div-start {
     margin-left: 2%;
 }
-.userNav{
+
+.userNav {
     width: 1.5em;
 }
-.accessibilityDiv{
+
+.accessibilityDiv {
     width: 60%;
 }
 
@@ -417,14 +432,16 @@ tr .active {
     .nav.link {
         margin: 1%;
     }
-
+nav{
+    width: 30em;
+}
     .nav-item {
         display: flex;
         justify-content: center;
         margin: auto;
         font-size: 0.8em;
     }
-
+  
     .selectWidth,
     .handleWidth {
         width: 84%;
@@ -433,11 +450,13 @@ tr .active {
     .icon-mobile {
         display: none;
     }
+
     /* width on icons in menu */
 
-    .menuIcon{
+    .menuIcon {
         width: 1em;
     }
+
     /*article around animal info*/
     .detailsArticle {
         background-color: #fdf4ee;
@@ -473,6 +492,7 @@ tr .active {
         width: 100%;
         height: 100%;
     }
+
     .userImage {
         width: 100%;
         height: 100%;
@@ -491,6 +511,7 @@ tr .active {
         width: 100%;
         margin: auto;
     }
+
     .messageDiv {
         max-width: 460px;
         margin-top: 3em;
@@ -498,16 +519,18 @@ tr .active {
         height: max-content;
     }
 
-    .help-div{
+    .help-div {
         flex-direction: column;
         max-width: 700px;
         height: max-content;
     }
-    .support-div{
+
+    .support-div {
         max-width: 590px;
         width: 100%;
         height: max-content
     }
+
     /* GetHerdTable and buttons div */
     .animalView {
         width: 100%;
@@ -516,29 +539,34 @@ tr .active {
     .button {
         font-size: 0.8em;
     }
-/* Success message width */
-.alert-success {
-    width: 60%;
-}
 
-.tableHandle{
-    width: 100%;
-}
+    /* Success message width */
+    .alert-success {
+        width: 60%;
+    }
 
-/* Width for calf on handle Page */
-.tableCalf{
-    width: 80%;
-    font-size: 0.9em;
-}
+    .tableHandle {
+        width: 100%;
+    }
 
-.accessibilityDiv{
-    width: 70%;
-}
+    /* Width for calf on handle Page */
+    .tableCalf {
+        width: 80%;
+        font-size: 0.9em;
+    }
+
+    .accessibilityDiv {
+        width: 70%;
+    }
+    .menuIcon{
+        width: 1.3em;
+    }
 
 }
 
 /*mobile screen*/
 @media screen and (max-width: 576px) {
+
     /* Head menu placed in bottom instead */
     .nav-div {
         position: fixed;
@@ -619,15 +647,17 @@ tr .active {
         text-align: left;
         padding-left: 10px;
     }
-/* width on table in handle page */
-    .table{
+
+    /* width on table in handle page */
+    .table {
         width: 100%;
     }
 
     /* table on Handlepage */
-    .tableHandle{
+    .tableHandle {
         width: 80%;
     }
+
     .tableRow {
         margin: 1em;
     }
@@ -655,8 +685,8 @@ tr .active {
         margin: auto;
     }
 
-    .menuIcon{
-       margin-bottom: 0.5em;
+    .menuIcon {
+        margin-bottom: 0.5em;
     }
 
     .handleWidth {
@@ -785,25 +815,28 @@ tr .active {
     .button {
         font-size: 0.8em;
     }
+
     .messageDiv {
         margin-top: 2em;
         width: 100%;
         height: max-content;
     }
 
-    .help-div{
+    .help-div {
         flex-direction: column;
         height: max-content;
     }
-    .support-div{
+
+    .support-div {
         width: 100%;
         height: max-content;
     }
-    .contact-article p{
+
+    .contact-article p {
         max-width: 22em;
     }
 
-    .accessibilityDiv{
+    .accessibilityDiv {
         width: 90%;
     }
 }
