@@ -118,7 +118,7 @@ function Login() {
         //Save userid to session storage
         sessionStorage.setItem("userid", userid);
         // Redirect to start-page
-        navigate("/");
+        navigate("/start");
       } else {
         //Error login
         setShowMessage("Felaktig inloggning, fel mejladress eller lösenord");
