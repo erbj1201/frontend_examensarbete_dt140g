@@ -1,3 +1,7 @@
+/* Webbutvecklingsprogrammet
+Självständigt arbete DT140G
+Erika Vestin & Sofia Dahlberg */
+
 //import
 import "bootstrap/dist/css/bootstrap.css";
 import AppRouter from "./components/AppRouter";

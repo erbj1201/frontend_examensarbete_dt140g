@@ -1,3 +1,8 @@
+/* Webbutvecklingsprogrammet
+Självständigt arbete DT140G
+Erika Vestin & Sofia Dahlberg */
+/*Vaccine component*/
+
 //import
 import React from "react";
 import ReactDOM from "react-dom/client";

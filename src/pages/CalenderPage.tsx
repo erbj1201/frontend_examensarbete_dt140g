@@ -1,3 +1,8 @@
+/* Webbutvecklingsprogrammet
+Självständigt arbete DT140G
+Erika Vestin & Sofia Dahlberg */
+
+
 import Footer from "../components/Footer";
 import Header from "../components/Header";
 import TokenCookie from "../components/TokenCookie";

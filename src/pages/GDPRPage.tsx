@@ -1,3 +1,7 @@
+/* Webbutvecklingsprogrammet
+Självständigt arbete DT140G
+Erika Vestin & Sofia Dahlberg */
+
 import { Helmet } from "react-helmet-async";
 import Footer from "../components/Footer";
 import UserHeader from "../components/UserHeader";
