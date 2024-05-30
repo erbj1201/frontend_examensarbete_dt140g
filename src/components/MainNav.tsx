@@ -13,7 +13,7 @@ const Navbar = () => {
         <ul className="nav">
           <li className="nav-item">
             <NavLink className="nav-link" to="/start">
-            <img className="menuIcon icon-mobile" src="\src\content\startsida.png"alt="Ikon på hus"/>
+            <img className="menuIcon icon-mobile" src="\src\content\startsida.png"alt="Ikon på hus "/>
             Startsida
             </NavLink>
           </li>
@@ -35,13 +35,13 @@ const Navbar = () => {
           </li>
           <li className="nav-item">
             <NavLink className="nav-link desktop-icon" aria-label="Mitt konto" to="/account">
-            <img className="menuIcon" src="\src\content\account.png"alt="Ikon på porträtt"/>
+            <img className="menuIcon" src="\src\content\account.png"alt="Ikon porträtt"/>
            </NavLink> 
            </li>
         
           <li className="nav-item" >
             <NavLink className="nav-link desktop-icon" aria-label="Support" to="/help">
-            <img className="menuIcon" src="\src\content\question.png"alt="Ikon på frågetecken"/>
+            <img className="menuIcon" src="\src\content\question.png"alt="Ikon frågetecken"/>
             </NavLink>
           </li>
           </ul>
@@ -51,13 +51,13 @@ const Navbar = () => {
             <ul>
           <li className="nav-item">
             <NavLink className="menyicon m-3" aria-label="Mitt konto" to="/account">
-            <img className="menuIcon" src="\src\content\account.png"alt="Ikon på porträtt"/>
+            <img className="menuIcon" src="\src\content\account.png"alt="Ikon porträtt"/>
             </NavLink>
           </li>
           {/**Icon for ? (support, contact) */}
           <li className="nav-item">
             <NavLink className="menyicon m-3" to="/help" aria-label="Support" >
-            <img className="menuIcon" src="\src\content\question.png"alt="Ikon på frågetecken"/>
+            <img className="menuIcon" src="\src\content\question.png"alt="Ikon frågetecken"/>
             </NavLink>
           </li>
           </ul>
