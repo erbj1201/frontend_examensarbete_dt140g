@@ -140,13 +140,13 @@ function Calf() {
     //Object to track input errors
     let inputError = {
       animalId: "",
+      sex: "",
+      category: "",
       earNo: "",
       breed: "",
       name: "",
       expectedBirthDate: "",
       birthDate: "",
-      sex: "",
-      category: "",
       animal_id: "",
     };
     //Check if animal_id empty
@@ -210,6 +210,17 @@ function Calf() {
       return;
     }
 
+     //Check if  empty
+     if (!newCalf.animalId) {
+      setFormError({
+        ...inputError,
+        animalId: "Fyll i kalvens djuridentitet",
+      });
+      // Clear message after  3 seconds
+      setTimeout(clearMessages, 3000);
+      return;
+    }
+
     //Check if earNo empty
     if (!newCalf.earNo) {
       setFormError({
@@ -220,16 +231,7 @@ function Calf() {
       setTimeout(clearMessages, 3000);
       return;
     }
-    //Check if  empty
-    if (!newCalf.animalId) {
-      setFormError({
-        ...inputError,
-        animalId: "Fyll i kalvens djuridentitet",
-      });
-      // Clear message after  3 seconds
-      setTimeout(clearMessages, 3000);
-      return;
-    }
+   
     //Check if breed empty
     if (!newCalf.breed) {
       setFormError({
@@ -282,13 +284,13 @@ function Calf() {
     setNewCalf({
       id: newCalf.id,
       animalId: sanitizedAnimalId,
+      sex: newCalf.sex,
+      category: newCalf.category,
       earNo: sanitizedEarNo,
       breed: sanitizedBreed,
       name: sanitizedName,
       expectedBirthDate: sanitizedExpectedBirth,
       birthDate: sanitizedBirthDate,
-      sex: newCalf.sex,
-      category: newCalf.category,
       animal_id: selectedAnimal,
     });
     //Fetch calves (post)
@@ -305,12 +307,13 @@ function Calf() {
           body: JSON.stringify({
             animalId: sanitizedAnimalId,
             earNo: sanitizedEarNo,
+            sex: newCalf.sex,
+            category: newCalf.category,
             breed: sanitizedBreed,
             name: sanitizedName,
             expectedBirthDate: sanitizedExpectedBirth,
             birthDate: sanitizedBirthDate,
-            sex: newCalf.sex,
-            category: newCalf.category,
+           
             animal_id: selectedAnimal,
           }),
         }
@@ -405,13 +408,13 @@ function Calf() {
     setInputData({
       id: newCalf.id,
       animalId: newCalf.animalId,
+      sex: newCalf.sex,
+      category: newCalf.category,
       earNo: newCalf.earNo,
       breed: newCalf.breed,
       name: newCalf.name,
       expectedBirthDate: newCalf.expectedBirthDate,
       birthDate: newCalf.birthDate,
-      sex: newCalf.sex,
-      category: newCalf.category,
       animal_id: selectedAnimal,
     });
   };
@@ -421,13 +424,13 @@ function Calf() {
     setNewCalf({
       id: "",
       animalId: "",
+      sex: "",
+      category: "",
       earNo: "",
       breed: "",
       name: "",
       expectedBirthDate: "",
       birthDate: "",
-      sex: "",
-      category: "",
       animal_id: "",
     });
   };
@@ -437,26 +440,27 @@ function Calf() {
     //Object to track input errors
     let inputError = {
       animalId: "",
+      sex: "",
+      category: "",
       earNo: "",
       breed: "",
       name: "",
       expectedBirthDate: "",
       birthDate: "",
-      sex: "",
-      category: "",
       animal_id: "",
     };
 
     const {
       id,
       animalId,
+      sex,
+      category,
       earNo,
       breed,
       name,
       expectedBirthDate,
       birthDate,
-      sex,
-      category,
+     
     } = inputData;
 
     //Check if all fields are empty
@@ -520,6 +524,13 @@ function Calf() {
       return;
     }
 
+      //Check if  empty
+      if (!newCalf.animalId) {
+        setFormError({
+          ...inputError,
+          animalId: "Fyll i kalvens djuridentitet",
+        });
+
     //Check if earNo empty
     if (!newCalf.earNo) {
       setFormError({
@@ -530,12 +541,7 @@ function Calf() {
       setTimeout(clearMessages, 3000);
       return;
     }
-    //Check if  empty
-    if (!newCalf.animalId) {
-      setFormError({
-        ...inputError,
-        animalId: "Fyll i kalvens djuridentitet",
-      });
+  
       // Clear message after  3 seconds
       setTimeout(clearMessages, 3000);
       return;
@@ -580,14 +586,13 @@ function Calf() {
 
     //Sanitize input fields with DOMPurify
     const sanitizedAnimalId = DOMPurify.sanitize(animalId);
+    const sanitizedSex = DOMPurify.sanitize(sex);
+    const sanitizedCategory = DOMPurify.sanitize(category);
     const sanitizedEarNo = DOMPurify.sanitize(earNo);
     const sanitizedBreed = DOMPurify.sanitize(breed);
     const sanitizedName = DOMPurify.sanitize(name);
     const sanitizedExpectedBirthDate = DOMPurify.sanitize(expectedBirthDate);
     const sanitizedBirthDate = DOMPurify.sanitize(birthDate);
-    const sanitizedSex = DOMPurify.sanitize(sex);
-    const sanitizedCategory = DOMPurify.sanitize(category);
-
     //Set new values for calf
     setNewCalf({
       id: chosenCalfId,
@@ -1255,7 +1260,6 @@ function Calf() {
                     <td className="d-none d-sm-table-cell" data-label="Födelsedatum">{calf.birthDate}</td>
                     <td className="d-none d-sm-table-cell" data-label="Namn">{calf.name}</td> 
                     <td className="d-none d-sm-table-cell" data-label="Kategori">{calf.category}</td>
-{/*                     <td className="d-none d-sm-table-cell" data-label="Ras">{calf.breed}</td> */}
                     <td className="d-none d-sm-table-cell" data-label="Mamma">{animal ? animal.animalId : "Okänt"}</td>
                     <td className="d-none d-sm-table-cell" data-label="Hantera">
                       <button
