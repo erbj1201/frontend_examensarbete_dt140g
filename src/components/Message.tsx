@@ -1,6 +1,3 @@
-/* Webbutvecklingsprogrammet
-Självständigt arbete DT140G
-Erika Vestin & Sofia Dahlberg */
 /*Message component*/
 //Import
 
@@ -23,15 +20,16 @@ interface Message {
   created_at: string;
 }
 
-//New instance of cookies
+
+
+const Message: React.FC = () => {
+  //New instance of cookies
 const cookies = new Cookies();
 //Get token from cookies
 const token = cookies.get("token");
 
 //Get userid from sessionstorage
 const userid = sessionStorage.getItem("userid")!;
-
-const Message: React.FC = () => {
   //State for storing data
   const [messageData, setMessageData] = useState<MessageItem>({
     title: "",
