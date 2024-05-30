@@ -13,7 +13,7 @@ const AccessibilityPage: React.FC = () => {
             <Header />
             <TokenCookie />
             <div>
-                <main className="mx-auto container">
+                <main className="mx-auto container accessibilityDiv">
             <h1>Tillgänglighet för MinGård</h1>
             <p> Växa står bakom den här webbplatsen.
                 Vi vill att så många som möjligt ska kunna använda den.
