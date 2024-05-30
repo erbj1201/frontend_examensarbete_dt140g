@@ -92,7 +92,9 @@ const SearchForm = () => {
 
   return (
     <div className="mx-auto">
+      
       <form onSubmit={handleSubmit} className="form-control form-control-sm align-items-center mx-auto bglight border-0 searchOptions">
+      <p className='text-uppercase'><strong>Sök efter djur</strong></p>
         {/**search-input and button in header */}
         <div className="row">
           <div className="col-sm-12 col-lg">

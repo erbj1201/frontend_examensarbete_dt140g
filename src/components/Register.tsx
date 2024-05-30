@@ -59,7 +59,7 @@ const RegisterPage: React.FC = () => {
   //Check if token exist, send to startpage
   useEffect(() => {
     if (token) {
-      navigate("/");
+      navigate("/start");
     }
   }, [token, navigate]);
   //Handle input
