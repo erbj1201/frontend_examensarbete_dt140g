@@ -14,17 +14,15 @@ const StartPage: React.FC = () => {
       </Helmet>
       <Header />
       <TokenCookie />
-      <main className="container  mx-auto startDiv">
+      <main className="container mx-auto startDiv">
         <h1>Välkommen till MinGård</h1>
-          <div className="mx-auto calender border border-grey shadow p-3  ">
             <Calender />
-          </div>
-          <div className="mx-auto row d-lg-flex">
-            <div className="mx-auto col-sm-12 col-md-8 col-lg-5 mt-3 p-5 supportDiv border border-grey shadow">
+            <div className="help-div d-flex mx-auto">
+            <div className="support-div d-flex flex-column mx-auto p-5 mt-5 border border-grey shadow">
               <h2>Driftstörning</h2>
-              <p>Den 29e Maj 2024 kommer uppdatering ske mellan 08:00 - 10:00</p>
+              <p>29 maj 2024 kommer uppdatering ske mellan 08:00 - 10:00</p>
             </div>
-            <div className="message-div-start mx-auto col-sm-12 col-md-9 col-lg-7 mt-3">
+            <div className="mx-auto col-sm-10 col-md-8 col-lg-7 mt-3">
               <Message />
             </div>
 </div>
