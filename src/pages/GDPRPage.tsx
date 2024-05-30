@@ -10,7 +10,7 @@ function GDPRPage() {
       </Helmet>
       <UserHeader />
       <main className="mx-auto container pb-5">
-        <article className="container mx-auto p-3">
+        <article className="container mx-auto p-3 accessibilityDiv">
           <h2 className="mx-auto text-center pt-5 pb-5">Information om personuppgiftsbehandling och integritetsskydd</h2>
           <p className="mx-auto lh-base">
             För att du ska kunna använda vårt system MinGård och dess funktioner

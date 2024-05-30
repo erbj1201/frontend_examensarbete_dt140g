@@ -13,7 +13,8 @@ const AccessibilityPage: React.FC = () => {
             <Header />
             <TokenCookie />
             <div>
-                <main className="mx-auto container accessibilityDiv m-3">
+                <main className="mx-auto container m-3">
+                    <article className="mx-auto accessibilityDiv">
             <h1>Tillgänglighet för MinGård</h1>
             <p className="p-2"> Växa står bakom den här webbplatsen.
                 Vi vill att så många som möjligt ska kunna använda den.
@@ -60,6 +61,7 @@ const AccessibilityPage: React.FC = () => {
             </p>
             <p className="p-2">Senaste bedömningen gjordes den 2024-05-30.</p>
             <p className="p-2">Redogörelsen uppdaterades senast den 30 Maj 2024.</p>
+            </article>
             </main>
         </div>
             <Footer />
