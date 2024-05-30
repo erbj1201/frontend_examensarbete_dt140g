@@ -1,5 +1,5 @@
 /*Login component*/
-//import
+//Import
 import React, { useEffect, useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import Cookies from "universal-cookie";
@@ -19,7 +19,7 @@ function Login() {
   });
   //Create new instance of cookie
   const cookies = new Cookies();
-  //get token
+  //Get token
   const token = cookies.get("token");
 
   //One hour in milliseconds
@@ -35,7 +35,7 @@ function Login() {
       [e.target.name]: e.target.value,
     });
   };
-  //check if token exist, send to startpage
+  //Check if token exist, send to startpage
   useEffect(() => {
     if (token) {
       navigate("/start");
@@ -44,13 +44,14 @@ function Login() {
 
   // Function to clear update and delete messages after a specified time
   const clearMessages = () => {
-    //clear messages
+    //Clear messages
     setShowMessage(null);
     setFormError({
       email: "",
       password: "",
     });
   };
+
   //Event for handling login
   const loginUser = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -61,7 +62,7 @@ function Login() {
       password: "",
     };
 
-    // check if title, description are empty
+    // Check if email, password are empty
     if (!userData.email && !userData.password) {
       setFormError({
         ...inputError,
@@ -73,18 +74,18 @@ function Login() {
       return;
     }
 
-    // check if title, description are empty
+    // Check if email is empty
     if (!userData.email) {
       setFormError({
         ...inputError,
         email: "Fyll i en mejladress",
       });
-      // Clear message after  3 seconds
+      // Clear message after 3 seconds
       setTimeout(clearMessages, 3000);
       return;
     }
 
-    // check if title, description are empty
+    // Check if password is empty
     if (!userData.password) {
       setFormError({
         ...inputError,
@@ -95,7 +96,7 @@ function Login() {
       return;
     }
 
-    //Fetch
+    //Fetch with post
     try {
       const response = await fetch("http://127.0.0.1:8000/api/login", {
         method: "POST",
@@ -115,7 +116,7 @@ function Login() {
           sameSite: "strict",
           expires: expireDate,
         });
-        //Save userid to session storage
+        //Save Userid to session storage
         sessionStorage.setItem("userid", userid);
         // Redirect to start-page
         navigate("/start");
@@ -131,6 +132,7 @@ function Login() {
       setTimeout(clearMessages, 3000);
     }
   };
+
   return (
     <div>
       {/*Login-form*/}
@@ -185,5 +187,5 @@ function Login() {
     </div>
   );
 }
-//export
+//Export
 export default Login;

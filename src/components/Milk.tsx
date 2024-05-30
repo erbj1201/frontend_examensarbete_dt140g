@@ -1,3 +1,4 @@
+/*Milk component*/
 //import
 import DOMPurify from "dompurify";
 import React, { useEffect, useState, FormEvent } from "react";
@@ -354,7 +355,7 @@ function Milk() {
           milkDate: sanitizedMilkDate,
         }),
       });
-      
+
 
       //If response ok
       if (response.ok) {
@@ -651,14 +652,14 @@ function Milk() {
               Lägg till
             </button>
           </form>
-         
-            {/*Show messages to form */}
-            {showMessage && (
-              <p className="alert mx-auto alert-success text-dark text-center mt-2">
-                {showMessage}
-              </p>
-            )}
-       
+
+          {/*Show messages to form */}
+          {showMessage && (
+            <p className="alert mx-auto alert-success text-dark text-center mt-2">
+              {showMessage}
+            </p>
+          )}
+
         </div>
       )}
       {/* This shows if user has more than one herd */}

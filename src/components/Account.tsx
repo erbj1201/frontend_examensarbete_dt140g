@@ -1,3 +1,7 @@
+/* Webbutvecklingsprogrammet
+Självständigt arbete DT140G
+Erika Vestin & Sofia Dahlberg */
+/*Account component*/
 import DOMPurify from "dompurify";
 import React, { useEffect, useState } from "react";
 import Cookies from "universal-cookie";
@@ -9,10 +13,6 @@ interface User {
   id: string;
   imagepath: string;
 }
-//Structure of image
-/* interface Image {
-  imagepath: string;
-} */
 
 export default function Account() {
   //States
@@ -21,6 +21,7 @@ export default function Account() {
   const userid = sessionStorage.getItem("userid");
   const [editUser, setEditUser] = useState(false);
   const [editImageData, setEditImageData] = useState(false);
+  /* Set User */
   const [user, setUser] = useState<User>({
     name: "",
     email: "",
@@ -28,20 +29,20 @@ export default function Account() {
     id: "",
     imagepath: "",
   });
-  
-  //State for edit user
+
+  //State for Edit user
   const [inputData, setInputData] = useState({
     name: "",
     email: "",
     password: "",
   });
 
-    //State for error store data
-    const [formError, setFormError] = useState({
-      name: "",
-      email: "",
-      password: "",
-    });
+  //State for error store data
+  const [formError, setFormError] = useState({
+    name: "",
+    email: "",
+    password: "",
+  });
 
   const [showMessage, setShowMessage] = useState<string | null>(null);
   const [imageUrl, setImageUrl] = useState<string | null>(null);
@@ -49,7 +50,8 @@ export default function Account() {
   useEffect(() => {
     fetchUser();
   }, []);
-//Get user
+
+  //Get user by Id
   const fetchUser = async () => {
     try {
       const response = await fetch(`http://localhost:8000/api/users/${userid}`, {
@@ -70,7 +72,7 @@ export default function Account() {
       console.error("Fel vid hämtning av användare", error);
     }
   };
-
+  /* Handle function to edit data */
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputData({ ...inputData, [e.target.name]: e.target.value });
   };
@@ -83,10 +85,10 @@ export default function Account() {
       password: "",
     });
   };
-
+  /* Change image */
   const editImage = () => {
     setEditImageData(true);
-      imagepath: imageUrl || ""
+    imagepath: imageUrl || ""
 
   };
 
@@ -99,52 +101,52 @@ export default function Account() {
   const updateProfile = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-       //Object to track input errors
-       let inputError = {
-        name: "",
-        email: "",
-        password: "",
-      };
+    //Object to track input errors
+    let inputError = {
+      name: "",
+      email: "",
+      password: "",
+    };
+    /* Error  */
+    if (!inputData.name && !inputData.email && !inputData.password) {
+      setFormError({
+        ...inputError,
+        name: "Fyll i ett namn",
+        email: "Fyll i en mejladress",
+        password: "Fyll i ditt lösenord"
+      });
+      // Clear message after  3 seconds
+      setTimeout(clearMessages, 3000);
+      return;
+    }
+    if (!inputData.name) {
+      setFormError({
+        ...inputError,
+        name: "Fyll i ett namn",
+      })
+      // Clear message after  3 seconds
+      setTimeout(clearMessages, 3000);
+      return;
 
-if(!inputData.name && ! inputData.email && !inputData.password){
-  setFormError({
-    ...inputError,
-    name: "Fyll i ett namn",
-    email: "Fyll i en mejladress",
-    password: "Fyll i ditt lösenord"
-  });
-  // Clear message after  3 seconds
-  setTimeout(clearMessages, 3000);
-  return;
-}
-if(!inputData.name) { 
-  setFormError({
-    ...inputError,
-    name: "Fyll i ett namn",
-  })
-    // Clear message after  3 seconds
-    setTimeout(clearMessages, 3000);
-    return;
-
-}
-  if(!inputData.email){
-    setFormError({
-      ...inputError,
-      email: "Fyll i en mejladress",
-  })
-    // Clear message after  3 seconds
-    setTimeout(clearMessages, 3000);
-    return;
- } 
- if(!inputData.password){
-  setFormError({
-    ...inputError,
-    password: "Fyll i ditt lösenord"
-  });
-  // Clear message after  3 seconds
-  setTimeout(clearMessages, 3000);
-  return;
-}
+    }
+    if (!inputData.email) {
+      setFormError({
+        ...inputError,
+        email: "Fyll i en mejladress",
+      })
+      // Clear message after  3 seconds
+      setTimeout(clearMessages, 3000);
+      return;
+    }
+    if (!inputData.password) {
+      setFormError({
+        ...inputError,
+        password: "Fyll i ditt lösenord"
+      });
+      // Clear message after  3 seconds
+      setTimeout(clearMessages, 3000);
+      return;
+    }
 
 
     //Sanitize values
@@ -152,13 +154,14 @@ if(!inputData.name) {
     const sanitizedEmail = DOMPurify.sanitize(email);
     const sanitizedName = DOMPurify.sanitize(name);
     const sanitizedPassword = DOMPurify.sanitize(password);
+
     setUser({
       ...user,
       name: sanitizedName,
       email: sanitizedEmail,
       password: sanitizedPassword,
     });
-    //Fetch (put)
+    //Change user data (fetch put)
     try {
       const response = await fetch(`http://localhost:8000/api/users/${userid}`, {
         method: "PUT",
@@ -210,7 +213,7 @@ if(!inputData.name) {
         files: fileInput.files,
       },
     } as React.ChangeEvent<HTMLInputElement>;
-    //Call handleimagechange 
+    //Call function handleimagechange 
     handleImageChange(event);
     console.log(formData)
   };
@@ -235,6 +238,7 @@ if(!inputData.name) {
       //Send image to server
       const formData = new FormData();
       formData.append("imagepath", file);
+
       //Fetch (post)
       try {
         const response = await fetch(`http://localhost:8000/api/users/images/${userid}`, {
@@ -265,7 +269,7 @@ if(!inputData.name) {
 
   return (
     <div className="container">
-      {/** If edituser is true, show form */}
+      {/** If edituser is true, show form to Edit User */}
       {editUser ? (
         <div className="bglight p-2 m-3 mx-auto account-large border border-dark d-flex flex-column shadow">
           <h2 className="account-heading mx-auto p-4">Uppdatera dina uppgifter</h2>
@@ -273,7 +277,7 @@ if(!inputData.name) {
             className="form-control handleForm form-control-sm border-0 p-2 mx-auto w-100"
             onSubmit={updateProfile}
             noValidate
-          > {/*Message for form */}
+          > {/*Message for form if success */}
             {showMessage && (
               <p className="alert mx-auto alert-success text-dark w-100 mx-auto text-center mt-2">{showMessage}</p>
             )}
@@ -290,7 +294,7 @@ if(!inputData.name) {
                 onChange={handleChange}
                 required
               />
-                <p className="error-message text-danger fw-bold">
+              <p className="error-message text-danger fw-bold">
                 {formError.name}
               </p>
             </div>
@@ -310,8 +314,8 @@ if(!inputData.name) {
               <p className="error-message text-danger fw-bold">
                 {formError.email}
               </p>
-              </div>
-              <div className="form-group">
+            </div>
+            <div className="form-group">
               <label htmlFor="password" className="form-label">
                 Skriv ditt aktuella lösenord för att spara ändringar:
               </label>
@@ -324,21 +328,21 @@ if(!inputData.name) {
                 onChange={handleChange}
                 required
               />
-                 <p className="error-message text-danger fw-bold">
+              <p className="error-message text-danger fw-bold">
                 {formError.password}
               </p>
-              </div>
-              <div className="mx-auto d-flex justify-content-between w-75 account-btns">
+            </div>
+            <div className="mx-auto d-flex justify-content-between w-75 account-btns">
               <button type="submit" className="button m-3">
                 Spara ändringar
               </button>
               <button className="button m-3" onClick={() => setEditUser(false)}>Tillbaka</button>
-              </div>
+            </div>
           </form>
-          </div>
+        </div>
       ) : user ? (
         <div className="bglight account-large p-2 m-3 mx-auto shadow border border-dark d-flex flex-column ">
-          {/**Messages to form */}
+          {/**Messages for form */}
           {showMessage && (
             <p className="alert mx-auto alert-success text-dark w-100 mx-auto text-center mt-2">{showMessage}</p>
           )}
@@ -347,9 +351,9 @@ if(!inputData.name) {
             <div className="d-flex flex-column">
               {/*Check if image is uploaded to user or show generic image */}
               {user.imagepath !== null ? (
-              <img className="userImage mx-auto img-thumbnail" src={user.imagepath} alt="Bild på användare" />
+                <img className="userImage mx-auto img-thumbnail" src={user.imagepath} alt="Bild på användare" />
               ) : (
-                <img className="userImage mx-auto img-thumbnail" src="\src\content\profile_img.png"alt="Bild på en siluett av en människa" />
+                <img className="userImage mx-auto img-thumbnail" src="\src\content\profile_img.png" alt="Bild på en siluett av en människa" />
               )}
             </div>
             <div className="d-flex flex-column mx-auto m-3 p-4">
@@ -365,7 +369,7 @@ if(!inputData.name) {
       ) : (
         <p>Ingen användare hittades.</p>
 
-      )} {/*if editimagedata is true, show form*/}
+      )} {/*if Editimagedata is true, show form*/}
       {editImageData ? (
         <div className="bglight p-2 m-3 mx-auto account-large border border-dark d-flex flex-column shadow">
           <p className="text-center"><strong>Ladda upp en ny bild, bilden byts ut automatiskt</strong></p>

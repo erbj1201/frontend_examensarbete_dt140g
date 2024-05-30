@@ -10,14 +10,14 @@ const Logout: React.FC = () => {
   const token = cookies.get("token");
   //get tokens expire date
   const getExpireDate = cookies.get('token_expires');
-  if(getExpireDate == new Date(Date.now())){
+  if (getExpireDate == new Date(Date.now())) {
     Logout
   }
   //Hook navigation
   const navigate = useNavigate();
 
   const logoutUser = async () => {
-    //Fetch
+    //Fetch with post
     try {
       const response = await fetch("http://localhost:8000/api/logout", {
         method: "POST",

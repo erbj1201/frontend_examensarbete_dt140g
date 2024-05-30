@@ -1,3 +1,4 @@
+/*Register component*/
 //import
 import React, { useEffect, useState, FormEvent } from "react";
 import { NavLink, useNavigate } from "react-router-dom";

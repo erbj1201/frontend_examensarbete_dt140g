@@ -7,9 +7,9 @@ import TokenCookie from "../components/TokenCookie";
 const AccessibilityPage: React.FC = () => {
     return (
         <div>
-              <Helmet>
-        <title>MinGård - Tillgänglighetsredogörelse</title>
-      </Helmet>
+            <Helmet>
+                <title>MinGård - Tillgänglighetsredogörelse</title>
+            </Helmet>
             <Header />
             <TokenCookie />
             <div>

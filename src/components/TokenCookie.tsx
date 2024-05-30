@@ -1,4 +1,4 @@
-/*Save token to cookie component*/
+/*Save Token to Cookie component*/
 //import
 import Cookies from "universal-cookie";
 import { useNavigate } from "react-router-dom";
