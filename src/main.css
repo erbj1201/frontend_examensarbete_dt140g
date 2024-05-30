@@ -1,6 +1,7 @@
 /*Desktop screen*/
 
 /*body, text, header, footer*/
+
 body {
     background-color: #ffffff;
     color: black;
@@ -403,6 +404,9 @@ tr .active {
 .userNav{
     width: 1.5em;
 }
+.accessibilityDiv{
+    width: 60%;
+}
 
 
 /*tablet screen */
@@ -522,6 +526,10 @@ tr .active {
 .tableCalf{
     width: 80%;
     font-size: 0.9em;
+}
+
+.accessibilityDiv{
+    width: 70%;
 }
 
 }
@@ -790,5 +798,9 @@ tr .active {
     }
     .contact-article p{
         max-width: 22em;
+    }
+
+    .accessibilityDiv{
+        width: 90%;
     }
 }

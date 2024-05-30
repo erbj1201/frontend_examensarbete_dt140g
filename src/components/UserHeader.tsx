@@ -36,7 +36,7 @@ const UserHeader: React.FC = () => {
         <div className="d-flex w-100">
           {/**logo */}
           <nav className="navbar">
-            <a className="navbar-brand align-self-start" href="/">
+            <a className="navbar-brand align-self-start" href="/start">
               <img
                 src="src\content\vaxa_thumbnail.png"
                 alt="Växa Sverige" width={100}
