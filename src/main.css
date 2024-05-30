@@ -393,12 +393,9 @@ tr .active {
 .alert-success {
     width: 40%;
 }
-.startDiv{
-    width: 80%;
-}
+
 .supportDiv{
     background-color: #fdf4ee;
-    max-width: 25em;
     height: 100%;
 }
 .message-div-start{
@@ -519,9 +516,6 @@ tr .active {
 /* Success message width */
 .alert-success {
     width: 60%;
-}
-.startDiv{
-    width: 80%;
 }
 
 .tableHandle{
