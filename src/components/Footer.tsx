@@ -5,9 +5,9 @@ import Cookies from "universal-cookie";
 
 //Component
 const Footer: React.FC = () => {
-  //create new instance of cookies
+  //Create new instance of cookies
   const cookies = new Cookies();
-  //get token from cookies
+  //Get token from cookies
   const token = cookies.get("token");
 
   return (
@@ -21,9 +21,9 @@ const Footer: React.FC = () => {
               <p className="text-left">
                 <br />
                 <NavLink to="/accessibility">Tillgänglighetsredogörelse
-              </NavLink> <br />
-              <NavLink to="/GDPR">Behandling av personuppgifter
-              </NavLink> <br />
+                </NavLink> <br />
+                <NavLink to="/GDPR">Behandling av personuppgifter
+                </NavLink> <br />
                 <a href="https://www.vxa.se/">Växa Sverige</a>
                 <br />
                 <a href="https://dreambroker.com/channel/npeiza94#/menu">

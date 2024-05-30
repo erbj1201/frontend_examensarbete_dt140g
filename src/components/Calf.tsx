@@ -1,8 +1,10 @@
+/*Calf component*/
 //Import
 import DOMPurify from "dompurify";
 import React, { useEffect, useState, FormEvent } from "react";
 import { useNavigate } from "react-router-dom";
 import Cookies from "universal-cookie";
+
 //Structure of calf
 interface Calf {
   id: string;
@@ -28,6 +30,7 @@ interface Herd {
 function Calf() {
   //Cookies
   const cookies = new Cookies();
+  //Get token
   const token = cookies.get("token");
   // Get userid from sessionstorage
   const userid = sessionStorage.getItem("userid");
@@ -109,7 +112,8 @@ function Calf() {
       animal_id: "",
     });
   };
-  //Fetch all calved and animals with useEffect
+
+  //Fetch all calves and animals with useEffect
   useEffect(() => {
     getAnimalsByUser(userid);
     fetchHerdsAnimals(userid);
@@ -149,7 +153,7 @@ function Calf() {
       birthDate: "",
       animal_id: "",
     };
-    //Check if animal_id empty
+    //Check if all input fields are empty
     if (
       !selectedAnimal &&
       !newCalf.sex &&
@@ -178,7 +182,7 @@ function Calf() {
       setTimeout(clearMessages, 3000);
       return;
     }
-    //Check if animalId empty
+    //Check if animal_id empty
     if (!selectedAnimal) {
       setFormError({
         ...inputError,
@@ -189,7 +193,7 @@ function Calf() {
       return;
     }
 
-    //Check if empty
+    //Check if sex is empty
     if (!newCalf.sex) {
       setFormError({
         ...inputError,
@@ -199,7 +203,7 @@ function Calf() {
       setTimeout(clearMessages, 3000);
       return;
     }
-    //Check if empty
+    //Check if category is empty
     if (!newCalf.category) {
       setFormError({
         ...inputError,
@@ -210,7 +214,7 @@ function Calf() {
       return;
     }
 
-     //Check if  empty
+     //Check if animalId is empty
      if (!newCalf.animalId) {
       setFormError({
         ...inputError,
@@ -503,7 +507,7 @@ function Calf() {
       return;
     }
 
-    //Check if empty
+    //Check if sex is empty
     if (!newCalf.sex) {
       setFormError({
         ...inputError,
@@ -513,7 +517,7 @@ function Calf() {
       setTimeout(clearMessages, 3000);
       return;
     }
-    //Check if empty
+    //Check if category empty
     if (!newCalf.category) {
       setFormError({
         ...inputError,
@@ -524,7 +528,7 @@ function Calf() {
       return;
     }
 
-      //Check if  empty
+      //Check if animalId is empty
       if (!newCalf.animalId) {
         setFormError({
           ...inputError,
@@ -546,20 +550,20 @@ function Calf() {
       setTimeout(clearMessages, 3000);
       return;
     }
-    //Check if breed empty
+    //Check if breed is empty
     if (!newCalf.breed) {
       setFormError({
         ...inputError,
         breed: "Fyll i en ras",
       });
     }
-    //Check if name empty
+    //Check if name is empty
     if (!newCalf.name) {
       setFormError({
         ...inputError,
         name: "Fyll i ett namn",
       });
-      // Clear message after  3 seconds
+      // Clear message after 3 seconds
       setTimeout(clearMessages, 3000);
       return;
     }
@@ -593,6 +597,7 @@ function Calf() {
     const sanitizedName = DOMPurify.sanitize(name);
     const sanitizedExpectedBirthDate = DOMPurify.sanitize(expectedBirthDate);
     const sanitizedBirthDate = DOMPurify.sanitize(birthDate);
+
     //Set new values for calf
     setNewCalf({
       id: chosenCalfId,
@@ -606,7 +611,7 @@ function Calf() {
       category: sanitizedCategory,
       animal_id: selectedAnimal,
     });
-
+/* Edit calf with id (fetch) */
     try {
       const response = await fetch(`http://localhost:8000/api/calves/${id}`, {
         method: "PUT",
@@ -644,7 +649,6 @@ function Calf() {
           animal_id: selectedAnimal,
         });
 
-
         setShowMessage("Kalvningen är ändrad");
         //Clear message after 3 seconds
         setTimeout(clearMessages, 3000);
@@ -665,7 +669,7 @@ function Calf() {
     }
   };
 
-  // Fetch animals by selected herd (get)
+  // Fetch animals by selected herd (with get)
   const getCalvesByHerd = async (chosenHerdId: string) => {
     try {
       setIsLoading(true);
@@ -981,7 +985,6 @@ function Calf() {
             <p className="alert mx-auto alert-success text-darktext-center mt-2">{showMessage}</p>
           )}
         </div>
-
       ) : (
         <div>
           {/*form for adding calf*/}

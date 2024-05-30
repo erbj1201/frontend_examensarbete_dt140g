@@ -1,3 +1,5 @@
+/*Details component*/
+//Import
 import Cookies from "universal-cookie";
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
@@ -19,10 +21,6 @@ interface Animal {
   herd_id: string;
   imagepath: string;
 }
-//Define image
-/*  interface Image {
-  imagepath: string;
-}  */
 
 const DetailsPage: React.FC = () => {
   //States
@@ -31,13 +29,13 @@ const DetailsPage: React.FC = () => {
   const [animalIndex, setAnimalIndex] = useState(0);
   // Create new instance of cookie
   const cookies = new Cookies();
-  //get token from cookies
+  //Get token from cookies
   const token = cookies.get("token");
   //Get id from URL
   let { id } = useParams();
   //Use navigate
   const navigate = useNavigate();
-  // MilkData
+  // MilkingData
   const [milkingData, setMilkingData] = useState<any[]>([]);
   //Medicinedata
   const [medicineData, setMedicineData] = useState<any[]>([]);
@@ -48,115 +46,115 @@ const DetailsPage: React.FC = () => {
 
   //Edit Image
   const [editImageData, setEditImageData] = useState(false);
+  //Message if response ok 
   const [showMessage, setShowMessage] = useState<string | null>(null);
   const [imageUrl, setImageUrl] = useState<string | null>(null);
-  
-    // Gets all calves from animal with fetch
-    const getCalvesByAnimals = async (animal_id: string|undefined) => {
-      //Fetch calves (get)
-      try {
-        const response = await fetch(
-          `http://localhost:8000/api/calves/animals/${animal_id}`,
-          {
-            method: "GET",
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${token}`,
-              Accept: "application/json",
-            },
-          }
-        ); //If response ok, set calves
-        if (response.ok) {
-          const jsonData = await response.json();
-          setCalfData(jsonData);
-        } else {
-          throw new Error("Något gick fel");
+
+  // Gets all calves from animal with fetch
+  const getCalvesByAnimals = async (animal_id: string | undefined) => {
+    //Fetch calves (get)
+    try {
+      const response = await fetch(
+        `http://localhost:8000/api/calves/animals/${animal_id}`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+            Accept: "application/json",
+          },
         }
-      } catch (error) {
-        console.error("Fel vid hämtning av mjölk");
+      ); //If response ok, set calves
+      if (response.ok) {
+        const jsonData = await response.json();
+        setCalfData(jsonData);
+      } else {
+        throw new Error("Något gick fel");
       }
-    };
-  
-    //Gets all vaccines from the animal with fetch
-    const getVaccinesByAnimals = async (animal_id: string| undefined) => {
-      //Fetch vaccines (get)
-      try {
-        const response = await fetch(
-          `http://localhost:8000/api/vaccines/animals/${animal_id}`,
-          {
-            method: "GET",
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${token}`,
-              Accept: "application/json",
-            },
-          }
-        ); //If response ok, set vaccine
-        if (response.ok) {
-          const jsonData = await response.json();
-          setVaccineData(jsonData);
-        } else {
-          throw new Error("Något gick fel");
+    } catch (error) {
+      console.error("Fel vid hämtning av mjölk");
+    }
+  };
+
+  //Gets all vaccines from the animal with fetch
+  const getVaccinesByAnimals = async (animal_id: string | undefined) => {
+    //Fetch vaccines (get)
+    try {
+      const response = await fetch(
+        `http://localhost:8000/api/vaccines/animals/${animal_id}`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+            Accept: "application/json",
+          },
         }
-      } catch (error) {
-        console.error("Fel vid hämtning av vaccin");
+      ); //If response ok, set vaccine
+      if (response.ok) {
+        const jsonData = await response.json();
+        setVaccineData(jsonData);
+      } else {
+        throw new Error("Något gick fel");
       }
-    };
-    // Gets all medicine from the animal with fetch
-    const getMedicinesByAnimals = async (animal_id: string| undefined) => {
-      //Fetch medicines (get)
-      try {
-        const response = await fetch(
-          `http://localhost:8000/api/medicines/animals/${animal_id}`,
-          {
-            method: "GET",
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${token}`,
-              Accept: "application/json",
-            },
-          }
-        ); //If response ok
-        if (response.ok) {
-          const jsonData = await response.json();
-          //Set medicines
-          setMedicineData(jsonData);
-        } else {
-          throw new Error("Något gick fel");
+    } catch (error) {
+      console.error("Fel vid hämtning av vaccin");
+    }
+  };
+  // Gets all medicine from the animal with fetch
+  const getMedicinesByAnimals = async (animal_id: string | undefined) => {
+    //Fetch medicines (get)
+    try {
+      const response = await fetch(
+        `http://localhost:8000/api/medicines/animals/${animal_id}`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+            Accept: "application/json",
+          },
         }
-      } catch (error) {
-        console.error("Fel vid hämtning av medicinering");
+      ); //If response ok
+      if (response.ok) {
+        const jsonData = await response.json();
+        //Set medicines
+        setMedicineData(jsonData);
+      } else {
+        throw new Error("Något gick fel");
       }
-    };
-  
-    // Gets all milk from the animal with fetch
-    const getMilkByAnimals = async (animal_id: string| undefined) => {
-      //Fetch get
-      try {
-        const response = await fetch(
-          `http://localhost:8000/api/milks/animals/${animal_id}`,
-          {
-            method: "GET",
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${token}`,
-              Accept: "application/json",
-            },
-          }
-        ); //If response ok
-        if (response.ok) {
-          const jsonData = await response.json();
-          //Set milks
-          setMilkingData(jsonData);
-  
-        } else {
-          throw new Error("Något gick fel");
+    } catch (error) {
+      console.error("Fel vid hämtning av medicinering");
+    }
+  };
+
+  // Gets all milk from the animal with fetch
+  const getMilkByAnimals = async (animal_id: string | undefined) => {
+    //Fetch get
+    try {
+      const response = await fetch(
+        `http://localhost:8000/api/milks/animals/${animal_id}`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+            Accept: "application/json",
+          },
         }
-      } catch (error) {
-        console.error("Fel vid hämtning av mjölk");
+      ); //If response ok
+      if (response.ok) {
+        const jsonData = await response.json();
+        //Set milks
+        setMilkingData(jsonData);
+
+      } else {
+        throw new Error("Något gick fel");
       }
-    };
-  
+    } catch (error) {
+      console.error("Fel vid hämtning av mjölk");
+    }
+  };
 
   const fetchAnimalsByHerd = async (herdId: string | null) => {
     //Fetch animals from herd (with get) 
@@ -191,7 +189,7 @@ const DetailsPage: React.FC = () => {
   };
   //Handle click to next animal in herd
   const clickNext = () => {
-    
+
     if (animalIndex < animalsByHerds.length - 1) {
       //Set index to this index plus 1
       setAnimalIndex(animalIndex + 1);
@@ -202,16 +200,16 @@ const DetailsPage: React.FC = () => {
   //Handle click to previous animal in herd
   const clickPrev = () => {
     if (animalIndex > 0) {
-      // if Index higher than 0'
-      //set index to this index minus 1
+      // If Index higher than 0'
+      //Set index to this index minus 1
       setAnimalIndex(animalIndex - 1);
-      //change and navigate to new url
+      //Change and navigate to new url
       navigate(`/details/${animalsByHerds[animalIndex - 1].id}`);
     }
   };
 
-   //Fetch animal by id
-   const getAnimalById = async (id: string) => {
+  //Fetch animal by id
+  const getAnimalById = async (id: string) => {
     try {
       const response = await fetch(
         `http://localhost:8000/api/animals/${id}`,
@@ -282,9 +280,10 @@ const DetailsPage: React.FC = () => {
 
   // Function to clear update and delete messages after a specified time
   const clearMessages = () => {
-    //clear messages
+    //Clear messages
     setShowMessage(null);
   };
+
   const handleSubmitImage = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     //Get file input from input-field
@@ -314,7 +313,8 @@ const DetailsPage: React.FC = () => {
         if (typeof result === "string") {
           setImageUrl(result);
         }
-      }; //If error reading file, show in console
+      };
+      //If error reading file, show in console
       reader.onerror = (error) => {
         console.error("Error reading file:", error);
       }; //Read image as data url
@@ -349,8 +349,6 @@ const DetailsPage: React.FC = () => {
       }
     }
   };
-
-
 
   return (
     <div>
@@ -457,13 +455,13 @@ const DetailsPage: React.FC = () => {
               <article className="collapsible mx-auto m-2">
                 <div>
                   <Collapsible open title="Mjölkning"
-                 onClick={() => getMilkByAnimals(id)}>
+                    onClick={() => getMilkByAnimals(id)}>
                     {milkingData.length > 0 ? (
                       milkingData.map((milk, index) => (
                         <div className="collapsibleInfo" key={index}>
                           <ul>
-                          <li><strong>Datum:</strong> {milk.milkDate}</li>
-                          <li><strong>Mängd mjölk: </strong>{milk.kgMilk} Kg</li>
+                            <li><strong>Datum:</strong> {milk.milkDate}</li>
+                            <li><strong>Mängd mjölk: </strong>{milk.kgMilk} Kg</li>
                           </ul>
                         </div>
                       ))
@@ -479,10 +477,10 @@ const DetailsPage: React.FC = () => {
                       medicineData.map((medicine, index) => (
                         <div className="collapsibleInfo" key={index}>
                           <ul>
-                          <li><strong>Datum:</strong> {medicine.date}</li>
-                          <li><strong>Typ: </strong>{medicine.type} </li>
-                          <li><strong>Mängd: </strong>{medicine.amount} </li>
-                          <li><strong>Återkommande: </strong>{medicine.recurrent ? "Ja" : "Nej"} </li>
+                            <li><strong>Datum:</strong> {medicine.date}</li>
+                            <li><strong>Typ: </strong>{medicine.type} </li>
+                            <li><strong>Mängd: </strong>{medicine.amount} </li>
+                            <li><strong>Återkommande: </strong>{medicine.recurrent ? "Ja" : "Nej"} </li>
                           </ul>
                         </div>
                       ))
@@ -498,9 +496,9 @@ const DetailsPage: React.FC = () => {
                       vaccineData.map((vaccine, index) => (
                         <div className="collapsibleInfo" key={index}>
                           <ul>
-                          <li><strong>Batchnummer: </strong>{vaccine.batchNo}</li>
-                          <li><strong>Namn:</strong> {vaccine.name} </li>
-                          <li><strong>Datum och tid:</strong> {vaccine.date} </li>
+                            <li><strong>Batchnummer: </strong>{vaccine.batchNo}</li>
+                            <li><strong>Namn:</strong> {vaccine.name} </li>
+                            <li><strong>Datum och tid:</strong> {vaccine.date} </li>
                           </ul>
                         </div>
                       ))
@@ -516,13 +514,13 @@ const DetailsPage: React.FC = () => {
                       calfData.map((calf, index) => (
                         <div className="collapsibleInfo" key={index}>
                           <ul>
-                          <li><strong>Öronnummer:</strong> {calf.earNo}</li>
-                          <li><strong>Ras:</strong> {calf.breed}</li>
-                          <li><strong>Namn: </strong>{calf.name}</li>
-                          <li><strong>Förväntat födelsedatum: </strong>{calf.expectedBirthDate}</li>
-                          <li><strong>Födelsedatum:</strong> {calf.birthDate} </li>
-                          <li><strong>Kön: </strong>{calf.sex} </li>
-                          <li><strong>Kategori: </strong>{calf.category} </li>
+                            <li><strong>Öronnummer:</strong> {calf.earNo}</li>
+                            <li><strong>Ras:</strong> {calf.breed}</li>
+                            <li><strong>Namn: </strong>{calf.name}</li>
+                            <li><strong>Förväntat födelsedatum: </strong>{calf.expectedBirthDate}</li>
+                            <li><strong>Födelsedatum:</strong> {calf.birthDate} </li>
+                            <li><strong>Kön: </strong>{calf.sex} </li>
+                            <li><strong>Kategori: </strong>{calf.category} </li>
                           </ul>
                         </div>
                       ))
@@ -530,13 +528,12 @@ const DetailsPage: React.FC = () => {
                   </Collapsible>
                 </div>
               </article>
-               </div>
+            </div>
           </section>
         </div>
-           
-  )
-}
-        </div >
-      );
+      )
+      }
+    </div >
+  );
 };
 export default DetailsPage;

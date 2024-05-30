@@ -1,7 +1,7 @@
+/*SearchForm in header component*/
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Cookies from 'universal-cookie';
-/*search in header component*/
 // Structure of animal
 interface Animal {
   id: number;
@@ -53,7 +53,8 @@ const SearchForm = () => {
       console.log("Kunde inte hämta djur")
     }
   };
-//Call the function directly 
+
+  //Call the function directly with useEffect
   useEffect(() => {
     filterAnimals();
   }, [searchText, filter, animals]);
@@ -63,7 +64,7 @@ const SearchForm = () => {
     filterAnimals(); // Filter animals
   };
 
-  // Filtered animals based on filter option, i nsearch field
+  // Filtered animals based on filter option, in search field
   const filterAnimals = () => {
     const searchTerm = searchText.trim().toLowerCase();
     const filtered = animals.filter(animal => {
@@ -92,9 +93,9 @@ const SearchForm = () => {
 
   return (
     <div className="mx-auto">
-      
+
       <form onSubmit={handleSubmit} className="form-control form-control-sm align-items-center mx-auto bglight border-0 searchOptions">
-      <p className='text-uppercase'><strong>Sök efter djur</strong></p>
+        <p className='text-uppercase'><strong>Sök efter djur</strong></p>
         {/**search-input and button in header */}
         <div className="row">
           <div className="col-sm-12 col-lg">
@@ -131,20 +132,20 @@ const SearchForm = () => {
             </button>
           </div>
         </div>
-      
-      {searchText && filteredOptions.length > 0 && (
-        <div className="scroll-list-container">
+
+        {searchText && filteredOptions.length > 0 && (
+          <div className="scroll-list-container">
             <ul className="scroll-list">
-            {filteredOptions.map(animal => (
-              <li key={animal.id}>
-                <Link to={`/details/${animal.id}`}>
-                  {animal.name} - {animal.animalId}
-                </Link>
-              </li>
-            ))}
-          </ul> 
-        </div>
-      )}
+              {filteredOptions.map(animal => (
+                <li key={animal.id}>
+                  <Link to={`/details/${animal.id}`}>
+                    {animal.name} - {animal.animalId}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
       </form>
     </div>
   );

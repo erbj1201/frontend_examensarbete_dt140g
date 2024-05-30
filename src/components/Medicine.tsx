@@ -1,3 +1,4 @@
+/*Medicine component*/
 //import
 import DOMPurify from "dompurify";
 import React, { useEffect, useState, FormEvent } from "react";
@@ -283,7 +284,7 @@ function Medicine() {
       console.error("Fel vid hämtning av medicinering");
     }
   };
-  // Get all animals by User
+  // Get all animals by specific User
   const getAnimalsByUser = async (userid: string | null) => {
     //Fetch (get animals)
     try {
@@ -297,8 +298,9 @@ function Medicine() {
             Accept: "application/json",
           },
         }
-      ); //If response ok
+      ); 
 
+      //If response ok
       if (response.ok) {
         const jsonData = await response.json();
         //Map function to transform objects in the array.
@@ -314,6 +316,7 @@ function Medicine() {
       console.error("Fel vid hämtning");
     }
   };
+
   //Edit input fields in form
   const editData = () => {
     setEditMedicine(true);
@@ -326,6 +329,7 @@ function Medicine() {
       animal_id: selectedAnimal,
     });
   };
+
   //Cancel 
   const goBack = () => {
     setEditMedicine(false);
@@ -418,7 +422,8 @@ function Medicine() {
       amount: sanitizedAmount,
       recurrent: sanitizedRecurrent,
       animal_id: selectedAnimal,
-    }); // fetch (post medicines)
+    }); 
+    // fetch (put medicine with id)
     try {
       const response = await fetch(
         `http://localhost:8000/api/medicines/${id}`,
@@ -436,7 +441,8 @@ function Medicine() {
             recurrent: sanitizedRecurrent,
           }),
         }
-      ); //If response ok
+      ); 
+      //If response ok
       if (response.ok) {
         //Clean input fields
         setNewMedicine({
@@ -468,7 +474,7 @@ function Medicine() {
     }
   };
 
-  // Fetch animals by selected herd (get)
+  // Fetch medicines by selected herd (get)
   const getMedicinesByHerd = async (chosenHerdId: string) => {
     try {
       setIsLoading(true);
@@ -856,7 +862,7 @@ function Medicine() {
         <div>
           <h2 className="p-5 mx-auto">Senaste medicineringarna för valt djur:</h2>
           <table className="table table-responsive-sm table-hover mx-auto shadow-sm table-hover tableHandle">
-          <thead className= "table-thead d-sm-table-header-group shadow-sm border-top">
+            <thead className="table-thead d-sm-table-header-group shadow-sm border-top">
               <tr>
                 <th>Djuridentitet</th>
                 <th>Datum & tid</th>
@@ -875,16 +881,16 @@ function Medicine() {
                 );
                 return (
                   <tr key={medicine.id}>
-                          {/* Display block for mobile */}
+                    {/* Display block for mobile */}
                     <td className="d-block d-sm-none animalId" data-label="Djuridentitet">{animal ? animal.animalId : "Okänt"}</td>
                     <td className="d-block d-sm-none" data-label="Datum & tid">{medicine.date}</td>
                     <td className="d-block d-sm-none" data-label="Medicintyp">{medicine.type}</td>
                     <td className="d-block d-sm-none" data-label="Mängd"> {medicine.amount}</td>
                     {/**Check if medicine.recurrent is true or false */}
                     <td className="d-block d-sm-none" data-label="Återkommande">{medicine.recurrent ? "Ja" : "Nej"}</td>
-                     {/* Table for desktop */}
-                     <td className="d-none d-sm-table-cell animalId"data-label="Djuridentitet">{animal ? animal.animalId : "Okänt"}</td>
-                     <td className="d-none d-sm-table-cell" data-label="Datum & tid">{medicine.date}</td>
+                    {/* Table for desktop */}
+                    <td className="d-none d-sm-table-cell animalId" data-label="Djuridentitet">{animal ? animal.animalId : "Okänt"}</td>
+                    <td className="d-none d-sm-table-cell" data-label="Datum & tid">{medicine.date}</td>
                     <td className="d-none d-sm-table-cell" data-label="Medicintyp">{medicine.type}</td>
                     <td className="d-none d-sm-table-cell" data-label="Mängd"> {medicine.amount}</td>
                     {/**Check if medicine.recurrent is true or false */}

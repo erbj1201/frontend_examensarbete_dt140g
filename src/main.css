@@ -216,7 +216,7 @@ a:hover {
 }
 /* Form on handle Page */
 .handleForm {
-    background-color: #f5f4f4;
+    background-color: #f2f2f2;
     max-width: 30em;
 }
 
@@ -239,7 +239,6 @@ tr .active {
 .modal {
     background-color: rgba(0, 0, 0, 0.3);
 }
-
 
 .bglight {
     background-color: #f2f2f2;

@@ -1,5 +1,5 @@
 /*Herd component*/
-//import
+//Import
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Cookies from "universal-cookie";
@@ -10,6 +10,7 @@ interface Herd {
   address: string;
   userid: number;
 }
+
 // Structure of animal
 interface Animal {
   id: number;
@@ -22,7 +23,6 @@ interface Animal {
   name: string;
   herd_id: string;
 }
-
 
 const GetHerdComponent: React.FC = () => {
   // Create new instance of cookie
@@ -103,10 +103,10 @@ const GetHerdComponent: React.FC = () => {
           },
         }
       );
-      //response
+      //Response
       const pickedAnimals = await response.json();
       setAnimals(pickedAnimals);
-      //get errors
+      //Get errors
     } catch (error) {
       setError(error);
     } finally {
@@ -146,7 +146,7 @@ const GetHerdComponent: React.FC = () => {
           {/*If there are more than one herd, show select with option*/}
           {!isLoading && !error && herds.length > 1 && (
             <div>
-               <h1 className="text-center m-3">Besättning</h1>
+              <h1 className="text-center m-3">Besättning</h1>
               <form className="fit-content-width form-control-sm border-0 mx-auto">
                 <div className="form-group mx-auto w-75">
                   <label className="form-label" htmlFor="herds">Välj en besättning:</label>
@@ -169,94 +169,93 @@ const GetHerdComponent: React.FC = () => {
               </form>
             </div>
           )}
-            <div className=" animalView mx-auto">
-          {/* Buttons to sort out by category */}
-          <div className="container-btns mx-auto">
-            <h2 className="text-center p-3 m-3">Sortera djur</h2>
-            <div className="animal-category d-flex mx-auto">
-            <button
-              className="category-btn active m-3"
-              onClick={() => {
-                //Undefined to stop sort the categories
-                handleFilterCategory(undefined);
-              }}
-            >
-              Alla djur
-            </button>
-            {/**Köttdjur */}
-            <button
-              className="category-btn active m-3"
-              onClick={() => {
-                handleFilterCategory("kött");
-              }}
-            >
-              Köttdjur
-            </button>
-            {/**Mjölkdjur */}
-            <button
-              className="category-btn active m-3"
-              onClick={() => {
-                handleFilterCategory("mjölk");
-              }}
-            >
-              Mjölkdjur
-            </button>
+          <div className=" animalView mx-auto">
+            {/* Buttons to sort out by category */}
+            <div className="container-btns mx-auto">
+              <h2 className="text-center p-3 m-3">Sortera djur</h2>
+              <div className="animal-category d-flex mx-auto">
+                <button
+                  className="category-btn active m-3"
+                  onClick={() => {
+                    //Undefined to stop sort the categories
+                    handleFilterCategory(undefined);
+                  }}
+                >
+                  Alla djur
+                </button>
+                {/**Köttdjur */}
+                <button
+                  className="category-btn active m-3"
+                  onClick={() => {
+                    handleFilterCategory("kött");
+                  }}
+                >
+                  Köttdjur
+                </button>
+                {/**Mjölkdjur */}
+                <button
+                  className="category-btn active m-3"
+                  onClick={() => {
+                    handleFilterCategory("mjölk");
+                  }}
+                >
+                  Mjölkdjur
+                </button>
+              </div>
             </div>
+
+            <h3 className="p-3 m-3">Djuröversikt</h3>
+            {/*if animal lenght is larger then 0*/}
+            {animals.length > 0 ? (
+              <table className="table mx-auto shadow-sm table-responsive-sm table-hover">
+                <thead className=" table-theadd-sm-table-header-group shadow-sm border-top">
+                  <tr>
+                    <th>Djuridentitet</th>
+                    <th>Namn</th>
+                    <th>Födelsedatum</th>
+                    <th>Ras</th>
+                    <th>Kön</th>
+                    <th>Djurdetaljer</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {/*Loop and write animals and filter by category*/}
+                  {/*eventlistener to navigate to details page for choosen animal*/}
+                  {animals
+                    .filter((animal) =>
+                      filterCategory ? animal.category === filterCategory : true
+                    )
+                    .map((animal) => (
+                      <tr className="tableRow shadow-sm  "
+                        key={animal.id}
+                      >{/* Display block for mobile */}
+                        <td className="d-block d-sm-none animalId" data-label="Djuridentitet">{animal.animalId}</td>
+                        <td className="d-block d-sm-none" data-label="Namn">{animal.name}</td>
+                        <td className="d-block d-sm-none" data-label="Födelsedatum">{animal.birthDate}</td>
+                        <td className="d-block d-sm-none" data-label="Ras">{animal.breed}</td>
+                        <td className="d-block d-sm-none" data-label="Kön">{animal.sex}</td>
+                        <td className="d-block d-sm-none" data-label="Detaljer"><button className="button" onClick={() => navigateToDetails(animal.id)}>Detaljer</button></td>
+                        {/* Table for desktop */}
+                        <td className="d-none d-sm-table-cell">{animal.animalId}</td>
+                        <td className="d-none d-sm-table-cell">{animal.name}</td>
+                        <td className="d-none d-sm-table-cell">{animal.birthDate}</td>
+                        <td className="d-none d-sm-table-cell">{animal.breed}</td>
+                        <td className="d-none d-sm-table-cell">{animal.sex}</td>
+                        <td className="d-none d-sm-table-cell"><button className="button btn-sm" onClick={() => navigateToDetails(animal.id)}>Detaljer</button></td>
+                      </tr>
+                    ))}
+                </tbody>
+              </table>
+            ) : (
+              //if no animals in herd
+              <p>Inga djur i besättningen</p>
+            )}
           </div>
-         
-          <h3 className="p-3 m-3">Djuröversikt</h3>
-          {/*if animal lenght is larger then 0*/}
-          {animals.length > 0 ? (
-            <table className="table mx-auto shadow-sm table-responsive-sm table-hover">
-              <thead className=" table-theadd-sm-table-header-group shadow-sm border-top">
-                <tr>
-                  <th>Djuridentitet</th>
-                  <th>Namn</th>
-                  <th>Födelsedatum</th>
-                  <th>Ras</th>
-                  <th>Kön</th>
-                  <th>Djurdetaljer</th>
-                </tr>
-              </thead>
-              <tbody>
-                {/*Loop and write animals and filter by category*/}
-                {/*eventlistener to navigate to details page for choosen animal*/}
-                {animals
-                  .filter((animal) =>
-                    filterCategory ? animal.category === filterCategory : true
-                  )
-                  .map((animal) => (
-                    <tr className="tableRow shadow-sm  "
-                      key={animal.id}
-                    >{/* Display block for mobile */}
-                      <td className="d-block d-sm-none animalId" data-label="Djuridentitet">{animal.animalId}</td>
-                      <td className="d-block d-sm-none" data-label="Namn">{animal.name}</td>
-                      <td className="d-block d-sm-none" data-label="Födelsedatum">{animal.birthDate}</td>
-                      <td className="d-block d-sm-none" data-label="Ras">{animal.breed}</td>
-                      <td className="d-block d-sm-none" data-label="Kön">{animal.sex}</td>
-                      <td className="d-block d-sm-none" data-label="Detaljer"><button className="button" onClick={() => navigateToDetails(animal.id)}>Detaljer</button></td>
-                      {/* Table for desktop */}
-                      <td className="d-none d-sm-table-cell">{animal.animalId}</td>
-                       <td className="d-none d-sm-table-cell">{animal.name}</td>
-                      <td className="d-none d-sm-table-cell">{animal.birthDate}</td>
-                      <td className="d-none d-sm-table-cell">{animal.breed}</td>
-                      <td className="d-none d-sm-table-cell">{animal.sex}</td>
-                      <td className="d-none d-sm-table-cell"><button className="button btn-sm" onClick={() => navigateToDetails(animal.id)}>Detaljer</button></td>
-                    </tr>
-                  ))}
-              </tbody>
-            </table>
-          ) : (
-            //if no animals in herd
-            <p>Inga djur i besättningen</p>
-          )}
-        </div>
         </div>
       ) : (
         <p>Inga besättningar registrerade</p>
       )}
     </div>
-  
   );
 };
 //Export

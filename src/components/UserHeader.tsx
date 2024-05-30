@@ -1,4 +1,4 @@
-/*Not logged in header component*/
+/*Not logged in Header component*/
 //import
 import React from "react";
 import { useLocation } from "react-router-dom";
@@ -25,7 +25,7 @@ const UserHeader: React.FC = () => {
   //Decides the title/text depending on the url
   if (path === "/register") {
     titleHeader = "Registrera konto";
-  } else if(path === "/login"){
+  } else if (path === "/login") {
     titleHeader = "Logga in";
   } else {
     titleHeader = "Behandling av personuppgifter";
@@ -43,11 +43,11 @@ const UserHeader: React.FC = () => {
               />
               <p className="mx-auto text-center">MinGård</p>
             </a>
-            </nav>
-            <div className="headerdiv align-self-center mx-auto text-center">
-              <HeaderText pageTitle={titleHeader} />
-            </div>
-          
+          </nav>
+          <div className="headerdiv align-self-center mx-auto text-center">
+            <HeaderText pageTitle={titleHeader} />
+          </div>
+
         </div>
       </header>
     </div>

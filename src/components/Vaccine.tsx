@@ -1,3 +1,4 @@
+/*Vaccine component*/
 //import
 import DOMPurify from "dompurify";
 import React, { useEffect, useState, FormEvent } from "react";

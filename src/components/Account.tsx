@@ -1,3 +1,7 @@
+/* Webbutvecklingsprogrammet
+Självständigt arbete DT140G
+Erika Vestin & Sofia Dahlberg */
+/*Account component*/
 import DOMPurify from "dompurify";
 import React, { useEffect, useState } from "react";
 import Cookies from "universal-cookie";
@@ -68,7 +72,7 @@ export default function Account() {
       console.error("Fel vid hämtning av användare", error);
     }
   };
-/* Handle function to edit data */
+  /* Handle function to edit data */
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputData({ ...inputData, [e.target.name]: e.target.value });
   };
@@ -81,7 +85,7 @@ export default function Account() {
       password: "",
     });
   };
-/* Change image */
+  /* Change image */
   const editImage = () => {
     setEditImageData(true);
     imagepath: imageUrl || ""
@@ -103,7 +107,7 @@ export default function Account() {
       email: "",
       password: "",
     };
-/* Error  */
+    /* Error  */
     if (!inputData.name && !inputData.email && !inputData.password) {
       setFormError({
         ...inputError,
@@ -234,7 +238,7 @@ export default function Account() {
       //Send image to server
       const formData = new FormData();
       formData.append("imagepath", file);
-      
+
       //Fetch (post)
       try {
         const response = await fetch(`http://localhost:8000/api/users/images/${userid}`, {
@@ -265,7 +269,7 @@ export default function Account() {
 
   return (
     <div className="container">
-      {/** If edituser is true, show form */}
+      {/** If edituser is true, show form to Edit User */}
       {editUser ? (
         <div className="bglight p-2 m-3 mx-auto account-large border border-dark d-flex flex-column shadow">
           <h2 className="account-heading mx-auto p-4">Uppdatera dina uppgifter</h2>
@@ -273,7 +277,7 @@ export default function Account() {
             className="form-control handleForm form-control-sm border-0 p-2 mx-auto w-100"
             onSubmit={updateProfile}
             noValidate
-          > {/*Message for form */}
+          > {/*Message for form if success */}
             {showMessage && (
               <p className="alert mx-auto alert-success text-dark w-100 mx-auto text-center mt-2">{showMessage}</p>
             )}
@@ -338,7 +342,7 @@ export default function Account() {
         </div>
       ) : user ? (
         <div className="bglight account-large p-2 m-3 mx-auto shadow border border-dark d-flex flex-column ">
-          {/**Messages to form */}
+          {/**Messages for form */}
           {showMessage && (
             <p className="alert mx-auto alert-success text-dark w-100 mx-auto text-center mt-2">{showMessage}</p>
           )}
@@ -365,7 +369,7 @@ export default function Account() {
       ) : (
         <p>Ingen användare hittades.</p>
 
-      )} {/*if editimagedata is true, show form*/}
+      )} {/*if Editimagedata is true, show form*/}
       {editImageData ? (
         <div className="bglight p-2 m-3 mx-auto account-large border border-dark d-flex flex-column shadow">
           <p className="text-center"><strong>Ladda upp en ny bild, bilden byts ut automatiskt</strong></p>
