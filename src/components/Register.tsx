@@ -13,15 +13,15 @@ interface UserItem {
 const RegisterPage: React.FC = () => {
   //Hook navigation
   const navigate = useNavigate();
-   //Create new instance of cookie
-   const cookies = new Cookies();
-   //Get token
-   const token = cookies.get("token");
-//State for messages to form
+  //Create new instance of cookie
+  const cookies = new Cookies();
+  //Get token
+  const token = cookies.get("token");
+  //State for messages to form
   const [showMessage, setShowMessage] = useState<string | null>(null);
   //State to handle checkbox
   const [isChecked, setIsChecked] = useState(false);
-//Handle checkbox
+  //Handle checkbox
   const checkHandler = () => {
     setIsChecked(!isChecked)
   }
@@ -43,8 +43,8 @@ const RegisterPage: React.FC = () => {
   });
 
 
-   // Function to clear update and delete messages after a specified time
-   const clearMessages = () => {
+  // Function to clear update and delete messages after a specified time
+  const clearMessages = () => {
     //Clear messages
     setShowMessage(null);
     setFormError({
@@ -80,10 +80,7 @@ const RegisterPage: React.FC = () => {
       confirmPassword: "",
       gdpr: "",
     };
-        // Control if checkbox is checked
-  if (!isChecked) {
-    return;
-  }
+
     // Check if name, email and password are empty
     if (!newUser.name && !newUser.email && !newUser.password) {
       setFormError({
@@ -91,7 +88,7 @@ const RegisterPage: React.FC = () => {
         name: "Fyll i ett namn",
         email: "Fyll i en korrekt mejladress",
         password: "Fyll i ett lösenord",
-      
+
       });
       // Clear message after  3 seconds
       setTimeout(clearMessages, 3000);
@@ -139,6 +136,10 @@ const RegisterPage: React.FC = () => {
       return;
     }
 
+    // Control if checkbox is checked
+    if (!isChecked) {
+      return;
+    }
     // Sanitize user input using DOMPurify
     const sanitizedName = DOMPurify.sanitize(newUser.name);
     const sanitizedEmail = DOMPurify.sanitize(newUser.email);
@@ -179,23 +180,23 @@ const RegisterPage: React.FC = () => {
         setShowMessage('En ny användare är registrerad')
         // Clear message after  3 seconds
         setTimeout(clearMessages, 3000);
-     } else if(response.status === 400) { 
-      setShowMessage('Mejladressen är upptagen av en annan användare')
-      // Clear message after  3 seconds
-      setTimeout(clearMessages, 3000);
-     } else {
-      setShowMessage('Ett oväntat fel har inträffat, försök igen')
-      // Clear message after  3 seconds
-      setTimeout(clearMessages, 3000);
-     }
+      } else if (response.status === 400) {
+        setShowMessage('Mejladressen är upptagen av en annan användare')
+        // Clear message after  3 seconds
+        setTimeout(clearMessages, 3000);
+      } else {
+        setShowMessage('Ett oväntat fel har inträffat, försök igen')
+        // Clear message after  3 seconds
+        setTimeout(clearMessages, 3000);
+      }
     } catch (error) {
       console.log(error);
       setShowMessage('Användaren kunde inte skapas')
-        // Clear message after  3 seconds
-        setTimeout(clearMessages, 3000);
+      // Clear message after  3 seconds
+      setTimeout(clearMessages, 3000);
     }
   };
- 
+
   return (
     <div>
       {/*form to register user*/}
@@ -240,7 +241,7 @@ const RegisterPage: React.FC = () => {
             onChange={({ target }) =>
               handleUserInput(target.name, target.value)
             }
-            autoComplete="new-email" 
+            autoComplete="new-email"
           />
           <p className="error-message text-danger fw-bold">{formError.email}</p>
         </div>
@@ -279,13 +280,13 @@ const RegisterPage: React.FC = () => {
           <p className="error-message text-danger fw-bold">{formError.confirmPassword}</p>
         </div>
         <div className="form-check">
-  <input className="form-check-input border-dark" type="checkbox" checked={isChecked} id="gdpr" onChange={checkHandler}/>
-  <label className="form-check-label" htmlFor="gdpr">
-    Jag godkänner behandlingen av personuppgifter enligt <NavLink to="/gdpr"> information om behandling av personuppgifter</NavLink>.
-  </label> <br /> <br />
-  {/**If all fields are filled in and checkbox not checked, show message that checkbox must be checked */}
-  { newUser.email && newUser.password && newUser.name && newUser.confirmPassword &&!isChecked && <p className="error-message text-danger fw-bold">Du måste godkänna behandlingen av personuppgifter för att skapa en användare</p> }
-</div>
+          <input className="form-check-input border-dark" type="checkbox" checked={isChecked} id="gdpr" onChange={checkHandler} />
+          <label className="form-check-label" htmlFor="gdpr">
+            Jag godkänner behandlingen av personuppgifter enligt <NavLink to="/gdpr"> information om behandling av personuppgifter</NavLink>.
+          </label> <br /> <br />
+          {/**If all fields are filled in and checkbox not checked, show message that checkbox must be checked */}
+          {newUser.email && newUser.password && newUser.name && newUser.confirmPassword && !isChecked && <p className="error-message text-danger fw-bold">Du måste godkänna behandlingen av personuppgifter för att skapa en användare</p>}
+        </div>
         <button type="submit" className="button mt-2">
           Skapa användare
         </button>
