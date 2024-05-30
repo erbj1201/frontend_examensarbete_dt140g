@@ -14,9 +14,8 @@ const StartPage: React.FC = () => {
       </Helmet>
       <Header />
       <TokenCookie />
-      <main className="container">
+      <main className="container  mx-auto startDiv">
         <h1>Välkommen till MinGård</h1>
-        <div className="container mx-auto startDiv">
           <div className="mx-auto calender border border-grey shadow p-3  ">
             <Calender />
           </div>
@@ -28,11 +27,10 @@ const StartPage: React.FC = () => {
             <div className="message-div-start mx-auto col-sm-12 col-md-9 col-lg-7 mt-3">
               <Message />
             </div>
-          </div>
-        </div>
+</div>
       </main>
       <Footer />
-    </div>
+      </div>
   );
 };
 //export

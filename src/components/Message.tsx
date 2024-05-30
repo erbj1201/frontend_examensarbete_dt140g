@@ -200,7 +200,7 @@ const Message: React.FC = () => {
             onSubmit={sendMessage}
             noValidate //The formdata is not automaticallly validated by the browser
           >
-            <h4 className="p-2 mb-3">Vad vill du ha hjälp med? </h4>
+            <h3 className="p-2 mb-3">Vad vill du ha hjälp med? </h3>
             <input type="hidden" value={messageData.userid} />
             <div className="form-group">
               <label htmlFor="title" className="form-label">
