@@ -12,8 +12,8 @@ const Navbar = () => {
         {/*Navbar with links*/}
         <ul className="nav">
           <li className="nav-item">
-            <NavLink className="nav-link" to="/">
-              <i className="fi fi-ts-house-chimney icon-mobile"></i> Start
+            <NavLink className="nav-link" to="/start">
+              <i className="fi fi-ts-house-chimney icon-mobile"></i> Startsida
             </NavLink>
           </li>
           <li className="nav-item">
@@ -47,17 +47,19 @@ const Navbar = () => {
       </nav>
       </div>
           <div className="menyicon-div justify-content-center">
+            <ul>
           <li className="nav-item">
-            <NavLink className="menyicon" aria-label="Mitt konto" to="/account">
+            <NavLink className="menyicon m-3" aria-label="Mitt konto" to="/account">
               <i className="fi fi-sr-portrait"></i>
             </NavLink>
           </li>
           {/**Icon for ? (support, contact) */}
           <li className="nav-item">
-            <NavLink className="menyicon" to="/help" aria-label="Support" >
+            <NavLink className="menyicon m-3" to="/help" aria-label="Support" >
               <i className="fi fi-sr-question-square"></i>
             </NavLink>
           </li>
+          </ul>
           </div>
         
     </div>

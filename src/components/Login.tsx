@@ -38,7 +38,7 @@ function Login() {
   //check if token exist, send to startpage
   useEffect(() => {
     if (token) {
-      navigate("/");
+      navigate("/start");
     }
   }, [token, navigate]);
 

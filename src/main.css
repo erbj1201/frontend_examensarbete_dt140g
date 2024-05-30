@@ -77,14 +77,14 @@ a:hover {
 }
 
 .fi {
-    font-size: 1.2em;
+    font-size: 1.6em;
 }
 
 /*symbol for support/contact beside menu + hover*/
 .menyicon {
     color: black;
     height: auto;
-    margin: 0.5em;
+    margin: 1em;
     text-decoration: none;
 }
 

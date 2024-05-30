@@ -20,7 +20,7 @@ const AppRouter: React.FC = () => {
     <Router>
       <Routes>
         {/**Start (start) */}
-        <Route path="/" element={<StartPage />} />
+        <Route path="/start" element={<StartPage />} />
         {/**Herd (besättning) */}
         <Route path="/herd" element={<HerdPage />} />
         {/**Account (mitt konto)*/}

@@ -12,7 +12,7 @@ const Header: React.FC = () => {
       <header className="container-fluid w-100 mx-auto border-bottom shadow-sm">
         <div className="d-flex justify-content-between align-items-center">
         <nav className="navbar m-0 p-0">
-          <a className="navbar-brand" href="/">
+          <a className="navbar-brand" href="/start">
             <img
               src="\src\content\vaxa_thumbnail.png"
               width={100}
