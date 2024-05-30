@@ -348,17 +348,6 @@ function Vaccine() {
       return;
     }
 
-    //Check if animal_id empty
-  /*   if (!selectedAnimal) {
-      setFormError({
-        ...inputError,
-        animal_id: "Välj djuridentitet",
-      });
-      // Clear message after  3 seconds
-      setTimeout(clearMessages, 3000);
-      return;
-    } */
-
     //Check if batchno empty
     if (!newVaccine.batchNo) {
       setFormError({

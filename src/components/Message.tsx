@@ -64,10 +64,6 @@ const Message: React.FC = () => {
     });
   };
 
- /*  // Fetch all herds and animals by user on component mount
-  useEffect(() => {
-    getAllMessages();
-  }, []); */
   //Get users herds and users anmials
   const getAllMessages = async () => {
     const cookies = new Cookies();

@@ -50,20 +50,6 @@ const DetailsPage: React.FC = () => {
   const [editImageData, setEditImageData] = useState(false);
   const [showMessage, setShowMessage] = useState<string | null>(null);
   const [imageUrl, setImageUrl] = useState<string | null>(null);
-  //State for edit image
-  /* const [image, setImage] = useState<Image>({
-      imagepath: "",
-    }); */
-
-  /*   useEffect(() => {
-      if (id) {
-       
-        getMedicinesByAnimals(id);
-        getVaccinesByAnimals(id);
-        getCalvesByAnimals(id);
-      }
-    }, [id]); */
-  
   
     // Gets all calves from animal with fetch
     const getCalvesByAnimals = async (animal_id: string|undefined) => {
